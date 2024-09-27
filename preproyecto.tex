@@ -1,0 +1,211 @@
+\documentclass[11pt]{article}  %importante cambiar si es libro
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   Paquetes y librerías iniciales para un documento,
+%           Graficos, simbolos, tablas, bibliografía
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%---------------------------------------------------------------------------
+% Esto es para que el LaTeX sepa que el texto está en español:
+\usepackage[spanish,es-noshorthands,es-tabla]{babel}
+\selectlanguage{spanish}
+
+
+%---------------------------------------------------------------------------
+% Para las imagenes
+
+\usepackage[dvips]{graphicx}
+\graphicspath{{Figuras/}} % se fija el camino para las figuras
+
+\usepackage{xcolor}
+
+\usepackage{pdfpages}
+%\usepackage[pdftex,breaklinks=true,hidelinks]{hyperref} % para referencias/indice en pdf
+
+\usepackage[
+breaklinks=true,colorlinks=true,
+linkcolor=blue,urlcolor=blue,citecolor=blue,% PDF VIEW
+linkcolor=black,urlcolor=black,citecolor=black,% PRINT
+bookmarks=true,bookmarksopenlevel=2]{hyperref}
+
+\usepackage{emptypage}
+\usepackage{ragged2e} %Justificacion
+\usepackage{fancyhdr}
+
+\usepackage{longtable}   %Tablas largas
+\usepackage{verbatim}
+\usepackage{textcomp} %para completar los signos válidos
+\usepackage{eurosym} %simbolo del euro [\euro]
+\usepackage[bottom]{footmisc}
+ \usepackage{multicol}
+\newcommand{\HRule}{\color{gray}\rule{\linewidth}{0.5mm}}  
+\newcommand{\FRule}{\color{gray}\rule{\linewidth}{0.5mm}}  
+
+
+\fancypagestyle{mio}{ % paginas sin nada en la parte superior
+
+\fancyhf{}
+\fancyhead[L,C]{}
+\fancyhead[R]{\scriptsize{\textit{Normativa de Trabajo Fin de Grado del Grado en Ingeniería Informática}}  }
+\fancyfoot[C]{ \footnotesize \color{gray} \thepage} % texto centro del pie/si se elemina se genera número de pagina
+\fancyfoot[R]{ } % texto izda. del pie páginas pares
+\fancyfoot[L]{ } 
+\renewcommand{\headrule}{\HRule} % grosor de la línea de la cabecera, 
+\renewcommand{\footrule}{\HRule} % grosor de la línea del pie
+}
+
+\fancypagestyle{mio2}{ % paginas sin nada en la parte superior
+
+\fancyhf{}
+\fancyhead[L,C]{}
+\fancyhead[R]{\scriptsize{\textit{Normativa del Complemento del Trabajo Fin de Grado del Grado en Ingeniería Informática} } }
+\fancyfoot[C]{ \footnotesize \color{gray} \thepage} % texto centro del pie/si se elemina se genera número de pagina
+\fancyfoot[R]{ } % texto izda. del pie páginas pares
+\fancyfoot[L]{\footnotesize  {\leftmark }} 
+\renewcommand{\headrule}{\HRule} % grosor de la línea de la cabecera, 
+\renewcommand{\footrule}{\HRule} % grosor de la línea del pie
+}
+
+\usepackage[bf]{titlesec}
+\newcommand{\seccion}[1]{%
+  \section*{\centering\large #1}}
+
+\newcommand{\subseccion}[1]{%
+  \section*{\normalfont\Large\bfseries\color{blue}#1}{\color{blue}\vspace{-4mm}\hrule\vspace{4mm}}}
+
+\usepackage[a4paper]{geometry}
+\geometry{top=2cm, bottom=0.5cm, left=2.27cm, right=2.27cm}
+
+
+
+\begin{document}
+
+\pagestyle{mio}
+\begin{multicols}{3}
+
+\includegraphics[scale=0.3]{Figuras/logos/escudoazul.png}
+\begin{center}
+
+\color{blue}
+\large
+\textbf{Anexo II \\
+Anteproyecto de TFG \\
+\textit{Grado en Ingeniería Informática}}
+\color{black}
+\end{center}
+
+\includegraphics[scale=0.8]{Figuras/logos/esi.png}
+
+\end{multicols}
+
+
+\subseccion{Nombre y Apellidos Estudiante}
+
+José Luis Garrido Castro
+
+\subseccion{Título del TFG}
+
+%Estudio y Desarrollo de Solución Informática Básica para el Lenguaje Musical
+
+Definición y desarrollo de Solución Informática para el aprendizaje del lenguaje musical
+
+\subseccion{Modalidad del TFG}
+
+Trabajo técnico
+
+\subseccion{Motivación y Justificación del TFG}
+
+En este proyecto se busca realizar el estudio de viabilidad, el desarrollo y la implantación de una solución informática para el aprendizaje de lenguaje musical. En esta área de conocimiento la mayor parte de las clases se imparten como lección magistral cuya percepción por parte de los alumnos es de aburrimiento, ralentizando el proceso de aprendizaje. Por mi  conocimiento y experiencia  
+%La realización de este proyecto se debe a la necesidad de encontrar una solución informática de cara a la problemática existente en las aulas de lenguaje musical por la falta de recursos tecnológicos, siendo las clases impartidas de una manera muy tradicional y aburrida, provocando un aprendizaje lento. 
+%El razonamiento anterior viene motivado por la experiencia 
+adquirida en los distintos centros educativos dedicados a la música, conozco de primera mano la falta de aplicaciones informáticas sobre este tema lo que supone
+%tras estudiar en los mismos anteriormente y con la premisa de facilitar la enseñanza de la asignatura mencionada, de esta forma, existe 
+una gran oportunidad de innovación y supone un nicho de mercado real. %en la informática a través del campo de la música ocasionada por la escasez de recursos tecnológicos.
+
+
+
+\subseccion{Propuesta de Desarrollo del TFG}
+
+En primer lugar, se realizarán una serie de encuestas y entrevistas en los centros de educación musical mencionados tanto a los profesionales en la materia como a los alumnos para tratar de entender las necesidades tecnológicas que existen, tras ello, se llevará a cabo un estudio bibliográfico con el objetivo de entender la relación que pueda existir entre la informática y el lenguaje musical para poder abordar el proyecto, una vez habiendo estudiado y analizado los dos objetos anteriores serán comparados con la percepción propia como antiguo estudiante y, por último, se estudiará el alcance de la aplicación realizando el estudio de alternativas. 
+
+%la viabilidad del trabajo y se especificará/n detalladamente la/s solución/es más viables obtenidas a raíz de esta investigación.
+
+Una vez completada la investigación y estudio de los requisitos se comenzará a diseñar y desarrollar un servicio informático básico en el cual todos los implicados en el proceso de aprendizaje del lenguaje musical puedan ser asistidos por la herramienta construida.
+
+%cada alumno pueda ver apuntes y ejercicios de cada una de las ramas de la asignatura generales, es decir, serán los mismos para todos (abierta al uso público).
+
+
+
+\subseccion{Firma Director (Codirector) del TFG}
+
+
+\newpage
+
+
+\pagestyle{mio2}
+
+
+
+\begin{multicols}{3}
+
+\includegraphics[scale=0.3]{Figuras/logos/escudoazul.png}
+\begin{center}
+
+\color{blue}
+\large
+\textbf{Anexo I \\
+Anteproyecto de CTFG \\
+\textit{Grado en Ingeniería Informática}}
+\color{black}
+\end{center}
+
+\includegraphics[scale=0.8]{Figuras/logos/esi.png}
+
+\end{multicols}
+
+
+
+\subseccion{Nombre y Apellidos Estudiante}
+
+José Luis Garrido Castro
+
+\subseccion{Título del CTFG}
+
+Desarrollo de servicio para el control del aula 
+
+\subseccion{Modalidad del CTFG}
+
+Trabajo técnico
+
+\subseccion{Motivación y Justificación del CTFG}
+
+La elección de este complemento se debe a la necesidad de añadir nuevas funcionalidades a la solución de la cual se parte de cara a resolver con más exactitud la problemática en las aulas de lenguaje musical expuesta en el TFG. Esto viene motivado porque el software a construir  requiere de una continuación para que realmente cubra con sus funcionalidades las necesidades del profesorado y del alumnado, de esta manera, se llegará a vivir una experiencia mucho más amena y enriquecedora en las aulas.
+
+%% ESto no tiene mucho sentido, en el TFG tienes que construir al lo que sea no tiene sentido que digas que el soft lo haces en el complemento. Piensa en redactar el complemento como añadir funcionalidad
+
+% EXTENSIÓN DE CONTROL DEL ALUMNO DURANTE EL APRENDIZAJE. 
+
+
+\subseccion{Propuesta de Desarrollo del CTFG}
+
+El TFG nos dará de punto de partida una solución válida  y que tendrá un contenido  genérico (apuntes, ejercicios), de forma que no existirá ningún control por parte del profesorado ni del centro de la evolución del aprendizaje. Por lo tanto, es necesario que, para que esta herramienta pueda servir de epicentro en la docencia de la asignatura y no como un simple material de apoyo, en cada aula se pueda manejar el servicio de manera independiente, lo que implica el desarrollo de unas nuevas funcionalidades que estarían gestionadas por el profesor, las cuales son, un seguimiento individual a cada alumno, por lo que podrían ser necesarios sistemas de evaluación y control de asistencia y, además de ello, los apuntes y ejercicios que estarán colgados en la aplicación serán subidos ajustándose al aprendizaje del aula, de esta forma, el software quedaría mucho más adaptado a resolver la problemática inicial y cubriendo las necesidades de la enseñanza en los centros.
+
+
+
+\subseccion{Firma Director (Codirector) del CTFG}
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+
+
