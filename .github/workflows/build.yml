@@ -1,0 +1,60 @@
+name: Build
+
+on:
+  push:
+  workflow_dispatch:
+jobs:
+  build-frontend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          cache: "npm"
+          cache-dependency-path: ./Codigo/Frontend/package-lock.json
+
+      - name: Install dependencies
+        working-directory: ./Codigo/Frontend
+        run: npm ci
+
+      - name: Install Ionic CLI
+        working-directory: ./Codigo/Frontend
+        run: npm install -g @ionic/cli
+
+      - name: Build project
+        working-directory: ./Codigo/Frontend
+        run: ionic build -- --base-href /RitmoApp/
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: www
+          path: ./Codigo/Frontend/www/
+      - name: Deploy to Github Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./www
+          publish_branch: gh-pages
+  build-backend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          cache: "npm"
+          cache-dependency-path: ./Codigo/Backend/package-lock.json
+
+      - name: Install dependencies
+        working-directory: ./Codigo/Backend
+        run: npm ci
