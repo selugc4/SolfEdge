@@ -326,9 +326,60 @@ Tras analizar los diferentes documentos se sacan las siguientes conclusiones:
 \end{enumerate}
 
 \chapter {Definición del problema a resolver}
-\section{Especificación de la solución}
+La investigación y el estudio bibliográfico han dejado definidas una serie de necesidades que deben ser cubiertas por la solución a desarrollar pero con un nivel de abstracción muy alto, por tanto, se debe transformar la información a un nivel más objetivo.
+Para ello, se creará, en primer lugar, una especificación formal donde se redactarán todos los aspectos de la aplicación de una forma mucho más metódica, combinando así el lenguaje natural en el que se encuentra la información obtenida previamente con la objetividad a la que se desea llegar en el siguiente paso.
+Posteriormente, esta información se plasmará en un diagrama de casos de uso del sistema que permita entender de una forma más visual y esquemática el funcionamiento de la aplicación así como los requisitos de cada actor.
+Por último, se definirán las tecnologías a utilizar y la arquitectura de la solución para tener una visión global de la solución a desarrollar antes de comenzar con el diseño y desarrollo de la misma.
+\section{Especificación formal de la solución}
 
-\section {Planificación del proyecto}
+El sistema permitirá el acceso mediante un mecanismo de inicio de sesión en el que podrán autenticarse tres tipos de usuarios: administrador, profesor y alumno. Cada usuario tendrá acceso únicamente a las funcionalidades correspondientes a su rol, sin posibilidad de utilizar las funciones asignadas a otros.
+
+No existirá un proceso de registro automático. El administrador será creado de forma manual y, una vez dentro de la aplicación, tendrá la capacidad de crear las cuentas de los profesores. Para ello, deberá introducir los siguientes datos: nombre, primer apellido, segundo apellido y dirección de correo electrónico. Se realizará una comprobación de validez de los datos introducidos (formato correcto del nombre, de los apellidos y del correo electrónico) y una verificación de unicidad del correo electrónico en la base de datos.
+
+En el proceso de creación, el sistema generará automáticamente un nombre de usuario a partir de la primera letra del nombre y de los apellidos. Por ejemplo, para un usuario denominado José Luis Garrido Castro, el identificador generado será jgc. En caso de que existan coincidencias con identificadores ya presentes en la base de datos, se añadirá un número consecutivo equivalente al total de usuarios con la misma raíz más uno, de modo que si ya existen 40 usuarios con identificadores iniciados en jgc, el nuevo identificador será jgc41. La contraseña será generada automáticamente mediante el uso de un servicio externo de generación de contraseñas seguras. Una vez creadas las credenciales, estas serán enviadas por correo electrónico al profesor.
+
+El profesor, a su vez, tendrá la capacidad de crear cuentas de alumnos mediante un procedimiento equivalente al descrito para la creación de profesores.
+
+Además, el profesor podrá crear grupos de clase, añadir alumnos a los mismos, eliminarlos o eliminar grupos completos. Un alumno podrá pertenecer a varios grupos de forma simultánea.
+
+También podrá enviar mensajes a unos alumnos o cursos completos determinados y otra ventana donde podrá adjuntar las calificaciones generales del curso seleccionando a un alumno en concreto.
+
+El sistema dispondrá de un área denominada administración en la que estarán disponibles las operaciones mencionadas anteriormente.
+
+Fuera de esta sección, la aplicación contará con cuatro apartados denominados \textbf{Ritmo, Entonación, Audición y Teoría}. Cada apartado estará compuesto por dos secciones diferenciadas:
+\begin{enumerate}
+\item \textbf{Libro del curso}: permitirá al profesor subir un único archivo en formato PDF correspondiente al curso seleccionado. Si se sube un nuevo archivo, el anterior será sustituido. El profesor podrá eliminar o reemplazar el archivo en cualquier momento.
+
+\item \textbf{Tareas a realizar}: permitirá al profesor crear tareas asociadas a un curso determinado. Cada tarea constará de una descripción y, opcionalmente, de un material de apoyo en formato PDF, MP3 o MP4. También se definirá una fecha límite de entrega. Las tareas podrán calificarse individualmente, modificarse y/o eliminarse en cualquier momento, pero no se eliminarán automáticamente al llegar la fecha de entrega; se mantendrán hasta la finalización del curso. En el apartado de Teoría, las tareas podrán sustituirse (o no) por un cuestionario tipo test. Dicho cuestionario permitirá la creación de preguntas con opciones de respuesta, y cada pregunta podrá ir acompañada de un archivo en formato MP3.
+\end{enumerate}
+Los alumnos dispondrán de un área específica de notificaciones. En ella recibirán avisos cuando sean añadidos o eliminados de un curso o grupo, cuando se cree una nueva tarea, cuando se suba un libro del curso, cuando reciban una calificación (notificaciones del sistema) o un mensaje (notificaciones del profesor). Las notificaciones serán interactivas, permitiendo acceder directamente al recurso correspondiente.
+
+Asimismo, los alumnos podrán acceder a los mismos cuatro apartados (Ritmo, Entonación, Audición y Teoría). En cada apartado se mostrarán las mismas dos secciones:
+\begin{itemize}
+\item En la sección Libro del curso, los alumnos podrán visualizar el archivo PDF correspondiente y descargarlo, pero no modificarlo.
+
+\item En la sección Tareas a realizar, los alumnos podrán consultar la lista de tareas disponibles y realizar las entregas correspondientes. El profesor definirá los formatos de entrega permitidos, que podrán ser archivos en PDF, MP3 o MP4, o bien un comentario textual dentro de la propia aplicación. En el caso de cuestionarios, el alumno accederá a una ventana específica donde podrá completarlo. El cuestionario no se considerará entregado hasta que el alumno pulse expresamente el botón de envío.
+\end{itemize}
+\section {Diagrama de casos de uso del sistema}
+Una vez definida la solución mediante lenguaje natural, se da el siguiente paso hacia el modelado de casos de uso.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\linewidth]{Figuras/DCU.png}
+    \caption{Diagrama de casos de uso del sistema}
+    \label{fig:enter-label}
+\end{figure}
+
+\section {Tecnologías y arquitectura de la solución}
+La solución lleva a tomar las siguientes decisiones tecnológicas:
+\begin{itemize}
+\item \textbf{Frontend:} Se creará una aplicación web puesto que es el entorno más accesible para los usuarios, según los estudios previos, pero para abrir líneas de trabajo futuro, recibirá un enfoque híbrido que permita exportar la solución a sistemas móviles. El framework especialmente adecuado para ello y por tanto, el elegido, es Ionic junto con angular.
+\item \textbf{Backend:} Se creará un backend REST puesto que la separación de los roles y responsabilidades queda mucho más clara y tiene una integración sencilla con el Frontend y otros servicios externos. Para ello, la tecnología elegida es Node.js con Express.js por la flexibilidad que ofrece en relación con su arquitectura.
+\item \textbf{Base de datos:} Se usará una base de datos documental para poder almacenar datos de una forma más flexible y escalable para tener nuevas líneas de trabajo futuro. La base de datos elegida es MongoDB por su facilidad de integración con Node.js.
+\item \textbf{Servicios externos:} Se le dará uso a servicios externos para la gestión de los correos electrónicos y la generación de contraseñas seguras para no desarrollar dichas funcionalidades desde cero.
+\item \textbf{Integración y despliegue continuo:} Se usará GitHub Actions para concentrar todo el ciclo de vida del desarrollo en un solo sitio y facilitar la gestión del proyecto.
+\end{itemize}
+Como se puede observar se ha optado por una arquitectura MEAN (MongoDB, Express.js, Angular e Ionic y Node.js) puesto que se basa en la flexibilidad, escalabilidad y que permite la construcción de una lógica de negocio muy esquemática y clara, además e estar preparadas para integrarse entre sí.
+Esto se debe a que se busca un enfoque ágil de desarrollo que permita iterar y adaptarse a la solución dando así prioridad al producto, para ello, también se hará uso de las Issues con las que se puede dejar registro de las tareas completadas y por completar.
 \label{sec:plan}
 
 %\chapter {Herramientas y entornos}

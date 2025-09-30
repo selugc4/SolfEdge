@@ -1,14 +1,14 @@
 # Fdb version 4
-["bibtex build/main"] 1727438143.70905 "build/main.aux" "build/main.bbl" "build/main" 1727439041.05318 0
+["bibtex build/main"] 1759269504.24628 "build/main.aux" "build/main.bbl" "build/main" 1759269618.6385 0
   "./referencias.bib" 1714653225 3840 b49cf890b9a37afff70b589cd3013060 ""
   "C:/Users/jl444/AppData/Local/Programs/MiKTeX/bibtex/bst/ieeetran/IEEEtran.bst" 1440622569 57748 7c8250ecf02814ce6ddc0cdbb63df1dd ""
-  "build/main.aux" 1727439040 8848 dcf5a314f714afc402825671618f4329 "pdflatex"
+  "build/main.aux" 1759269617 9347 69fe76e78c9a2c1553d5999b35f402ab "pdflatex"
   (generated)
   "build/main.bbl"
   "build/main.blg"
   (rewritten before read)
-["pdflatex"] 1727439036.31506 "c:/Users/jl444/OneDrive/Escritorio/TFG/main.tex" "build/main.pdf" "main" 1727439041.05393 0
-  "C:/Users/jl444/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1727438138 82705 9cc9f144eacd499bc23a611703921467 ""
+["pdflatex"] 1759269613.83381 "c:/Users/jl444/OneDrive/Escritorio/TFG/main.tex" "build/main.pdf" "main" 1759269618.63912 0
+  "C:/Users/jl444/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1759266224 82705 9cc9f144eacd499bc23a611703921467 ""
   "C:/Users/jl444/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1727437875 11948238 b6ce6b25c84fe590f9e001dfe8e4c19e ""
   "C:/Users/jl444/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc" 1458473887 4993 80dc9bab7f31fb78a000ccfed0e27cab ""
   "C:/Users/jl444/AppData/Local/Programs/MiKTeX/fonts/tfm/adobe/helvetic/phvb8r.tfm" 1136768654 4484 b828043cbd581d289d955903c1339981 ""
@@ -248,6 +248,7 @@
   "C:/Users/jl444/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "C:/Users/jl444/AppData/Local/Programs/MiKTeX/tex/latex/wrapfig/wrapfig.sty" 1044403200 26220 3701aebf80ccdef248c0c20dd062fea9 ""
   "C:/Users/jl444/AppData/Local/Programs/MiKTeX/tex/latex/xcolor/xcolor.sty" 1700127522 55487 80a65caedd3722f4c20a14a69e785d8f ""
+  "Figuras/DCU.png" 1759266248 171122 d8d8b7dfcc53cf896c7e7093c1a70b4c ""
   "Figuras/encuestaA.png" 1714653225 122156 aff4e89c0ec0ed56c4ca1f75810562a2 ""
   "Figuras/entrevistaC.png" 1714653225 65364 aca0f093a7e280e1193099b1da2d6e74 ""
   "Figuras/entrevistaE.png" 1714653225 155002 d8331d7e21947586acdca8a6f6274445 ""
@@ -262,20 +263,20 @@
   "Figuras/logos/logo_peque_R.png" 1714653225 194281 1f8347e72b67d782bf6293b6a218655c ""
   "UAL.sty" 1714653225 11173 21c00de5ba429944023fe14119fa666c ""
   "apendices.tex" 1714653225 3429 0ac1a4fc136bcc36ce44eaef0ee7116c ""
-  "build/main.aux" 1727439040 8848 dcf5a314f714afc402825671618f4329 "pdflatex"
-  "build/main.bbl" 1727438143 1125 7f5702b9f2cfaa29bcbff22b783117c4 "bibtex build/main"
-  "build/main.lof" 1727439040 898 8540191eaa140656ada4ed030d311638 "pdflatex"
-  "build/main.lol" 1727439038 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "build/main.lot" 1727439040 631 eeead6d93eb69a0c00f8738d779473d1 "pdflatex"
-  "build/main.out" 1727439040 7634 c31dae0dd2c00f59f5e364b1593ba1ee "pdflatex"
-  "build/main.toc" 1727439040 3308 30495e337deefe5a1cc57e8cbee4d4f5 "pdflatex"
-  "c:/Users/jl444/OneDrive/Escritorio/TFG/main.tex" 1714653225 3831 4c82ce491b048447a78d3eaf3e0631e2 ""
+  "build/main.aux" 1759269617 9347 69fe76e78c9a2c1553d5999b35f402ab "pdflatex"
+  "build/main.bbl" 1759269504 1125 7f5702b9f2cfaa29bcbff22b783117c4 "bibtex build/main"
+  "build/main.lof" 1759269617 1016 71175eaca599700fa3fa96b327087975 "pdflatex"
+  "build/main.lol" 1759269615 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "build/main.lot" 1759269617 631 b0afd14fc1640748cd10cb41f4f91ff0 "pdflatex"
+  "build/main.out" 1759269617 8012 29020d334ac88371ba2bc7d308578690 "pdflatex"
+  "build/main.toc" 1759269617 3428 29ff1ba4952c4048c3003920f79af0b4 "pdflatex"
+  "c:/Users/jl444/OneDrive/Escritorio/TFG/main.tex" 1759266444 3831 4c82ce491b048447a78d3eaf3e0631e2 ""
   "codigo.sty" 1714653225 5598 b84ac9747489d86fc617488abd4340b9 ""
-  "contenido.tex" 1727439035 28574 3b879b6f50a4c0b5f08ef9c08f591672 ""
+  "contenido.tex" 1759269613 36803 4544c4511ccc77141cf68b216a4794fa ""
   "contra.tex" 1714653225 650 ffc5474f24fa3b499cf9762950580ca2 ""
   "dedicatoria.tex" 1714653225 1204 fadb92af45c54939f03015d5c3e02e7b ""
   "indicesyrefe.tex" 1714653225 1231 9ff37925cb26e39073af7f80e7d3da89 ""
-  "main.tex" 1714653225 3831 4c82ce491b048447a78d3eaf3e0631e2 ""
+  "main.tex" 1759266444 3831 4c82ce491b048447a78d3eaf3e0631e2 ""
   "resumentexto.tex" 1714653225 632 f4a4f705341b0c5385b6b88afb9885ac ""
   (generated)
   "build/main.aux"
