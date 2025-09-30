@@ -39,7 +39,7 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./www
+          publish_dir: ./Codigo/Frontend/www
           publish_branch: gh-pages
   build-backend:
     runs-on: ubuntu-latest
