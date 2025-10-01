@@ -30,7 +30,7 @@ jobs:
 
       - name: Build project
         working-directory: ./Codigo/Frontend
-        run: ionic build
+        run: ionic build -- --base-href /RitmoApp/
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
