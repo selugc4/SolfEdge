@@ -7,30 +7,35 @@ export const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'tab1',
+        path: 'ritmo',
         loadComponent: () =>
-          import('../tab1/tab1.page').then((m) => m.Tab1Page),
+          import('../ritmo/ritmo.page').then((m) => m.RitmoPage),
       },
       {
-        path: 'tab2',
+        path: 'entonacion',
         loadComponent: () =>
-          import('../tab2/tab2.page').then((m) => m.Tab2Page),
+          import('../entonacion/entonacion.page').then((m) => m.EntonacionPage),
       },
       {
-        path: 'tab3',
+        path: 'audicion',
         loadComponent: () =>
-          import('../tab3/tab3.page').then((m) => m.Tab3Page),
+          import('../audicion/audicion.page').then((m) => m.AudicionPage),
+      },
+      {
+        path: 'teoria',
+        loadComponent: () =>
+          import('../teoria/teoria.page').then((m) => m.TeoriaPage),
       },
       {
         path: '',
-        redirectTo: '/tabs/tab1',
+        redirectTo: '/tabs/ritmo',
         pathMatch: 'full',
       },
     ],
   },
   {
     path: '',
-    redirectTo: '/tabs/tab1',
+    redirectTo: '/tabs/ritmo',
     pathMatch: 'full',
   },
 ];

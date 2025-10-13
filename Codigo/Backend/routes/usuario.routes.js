@@ -58,7 +58,6 @@ router.post('/alumnos', async (req, res) => {
     const result = await usuarioController.addUsuarios(req.body, 'alumno');
     res.status(result.status).json(result.body);
 });
-
 /**
  * @swagger
  * /usuarios/profesores:
