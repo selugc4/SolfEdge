@@ -14,8 +14,12 @@ const grupoSchema = new Schema({
   },
   alumnos: [{
     type: Schema.Types.ObjectId,
-    ref: 'Usuario',
+    ref: 'Usuario'
   }],
+  ramas: [{
+    type: Schema.Types.ObjectId,
+    ref: 'RamaConfig'
+  }]
 }, {
   timestamps: true
 });

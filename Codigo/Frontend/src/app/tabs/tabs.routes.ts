@@ -1,41 +1,47 @@
 import { Routes } from '@angular/router';
 import { TabsPage } from './tabs.page';
+import { AdminGuard } from '../guards/admin.guard';
 
 export const routes: Routes = [
   {
-    path: 'tabs',
+    path: '',
     component: TabsPage,
     children: [
       {
-        path: 'ritmo',
+        path: 'tab1',
         loadComponent: () =>
-          import('../ritmo/ritmo.page').then((m) => m.RitmoPage),
+          import('../tab1/tab1.page').then((m) => m.Tab1Page),
       },
       {
-        path: 'entonacion',
+        path: 'tab2',
         loadComponent: () =>
-          import('../entonacion/entonacion.page').then((m) => m.EntonacionPage),
+          import('../tab2/tab2.page').then((m) => m.Tab2Page),
       },
       {
-        path: 'audicion',
+        path: 'tab3',
         loadComponent: () =>
-          import('../audicion/audicion.page').then((m) => m.AudicionPage),
+          import('../tab3/tab3.page').then((m) => m.Tab3Page),
       },
       {
-        path: 'teoria',
+        path: 'tab4',
         loadComponent: () =>
-          import('../teoria/teoria.page').then((m) => m.TeoriaPage),
+          import('../tab4/tab4.page').then((m) => m.Tab4Page),
+      },
+      {
+        path: 'tab5',
+        loadComponent: () =>
+          import('../tab5/tab5.page').then((m) => m.Tab5Page),
       },
       {
         path: '',
-        redirectTo: '/tabs/ritmo',
+        redirectTo: '/tabs/tab1',
         pathMatch: 'full',
       },
     ],
   },
   {
     path: '',
-    redirectTo: '/tabs/ritmo',
+    redirectTo: '/tabs/tab1',
     pathMatch: 'full',
   },
 ];

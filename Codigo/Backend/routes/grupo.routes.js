@@ -240,6 +240,39 @@ router.delete('/:id/alumnos', async (req, res) => {
     const result = await grupoController.removeAlumnosFromGrupo(req.params.id, alumnoIds);
     res.status(result.status).json(result.body);
 });
+
+/**
+ * @swagger
+ * /grupos/usuario/{usuarioId}:
+ *   get:
+ *     summary: Obtiene los grupos de un usuario (profesor o alumno).
+ *     tags: [Grupos]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: usuarioId
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID del usuario.
+ *     responses:
+ *       200:
+ *         description: Lista de grupos del usuario.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Grupo'
+ *       500:
+ *         description: Error interno del servidor.
+ */
+router.get('/usuario/:usuarioId', async (req, res) => {
+    const result = await grupoController.getGruposByUserId(req.params.usuarioId);
+    res.status(result.status).json(result.body);
+});
+
 /**
 * @swagger                                                                                                                                                                                                                  
 * components:

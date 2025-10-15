@@ -1,0 +1,88 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Ritmo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div *ngIf="!selectedGrupo">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Selecciona un grupo</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p>Por favor, selecciona un grupo en el menú para ver el contenido de esta rama.</p>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <div *ngIf="selectedGrupo">
+    <!-- Sección del Libro del Curso -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Libro del Curso</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div *ngIf="ramaConfig?.libroDeApoyo; else noLibro">
+          <p>Hay un libro de apoyo cargado.</p>
+          <ion-button expand="block" (click)="verLibro()" class="ion-margin-bottom">
+            <ion-icon slot="start" name="eye-outline"></ion-icon>
+            Ver Libro
+          </ion-button>
+          <ion-button expand="block" color="danger" (click)="eliminarLibro()" *ngIf="isProfessor">Eliminar Libro</ion-button>
+        </div>
+        <ng-template #noLibro>
+          <p>No hay ningún libro de apoyo cargado.</p>
+        </ng-template>
+
+        <ion-button expand="block" (click)="fileInput.click()" class="ion-margin-top">
+          <ion-icon slot="start" name="cloud-upload-outline"></ion-icon>
+          Subir o Reemplazar Libro (PDF)
+        </ion-button>
+        <input type="file" #fileInput (change)="onFileSelected($event)" accept=".pdf" hidden>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Sección de Tareas -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Tareas a Realizar</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list *ngIf="tareas.length > 0; else noTareas">
+          <ion-item *ngFor="let tarea of tareas">
+            <ion-label>
+              <h2>{{ tarea.titulo }}</h2>
+              <p>{{ tarea.descripcion }}</p>
+            </ion-label>
+            <ion-button fill="clear" slot="end" *ngIf="!isProfessor" (click)="presentEntregarTareaModal(tarea._id)">
+              <ion-icon name="document-text-outline"></ion-icon>
+            </ion-button>
+            <ion-button fill="clear" slot="end" *ngIf="isProfessor" (click)="presentCalificarModal(tarea._id, 'tarea')">
+              <ion-icon name="ribbon-outline"></ion-icon>
+            </ion-button>
+            <ion-button fill="clear" slot="end" *ngIf="isProfessor" (click)="presentTareaModal(tarea)">
+              <ion-icon name="create-outline"></ion-icon>
+            </ion-button>
+            <ion-button fill="clear" slot="end" *ngIf="isProfessor" (click)="deleteTarea(tarea._id)">
+              <ion-icon name="trash-outline" color="danger"></ion-icon>
+            </ion-button>
+          </ion-item>
+        </ion-list>
+        <ng-template #noTareas>
+          <p>No hay tareas para esta rama.</p>
+        </ng-template>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- FAB para añadir tarea -->
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="isProfessor">
+      <ion-fab-button (click)="presentTareaModal()">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </div>
+</ion-content>

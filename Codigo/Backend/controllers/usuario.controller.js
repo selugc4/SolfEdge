@@ -79,3 +79,12 @@ exports.getUsuarioById = async (id) => {
         return { status: 500, body: { error: `Error interno del servidor: ${error.message}` } };
     }
 };
+
+exports.getAllAlumnos = async () => {
+    try {
+        const alumnos = await Usuario.find({ role: 'alumno' });
+        return { status: 200, body: alumnos };
+    } catch (error) {
+        return { status: 500, body: { error: `Error interno del servidor: ${error.message}` } };
+    }
+};

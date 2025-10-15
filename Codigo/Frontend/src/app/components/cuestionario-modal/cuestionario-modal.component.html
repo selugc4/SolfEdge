@@ -1,0 +1,81 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ cuestionario ? 'Editar' : 'Nuevo' }} Cuestionario</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cancel()">Cancelar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="form">
+    <ion-item>
+      <ion-label position="floating">Nombre del Cuestionario</ion-label>
+      <ion-input formControlName="nombre"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Alumnos</ion-label>
+      <ion-select formControlName="alumnos" multiple="true">
+        <ion-select-option *ngFor="let alumno of alumnos" [value]="alumno._id">{{ alumno.username }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-list-header>
+      <ion-label>Preguntas</ion-label>
+      <ion-button (click)="addPregunta()" size="small" fill="outline">
+        <ion-icon slot="start" name="add-circle-outline"></ion-icon>
+        Añadir Pregunta
+      </ion-button>
+    </ion-list-header>
+
+    <div formArrayName="preguntas">
+      <ion-card *ngFor="let preguntaGroup of preguntas.controls; let i = index" [formGroupName]="i">
+        <ion-card-header>
+          <ion-card-title>Pregunta {{ i + 1 }}</ion-card-title>
+          <ion-button (click)="removePregunta(i)" color="danger" fill="clear" slot="end">
+            <ion-icon name="trash-outline"></ion-icon>
+          </ion-button>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-item>
+            <ion-label position="floating">Texto de la Pregunta</ion-label>
+            <ion-textarea formControlName="texto"></ion-textarea>
+          </ion-item>
+
+          <ion-item class="ion-margin-top">
+            <ion-label>Audio (MP3)</ion-label>
+            <input type="file" (change)="onAudioFileSelected($event, i)" accept=".mp3">
+          </ion-item>
+          <p *ngIf="preguntaGroup.get('audioMaterial')?.value">Audio subido: {{ preguntaGroup.get('audioMaterial')?.value }}</p>
+
+          <ion-list-header>
+            <ion-label>Posibles Respuestas</ion-label>
+            <ion-button (click)="addRespuesta(i)" size="small" fill="outline">
+              <ion-icon slot="start" name="add-circle-outline"></ion-icon>
+              Añadir Respuesta
+            </ion-button>
+          </ion-list-header>
+
+          <div formArrayName="posiblesRespuestas">
+            <ion-item *ngFor="let respuestaControl of getPosiblesRespuestas(i).controls; let j = index">
+              <ion-label position="floating">Respuesta {{ j + 1 }}</ion-label>
+              <ion-input [formControlName]="j"></ion-input>
+              <ion-button (click)="removeRespuesta(i, j)" color="danger" fill="clear" slot="end">
+                <ion-icon name="close-circle-outline"></ion-icon>
+              </ion-button>
+            </ion-item>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </form>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button (click)="confirm()" [strong]="true">{{ cuestionario ? 'Guardar' : 'Crear' }}</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

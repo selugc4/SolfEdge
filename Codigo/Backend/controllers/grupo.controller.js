@@ -1,5 +1,6 @@
 const Grupo = require('../models/grupo.model');
 const Usuario = require('../models/usuario.model');
+const RamaConfig = require('../models/ramaConfig.model');
 
 exports.crearGrupo = async (nombre, profesorId, alumnoIds) => {
     try {
@@ -7,7 +8,19 @@ exports.crearGrupo = async (nombre, profesorId, alumnoIds) => {
         if (!profesor || profesor.role !== 'profesor') {
             return { status: 400, body: { error: 'El ID de profesor proporcionado no es válido.' } };
         }
-        const grupo = await Grupo.create({ nombre, profesor: profesorId, alumnos: alumnoIds });
+
+        const grupo = new Grupo({ nombre, profesor: profesorId, alumnos: alumnoIds });
+
+        const ramas = ['Ritmo', 'Entonación', 'Audición', 'Teoría'].map(nombreRama => ({
+            nombre: nombreRama,
+            grupo: grupo._id
+        }));
+
+        const ramasCreadas = await RamaConfig.insertMany(ramas);
+        grupo.ramas = ramasCreadas.map(r => r._id);
+
+        await grupo.save();
+
         return { status: 201, body: grupo };
     } catch (error) {
         if (error.name === 'ValidationError') {
@@ -68,6 +81,15 @@ exports.deleteGrupoById = async (id) => {
         const grupo = await Grupo.findByIdAndDelete(id);
         if (!grupo) return { status: 404, body: { error: 'Grupo no encontrado.' } };
         return { status: 200, body: grupo };
+    } catch (error) {
+        return { status: 500, body: { error: error.message } };
+    }
+};
+
+exports.getGruposByUserId = async (usuarioId) => {
+    try {
+        const grupos = await Grupo.find({ $or: [{ profesor: usuarioId }, { alumnos: usuarioId }] }).populate('profesor', 'username email').populate('alumnos', 'username email');
+        return { status: 200, body: grupos };
     } catch (error) {
         return { status: 500, body: { error: error.message } };
     }

@@ -1,27 +1,38 @@
 import { Routes } from '@angular/router';
-import { authGuard } from './guards/auth-guard';
+import { AuthGuard } from './guards/auth.guard';
+import { AdminGuard } from './guards/admin.guard';
+import { LoginGuard } from './guards/login.guard';
+import { AdminContentComponent } from './pages/admin/admin-content.component';
 
 export const routes: Routes = [
   {
-    path: '',
-    redirectTo: 'login',
-    pathMatch: 'full',
-  },
-  {
     path: 'login',
-    loadComponent: () => import('./login/login.page').then( m => m.LoginPage)
+    loadComponent: () => import('./auth/login/login.page').then( m => m.LoginPage),
+    canActivate: [LoginGuard]
   },
   {
     path: 'tabs',
     loadChildren: () => import('./tabs/tabs.routes').then((m) => m.routes),
-    canActivate: [authGuard]
+    canActivate: [AuthGuard]
   },
   {
-    path: 'administracion',
-    loadComponent: () => import('./administracion/administracion.page').then( m => m.AdministracionPage)
+    path: 'admin',
+    component: AdminContentComponent,
+    canActivate: [AdminGuard]
   },
   {
     path: 'notificaciones',
-    loadComponent: () => import('./notificaciones/notificaciones.page').then( m => m.NotificacionesPage)
+    loadComponent: () => import('./pages/notificaciones/notificaciones.page').then( m => m.NotificacionesPage),
+    canActivate: [AuthGuard]
   },
+  {
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full'
+  },
+  {
+    path: '**',
+    redirectTo: 'login',
+    pathMatch: 'full'
+  }
 ];

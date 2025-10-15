@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Calificar Cuestionario</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cancel()">Cancelar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="form">
+    <ion-item>
+      <ion-label position="floating">ID de Alumno</ion-label>
+      <ion-input formControlName="alumnoId"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Respuestas (separadas por coma)</ion-label>
+      <ion-textarea formControlName="respuestas"></ion-textarea>
+    </ion-item>
+  </form>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button (click)="confirm()" [strong]="true">Guardar Calificación</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

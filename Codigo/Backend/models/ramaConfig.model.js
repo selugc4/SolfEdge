@@ -5,12 +5,16 @@ const ramaConfigSchema = new Schema({
   nombre: {
     type: String,
     required: true,
-    unique: true,
-    enum: ['Ritmo', 'Entonación', 'Audición', 'Teoría'] 
+    enum: ['Ritmo', 'Entonación', 'Audición', 'Teoría']
   },
   libroDeApoyo: {
     type: Schema.Types.ObjectId,
     ref: 'fs.files'
+  },
+  grupo: {
+    type: Schema.Types.ObjectId,
+    ref: 'Grupo',
+    required: true
   }
 });
 

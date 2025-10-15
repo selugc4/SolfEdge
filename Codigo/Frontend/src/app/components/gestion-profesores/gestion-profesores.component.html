@@ -1,0 +1,28 @@
+<form [formGroup]="professorForm" (ngSubmit)="createProfessor()">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Añadir Nuevo Profesor</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="floating">Nombre</ion-label>
+        <ion-input formControlName="nombre" type="text" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Primer Apellido</ion-label>
+        <ion-input formControlName="primerApellido" type="text" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Segundo Apellido</ion-label>
+        <ion-input formControlName="segundoApellido" type="text" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Correo Electrónico</ion-label>
+        <ion-input formControlName="email" type="email" required></ion-input>
+      </ion-item>
+      <ion-button expand="block" type="submit" [disabled]="professorForm.invalid" class="ion-margin-top">
+        Crear Profesor
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+</form>

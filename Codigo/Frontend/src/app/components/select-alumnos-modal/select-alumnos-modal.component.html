@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="cancel()">Cancelar</ion-button>
+    </ion-buttons>
+    <ion-title>Seleccionar Alumnos</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="confirmSelection()" [disabled]="selectedAlumnos.length === 0">Confirmar ({{ selectedAlumnos.length }})</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="filterAlumnos()" placeholder="Buscar alumnos"></ion-searchbar>
+
+  <ion-list>
+    <ion-item *ngIf="filteredAlumnos.length === 0">
+      <ion-label>No se encontraron alumnos.</ion-label>
+    </ion-item>
+    <ion-item *ngFor="let alumno of filteredAlumnos">
+      <ion-checkbox
+        slot="start"
+        [checked]="isAlumnoSelected(alumno)"
+        (ionChange)="toggleAlumnoSelection(alumno)"
+      ></ion-checkbox>
+      <ion-label>
+        <h2>{{ alumno.username }}</h2>
+        <p>{{ alumno.email }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

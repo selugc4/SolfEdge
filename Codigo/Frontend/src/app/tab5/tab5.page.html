@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Información del Usuario</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label>Usuario:</ion-label>
+        <ion-text>{{ currentUser?.username }}</ion-text>
+      </ion-item>
+      <ion-item>
+        <ion-label>Email:</ion-label>
+        <ion-text>{{ currentUser?.email }}</ion-text>
+      </ion-item>
+      <ion-item>
+        <ion-label>Rol:</ion-label>
+        <ion-text>{{ currentUser?.role }}</ion-text>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card class="ion-margin-top">
+    <ion-card-header>
+      <ion-card-title>Mis Mensajes</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list *ngIf="mensajes.length > 0; else noMensajes">
+        <ion-item *ngFor="let mensaje of mensajes">
+          <ion-label>
+            <h2>{{ mensaje.asunto }}</h2>
+            <p>{{ mensaje.texto }}</p>
+            <p><small>De: {{ mensaje.profesor }}</small></p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+      <ng-template #noMensajes>
+        <p>No tienes mensajes.</p>
+      </ng-template>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card class="ion-margin-top">
+    <ion-card-header>
+      <ion-card-title>Mis Calificaciones</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Aquí se mostrarán tus calificaciones de tareas y cuestionarios.</p>
+      <p>Funcionalidad pendiente de implementación.</p>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

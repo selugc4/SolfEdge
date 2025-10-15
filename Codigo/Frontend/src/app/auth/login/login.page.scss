@@ -1,0 +1,14 @@
+.error-message {
+  color: var(--ion-color-danger);
+  font-size: 0.8em;
+  padding-left: 16px;
+}
+
+ion-toolbar {
+    --background: #3880ff;
+    --color: white;
+}
+
+ion-title {
+    font-weight: bold;
+}

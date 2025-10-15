@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Enviar Mensaje</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cancel()">Cancelar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="form">
+    <ion-item>
+      <ion-label position="floating">Asunto</ion-label>
+      <ion-input formControlName="asunto"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Mensaje</ion-label>
+      <ion-textarea formControlName="texto"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">IDs de Alumnos (separados por coma)</ion-label>
+      <ion-textarea formControlName="alumnoIds"></ion-textarea>
+    </ion-item>
+  </form>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button (click)="confirm()" [strong]="true">Enviar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

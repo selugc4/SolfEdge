@@ -141,6 +141,31 @@ router.get('/:id', async (req, res) => {
     res.status(result.status).json(result.body);
 });
 
+/**
+ * @swagger
+ * /usuarios/alumnos/all:
+ *   get:
+ *     summary: Obtiene todos los usuarios con rol de alumno.
+ *     tags: [Usuarios]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Lista de alumnos.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Usuario'
+ *       500:
+ *         description: Error interno del servidor.
+ */
+router.get('/alumnos/all', async (req, res) => {
+    const result = await usuarioController.getAllAlumnos();
+    res.status(result.status).json(result.body);
+});
+
 // Definición del esquema de Usuario para reutilización
 /**
  * @swagger
