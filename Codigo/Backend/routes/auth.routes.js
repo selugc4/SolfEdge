@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const authController = require('../controllers/auth.controller');
+const usuarioController = require('../controllers/usuario.controller');
 
 /**
  * @swagger
@@ -82,6 +83,39 @@ router.post('/login', async (req, res) => {
   const { username, password } = req.body;
   const result = await authController.login(username, password);
   res.status(result.status).json(result.body);
+});
+
+/**
+ * @swagger
+ * /auth/enviar-credenciales:
+ *   post:
+ *     summary: Envía las credenciales a un usuario por correo electrónico.
+ *     tags: [Autenticación]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 example: usuario@example.com
+ *     responses:
+ *       200:
+ *         description: Credenciales enviadas exitosamente.
+ *       404:
+ *         description: Usuario no encontrado.
+ *       500:
+ *         description: Error interno del servidor.
+ */
+router.post('/enviar-credenciales', async (req, res) => {
+    const { email } = req.body;
+    const result = await usuarioController.enviarCredencialesOlvidadas(email);
+    res.status(result.status).json(result.body);
 });
 
 /**
