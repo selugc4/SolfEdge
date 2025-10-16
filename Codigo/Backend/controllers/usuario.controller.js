@@ -59,7 +59,10 @@ exports.addUsuarios = async (usersData, role) => {
         const createdUsers = await Usuario.insertMany(newUsers);
 
         for (const user of createdUsers) {
-            await enviarCredencialesOlvidadas(user.email);
+            const emailResult = await emailController.enviarEmailCredenciales(user.email, user.username, user.password);
+            if (emailResult.message !== 'Correo enviado correctamente.') {
+                console.error(`Error al enviar correo a ${user.email}: ${emailResult.error || emailResult.message}`);
+            }
         }
 
         return { status: 201, body: createdUsers };
@@ -91,7 +94,11 @@ exports.enviarCredencialesOlvidadas = async (email) => {
         if (emailResult.message === 'Correo enviado correctamente.') {
             return { status: 200, body: { message: `Credenciales enviadas a ${email}` } };
         } else {
-            return { status: 500, body: { error: `Error al enviar el correo: ${emailResult.error || 'desconocido'}` } };
+            let errorMessage = 'Error desconocido al enviar el correo.';
+            if (emailResult && emailResult.error) {
+                errorMessage = emailResult.error;
+            }
+            return { status: 500, body: { error: `Error al enviar el correo: ${errorMessage}` } };
         }
     } catch (error) {
         return { status: 500, body: { error: `Error interno del servidor: ${error.message}` } };
