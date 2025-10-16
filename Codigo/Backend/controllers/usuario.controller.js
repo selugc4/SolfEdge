@@ -88,11 +88,10 @@ exports.enviarCredencialesOlvidadas = async (email) => {
         await usuario.save();
 
         const emailResult = await emailController.enviarEmailCredenciales(email, usuario.username, passwordResult.password);
-
-        if (emailResult.success) {
+        if (emailResult.message === 'Correo enviado correctamente.') {
             return { status: 200, body: { message: `Credenciales enviadas a ${email}` } };
         } else {
-            return { status: 500, body: { error: `Error al enviar el correo: ${emailResult.error.message}` } };
+            return { status: 500, body: { error: `Error al enviar el correo: ${emailResult.error || 'desconocido'}` } };
         }
     } catch (error) {
         return { status: 500, body: { error: `Error interno del servidor: ${error.message}` } };
