@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { TabsPage } from './tabs.page';
 import { AdminGuard } from '../guards/admin.guard';
+import { ProfessorAdminPage } from '../pages/professor-admin/professor-admin.page';
 
 export const routes: Routes = [
   {
@@ -31,6 +32,11 @@ export const routes: Routes = [
         path: 'tab5',
         loadComponent: () =>
           import('../tab5/tab5.page').then((m) => m.Tab5Page),
+      },
+      {
+        path: 'professor-admin',
+        loadComponent: () =>
+          import('../pages/professor-admin/professor-admin.page').then((m) => m.ProfessorAdminPage),
       },
       {
         path: '',

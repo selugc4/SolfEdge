@@ -5,7 +5,6 @@ import { IonApp, IonRouterOutlet, IonMenu, IonHeader, IonToolbar, IonTitle, IonC
 import { addIcons } from 'ionicons';
 import { briefcaseSharp, logOutSharp, notificationsSharp } from 'ionicons/icons';
 import { AuthService } from './services/auth.service';
-import { AdminModalComponent } from './components/admin-modal/admin-modal.component';
 import { RouterLink } from '@angular/router';
 import { Grupo } from './models/grupo.model';
 import { GrupoService } from './services/grupo.service';
@@ -62,10 +61,5 @@ export class AppComponent {
     this.router.navigate(['/login']);
   }
 
-  async presentAdminModal() {
-    const modal = await this.modalController.create({
-      component: AdminModalComponent,
-    });
-    modal.present();
-  }
+
 }

@@ -1,8 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
-import { GestionProfesoresComponent } from '../../components/gestion-profesores/gestion-profesores.component';
 import { GestionAlumnosComponent } from '../../components/gestion-alumnos/gestion-alumnos.component';
 import { GestionGruposComponent } from '../../components/gestion-grupos/gestion-grupos.component';
 import { MensajeModalComponent } from '../../components/mensaje-modal/mensaje-modal.component';
@@ -10,16 +8,16 @@ import { MensajeService } from '../../services/mensaje.service';
 import { CalificacionGeneralModalComponent } from '../../components/calificacion-general-modal/calificacion-general-modal.component';
 import { ModalController, ToastController, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, IonCard, IonCardTitle, IonCardHeader, IonCardContent, IonButton } from '@ionic/angular/standalone';
 import { IonIcon } from "@ionic/angular/standalone";
+import { AuthService } from '../../services/auth.service';
 
 @Component({
-  selector: 'app-admin-content',
-  templateUrl: './admin-content.component.html',
-  styleUrls: ['./admin-content.component.scss'],
+  selector: 'app-professor-admin-page',
+  templateUrl: './professor-admin.page.html',
+  styleUrls: ['./professor-admin.page.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, GestionProfesoresComponent, GestionAlumnosComponent, GestionGruposComponent, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, IonCard, IonCardTitle, IonCardHeader, IonCardContent, IonButton, IonIcon]
+  imports: [CommonModule, FormsModule, GestionAlumnosComponent, GestionGruposComponent, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, IonCard, IonCardTitle, IonCardHeader, IonCardContent, IonButton, IonIcon]
 })
-export class AdminContentComponent implements OnInit {
-  userRole: string | undefined;
+export class ProfessorAdminPage implements OnInit {
   userId: string | null = null;
   authService: AuthService = inject(AuthService);
   modalController: ModalController = inject(ModalController);
@@ -28,7 +26,6 @@ export class AdminContentComponent implements OnInit {
 
   ngOnInit() {
     this.authService.currentUser.subscribe(user => {
-      this.userRole = user?.role;
       this.userId = user?._id || null;
     });
   }

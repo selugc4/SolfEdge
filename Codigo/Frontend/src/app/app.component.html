@@ -17,7 +17,11 @@
           <ion-icon name="briefcase-sharp" slot="start"></ion-icon>
           <ion-label>Administración</ion-label>
         </ion-item>
-        <ion-item button (click)="presentAdminModal()" *ngIf="isAdminOrProfessor && !isAdministrator">
+        <ion-item button [routerLink]="['/admin']" routerDirection="root" *ngIf="isAdministrator">
+          <ion-icon name="briefcase-sharp" slot="start"></ion-icon>
+          <ion-label>Administración</ion-label>
+        </ion-item>
+        <ion-item button [routerLink]="['/tabs/professor-admin']" routerDirection="root" *ngIf="isAdminOrProfessor && !isAdministrator">
           <ion-icon name="briefcase-sharp" slot="start"></ion-icon>
           <ion-label>Administración</ion-label>
         </ion-item>

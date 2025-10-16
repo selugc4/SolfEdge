@@ -48,11 +48,23 @@ export class GestionGruposComponent implements OnInit {
     this.selectedAlumnos = this.selectedAlumnos.filter(alumno => alumno._id !== alumnoToRemove._id);
   }
 
+  onNombreGrupoInput(event: any) {
+    let input = event.target.value;
+    input = input.replace(/[^a-zA-Z0-9_-]/g, '');
+    if (input.length > 20) {
+      input = input.substring(0, 20);
+    }
+    this.nombreGrupo = input;
+  }
+
   async crearGrupo() {
     if (!this.nombreGrupo || this.selectedAlumnos.length === 0) {
       this.presentToast('Por favor, introduce un nombre para el grupo y selecciona al menos un alumno.', 'danger');
       return;
     }
+
+    // No need for explicit space check here, as onNombreGrupoInput already filters invalid characters
+
 
     const profesorId = this.authService.currentUserValue?._id;
     if (!profesorId) {

@@ -20,14 +20,32 @@ export class GestionAlumnosComponent implements OnInit {
     private toastController: ToastController
   ) {
     this.studentForm = new FormGroup({
-      nombre: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+$')]),
-      primerApellido: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+$')]),
-      segundoApellido: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+$')]),
-      email: new FormControl('', [Validators.required, Validators.email])
+      nombre: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+$'), Validators.maxLength(20)]),
+      primerApellido: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+$'), Validators.maxLength(20)]),
+      segundoApellido: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+$'), Validators.maxLength(20)]),
+      email: new FormControl('', [Validators.required, Validators.email, Validators.pattern(/^\S*$/), Validators.maxLength(40)])
     });
   }
 
   ngOnInit() {}
+
+  onNameInput(event: any, controlName: string) {
+    let input = event.target.value;
+    input = input.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ]/g, '');
+    if (input.length > 20) {
+      input = input.substring(0, 20);
+    }
+    this.studentForm.get(controlName)?.setValue(input, { emitEvent: false });
+  }
+
+  onEmailInput(event: any) {
+    let input = event.target.value;
+    input = input.replace(/\s/g, '');
+    if (input.length > 40) {
+      input = input.substring(0, 40);
+    }
+    this.studentForm.get('email')?.setValue(input, { emitEvent: false });
+  }
 
   async createStudent() {
     if (!this.studentForm.valid) {
@@ -50,9 +68,15 @@ export class GestionAlumnosComponent implements OnInit {
         this.studentForm.reset();
       },
       error: async (err) => {
+        let errorMessage = 'No se pudo crear el alumno.';
+        if (err.status === 409 && err.error && err.error.error) {
+          errorMessage = err.error.error;
+        } else if (err.error && err.error.message) {
+          errorMessage = err.error.message;
+        }
         const alert = await this.alertController.create({
           header: 'Error',
-          message: err.error.message || 'No se pudo crear el alumno.',
+          message: errorMessage,
           buttons: ['OK']
         });
         await alert.present();

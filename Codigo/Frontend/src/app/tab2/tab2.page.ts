@@ -42,6 +42,7 @@ export class Tab2Page {
         this.isProfessor = user.role === 'profesor';
         this.userId = user._id;
         this.grupoStateService.selectedGrupo$.subscribe(grupo => {
+          this.selectedGrupo = grupo;
           if (grupo) {
             this.loadTareas();
             this.loadRamaConfig(grupo._id);

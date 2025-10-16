@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const ramaConfigController = require('../controllers/ramaConfig.controller');
+const upload = require('../middleware/upload');
 
 /**
  * @swagger
@@ -47,21 +48,19 @@ router.get('/', async (req, res) => {
  *         name: nombreRama
  *         schema:
  *           type: string
- *           enum: [Ritmo, Entonación, Audición, Teoría]
  *         required: true
  *         description: Nombre de la rama a modificar.
  *     requestBody:
  *       required: true
  *       content:
- *         application/json:
+ *         multipart/form-data:
  *           schema:
  *             type: object
  *             properties:
- *               pdfId:
+ *               file:
  *                 type: string
- *                 nullable: true
- *                 description: ID del nuevo fichero PDF en GridFS, o null para eliminar el existente.
- *                 example: 60d5ec49f8c7a10015a4b5c6
+ *                 format: binary
+ *                 description: El archivo PDF a subir.
  *     responses:
  *       200:
  *         description: Configuración de rama actualizada exitosamente.
@@ -74,9 +73,8 @@ router.get('/', async (req, res) => {
  *       500:
  *         description: Error interno del servidor.
  */
-router.patch('/:nombreRama', async (req, res) => {
-    const { pdfId } = req.body;
-    const result = await ramaConfigController.updateRamaPdf(req.params.nombreRama, pdfId);
+router.patch('/:nombreRama', upload.single('file'), async (req, res) => {
+    const result = await ramaConfigController.updateRamaPdf(req.params.nombreRama, req.file);
     res.status(result.status).json(result.body);
 });
 

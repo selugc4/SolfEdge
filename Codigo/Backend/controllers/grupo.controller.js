@@ -28,6 +28,9 @@ exports.crearGrupo = async (nombre, profesorId, alumnoIds) => {
                 return { status: 400, body: { error: 'El grupo debe tener al menos un alumno.' } };
             }
             return { status: 400, body: { error: error.message } };
+        } else if (error.code === 11000) {
+            // Duplicate key error (unique index violation)
+            return { status: 409, body: { error: 'Ya existe una rama con ese nombre para este grupo.' } };
         }
         return { status: 500, body: { error: `Error al crear el grupo: ${error.message}` } };
     }

@@ -9,8 +9,9 @@ exports.getAllRamas = async () => {
     }
 };
 
-exports.updateRamaPdf = async (nombreRama, pdfId) => {
+exports.updateRamaPdf = async (nombreRama, file) => {
     try {
+        const pdfId = file ? file.id : null;
         const rama = await RamaConfig.findOneAndUpdate(
             { nombre: nombreRama },
             { libroDeApoyo: pdfId },

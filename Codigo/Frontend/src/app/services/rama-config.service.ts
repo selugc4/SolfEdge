@@ -16,17 +16,12 @@ export class RamaConfigService {
     return this.http.get<RamaConfig[]>(this.apiUrl);
   }
 
-  updateRamaPdf(ramaId: string, pdfId: string | null): Observable<RamaConfig> {
-    return this.http.patch<RamaConfig>(`${this.apiUrl}/${ramaId}`, { pdfId });
-  }
-
-  // La subida de archivos es un caso especial. Necesitaré un endpoint para multipart/form-data.
-  // Asumiré que existe un endpoint POST /upload para subir archivos y que devuelve un ID.
-  uploadFile(file: File): Observable<{ fileId: string }> {
+  updateRamaPdf(ramaId: string, file: File | null): Observable<RamaConfig> {
     const formData = new FormData();
-    formData.append('file', file);
-    // Este endpoint /upload es una suposición, necesitaría confirmación de su existencia y nombre.
-    return this.http.post<{ fileId: string }>(`${environment.apiUrl}/upload`, formData);
+    if (file) {
+      formData.append('file', file, file.name);
+    }
+    return this.http.patch<RamaConfig>(`${this.apiUrl}/${ramaId}`, formData);
   }
 
   getDownloadUrl(fileId: string): string {
