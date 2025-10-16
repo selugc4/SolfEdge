@@ -59,7 +59,7 @@ exports.addUsuarios = async (usersData, role) => {
         const createdUsers = await Usuario.insertMany(newUsers);
 
         for (const user of createdUsers) {
-            await emailController.enviarEmailCredenciales(user.email, user.username, user.password);
+            await enviarCredencialesOlvidadas(user.email);
         }
 
         return { status: 201, body: createdUsers };
