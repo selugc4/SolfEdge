@@ -1,5 +1,6 @@
 const Usuario = require('../models/usuario.model');
 const fetch = require('node-fetch');
+const emailController = require('./email.controller');
 
 const checkEmailExists = async (emails) => {
     const existingUsers = await Usuario.find({ email: { $in: emails } }).lean();
@@ -56,6 +57,11 @@ exports.addUsuarios = async (usersData, role) => {
         }
 
         const createdUsers = await Usuario.insertMany(newUsers);
+
+        for (const user of createdUsers) {
+            await emailController.enviarEmailCredenciales(user.email, user.username, user.password);
+        }
+
         return { status: 201, body: createdUsers };
 
     } catch (dbError) {
@@ -65,6 +71,31 @@ exports.addUsuarios = async (usersData, role) => {
             return { status: 409, body: { error: `El ${field} '${value}' ya existe.` } };
         }
         return { status: 500, body: { error: `Error de base de datos: ${dbError.message}` } };
+    }
+};
+
+exports.enviarCredencialesOlvidadas = async (email) => {
+    try {
+        const usuario = await Usuario.findOne({ email });
+        if (!usuario) {
+            return { status: 404, body: { error: `Usuario con email '${email}' no encontrado.` } };
+        }
+
+        const passwordResult = await generarPassword();
+        if (passwordResult.error) return { status: 500, body: passwordResult };
+
+        usuario.password = passwordResult.password;
+        await usuario.save();
+
+        const emailResult = await emailController.enviarEmailCredenciales(email, usuario.username, passwordResult.password);
+
+        if (emailResult.success) {
+            return { status: 200, body: { message: `Credenciales enviadas a ${email}` } };
+        } else {
+            return { status: 500, body: { error: `Error al enviar el correo: ${emailResult.error.message}` } };
+        }
+    } catch (error) {
+        return { status: 500, body: { error: `Error interno del servidor: ${error.message}` } };
     }
 };
 

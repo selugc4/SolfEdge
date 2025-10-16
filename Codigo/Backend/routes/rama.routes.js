@@ -37,7 +37,7 @@ router.get('/', async (req, res) => {
 
 /**
  * @swagger
- * /ramas/{nombreRama}:
+ * /ramas/{id}:
  *   patch:
  *     summary: Modifica el PDF de apoyo de una rama.
  *     tags: [Ramas]
@@ -45,11 +45,11 @@ router.get('/', async (req, res) => {
  *       - bearerAuth: []
  *     parameters:
  *       - in: path
- *         name: nombreRama
+ *         name: id
  *         schema:
  *           type: string
  *         required: true
- *         description: Nombre de la rama a modificar.
+ *         description: ID de la rama a modificar.
  *     requestBody:
  *       required: true
  *       content:
@@ -73,8 +73,8 @@ router.get('/', async (req, res) => {
  *       500:
  *         description: Error interno del servidor.
  */
-router.patch('/:nombreRama', upload.single('file'), async (req, res) => {
-    const result = await ramaConfigController.updateRamaPdf(req.params.nombreRama, req.file);
+router.patch('/:id', upload.single('file'), async (req, res) => {
+    const result = await ramaConfigController.updateRamaPdf(req.params.id, req.file);
     res.status(result.status).json(result.body);
 });
 

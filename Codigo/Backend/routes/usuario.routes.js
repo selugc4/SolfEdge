@@ -111,6 +111,39 @@ router.post('/profesores', async (req, res) => {
 
 /**
  * @swagger
+ * /usuarios/enviar-credenciales:
+ *   post:
+ *     summary: Envía las credenciales a un usuario por correo electrónico.
+ *     tags: [Usuarios]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 example: usuario@example.com
+ *     responses:
+ *       200:
+ *         description: Credenciales enviadas exitosamente.
+ *       404:
+ *         description: Usuario no encontrado.
+ *       500:
+ *         description: Error interno del servidor.
+ */
+router.post('/enviar-credenciales', async (req, res) => {
+    const { email } = req.body;
+    const result = await usuarioController.enviarCredencialesOlvidadas(email);
+    res.status(result.status).json(result.body);
+});
+
+/**
+ * @swagger
  * /usuarios/{id}:
  *   get:
  *     summary: Obtiene un usuario por su ID.

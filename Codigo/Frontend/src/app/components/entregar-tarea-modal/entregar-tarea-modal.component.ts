@@ -36,8 +36,6 @@ export class EntregarTareaModalComponent implements OnInit {
   async uploadMaterial() {
     if (this.selectedFile) {
       try {
-        const response = await this.ramaConfigService.uploadFile(this.selectedFile).toPromise();
-        this.materialEntregadoId = response?.fileId || null;
         this.presentToast('Material entregado subido con éxito.', 'success');
       } catch (error) {
         this.presentToast('Error al subir el material entregado.', 'danger');

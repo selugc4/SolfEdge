@@ -6,6 +6,7 @@ import { SelectAlumnosModalComponent } from '../select-alumnos-modal/select-alum
 import { Usuario } from '../../models/usuario.model';
 import { GrupoService } from '../../services/grupo.service';
 import { Grupo } from '../../models/grupo.model';
+import { GrupoStateService } from '../../services/grupo-state.service';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -23,6 +24,7 @@ export class GestionGruposComponent implements OnInit {
   private grupoService = inject(GrupoService);
   private toastController = inject(ToastController);
   private authService = inject(AuthService);
+  private grupoStateService = inject(GrupoStateService);
 
   constructor() { }
 
@@ -79,6 +81,7 @@ export class GestionGruposComponent implements OnInit {
         this.presentToast(`Grupo '${grupoCreado.nombre}' creado con éxito.`, 'success');
         this.nombreGrupo = '';
         this.selectedAlumnos = [];
+        this.grupoStateService.addGrupo(grupoCreado);
       },
       error: (err) => {
         this.presentToast(`Error al crear el grupo: ${err.error.message || err.message}`, 'danger');

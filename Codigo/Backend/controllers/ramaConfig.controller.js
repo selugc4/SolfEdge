@@ -9,16 +9,16 @@ exports.getAllRamas = async () => {
     }
 };
 
-exports.updateRamaPdf = async (nombreRama, file) => {
+exports.updateRamaPdf = async (id, file) => {
     try {
         const pdfId = file ? file.id : null;
-        const rama = await RamaConfig.findOneAndUpdate(
-            { nombre: nombreRama },
+        const rama = await RamaConfig.findByIdAndUpdate(
+            id,
             { libroDeApoyo: pdfId },
             { new: true, runValidators: true }
         );
         if (!rama) {
-            return { status: 404, body: { error: `Rama con nombre '${nombreRama}' no encontrada.` } };
+            return { status: 404, body: { error: `Rama con ID '${id}' no encontrada.` } };
         }
         return { status: 200, body: rama };
     } catch (error) {

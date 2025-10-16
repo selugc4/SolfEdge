@@ -48,8 +48,6 @@ export class TareaModalComponent implements OnInit {
   async uploadMaterial() {
     if (this.selectedFile) {
       try {
-        const response = await this.ramaConfigService.uploadFile(this.selectedFile).toPromise();
-        this.materialDeApoyoId = response?.fileId || null;
         this.presentToast('Material de apoyo subido con éxito.', 'success');
       } catch (error) {
         this.presentToast('Error al subir el material de apoyo.', 'danger');

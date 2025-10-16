@@ -6,6 +6,10 @@ const authController = require('../controllers/auth.controller');
  * Si no es válido, envía una respuesta 401.
  */
 exports.verifyToken = (req, res, next) => {
+    if (req.method === 'OPTIONS') {
+        return next();
+    }
+
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1]; // Espera formato 'Bearer TOKEN'
 

@@ -71,15 +71,13 @@ export class Tab2Page {
   async onFileSelected(event: any) {
     const file: File = event.target.files[0];
     if (file && file.type === 'application/pdf') {
-      this.ramaConfigService.uploadFile(file).subscribe({
-        next: (response) => {
-          this.ramaConfigService.updateRamaPdf(this.ramaConfig!._id, response.fileId).subscribe(() => {
-            this.presentToast('Libro subido con éxito.');
-            this.grupoStateService.selectedGrupo$.subscribe(grupo => {
-              if (grupo) {
-                this.loadRamaConfig(grupo._id);
-              }
-            });
+      this.ramaConfigService.updateRamaPdf(this.ramaConfig!._id, file).subscribe({
+        next: () => {
+          this.presentToast('Libro subido con éxito.');
+          this.grupoStateService.selectedGrupo$.subscribe(grupo => {
+            if (grupo) {
+              this.loadRamaConfig(grupo._id);
+            }
           });
         },
         error: () => this.presentToast('Error al subir el archivo.', 'danger')
@@ -96,13 +94,16 @@ export class Tab2Page {
         {
           text: 'Eliminar',
           handler: () => {
-            this.ramaConfigService.updateRamaPdf(this.ramaConfig!._id, null).subscribe(() => {
-              this.presentToast('Libro eliminado.');
-              this.grupoStateService.selectedGrupo$.subscribe(grupo => {
-                if (grupo) {
-                  this.loadRamaConfig(grupo._id);
-                }
-              });
+            this.ramaConfigService.updateRamaPdf(this.ramaConfig!._id, null).subscribe({
+              next: () => {
+                this.presentToast('Libro eliminado.');
+                this.grupoStateService.selectedGrupo$.subscribe(grupo => {
+                  if (grupo) {
+                    this.loadRamaConfig(grupo._id);
+                  }
+                });
+              },
+              error: () => this.presentToast('Error al eliminar el libro.', 'danger')
             });
           }
         }

@@ -32,5 +32,9 @@ export class UsuarioService {
     return this.http.get<Usuario[]>(this.apiUrl);
   }
 
+  enviarCredencialesOlvidadas(email: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/enviar-credenciales`, { email });
+  }
+
   // Aquí se podrían añadir más métodos para gestionar usuarios (obtener, eliminar, etc.)
 }

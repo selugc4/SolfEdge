@@ -75,8 +75,6 @@ export class CuestionarioModalComponent implements OnInit {
     const file: File = event.target.files[0];
     if (file && (file.type === 'audio/mpeg' || file.type === 'audio/mp3')) {
       try {
-        const response = await this.ramaConfigService.uploadFile(file).toPromise();
-        this.preguntas.at(preguntaIndex).get('audioMaterial')?.setValue(response?.fileId || null);
         this.presentToast('Audio subido con éxito.', 'success');
       } catch (error) {
         this.presentToast('Error al subir el audio.', 'danger');

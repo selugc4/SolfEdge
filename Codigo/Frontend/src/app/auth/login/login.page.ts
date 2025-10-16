@@ -1,9 +1,10 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
-import { IonicModule, NavController, AlertController } from '@ionic/angular';
+import { IonicModule, NavController, AlertController, ToastController } from '@ionic/angular';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { UsuarioService } from '../../services/usuario.service';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +18,9 @@ export class LoginPage implements OnInit {
   authService: AuthService = inject(AuthService);
   router: Router = inject(Router);
   alertController: AlertController = inject(AlertController);
+  usuarioService: UsuarioService = inject(UsuarioService);
+  toastController: ToastController = inject(ToastController);
+
   constructor() {
     this.loginForm = new FormGroup({
       username: new FormControl('', [Validators.required]),
@@ -63,5 +67,51 @@ export class LoginPage implements OnInit {
       buttons: ['OK']
     });
     await alert.present();
+  }
+
+  async forgotPassword() {
+    const alert = await this.alertController.create({
+      header: 'Recuperar Contraseña',
+      message: 'Introduce tu correo electrónico para enviarte tus credenciales.',
+      inputs: [
+        {
+          name: 'email',
+          type: 'email',
+          placeholder: 'tu.correo@example.com'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel'
+        },
+        {
+          text: 'Enviar',
+          handler: (data) => {
+            if (data.email) {
+              this.usuarioService.enviarCredencialesOlvidadas(data.email).subscribe({
+                next: () => {
+                  this.presentToast('Se ha enviado un correo con tus nuevas credenciales.', 'success');
+                },
+                error: (err) => {
+                  this.presentToast(err.error.error || 'Error al enviar el correo.', 'danger');
+                }
+              });
+            }
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async presentToast(message: string, color: string) {
+    const toast = await this.toastController.create({
+      message,
+      duration: 3000,
+      color
+    });
+    toast.present();
   }
 }
