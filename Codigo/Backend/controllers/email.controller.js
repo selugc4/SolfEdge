@@ -1,8 +1,9 @@
 import sgMail from '@sendgrid/mail';
 sgMail.setApiKey(process.env.EMAIL_PASS);
-require('dotenv').config();
+import dotenv from 'dotenv';
+dotenv.config();
 
-exports.enviarEmailCredenciales = async (destinatario, username, password) => {
+export const enviarEmailCredenciales = async (destinatario, username, password) => {
   const msg = {
     from: process.env.EMAIL_FROM,
     to: destinatario,
@@ -19,6 +20,6 @@ exports.enviarEmailCredenciales = async (destinatario, username, password) => {
   };
   sgMail
     .send(msg)
-    .then(() => console.log('Correo enviado ✅'))
+    .then(() => console.log('Correo enviado'))
     .catch(err => console.error('Error enviando correo:', err));
 };
