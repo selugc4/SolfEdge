@@ -1,8 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const ramaConfigController = require('../controllers/ramaConfig.controller');
-const upload = require('../middleware/upload');
-
+const {getUpload} = require('../middleware/upload');
 /**
  * @swagger
  * tags:
@@ -73,9 +72,18 @@ router.get('/', async (req, res) => {
  *       500:
  *         description: Error interno del servidor.
  */
-router.patch('/:id', upload.single('file'), async (req, res) => {
-    const result = await ramaConfigController.updateRamaPdf(req.params.id, req.file);
-    res.status(result.status).json(result.body);
+router.patch('/:id', async (req, res) => {
+    try {
+        const upload = getUpload();
+        upload.single('file')(req, res, async (err) => {
+            if (err) return res.status(500).json({ error: err.message });
+            
+            const result = await ramaConfigController.updateRamaPdf(req.params.id, req.file);
+            res.status(result.status).json(result.body);
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 });
 
 /**

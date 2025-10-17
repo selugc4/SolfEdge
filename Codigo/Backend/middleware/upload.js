@@ -1,22 +1,31 @@
 const { GridFsStorage } = require('multer-gridfs-storage');
 const multer = require('multer');
-require('dotenv').config();
+const mongoose = require('mongoose');
 
-const storage = new GridFsStorage({
-  url: process.env.MONGODB_URI,
-  file: (req, file) => {
-    return new Promise((resolve, reject) => {
-      console.log('Multer GridFsStorage: file object:', file); // Add this line
-      const filename = file.originalname;
-      const fileInfo = {
-        filename: filename,
-        bucketName: 'uploads'
-      };
-      resolve(fileInfo);
-    });
+let upload;
+
+async function initGridFsStorage() {
+  const conn = mongoose.connection;
+
+  if (!conn.readyState) {
+    await new Promise(resolve => conn.once('open', resolve));
   }
-});
 
-const upload = multer({ storage });
+  const storage = new GridFsStorage({
+    db: conn.db,
+    file: (req, file) => ({
+      filename: file.originalname,
+      bucketName: 'uploads'
+    })
+  });
 
-module.exports = upload;
+  upload = multer({ storage });
+  console.log('Multer GridFS inicializado.');
+}
+
+function getUpload() {
+  if (!upload) throw new Error('Multer GridFS no inicializado');
+  return upload;
+}
+
+module.exports = { initGridFsStorage, getUpload };

@@ -53,19 +53,8 @@ async function startServer() {
             useUnifiedTopology: true
         });
         console.log('Conectado a MongoDB Atlas');
-
-        await (async () => {
-          try {
-            console.log('Eliminando índices de RamaConfig...');
-            await RamaConfig.collection.dropIndexes();
-            console.log('Índices eliminados.');
-            console.log('Recreando índices de RamaConfig...');
-            await RamaConfig.syncIndexes();
-            console.log('Índices recreados.');
-          } catch (error) {
-            console.error('Error al gestionar los índices:', error);
-          }
-        })();
+        const { initGridFsStorage } = require('./middleware/upload');
+        await initGridFsStorage();
 
         await createDefaultAdmin();
         app.use('/api/auth', authRoutes);
