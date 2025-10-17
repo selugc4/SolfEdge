@@ -6,6 +6,7 @@ const storage = new GridFsStorage({
   url: process.env.MONGODB_URI,
   file: (req, file) => {
     return new Promise((resolve, reject) => {
+      console.log('Multer GridFsStorage: file object:', file); // Add this line
       const filename = file.originalname;
       const fileInfo = {
         filename: filename,

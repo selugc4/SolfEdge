@@ -27,8 +27,6 @@ app.use(cors({
   credentials: true
 }));
 
-app.options('*', cors());
-
 
 async function createDefaultAdmin() {
     try {
