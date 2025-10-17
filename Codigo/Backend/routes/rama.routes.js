@@ -75,17 +75,22 @@ router.get('/', async (req, res) => {
 router.patch('/:id', async (req, res) => {
     try {
         const upload = getUpload();
-        upload.single('file')(req, res, async (err) => {
-            if (err) return res.status(500).json({ error: err.message });
-            
-            const result = await ramaConfigController.updateRamaPdf(req.params.id, req.file);
-            res.status(result.status).json(result.body);
+
+        // Convertir el middleware de multer en promesa
+        await new Promise((resolve, reject) => {
+            upload.single('file')(req, res, (err) => {
+                if (err) reject(err);
+                else resolve();
+            });
         });
+
+        const result = await ramaConfigController.updateRamaPdf(req.params.id, req.file);
+        res.status(result.status).json(result.body);
     } catch (error) {
+        console.error(error);
         res.status(500).json({ error: error.message });
     }
 });
-
 /**
  * @swagger
  * components:
