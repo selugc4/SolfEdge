@@ -16,6 +16,10 @@ export class RamaConfigService {
     return this.http.get<RamaConfig[]>(this.apiUrl);
   }
 
+  getRamaPdf(ramaId: string): Observable<Blob> {
+    return this.http.get(`${this.apiUrl}/${ramaId}/pdf`, { responseType: 'blob' });
+  }
+
   updateRamaPdf(ramaId: string, file: File | null): Observable<RamaConfig> {
     const formData = new FormData();
     if (file) {

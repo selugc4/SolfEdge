@@ -13,6 +13,7 @@ import { IonIcon } from "@ionic/angular/standalone";
 import { GrupoStateService } from '../services/grupo-state.service';
 import { GrupoService } from '../services/grupo.service';
 import { Grupo } from '../models/grupo.model';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-tab2',
@@ -28,6 +29,8 @@ export class Tab2Page {
   userId: string = '';
   readonly RAMA_NOMBRE = 'Entonación';
   selectedGrupo: Grupo | null = null;
+  pdfUrl: SafeResourceUrl | null = null;
+  hasLibroDeApoyo = false;
   ramaConfigService: RamaConfigService = inject(RamaConfigService);
   tareaService: TareaService = inject(TareaService);
   authService: AuthService = inject(AuthService);
@@ -36,6 +39,8 @@ export class Tab2Page {
   modalController: ModalController = inject(ModalController);
   grupoStateService: GrupoStateService = inject(GrupoStateService);
   grupoService: GrupoService = inject(GrupoService);
+  sanitizer: DomSanitizer = inject(DomSanitizer);
+
   ionViewWillEnter() {
     this.authService.currentUser.subscribe(user => {
       if (user) {
@@ -49,6 +54,8 @@ export class Tab2Page {
           } else {
             this.tareas = [];
             this.ramaConfig = undefined;
+            this.pdfUrl = null;
+            this.hasLibroDeApoyo = false;
           }
         });
       }
@@ -58,6 +65,22 @@ export class Tab2Page {
   loadRamaConfig(grupoId: string) {
     this.ramaConfigService.getAllRamas().subscribe(ramas => {
       this.ramaConfig = ramas.find(r => r.nombre === this.RAMA_NOMBRE && r.grupo === grupoId);
+      if (this.ramaConfig) {
+        this.ramaConfigService.getRamaPdf(this.ramaConfig._id).subscribe({
+          next: (pdfBlob) => {
+            const url = URL.createObjectURL(pdfBlob);
+            this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+            this.hasLibroDeApoyo = true;
+          },
+          error: () => {
+            this.pdfUrl = null;
+            this.hasLibroDeApoyo = false;
+          }
+        });
+      } else {
+        this.pdfUrl = null;
+        this.hasLibroDeApoyo = false;
+      }
     });
   }
 
@@ -70,15 +93,13 @@ export class Tab2Page {
 
   async onFileSelected(event: any) {
     const file: File = event.target.files[0];
-    if (file && file.type === 'application/pdf') {
-      this.ramaConfigService.updateRamaPdf(this.ramaConfig!._id, file).subscribe({
+    if (file && file.type === 'application/pdf' && this.ramaConfig) {
+      this.ramaConfigService.updateRamaPdf(this.ramaConfig._id, file).subscribe({
         next: () => {
           this.presentToast('Libro subido con éxito.');
-          this.grupoStateService.selectedGrupo$.subscribe(grupo => {
-            if (grupo) {
-              this.loadRamaConfig(grupo._id);
-            }
-          });
+          if (this.selectedGrupo) {
+            this.loadRamaConfig(this.selectedGrupo._id);
+          }
         },
         error: () => this.presentToast('Error al subir el archivo.', 'danger')
       });
@@ -94,17 +115,16 @@ export class Tab2Page {
         {
           text: 'Eliminar',
           handler: () => {
-            this.ramaConfigService.updateRamaPdf(this.ramaConfig!._id, null).subscribe({
-              next: () => {
-                this.presentToast('Libro eliminado.');
-                this.grupoStateService.selectedGrupo$.subscribe(grupo => {
-                  if (grupo) {
-                    this.loadRamaConfig(grupo._id);
-                  }
-                });
-              },
-              error: () => this.presentToast('Error al eliminar el libro.', 'danger')
-            });
+            if (this.ramaConfig) {
+              this.ramaConfigService.updateRamaPdf(this.ramaConfig._id, null).subscribe({
+                next: () => {
+                  this.presentToast('Libro eliminado.');
+                  this.pdfUrl = null;
+                  this.hasLibroDeApoyo = false;
+                },
+                error: () => this.presentToast('Error al eliminar el libro.', 'danger')
+              });
+            }
           }
         }
       ]
@@ -231,12 +251,6 @@ export class Tab2Page {
     }
   }
 
-  async verLibro() {
-    if (this.ramaConfig?.libroDeApoyo) {
-      const pdfUrl = `${this.ramaConfigService.getDownloadUrl(this.ramaConfig.libroDeApoyo)}`;
-      window.open(pdfUrl, '_blank');
-    }
-  }
 
   async presentToast(message: string, color: string = 'success') {
     const toast = await this.toastController.create({ message, duration: 3000, color });

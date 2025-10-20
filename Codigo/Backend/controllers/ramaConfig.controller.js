@@ -29,16 +29,18 @@ exports.getRamaPdf = async (id) => {
 // Actualizar el PDF de una rama
 exports.updateRamaPdf = async (id, file) => {
     try {
-        if (!file) {
-            return { status: 400, body: { error: 'No se ha subido ningún archivo.' } };
+        let updateData;
+        if (file) {
+            // Si hay archivo, lo convierte a Base64
+            updateData = { libroDeApoyo: file.buffer.toString('base64') };
+        } else {
+            // Si no hay archivo, se interpreta como una solicitud para eliminar el libro.
+            updateData = { libroDeApoyo: null };
         }
-
-        // Convertir el buffer del archivo a Base64
-        const base64Pdf = file.buffer.toString('base64');
 
         const rama = await RamaConfig.findByIdAndUpdate(
             id,
-            { libroDeApoyo: base64Pdf },
+            updateData,
             { new: true, runValidators: true }
         );
 

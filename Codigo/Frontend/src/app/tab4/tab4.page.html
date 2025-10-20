@@ -26,12 +26,8 @@
         <ion-card-title>Libro del Curso</ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        <div *ngIf="ramaConfig?.libroDeApoyo; else noLibro">
-          <p>Hay un libro de apoyo cargado.</p>
-          <ion-button expand="block" (click)="verLibro()" class="ion-margin-bottom">
-            <ion-icon slot="start" name="eye-outline"></ion-icon>
-            Ver Libro
-          </ion-button>
+        <div *ngIf="hasLibroDeApoyo; else noLibro">
+          <iframe [src]="pdfUrl" width="100%" height="500px"></iframe>
           <ion-button expand="block" color="danger" (click)="eliminarLibro()" *ngIf="isProfessor">Eliminar Libro</ion-button>
         </div>
         <ng-template #noLibro>
