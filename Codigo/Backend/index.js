@@ -53,8 +53,7 @@ async function startServer() {
             useUnifiedTopology: true
         });
         console.log('Conectado a MongoDB Atlas');
-        const { initGridFsStorage } = require('./middleware/upload');
-        await initGridFsStorage();
+         
 
         await createDefaultAdmin();
         app.use('/api/auth', authRoutes);

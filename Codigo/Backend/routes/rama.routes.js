@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const ramaConfigController = require('../controllers/ramaConfig.controller');
-const {getUpload} = require('../middleware/upload');
+const multer = require('multer');
+const upload = multer({ storage: multer.memoryStorage() });
 /**
  * @swagger
  * tags:
@@ -32,6 +33,44 @@ const {getUpload} = require('../middleware/upload');
 router.get('/', async (req, res) => {
     const result = await ramaConfigController.getAllRamas();
     res.status(result.status).json(result.body);
+});
+
+/**
+ * @swagger
+ * /ramas/{id}/pdf:
+ *   get:
+ *     summary: Obtiene el PDF de apoyo de una rama específica.
+ *     tags: [Ramas]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID de la rama.
+ *     responses:
+ *       200:
+ *         description: Archivo PDF de la rama.
+ *         content:
+ *           application/pdf:
+ *             schema:
+ *               type: string
+ *               format: binary
+ *       404:
+ *         description: PDF no encontrado.
+ *       500:
+ *         description: Error interno del servidor.
+ */
+router.get('/:id/pdf', async (req, res) => {
+    const result = await ramaConfigController.getRamaPdf(req.params.id);
+    if (result.status === 200) {
+        res.setHeader('Content-Type', result.contentType);
+        res.send(result.body);
+    } else {
+        res.status(result.status).json(result.body);
+    }
 });
 
 /**
@@ -72,18 +111,8 @@ router.get('/', async (req, res) => {
  *       500:
  *         description: Error interno del servidor.
  */
-router.patch('/:id', async (req, res) => {
+router.patch('/:id', upload.single('file'), async (req, res) => {
     try {
-        const upload = getUpload();
-
-        // Convertir el middleware de multer en promesa
-        await new Promise((resolve, reject) => {
-            upload.single('file')(req, res, (err) => {
-                if (err) reject(err);
-                else resolve();
-            });
-        });
-
         const result = await ramaConfigController.updateRamaPdf(req.params.id, req.file);
         res.status(result.status).json(result.body);
     } catch (error) {
@@ -108,8 +137,8 @@ router.patch('/:id', async (req, res) => {
  *         libroDeApoyo:
  *           type: string
  *           nullable: true
- *           description: ID del fichero PDF en GridFS.
- *           example: 60d5ec49f8c7a10015a4b5c7
+ *           description: Contenido del PDF en Base64.
+ *           example: "JVBERi0xLjQKJeLjz9MKMSAwIG9iago8PC9UeXBlL0NhdGFsb2cvUGFnZXMgMiAwIFIvTGFuZyhlcy1FUykgL1N0cnVjdFRyZWVSb290IDEyIDAgUi9NYXJrSW5mb..."
  */
 
 module.exports = router;
