@@ -22,7 +22,7 @@ const tareaSchema = new Schema({
     enum: ['Ritmo', 'Entonación', 'Audición', 'Teoría'] 
   },
   materialDeApoyo: {
-    type: Schema.Types.ObjectId,
+    type: String,
     ref: 'fs.files'
   },
   cerrada: {

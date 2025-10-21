@@ -3,11 +3,6 @@ const Usuario = require('../models/usuario.model');
 const Calificacion = require('../models/calificacion.model');
 
 exports.crearTarea = async (taskDataJsonString, file) => {
-    console.log('Controller: crearTarea - file argument:', file);
-    if (file) {
-        console.log('Controller: crearTarea - file.buffer exists:', !!file.buffer);
-        console.log('Controller: crearTarea - file.buffer length:', file.buffer ? file.buffer.length : 'N/A');
-    }
     try {
         let tareaData;
         try {
@@ -30,7 +25,7 @@ exports.crearTarea = async (taskDataJsonString, file) => {
 
         // Handle materialDeApoyo
         if (file) {
-            if (!file.buffer) {
+            if (!file.buffer) { 
                 return { status: 400, body: { error: 'File buffer is missing.' } };
             }
             tareaData.materialDeApoyo = file.buffer.toString('base64');
