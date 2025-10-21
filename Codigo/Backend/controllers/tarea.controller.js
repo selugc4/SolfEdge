@@ -3,6 +3,11 @@ const Usuario = require('../models/usuario.model');
 const Calificacion = require('../models/calificacion.model');
 
 exports.crearTarea = async (taskDataJsonString, file) => {
+    console.log('Controller: crearTarea - file argument:', file);
+    if (file) {
+        console.log('Controller: crearTarea - file.buffer exists:', !!file.buffer);
+        console.log('Controller: crearTarea - file.buffer length:', file.buffer ? file.buffer.length : 'N/A');
+    }
     try {
         let tareaData;
         try {
@@ -22,9 +27,12 @@ exports.crearTarea = async (taskDataJsonString, file) => {
         if (!profesor || profesor.role !== 'profesor') {
             return { status: 400, body: { error: 'Usuario no es un profesor válido.' } };
         }
+
+        // Handle materialDeApoyo
         if (file) {
             tareaData.materialDeApoyo = file.buffer.toString('base64');
         } else if (tareaData.materialDeApoyo === undefined) {
+            // If no file was uploaded and materialDeApoyo was not explicitly set to null in taskData
             tareaData.materialDeApoyo = null;
         }
 
@@ -32,6 +40,7 @@ exports.crearTarea = async (taskDataJsonString, file) => {
         await tarea.save();
         return { status: 201, body: tarea };
     } catch (error) {
+        console.error('Controller: Error in crearTarea:', error);
         return { status: 500, body: { error: error.message } };
     }
 };

@@ -17,7 +17,6 @@ router.post('/', upload.single('materialDeApoyo'), async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
-
 /**
  * @swagger
  * /tareas/usuario/{usuarioId}/rama/{nombreRama}:
