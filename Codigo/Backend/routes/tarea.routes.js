@@ -13,8 +13,14 @@ router.post('/', upload.single('materialDeApoyo'), async (req, res) => {
         const result = await tareaController.crearTarea(req.body.taskData, req.file);
         res.status(result.status).json(result.body);
     } catch (error) {
-        console.error('Error in tarea POST route:', error);
-        res.status(500).json({ error: error.message });
+        if (error instanceof multer.MulterError) {
+            // A Multer error occurred when uploading.
+            // console.error('Multer error:', error); // Keep this commented if logs are not visible
+            return res.status(400).json({ error: error.message });
+        } else {
+            console.error('Error in tarea POST route:', error);
+            res.status(500).json({ error: error.message });
+        }
     }
 });
 /**
