@@ -44,7 +44,7 @@ const upload = multer({ storage: storage });
  *       500:
  *         description: Error interno del servidor.
  */
-router.post('/tareas', upload.single('materialDeApoyo'), async (req, res) => {
+router.post('/', upload.single('materialDeApoyo'), async (req, res) => {
         // req.body.taskData will be the JSON string of task data
         // req.file will be the uploaded file (if any)
         const result = await tareaController.crearTarea(req.body.taskData, req.file);
