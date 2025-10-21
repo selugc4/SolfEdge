@@ -30,6 +30,9 @@ exports.crearTarea = async (taskDataJsonString, file) => {
 
         // Handle materialDeApoyo
         if (file) {
+            if (!file.buffer) {
+                return { status: 400, body: { error: 'File buffer is missing.' } };
+            }
             tareaData.materialDeApoyo = file.buffer.toString('base64');
         } else if (tareaData.materialDeApoyo === undefined) {
             // If no file was uploaded and materialDeApoyo was not explicitly set to null in taskData

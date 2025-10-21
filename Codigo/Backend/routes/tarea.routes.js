@@ -6,22 +6,49 @@ const multer = require('multer');
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
-router.post('/', upload.single('materialDeApoyo'), async (req, res) => {
-    try {
+/**
+ * @swagger
+ * /tareas:
+ *   post:
+ *     summary: Crear una nueva tarea
+ *     description: Permite a un profesor crear una nueva tarea, opcionalmente con material de apoyo.
+ *     tags:
+ *       - Tareas
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               taskData:
+ *                 type: string
+ *                 format: json
+ *                 description: Datos de la tarea en formato JSON (titulo, descripcion, rama, alumnos, profesorId).
+ *                 example: '{"titulo":"Nueva Tarea","descripcion":"Descripción de la tarea","rama":"Ritmo","alumnos":["60d5ec49f8c7a10015a4b5c8"],"profesorId":"60d5ec49f8c7a10015a4b5c6"}'
+ *               materialDeApoyo:
+ *                 type: string
+ *                 format: binary
+ *                 description: Archivo de material de apoyo (opcional).
+ *     responses:
+ *       201:
+ *         description: Tarea creada con éxito.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Tarea'
+ *       400:
+ *         description: Solicitud inválida (e.g., validación de datos, archivo faltante, error de Multer).
+ *       500:
+ *         description: Error interno del servidor.
+ */
+router.post('/tareas', upload.single('materialDeApoyo'), async (req, res) => {
         // req.body.taskData will be the JSON string of task data
         // req.file will be the uploaded file (if any)
         const result = await tareaController.crearTarea(req.body.taskData, req.file);
         res.status(result.status).json(result.body);
-    } catch (error) {
-        if (error instanceof multer.MulterError) {
-            // A Multer error occurred when uploading.
-            // console.error('Multer error:', error); // Keep this commented if logs are not visible
-            return res.status(400).json({ error: error.message });
-        } else {
-            console.error('Error in tarea POST route:', error);
-            res.status(500).json({ error: error.message });
-        }
-    }
 });
 /**
  * @swagger
