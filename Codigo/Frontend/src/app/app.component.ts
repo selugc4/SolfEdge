@@ -1,9 +1,9 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { IonApp, IonRouterOutlet, IonMenu, IonHeader, IonToolbar, IonTitle, IonContent, IonMenuToggle, IonItem, IonIcon, IonLabel, ModalController, IonSelect, IonSelectOption } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { briefcaseSharp, logOutSharp, notificationsSharp } from 'ionicons/icons';
+import { briefcaseSharp, logOutSharp, notificationsSharp, peopleSharp } from 'ionicons/icons';
 import { AuthService } from './services/auth.service';
 import { RouterLink } from '@angular/router';
 import { Grupo } from './models/grupo.model';
@@ -21,6 +21,7 @@ import { FormsModule } from '@angular/forms';
   ],
 })
 export class AppComponent implements OnInit {
+  @ViewChild('groupSelect') groupSelect!: IonSelect;
   isAdminOrProfessor = false;
   isAdministrator = false;
   grupos: Grupo[] = [];
@@ -32,7 +33,7 @@ export class AppComponent implements OnInit {
   grupoStateService: GrupoStateService = inject(GrupoStateService);
 
   constructor() {
-    addIcons({ briefcaseSharp, logOutSharp, notificationsSharp });
+    addIcons({ briefcaseSharp, logOutSharp, notificationsSharp, peopleSharp });
   }
 
   ngOnInit() {
@@ -41,14 +42,16 @@ export class AppComponent implements OnInit {
       this.isAdministrator = user?.role === 'administrador';
       if (user) {
         this.grupoStateService.refreshGrupos();
+      } else {
+        this.grupos = [];
+        this.selectedGrupo = null;
       }
     });
 
     this.grupoStateService.grupos$.subscribe(grupos => {
       this.grupos = grupos;
       if (this.grupos.length > 0 && !this.selectedGrupo) {
-        this.selectedGrupo = this.grupos[0];
-        this.grupoStateService.setSelectedGrupo(this.selectedGrupo);
+        this.grupoStateService.setSelectedGrupo(this.grupos[0]);
       }
     });
 
@@ -59,6 +62,14 @@ export class AppComponent implements OnInit {
 
   onGrupoChange(event: any) {
     this.grupoStateService.setSelectedGrupo(event.detail.value);
+  }
+
+  openGroupSelect() {
+    this.groupSelect.open();
+  }
+
+  compareGrupos(g1: Grupo, g2: Grupo) {
+    return g1 && g2 ? g1._id === g2._id : g1 === g2;
   }
 
   logout() {

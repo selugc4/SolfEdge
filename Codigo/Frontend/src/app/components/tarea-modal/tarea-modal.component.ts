@@ -1,10 +1,15 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { IonicModule, ModalController, ToastController } from '@ionic/angular';
 import { Tarea } from '../../models/tarea.model';
 import { Usuario } from '../../models/usuario.model';
+import { Grupo } from '../../models/grupo.model';
 import { RamaConfigService } from '../../services/rama-config.service';
+import { AuthService } from '../../services/auth.service';
+import { UsuarioService } from '../../services/usuario.service';
+import { GrupoService } from '../../services/grupo.service';
+import { TareaService } from 'src/app/services/tarea.service';
 
 @Component({
   selector: 'app-tarea-modal',
@@ -14,48 +19,72 @@ import { RamaConfigService } from '../../services/rama-config.service';
 })
 export class TareaModalComponent implements OnInit {
   @Input() tarea: Tarea | null = null;
-  @Input() rama: string = '';
-  @Input() alumnos: Usuario[] = [];
+  @Input() rama: 'Ritmo' | 'Entonación' | 'Audición' | 'Teoría' = 'Teoría';
+  @Input() alumnos: Usuario[] = []; // This is the initial pool of students
+  @Input() currentGroup: Grupo | null = null;
   form: FormGroup;
   selectedFile: File | null = null;
-  materialDeApoyoId: string | null = null;
+  modalCtrl: ModalController = inject(ModalController);
+  toastCtrl: ToastController = inject(ToastController);
+  ramaConfigService: RamaConfigService = inject(RamaConfigService);
+  authService: AuthService = inject(AuthService);
+  usuarioService: UsuarioService = inject(UsuarioService);
+  grupoService: GrupoService = inject(GrupoService);
+  tareaService: TareaService = inject(TareaService);
 
-  constructor(
-    private modalCtrl: ModalController,
-    private toastCtrl: ToastController,
-    private ramaConfigService: RamaConfigService // Reutilizamos el servicio de subida de archivos
-  ) {
+  nuevaTarea: Tarea;
+  studentsInSelectedGroups: Usuario[] = [];
+  selectedStudentsFromGroups: string[] = [];
+
+  constructor() {
+    const user = this.authService.currentUserValue;
+    const profesorId = user ? user._id : '';
+
+    this.nuevaTarea = {
+      _id: '',
+      titulo: '',
+      descripcion: '',
+      profesorId: profesorId,
+      materialDeApoyo: '',
+      cerrada: false,
+      rama: this.rama,
+      alumnos: []
+    };
+
     this.form = new FormGroup({
-      titulo: new FormControl('', [Validators.required]),
-      descripcion: new FormControl('', [Validators.required]),
-      fechaLimite: new FormControl(''), // Campo para la fecha límite
-      alumnos: new FormControl([], [Validators.required])
-      // materialDeApoyo se gestionará por separado debido a la subida de archivos
+      titulo: new FormControl(this.nuevaTarea.titulo, [Validators.required]),
+      descripcion: new FormControl(this.nuevaTarea.descripcion, [Validators.required]),
+      selectedStudentsFromGroups: new FormControl([]),
     });
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    if (this.currentGroup) {
+      this.studentsInSelectedGroups = this.currentGroup.alumnos as Usuario[];
+      this.selectedStudentsFromGroups = this.studentsInSelectedGroups.map(alumno => alumno._id);
+      this.form.get('selectedStudentsFromGroups')?.setValue(this.selectedStudentsFromGroups);
+    }
+
     if (this.tarea) {
       this.form.patchValue(this.tarea);
-      this.materialDeApoyoId = this.tarea.materialDeApoyo || null;
+      // If editing, pre-select students from the current group if they are part of the task
+      if (this.tarea.alumnos && this.currentGroup) {
+        this.selectedStudentsFromGroups = this.currentGroup.alumnos
+          .filter(alumno => this.tarea?.alumnos.includes(alumno._id as string))
+          .map(alumno => alumno._id as string);
+        this.form.get('selectedStudentsFromGroups')?.setValue(this.selectedStudentsFromGroups);
+      }
+    } else {
+      this.form.patchValue({ rama: this.rama });
     }
+  }
+
+  onStudentsFromGroupsChange(event: any) {
+    this.selectedStudentsFromGroups = event.detail.value;
   }
 
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0];
-  }
-
-  async uploadMaterial() {
-    if (this.selectedFile) {
-      try {
-        this.presentToast('Material de apoyo subido con éxito.', 'success');
-      } catch (error) {
-        this.presentToast('Error al subir el material de apoyo.', 'danger');
-        this.materialDeApoyoId = null;
-      }
-    } else {
-      this.presentToast('Selecciona un archivo primero.');
-    }
   }
 
   cancel() {
@@ -64,19 +93,48 @@ export class TareaModalComponent implements OnInit {
 
   async confirm() {
     if (this.form.valid) {
-      // Asegurarse de que el material de apoyo se ha subido si se seleccionó un archivo
-      if (this.selectedFile && !this.materialDeApoyoId) {
-        await this.uploadMaterial(); // Intentar subir antes de confirmar
-        if (!this.materialDeApoyoId) {
-          this.presentToast('Error al subir el material de apoyo. Inténtalo de nuevo.', 'danger');
-          return;
-        }
+      // Frontend validation for at least one alumno
+      let finalAlumnos: string[] = this.alumnos.map(alumno => alumno._id);
+      finalAlumnos.push(...this.selectedStudentsFromGroups);
+      finalAlumnos = [...new Set(finalAlumnos)];
+
+      if (finalAlumnos.length === 0) {
+        this.presentToast('La tarea debe tener al menos un alumno.', 'danger');
+        return;
       }
 
-      const result = { ...this.form.value, materialDeApoyo: this.materialDeApoyoId };
-      return this.modalCtrl.dismiss(result, 'confirm');
+      const profesorId = this.authService.currentUserValue?._id || '';
+
+      const taskData: any = {
+        titulo: this.form.value.titulo,
+        descripcion: this.form.value.descripcion,
+        rama: this.rama,
+        alumnos: finalAlumnos,
+        profesorId: profesorId
+      };
+
+      if (this.tarea && this.tarea._id) {
+        taskData._id = this.tarea._id;
+      }
+
+      console.log('Debugging: taskData before FormData append:', taskData);
+      console.log('Debugging: selectedFile before FormData append:', this.selectedFile);
+
+      const formData = new FormData();
+      formData.append('taskData', JSON.stringify(taskData));
+      if (this.selectedFile) {
+        formData.append('materialDeApoyo', this.selectedFile, this.selectedFile.name);
+      }
+
+      // Log FormData contents for debugging
+      console.log('FormData contents:');
+      formData.forEach((value, key) => {
+        console.log(key, value);
+      });
+
+      return this.modalCtrl.dismiss({ taskData: JSON.stringify(taskData), selectedFile: this.selectedFile }, 'confirm');
     }
-    this.presentToast('Por favor, completa todos los campos.');
+    this.presentToast('Por favor, completa todos los campos.', 'warning');
     return;
   }
 
@@ -85,3 +143,4 @@ export class TareaModalComponent implements OnInit {
     toast.present();
   }
 }
+

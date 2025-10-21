@@ -11,6 +11,9 @@ exports.crearTarea = async (tareaData, profesorId) => {
         if (!profesor || profesor.role !== 'profesor') {
             return { status: 400, body: { error: 'Usuario no es un profesor válido.' } };
         }
+        if (tareaData.materialDeApoyo) {
+        tareaData.materialDeApoyo = tareaData.materialDeApoyo.toString('base64');
+        }
         const tarea = new Tarea({ ...tareaData, profesor: profesorId });
         await tarea.save();
         return { status: 201, body: tarea };

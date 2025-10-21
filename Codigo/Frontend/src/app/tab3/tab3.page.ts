@@ -181,30 +181,35 @@ export class Tab3Page {
         const { data, role } = await modal.onWillDismiss();
 
         if (role === 'confirm') {
-          const tareaData: Partial<Tarea> = {
-            titulo: data.titulo,
-            descripcion: data.descripcion,
-            rama: this.RAMA_NOMBRE,
-            materialDeApoyo: data.materialDeApoyo,
-            alumnos: data.alumnos,
-            profesor: this.userId,
-          };
+          const { taskData, selectedFile } = data;
 
-          if (tarea) {
-            // Lógica para actualizar tarea existente (requiere endpoint PATCH /tareas/{id})
-            this.presentToast('Funcionalidad pendiente: Actualizar tarea requiere un endpoint en el backend.', 'warning');
-          } else {
-            this.tareaService.crearTarea(tareaData).subscribe({
-              next: () => {
-                this.presentToast('Tarea creada con éxito.');
-                this.loadTareas();
-              },
-              error: (err) => {
-                this.presentToast(`Error al crear tarea: ${err.error.message || err.message}`, 'danger');
-              }
-            });
-          }
-        }
+          const formData = new FormData();
+          formData.append('taskData', taskData);
+                    if (selectedFile) {
+                      formData.append('materialDeApoyo', selectedFile, selectedFile.name);
+                    }
+          
+                    // Debugging: Log FormData contents before sending to service
+                    console.log('Tab3Page: FormData contents before sending to service:');
+                    formData.forEach((value, key) => {
+                      console.log(key, value);
+                    });
+          
+                    if (tarea) {
+                      // Lógica para actualizar tarea existente (requiere endpoint PATCH /tareas/{id})
+                      this.presentToast('Funcionalidad pendiente: Actualizar tarea requiere un endpoint en el backend.', 'warning');
+                    } else {
+                      this.tareaService.crearTarea(formData).subscribe({ // Pass formData
+                        next: () => {
+                          this.presentToast('Tarea creada con éxito.');
+                          this.loadTareas();
+                        },
+                        error: (err) => {
+                          this.presentToast(`Error al crear tarea: ${err.error.message || err.message}`, 'danger');
+                        }
+                      });
+                    }
+                  }
       }
     });
   }

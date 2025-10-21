@@ -17,8 +17,8 @@ export class TareaService {
     return this.http.get<Tarea[]>(`${this.apiUrl}/usuario/${usuarioId}/rama/${nombreRama}`);
   }
 
-  crearTarea(tareaData: Partial<Tarea>): Observable<Tarea> {
-    return this.http.post<Tarea>(this.apiUrl, tareaData);
+  crearTarea(formData: FormData): Observable<Tarea> {
+    return this.http.post<Tarea>(this.apiUrl, formData);
   }
 
   deleteTarea(id: string): Observable<any> {
