@@ -2,18 +2,32 @@ const Tarea = require('../models/tarea.model');
 const Usuario = require('../models/usuario.model');
 const Calificacion = require('../models/calificacion.model');
 
-exports.crearTarea = async (tareaData, profesorId) => {
+exports.crearTarea = async (taskDataJsonString, file) => {
     try {
+        let tareaData;
+        try {
+            tareaData = JSON.parse(taskDataJsonString);
+        } catch (error) {
+            return { status: 400, body: { error: 'Invalid taskData JSON' } };
+        }
+
+        const profesorId = tareaData.profesorId;
+        delete tareaData.profesorId; // Remove profesorId from tareaData
+
         if (!tareaData.alumnos || tareaData.alumnos.length === 0) {
             return { status: 400, body: { error: 'La tarea debe tener al menos un alumno.' } };
         }
+
         const profesor = await Usuario.findById(profesorId);
         if (!profesor || profesor.role !== 'profesor') {
             return { status: 400, body: { error: 'Usuario no es un profesor válido.' } };
         }
-        if (tareaData.materialDeApoyo) {
-        tareaData.materialDeApoyo = tareaData.materialDeApoyo.toString('base64');
+        if (file) {
+            tareaData.materialDeApoyo = file.buffer.toString('base64');
+        } else if (tareaData.materialDeApoyo === undefined) {
+            tareaData.materialDeApoyo = null;
         }
+
         const tarea = new Tarea({ ...tareaData, profesor: profesorId });
         await tarea.save();
         return { status: 201, body: tarea };

@@ -109,6 +109,8 @@ export class TareaModalComponent implements OnInit {
         titulo: this.form.value.titulo,
         descripcion: this.form.value.descripcion,
         rama: this.rama,
+        // Add materialDeApoyo here if no file is selected
+        ...(this.selectedFile ? {} : { materialDeApoyo: null }),
         alumnos: finalAlumnos,
         profesorId: profesorId
       };

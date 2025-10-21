@@ -1,75 +1,21 @@
 const express = require('express');
 const router = express.Router();
 const tareaController = require('../controllers/tarea.controller');
+const multer = require('multer');
 
-/**
- * @swagger
- * tags:
- *   name: Tareas
- *   description: Gestión de tareas y asignaciones
- */
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
-/**
- * @swagger
- * /tareas:
- *   post:
- *     summary: Crea una nueva tarea.
- *     tags: [Tareas]
- *     security:
- *       - bearerAuth: []
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             required:
- *               - profesorId
- *               - titulo
- *               - descripcion
- *               - rama
- *             properties:
- *               profesorId:
- *                 type: string
- *                 description: ID del profesor que crea la tarea.
- *                 example: 60d5ec49f8c7a10015a4b5c6
- *               titulo:
- *                 type: string
- *                 example: Tarea de ritmo
- *               descripcion:
- *                 type: string
- *                 example: Leer el ejercicio 4 de la página 2
- *               rama:
- *                 type: string
- *                 enum: [Ritmo, Entonación, Audición, Teoría]
- *                 example: Ritmo
- *               materialDeApoyo:
- *                 type: string
- *                 nullable: true
- *                 description: ID del fichero de material de apoyo en GridFS.
- *                 example: 60d5ec49f8c7a10015a4b5c7
- *               alumnos:
- *                 type: array
- *                 items:
- *                   type: string
- *                 description: IDs de los alumnos asignados a esta tarea.
- *                 example: ["60d5ec49f8c7a10015a4b5c8"]
- *     responses:
- *       201:
- *         description: Tarea creada exitosamente.
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Tarea'
- *       400:
- *         description: Datos de entrada inválidos, profesor no válido o la tarea debe tener al menos un alumno.
- *       500:
- *         description: Error interno del servidor.
- */
-router.post('/', async (req, res) => {
-    const { profesorId, ...tareaData } = req.body;
-    const result = await tareaController.crearTarea(tareaData, profesorId);
-    res.status(result.status).json(result.body);
+router.post('/', upload.single('materialDeApoyo'), async (req, res) => {
+    try {
+        // req.body.taskData will be the JSON string of task data
+        // req.file will be the uploaded file (if any)
+        const result = await tareaController.crearTarea(req.body.taskData, req.file);
+        res.status(result.status).json(result.body);
+    } catch (error) {
+        console.error('Error in tarea POST route:', error);
+        res.status(500).json({ error: error.message });
+    }
 });
 
 /**
