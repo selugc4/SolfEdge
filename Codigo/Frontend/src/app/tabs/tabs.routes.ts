@@ -1,7 +1,5 @@
 import { Routes } from '@angular/router';
 import { TabsPage } from './tabs.page';
-import { AdminGuard } from '../guards/admin.guard';
-import { ProfessorAdminPage } from '../pages/professor-admin/professor-admin.page';
 
 export const routes: Routes = [
   {
@@ -10,23 +8,23 @@ export const routes: Routes = [
     children: [
       {
         path: 'tab1',
-        loadComponent: () =>
-          import('../tab1/tab1.page').then((m) => m.Tab1Page),
+        loadComponent: () => import('../pages/rama-detail/rama-detail.page').then(m => m.RamaDetailPage),
+        data: { title: 'Ritmo', ramaNombre: 'Ritmo' }
       },
       {
         path: 'tab2',
-        loadComponent: () =>
-          import('../tab2/tab2.page').then((m) => m.Tab2Page),
+        loadComponent: () => import('../pages/rama-detail/rama-detail.page').then(m => m.RamaDetailPage),
+        data: { title: 'Entonación', ramaNombre: 'Entonación' }
       },
       {
         path: 'tab3',
-        loadComponent: () =>
-          import('../tab3/tab3.page').then((m) => m.Tab3Page),
+        loadComponent: () => import('../pages/rama-detail/rama-detail.page').then(m => m.RamaDetailPage),
+        data: { title: 'Lectura', ramaNombre: 'Audición' }
       },
       {
         path: 'tab4',
-        loadComponent: () =>
-          import('../tab4/tab4.page').then((m) => m.Tab4Page),
+        loadComponent: () => import('../pages/rama-detail/rama-detail.page').then(m => m.RamaDetailPage),
+        data: { title: 'Teoría', ramaNombre: 'Teoría' }
       },
       {
         path: 'tab5',

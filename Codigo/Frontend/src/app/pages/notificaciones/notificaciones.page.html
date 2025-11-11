@@ -8,21 +8,25 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-list *ngIf="notificaciones.length > 0; else noNotificaciones">
-    <ion-item *ngFor="let notificacion of notificaciones" [class.leida]="notificacion.leida" (click)="marcarComoLeida(notificacion)">
-      <ion-icon slot="start" [name]="notificacion.leida ? 'mail-open-outline' : 'mail-outline'"></ion-icon>
-      <ion-label>
-        <h2>{{ notificacion.asunto }}</h2>
-        <p>{{ notificacion.mensaje }}</p>
-        <p><small>{{ notificacion.createdAt | date:'short' }}</small></p>
-      </ion-label>
-    </ion-item>
-  </ion-list>
-  <ng-template #noNotificaciones>
+  @if(notificaciones.length > 0) {
+    <ion-list >
+      @for(notificacion of notificaciones; ; track i; let i = $index) {
+        <ion-item [class.leida]="notificacion.leida" (click)="marcarComoLeida(notificacion)">
+          <ion-icon slot="start" [name]="notificacion.leida ? 'mail-open-outline' : 'mail-outline'"></ion-icon>
+          <ion-label>
+            <h2>{{ notificacion.asunto }}</h2>
+            <p>{{ notificacion.mensaje }}</p>
+            <p><small>{{ notificacion.createdAt | date:'short' }}</small></p>
+          </ion-label>
+        </ion-item>
+      }
+    </ion-list>
+  }
+  @else {
     <ion-card>
       <ion-card-content>
         <p>No tienes notificaciones.</p>
       </ion-card-content>
     </ion-card>
-  </ng-template>
+  }
 </ion-content>

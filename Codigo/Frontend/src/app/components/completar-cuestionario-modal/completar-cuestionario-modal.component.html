@@ -8,25 +8,34 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <form [formGroup]="form" *ngIf="cuestionario">
-    <ion-card *ngFor="let pregunta of cuestionario.preguntas; let i = index">
-      <ion-card-header>
-        <ion-card-title>Pregunta {{ i + 1 }}: {{ pregunta.texto }}</ion-card-title>
-        <!-- Aquí se podría añadir un reproductor de audio si pregunta.audioMaterial existe -->
-      </ion-card-header>
-      <ion-card-content>
-        <ion-radio-group [formControlName]="i" class="ion-margin-top">
-          <ion-item *ngFor="let respuesta of pregunta.posiblesRespuestas">
-            <ion-label>{{ respuesta }}</ion-label>
-            <ion-radio [value]="respuesta"></ion-radio>
-          </ion-item>
-        </ion-radio-group>
-      </ion-card-content>
-    </ion-card>
-  </form>
-  <div *ngIf="!cuestionario">
-    <p>Cargando cuestionario...</p>
-  </div>
+  @if(cuestionario){
+    <form [formGroup]="form">
+      @for(pregunta of cuestionario.preguntas; track i; let i = $index) {
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Pregunta {{ i + 1 }}: {{ pregunta.texto }}</ion-card-title>
+            <!-- Aquí se podría añadir un reproductor de audio si pregunta.audioMaterial existe -->
+          </ion-card-header>
+          <ion-card-content>
+            <ion-radio-group [formControlName]="i" class="ion-margin-top">
+              @for(respuesta of pregunta.posiblesRespuestas; track j; let j = $index) {
+                <ion-item>
+                  <ion-label>{{ respuesta }}</ion-label>
+                  <ion-radio [value]="respuesta"></ion-radio>
+                </ion-item>
+              }
+            </ion-radio-group>
+          </ion-card-content>
+        </ion-card>
+      }
+    </form>
+  }
+  @else{
+    <div>
+      <p>Cargando cuestionario...</p>
+    </div>
+  }
+
 </ion-content>
 
 <ion-footer>

@@ -32,6 +32,10 @@ export class UsuarioService {
     return this.http.get<Usuario[]>(this.apiUrl);
   }
 
+  getUsuarioById(id: string): Observable<Usuario> {
+    return this.http.get<Usuario>(`${this.apiUrl}/${id}`);
+  }
+
   enviarCredencialesOlvidadas(email: string): Observable<any> {
     return this.http.post(`${environment.apiUrl}/auth/enviar-credenciales`, { email });
   }

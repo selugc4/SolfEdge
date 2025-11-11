@@ -16,13 +16,19 @@ export class TareaService {
   getTareasByUsuarioAndRama(usuarioId: string, nombreRama: string): Observable<Tarea[]> {
     return this.http.get<Tarea[]>(`${this.apiUrl}/usuario/${usuarioId}/rama/${nombreRama}`);
   }
-
+  getTareaById(id: string): Observable<Tarea> {
+    return this.http.get<Tarea>(`${this.apiUrl}/${id}`);
+  }
   crearTarea(formData: FormData): Observable<Tarea> {
     return this.http.post<Tarea>(this.apiUrl, formData);
   }
 
   deleteTarea(id: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
+  }
+
+  closeTarea(id: string): Observable<any> {
+    return this.http.patch(`${this.apiUrl}/${id}/close`, {});
   }
 
   calificarTarea(id: string, alumnoId: string, nota: number): Observable<Calificacion> {

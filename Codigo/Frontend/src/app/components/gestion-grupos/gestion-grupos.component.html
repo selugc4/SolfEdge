@@ -15,12 +15,15 @@
       <ion-list-header>
         <ion-label>Alumnos Seleccionados</ion-label>
       </ion-list-header>
-      <ion-item *ngFor="let alumno of selectedAlumnos">
-        <ion-label>{{ alumno.username }} ({{ alumno.email }})</ion-label>
-        <ion-button slot="end" fill="clear" color="danger" (click)="removeAlumno(alumno)">
-          <ion-icon name="close-circle-outline"></ion-icon>
-        </ion-button>
-      </ion-item>
+      @for(alumno of selectedAlumnos; ; track i; let i = $index) {
+        <ion-item>
+          <ion-label>{{ alumno.username }} ({{ alumno.email }})</ion-label>
+          <ion-button slot="end" fill="clear" color="danger" (click)="removeAlumno(alumno)">
+            <ion-icon name="close-circle-outline"></ion-icon>
+          </ion-button>
+        </ion-item>
+      }
+
     </ion-list>
 
     <ion-button expand="block" class="ion-margin-top" (click)="crearGrupo()" [disabled]="!nombreGrupo || selectedAlumnos.length === 0">

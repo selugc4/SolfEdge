@@ -1,18 +1,31 @@
-import { HttpEvent, HttpInterceptorFn, HttpHandlerFn, HttpRequest } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpEvent, HttpInterceptorFn, HttpHandlerFn, HttpRequest, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { inject } from '@angular/core';
 import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 export const AuthInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next: HttpHandlerFn): Observable<HttpEvent<any>> => {
   const authService = inject(AuthService);
+  const router = inject(Router);
   const token = authService.getToken();
 
+  let request = req;
+
   if (token) {
-    const cloned = req.clone({
+    request = req.clone({
       headers: req.headers.set('Authorization', 'Bearer ' + token)
     });
-    return next(cloned);
   }
 
-  return next(req);
+  return next(request).pipe(
+    catchError((error: HttpErrorResponse) => {
+      if (error.status === 401) {
+        console.log('401 Unauthorized error caught by interceptor. Logging out and redirecting to login.');
+        authService.logout();
+        router.navigate(['/login']);
+      }
+      return throwError(() => error);
+    })
+  );
 };

@@ -1,0 +1,168 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{ title }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  @if(!selectedGrupo){
+    <div>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Selecciona un grupo</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <p>Por favor, selecciona un grupo en el menú para ver el contenido de esta rama.</p>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  }
+  @else{
+    <div>
+      <!-- Sección del Libro del Curso -->
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Libro del Curso</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          @if(hasLibroDeApoyo){
+            <div>
+              <iframe [src]="pdfUrl" width="100%" height="500px"></iframe>
+              @if(isProfessor){
+                <ion-button expand="block" color="danger" (click)="eliminarLibro()">Eliminar Libro</ion-button>
+              }
+
+            </div>
+          }
+          @else {
+            <p>No hay ningún libro de apoyo cargado.</p>
+          }
+
+          <ion-button expand="block" (click)="fileInput.click()" class="ion-margin-top">
+            <ion-icon slot="start" name="cloud-upload-outline"></ion-icon>
+            Subir o Reemplazar Libro (PDF)
+          </ion-button>
+          <input type="file" #fileInput (change)="onFileSelected($event)" accept=".pdf" hidden>
+        </ion-card-content>
+      </ion-card>
+
+      <!-- Toggle para Tareas/Cuestionarios -->
+      @if(isTeoria && isProfessor){
+      <ion-item>
+        <ion-toggle [(ngModel)]="useCuestionarios" justify="space-between">Usar Cuestionarios</ion-toggle>
+      </ion-item>
+      }
+      <!-- Sección de Tareas -->
+      @if(!useCuestionarios){
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Tareas a Realizar</ion-card-title>
+            @if(isProfessor){
+              <ion-buttons slot="end">
+                <ion-button (click)="presentTareaModal()">
+                  <ion-icon slot="icon-only" name="add"></ion-icon>
+                </ion-button>
+              </ion-buttons>
+            }
+          </ion-card-header>
+          <ion-card-content>
+            @if(tareas.length > 0){
+              <ion-list>
+                @for(tarea of tareas; track i; let i = $index) {
+                  <ion-item [routerLink]="['/tarea-detalle', tarea._id]">
+                    <ion-label>
+                      <h2>{{ tarea.titulo }}</h2>
+                      <p>{{ tarea.descripcion }}</p>
+                    </ion-label>
+                    @if(!isProfessor){
+                      <ion-button fill="clear" slot="end" (click)="presentEntregarTareaModal(tarea._id)">
+                        <ion-icon name="document-text-outline"></ion-icon>
+                      </ion-button>
+                    }
+                    @if(isProfessor) {
+                      <ion-button fill="clear" slot="end" (click)="presentCalificarModal(tarea._id, 'tarea')">
+                        <ion-icon name="ribbon-outline"></ion-icon>
+                      </ion-button>
+                      <ion-button fill="clear" slot="end" (click)="presentTareaModal(tarea)">
+                        <ion-icon name="create-outline"></ion-icon>
+                      </ion-button>
+                      <ion-button fill="clear" slot="end" (click)="deleteTarea(tarea._id)">
+                        <ion-icon name="trash-outline" color="danger"></ion-icon>
+                      </ion-button>
+                    }
+                  </ion-item>
+                }
+
+              </ion-list>
+            }
+            @else{
+              <p>No hay tareas para esta rama.</p>
+            }
+          </ion-card-content>
+        </ion-card>
+      }
+      <!-- FAB para añadir tarea -->
+      @if(isProfessor && !useCuestionarios){
+        <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+          <ion-fab-button (click)="presentTareaModal()">
+            <ion-icon name="add"></ion-icon>
+          </ion-fab-button>
+        </ion-fab>
+      }
+
+      <!-- Sección de Cuestionarios -->
+      @if(useCuestionarios){
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Cuestionarios</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            @if(cuestionarios.length > 0){
+              <ion-list>
+                @for(cuestionario of cuestionarios; track i; let i = $index) {
+                  <ion-item>
+                    <ion-label>
+                      <h2>{{ cuestionario.nombre }}</h2>
+                      <p>Preguntas: {{ cuestionario.preguntas.length }}</p>
+                    </ion-label>
+                    @if(!isProfessor){
+                      <ion-button fill="clear" slot="end" (click)="presentCompletarCuestionarioModal(cuestionario._id)">
+                        <ion-icon name="checkmark-circle-outline"></ion-icon>
+                      </ion-button>
+                    }
+                    @if(isProfessor) {
+                      <ion-button fill="clear" slot="end" (click)="presentCalificarModal(cuestionario._id, 'cuestionario')">
+                        <ion-icon name="ribbon-outline"></ion-icon>
+                      </ion-button>
+                      <ion-button fill="clear" slot="end" (click)="presentCuestionarioModal(cuestionario)">
+                        <ion-icon name="create-outline"></ion-icon>
+                      </ion-button>
+                      <ion-button fill="clear" slot="end" (click)="deleteCuestionario(cuestionario._id)">
+                        <ion-icon name="trash-outline" color="danger"></ion-icon>
+                      </ion-button>
+                    }
+                  </ion-item>
+                }
+              </ion-list>
+            }
+            @else{
+              <p>No hay cuestionarios para esta rama.</p>
+            }
+          </ion-card-content>
+        </ion-card>
+      }
+      <!-- FAB para añadir cuestionario -->
+      @if(isProfessor && useCuestionarios){
+        <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+          <ion-fab-button (click)="presentCuestionarioModal()">
+            <ion-icon name="add"></ion-icon>
+          </ion-fab-button>
+        </ion-fab>
+      }
+    </div>
+  }
+
+</ion-content>

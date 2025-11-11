@@ -44,7 +44,7 @@ export class TareaModalComponent implements OnInit {
       _id: '',
       titulo: '',
       descripcion: '',
-      profesorId: profesorId,
+      profesor: profesorId,
       materialDeApoyo: '',
       cerrada: false,
       rama: this.rama,
@@ -84,7 +84,14 @@ export class TareaModalComponent implements OnInit {
   }
 
   onFileSelected(event: any) {
-    this.selectedFile = event.target.files[0];
+    const file: File = event.target.files[0];
+    if (file && file.type === 'application/pdf') {
+      this.selectedFile = file;
+      this.presentToast('Archivo PDF seleccionado.', 'success');
+    } else {
+      this.selectedFile = null;
+      this.presentToast('Por favor, selecciona un archivo PDF.', 'danger');
+    }
   }
 
   cancel() {
@@ -118,21 +125,6 @@ export class TareaModalComponent implements OnInit {
       if (this.tarea && this.tarea._id) {
         taskData._id = this.tarea._id;
       }
-
-      console.log('Debugging: taskData before FormData append:', taskData);
-      console.log('Debugging: selectedFile before FormData append:', this.selectedFile);
-
-      const formData = new FormData();
-      formData.append('taskData', JSON.stringify(taskData));
-      if (this.selectedFile) {
-        formData.append('materialDeApoyo', this.selectedFile, this.selectedFile.name);
-      }
-
-      // Log FormData contents for debugging
-      console.log('FormData contents:');
-      formData.forEach((value, key) => {
-        console.log(key, value);
-      });
 
       return this.modalCtrl.dismiss({ taskData: JSON.stringify(taskData), selectedFile: this.selectedFile }, 'confirm');
     }

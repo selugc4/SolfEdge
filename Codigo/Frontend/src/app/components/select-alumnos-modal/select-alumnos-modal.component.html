@@ -17,16 +17,19 @@
     <ion-item *ngIf="filteredAlumnos.length === 0">
       <ion-label>No se encontraron alumnos.</ion-label>
     </ion-item>
-    <ion-item *ngFor="let alumno of filteredAlumnos">
-      <ion-checkbox
-        slot="start"
-        [checked]="isAlumnoSelected(alumno)"
-        (ionChange)="toggleAlumnoSelection(alumno)"
-      ></ion-checkbox>
-      <ion-label>
-        <h2>{{ alumno.username }}</h2>
-        <p>{{ alumno.email }}</p>
-      </ion-label>
-    </ion-item>
+    @for(alumno of filteredAlumnos; track i; let i = $index) {
+      <ion-item>
+        <ion-checkbox
+          slot="start"
+          [checked]="isAlumnoSelected(alumno)"
+          (ionChange)="toggleAlumnoSelection(alumno)"
+        ></ion-checkbox>
+        <ion-label>
+          <h2>{{ alumno.username }}</h2>
+          <p>{{ alumno.email }}</p>
+        </ion-label>
+      </ion-item>
+    }
+
   </ion-list>
 </ion-content>

@@ -21,7 +21,10 @@
     <ion-button expand="block" (click)="uploadMaterial()" [disabled]="!selectedFile" class="ion-margin-top">
       Subir Archivo
     </ion-button>
-    <p *ngIf="materialEntregadoId">Archivo subido: {{ materialEntregadoId }}</p>
+    @if (materialEntregadoId) {
+      <p>Archivo subido: {{ materialEntregadoId }}</p>
+    }
+
   </form>
 </ion-content>
 

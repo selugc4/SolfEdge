@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tab1"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Detalle de Tarea</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card *ngIf="tarea">
+    <ion-card-header>
+      <ion-card-title>{{ tarea.titulo }}</ion-card-title>
+      <ion-card-subtitle>Rama: {{ tarea.rama }}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <p><strong>Descripción:</strong> {{ tarea.descripcion }}</p>
+      <p><strong>Profesor:</strong> {{ profesorNombre || 'Cargando...' }}</p>
+      <p><strong>Alumnos asignados:</strong></p>
+      <ul>
+        @for(alumnoId of tarea.alumnos ; track i; let i = $index) {
+          <li>{{ alumnoId }}</li>
+        }
+      </ul>
+
+      @if(pdfUrl){
+        <div class="pdf-viewer-container">
+          <h3>Material de Apoyo (PDF)</h3>
+          <iframe [src]="pdfUrl" width="100%" height="500px" frameborder="0"></iframe>
+        </div>
+      }
+      @if(!pdfUrl && tarea.materialDeApoyo){
+        <div>
+          <p>No se pudo cargar el PDF o el formato no es compatible.</p>
+        </div>
+      }
+      @if(!tarea.materialDeApoyo){
+        <div>
+          <p>No hay material de apoyo asociado a esta tarea.</p>
+        </div>
+      }
+      @if(isProfessor && tarea && !tarea.cerrada){
+        <div class="ion-margin-top">
+          <ion-button expand="block" color="warning" (click)="closeTarea()">
+            Cerrar Tarea
+          </ion-button>
+        </div>
+      }
+      @if(isProfessor && tarea){
+        <div class="ion-margin-top">
+          <ion-button expand="block" color="danger" (click)="deleteTarea()">
+            Eliminar Tarea
+          </ion-button>
+        </div>
+      }
+
+    </ion-card-content>
+  </ion-card>
+  @if(!tarea){
+    <div>
+      <p>Cargando detalles de la tarea...</p>
+    </div>
+  }
+</ion-content>

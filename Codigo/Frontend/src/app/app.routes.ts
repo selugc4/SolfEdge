@@ -26,6 +26,11 @@ export const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'tarea-detalle/:id',
+    loadComponent: () => import('./pages/tarea-detalle/tarea-detalle.page').then( m => m.TareaDetallePage),
+    canActivate: [AuthGuard]
+  },
+  {
     path: '',
     redirectTo: 'login',
     pathMatch: 'full'

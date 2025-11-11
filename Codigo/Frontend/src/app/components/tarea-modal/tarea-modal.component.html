@@ -21,15 +21,16 @@
 
     <ion-item *ngIf="currentGroup && studentsInSelectedGroups.length > 0">
       <ion-select label="Alumnos del Grupo" multiple="true" formControlName="selectedStudentsFromGroups" (ionChange)="onStudentsFromGroupsChange($event)">
-        <ion-select-option *ngFor="let alumno of studentsInSelectedGroups" [value]="alumno._id">{{ alumno.username }}</ion-select-option>
+        @for(alumno of studentsInSelectedGroups; ; track i; let i = $index) {
+          <ion-select-option [value]="alumno._id">{{ alumno.username }}</ion-select-option>
+        }
+
       </ion-select>
     </ion-item>
 
     <ion-item>
-      <ion-input type="file" (change)="onFileSelected($event)"></ion-input>
+      <ion-input type="file" (change)="onFileSelected($event)" accept="application/pdf"></ion-input>
     </ion-item>
-
-    <ion-button expand="full" type="submit" class="ion-margin-top">Guardar Tarea</ion-button>
   </form>
 </ion-content>
 
