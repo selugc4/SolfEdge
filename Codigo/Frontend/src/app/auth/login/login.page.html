@@ -10,17 +10,21 @@
       <ion-label position="floating">Usuario</ion-label>
       <ion-input formControlName="username" type="text" required></ion-input>
     </ion-item>
-    <div *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched" class="error-message">
-      El nombre de usuario es requerido.
-    </div>
+    @if(loginForm.get('username')?.invalid && loginForm.get('username')?.touched){
+      <div class="error-message">
+        El nombre de usuario es requerido.
+      </div>
+    }
 
     <ion-item>
       <ion-label position="floating">Contraseña</ion-label>
       <ion-input formControlName="password" type="password" required></ion-input>
     </ion-item>
-    <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="error-message">
-      La contraseña es requerida.
-    </div>
+    @if(loginForm.get('password')?.invalid && loginForm.get('password')?.touched){
+      <div class="error-message">
+        La contraseña es requerida.
+      </div>
+    }
 
     <ion-button expand="block" type="submit" [disabled]="loginForm.invalid" class="ion-margin-top">
       Entrar

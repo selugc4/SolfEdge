@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
-import { IonicModule, NavController, AlertController, ToastController } from '@ionic/angular';
+import { IonicModule, AlertController, ToastController } from '@ionic/angular';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { UsuarioService } from '../../services/usuario.service';
