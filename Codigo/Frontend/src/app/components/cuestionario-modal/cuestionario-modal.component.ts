@@ -1,16 +1,17 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormControl, Validators, FormArray, FormBuilder } from '@angular/forms';
-import { IonicModule, ModalController, ToastController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import { Cuestionario } from '../../models/cuestionario.model';
 import { Usuario } from '../../models/usuario.model';
 import { RamaConfigService } from '../../services/rama-config.service';
+import { IonHeader, IonToolbar, IonButtons, IonTitle, IonButton, IonContent, IonItem, IonLabel, IonSelectOption, IonListHeader, IonIcon, IonCardHeader, IonCardTitle, IonCardContent, IonFooter } from "@ionic/angular/standalone";
 
 @Component({
   selector: 'app-cuestionario-modal',
   templateUrl: './cuestionario-modal.component.html',
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule, ReactiveFormsModule]
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, IonHeader, IonToolbar, IonButtons, IonTitle, IonButton, IonContent, IonItem, IonLabel, IonSelectOption, IonListHeader, IonIcon, IonCardHeader, IonCardTitle, IonCardContent, IonFooter]
 })
 export class CuestionarioModalComponent implements OnInit {
   @Input() cuestionario: Cuestionario | null = null;

@@ -1,20 +1,20 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule, ModalController, ToastController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import { SelectAlumnosModalComponent } from '../select-alumnos-modal/select-alumnos-modal.component';
 import { Usuario } from '../../models/usuario.model';
 import { GrupoService } from '../../services/grupo.service';
-import { Grupo } from '../../models/grupo.model';
 import { GrupoStateService } from '../../services/grupo-state.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { IonCard, IonCardTitle, IonCardHeader, IonCardContent, IonItem, IonButton, IonList, IonListHeader, IonLabel, IonIcon } from "@ionic/angular/standalone";
 
 @Component({
   selector: 'app-gestion-grupos',
   templateUrl: './gestion-grupos.component.html',
   styleUrls: ['./gestion-grupos.component.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule]
+  imports: [CommonModule, FormsModule, IonCard, IonCardTitle, IonCardHeader, IonCardContent, IonItem, IonButton, IonList, IonListHeader, IonLabel, IonIcon]
 })
 export class GestionGruposComponent implements OnInit {
   nombreGrupo: string = '';

@@ -1,15 +1,16 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormControl, Validators, FormArray, FormBuilder } from '@angular/forms';
-import { IonicModule, ModalController, ToastController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import { Cuestionario } from '../../models/cuestionario.model';
 import { CuestionarioService } from '../../services/cuestionario.service';
+import { IonHeader, IonToolbar, IonTitle, IonButton, IonButtons, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonItem, IonLabel, IonRadio, IonFooter } from "@ionic/angular/standalone";
 
 @Component({
   selector: 'app-completar-cuestionario-modal',
   templateUrl: './completar-cuestionario-modal.component.html',
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule, ReactiveFormsModule]
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, IonHeader, IonToolbar, IonTitle, IonButton, IonButtons, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonItem, IonLabel, IonRadio, IonFooter]
 })
 export class CompletarCuestionarioModalComponent implements OnInit {
   @Input() cuestionarioId: string = '';

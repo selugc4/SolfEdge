@@ -6,20 +6,15 @@
 
 <ion-content class="ion-padding">
   <form [formGroup]="loginForm" (ngSubmit)="login()">
-    <ion-item>
       <ion-label position="floating">Usuario</ion-label>
       <ion-input formControlName="username" type="text" required></ion-input>
-    </ion-item>
     @if(loginForm.get('username')?.invalid && loginForm.get('username')?.touched){
       <div class="error-message">
         El nombre de usuario es requerido.
       </div>
     }
-
-    <ion-item>
       <ion-label position="floating">Contraseña</ion-label>
       <ion-input formControlName="password" type="password" required></ion-input>
-    </ion-item>
     @if(loginForm.get('password')?.invalid && loginForm.get('password')?.touched){
       <div class="error-message">
         La contraseña es requerida.

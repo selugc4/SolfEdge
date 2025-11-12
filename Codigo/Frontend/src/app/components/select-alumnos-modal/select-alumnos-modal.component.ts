@@ -1,16 +1,17 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule, ModalController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import { AuthService } from '../../services/auth.service';
 import { Usuario } from '../../models/usuario.model';
+import { IonHeader, IonButtons, IonToolbar, IonButton, IonTitle, IonContent, IonItem, IonList, IonLabel, IonCheckbox } from "@ionic/angular/standalone";
 
 @Component({
   selector: 'app-select-alumnos-modal',
   templateUrl: './select-alumnos-modal.component.html',
   styleUrls: ['./select-alumnos-modal.component.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, IonicModule]
+  imports: [CommonModule, FormsModule, IonHeader, IonButtons, IonToolbar, IonButton, IonTitle, IonContent, IonItem, IonList, IonLabel, IonCheckbox]
 })
 export class SelectAlumnosModalComponent implements OnInit {
   alumnos: Usuario[] = [];
