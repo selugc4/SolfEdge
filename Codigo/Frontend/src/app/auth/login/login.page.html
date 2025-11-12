@@ -7,8 +7,8 @@
 <ion-content class="ion-padding">
   <form [formGroup]="loginForm" (ngSubmit)="login()">
     <ion-item>
-      <label position="floating">Usuario</label>
-      <input formControlName="username" type="text" required>
+      <ion-label>Usuario</ion-label>
+      <ion-input formControlName="username" type="text" required></ion-input>
     </ion-item>
     @if(loginForm.get('username')?.invalid && loginForm.get('username')?.touched){
       <div class="error-message">
@@ -17,8 +17,8 @@
     }
 
     <ion-item>
-      <label position="floating">Contraseña</label>
-      <input formControlName="password" type="password" required>
+      <ion-label>Contraseña</ion-label>
+      <ion-input formControlName="password" type="password" required></ion-input>
     </ion-item>
     @if(loginForm.get('password')?.invalid && loginForm.get('password')?.touched){
       <div class="error-message">
