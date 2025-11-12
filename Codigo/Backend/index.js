@@ -22,7 +22,7 @@ app.use(express.json());
 app.use(cors({
   origin: [
     "http://localhost:8100",
-    "https://selugc4.github.io/RitmoApp/"
+    "https://selugc4.github.io"
   ],
   credentials: true
 }));
