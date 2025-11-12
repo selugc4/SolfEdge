@@ -1,17 +1,18 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
-import { IonicModule, AlertController, ToastController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { UsuarioService } from '../../services/usuario.service';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonLabel, IonButton } from "@ionic/angular/standalone";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule, ReactiveFormsModule]
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonLabel, IonButton]
 })
 export class LoginPage implements OnInit {
   loginForm: FormGroup;
@@ -29,7 +30,6 @@ export class LoginPage implements OnInit {
   }
 
   ngOnInit() {}
-
   async login() {
     if (!this.loginForm.valid) {
       return;

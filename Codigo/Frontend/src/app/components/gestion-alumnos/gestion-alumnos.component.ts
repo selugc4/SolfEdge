@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
-import { IonicModule, AlertController, ToastController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import { UsuarioService } from '../../services/usuario.service';
+import { IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonItem, IonLabel, IonButton } from "@ionic/angular/standalone";
 
 @Component({
   selector: 'app-gestion-alumnos',
   templateUrl: './gestion-alumnos.component.html',
   styleUrls: ['./gestion-alumnos.component.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule, ReactiveFormsModule]
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonItem, IonLabel, IonButton]
 })
 export class GestionAlumnosComponent implements OnInit {
   studentForm: FormGroup;
