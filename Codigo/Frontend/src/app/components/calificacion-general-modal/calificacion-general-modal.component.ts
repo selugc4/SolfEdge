@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { ModalController, ToastController } from '@ionic/angular';
-import { IonHeader, IonTitle, IonButton, IonButtons, IonToolbar, IonLabel, IonContent, IonItem, IonFooter } from "@ionic/angular/standalone";
+import { IonHeader, IonTitle, IonButton, IonButtons, IonToolbar, IonLabel, IonContent, IonItem, IonFooter, IonInput} from "@ionic/angular/standalone";
 
 @Component({
   selector: 'app-calificacion-general-modal',
   templateUrl: './calificacion-general-modal.component.html',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, IonHeader, IonTitle, IonButton, IonButtons, IonToolbar, IonLabel, IonContent, IonItem, IonFooter]
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, IonHeader, IonTitle, IonButton, IonButtons, IonToolbar, IonLabel, IonContent, IonItem, IonFooter, IonInput]
 })
 export class CalificacionGeneralModalComponent implements OnInit {
   form: FormGroup;

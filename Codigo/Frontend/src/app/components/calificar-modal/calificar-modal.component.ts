@@ -2,13 +2,13 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { ModalController, ToastController } from '@ionic/angular';
-import { IonHeader, IonToolbar, IonButtons, IonTitle, IonButton, IonContent, IonLabel, IonItem, IonFooter } from "@ionic/angular/standalone";
+import { IonHeader, IonToolbar, IonButtons, IonTitle, IonButton, IonContent, IonLabel, IonItem, IonFooter, IonInput } from "@ionic/angular/standalone";
 
 @Component({
   selector: 'app-calificar-modal',
   templateUrl: './calificar-modal.component.html',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, IonHeader, IonToolbar, IonButtons, IonTitle, IonButton, IonContent, IonLabel, IonItem, IonFooter]
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, IonHeader, IonToolbar, IonButtons, IonTitle, IonButton, IonContent, IonLabel, IonItem, IonFooter, IonInput]
 })
 export class CalificarModalComponent implements OnInit {
   @Input() itemId: string = ''; // ID de la tarea o cuestionario

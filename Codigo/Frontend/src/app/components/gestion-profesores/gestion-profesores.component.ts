@@ -3,14 +3,14 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { AlertController, ToastController } from '@ionic/angular';
 import { UsuarioService } from '../../services/usuario.service';
-import { IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonItem, IonLabel, IonButton } from "@ionic/angular/standalone";
+import { IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonItem, IonLabel, IonButton, IonInput } from "@ionic/angular/standalone";
 
 @Component({
   selector: 'app-gestion-profesores',
   templateUrl: './gestion-profesores.component.html',
   styleUrls: ['./gestion-profesores.component.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonItem, IonLabel, IonButton]
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonItem, IonLabel, IonButton, IonInput]
 })
 export class GestionProfesoresComponent implements OnInit {
   professorForm: FormGroup;
