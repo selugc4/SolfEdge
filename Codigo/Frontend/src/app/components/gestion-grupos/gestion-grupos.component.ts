@@ -7,14 +7,14 @@ import { Usuario } from '../../models/usuario.model';
 import { GrupoService } from '../../services/grupo.service';
 import { GrupoStateService } from '../../services/grupo-state.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { IonCard, IonCardTitle, IonCardHeader, IonCardContent, IonItem, IonButton, IonList, IonListHeader, IonLabel, IonIcon } from "@ionic/angular/standalone";
+import { IonCard, IonCardTitle, IonCardHeader, IonCardContent, IonItem, IonButton, IonList, IonListHeader, IonLabel, IonIcon, IonInput} from "@ionic/angular/standalone";
 
 @Component({
   selector: 'app-gestion-grupos',
   templateUrl: './gestion-grupos.component.html',
   styleUrls: ['./gestion-grupos.component.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, IonCard, IonCardTitle, IonCardHeader, IonCardContent, IonItem, IonButton, IonList, IonListHeader, IonLabel, IonIcon]
+  imports: [CommonModule, FormsModule, IonCard, IonCardTitle, IonCardHeader, IonCardContent, IonItem, IonButton, IonList, IonListHeader, IonLabel, IonIcon, IonInput]
 })
 export class GestionGruposComponent implements OnInit {
   nombreGrupo: string = '';
