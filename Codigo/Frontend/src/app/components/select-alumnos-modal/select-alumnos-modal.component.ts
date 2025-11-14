@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
+import { UsuarioService } from '../../services/usuario.service';
 import { Usuario } from '../../models/usuario.model';
 import { IonHeader, IonButtons, IonToolbar, IonButton, IonTitle, IonContent, IonItem, IonList, IonLabel, IonCheckbox, ModalController } from "@ionic/angular/standalone";
 
@@ -18,7 +18,7 @@ export class SelectAlumnosModalComponent implements OnInit {
   selectedAlumnos: Usuario[] = [];
   searchTerm: string = '';
 
-  private authService = inject(AuthService);
+  private usuarioService = inject(UsuarioService);
   private modalController = inject(ModalController);
 
   ngOnInit() {
@@ -26,7 +26,7 @@ export class SelectAlumnosModalComponent implements OnInit {
   }
 
   loadAlumnos() {
-    this.authService.getAllAlumnos().subscribe({
+    this.usuarioService.getAllAlumnos().subscribe({
       next: (alumnos) => {
         this.alumnos = alumnos;
         this.filteredAlumnos = [...this.alumnos];

@@ -22,6 +22,11 @@ const usuarioSchema = new Schema({
     type: String,
     required: true,
     enum: ['alumno', 'profesor', 'administrador']
+  },
+  profesorId: {
+    type: Schema.Types.ObjectId,
+    ref: 'Usuario',
+    required: false
   }
 }, {
   timestamps: true

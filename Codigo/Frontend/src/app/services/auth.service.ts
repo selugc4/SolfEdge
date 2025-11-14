@@ -67,11 +67,4 @@ export class AuthService {
   public get currentUserValue(): Usuario | null {
     return this.currentUserSubject.value;
   }
-
-  getAllAlumnos(): Observable<Usuario[]> {
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.getToken()}`
-    });
-    return this.http.get<Usuario[]>(`${this.apiUrl}/usuarios/alumnos/all`, { headers });
-  }
 }

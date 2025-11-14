@@ -40,5 +40,9 @@ export class UsuarioService {
     return this.http.post(`${environment.apiUrl}/auth/enviar-credenciales`, { email });
   }
 
+  getAllAlumnos(): Observable<Usuario[]> {
+    return this.http.get<Usuario[]>(`${this.apiUrl}/alumnos/all`);
+  }
+
   // Aquí se podrían añadir más métodos para gestionar usuarios (obtener, eliminar, etc.)
 }

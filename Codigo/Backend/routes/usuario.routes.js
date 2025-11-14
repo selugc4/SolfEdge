@@ -55,7 +55,7 @@ const usuarioController = require('../controllers/usuario.controller');
  *         description: Error interno del servidor.
  */
 router.post('/alumnos', async (req, res) => {
-    const result = await usuarioController.addUsuarios(req.body, 'alumno');
+    const result = await usuarioController.addUsuarios(req.body, 'alumno', req.userId);
     res.status(result.status).json(result.body);
 });
 /**
@@ -162,7 +162,7 @@ router.get('/:id', async (req, res) => {
  *         description: Error interno del servidor.
  */
 router.get('/alumnos/all', async (req, res) => {
-    const result = await usuarioController.getAllAlumnos();
+    const result = await usuarioController.getAllAlumnos(req.userId);
     res.status(result.status).json(result.body);
 });
 

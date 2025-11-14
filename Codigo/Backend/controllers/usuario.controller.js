@@ -29,7 +29,7 @@ const generarPassword = async () => {
     }
 };
 
-exports.addUsuarios = async (usersData, role) => {
+exports.addUsuarios = async (usersData, role, creatorId) => {
     try {
         if (!['alumno', 'profesor'].includes(role)) {
             return { status: 400, body: { error: 'Rol no válido. Debe ser \'alumno\' o \'profesor\'.' } };
@@ -48,12 +48,18 @@ exports.addUsuarios = async (usersData, role) => {
             const passwordResult = await generarPassword();
             if (passwordResult.error) return { status: 500, body: passwordResult };
             
-            newUsers.push({
+            const newUser = {
                 ...userData,
                 username: usernameResult.username,
                 password: passwordResult.password,
                 role
-            });
+            };
+
+            if (role === 'alumno' && creatorId) {
+                newUser.profesorId = creatorId;
+            }
+
+            newUsers.push(newUser);
         }
 
         const createdUsers = await Usuario.insertMany(newUsers);
@@ -117,9 +123,9 @@ exports.getUsuarioById = async (id) => {
     }
 };
 
-exports.getAllAlumnos = async () => {
+exports.getAllAlumnos = async (profesorId) => {
     try {
-        const alumnos = await Usuario.find({ role: 'alumno' });
+        const alumnos = await Usuario.find({ role: 'alumno', profesorId: profesorId });
         return { status: 200, body: alumnos };
     } catch (error) {
         return { status: 500, body: { error: `Error interno del servidor: ${error.message}` } };
