@@ -14,9 +14,11 @@
   <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="filterAlumnos()" placeholder="Buscar alumnos"></ion-searchbar>
 
   <ion-list>
-    <ion-item *ngIf="filteredAlumnos.length === 0">
-      <ion-label>No se encontraron alumnos.</ion-label>
-    </ion-item>
+    @if(filteredAlumnos.length === 0){
+      <ion-item>
+        <ion-label>No se encontraron alumnos.</ion-label>
+      </ion-item>
+    }
     @for(alumno of filteredAlumnos; track i; let i = $index) {
       <ion-item>
         <ion-checkbox

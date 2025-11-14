@@ -33,18 +33,22 @@
       <ion-card-title>Mis Mensajes</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <ion-list *ngIf="mensajes.length > 0; else noMensajes">
-        <ion-item *ngFor="let mensaje of mensajes">
-          <ion-label>
-            <h2>{{ mensaje.asunto }}</h2>
-            <p>{{ mensaje.texto }}</p>
-            <p><small>De: {{ mensaje.profesor }}</small></p>
-          </ion-label>
-        </ion-item>
-      </ion-list>
-      <ng-template #noMensajes>
+      @if(mensajes.length > 0){
+        <ion-list>
+          @for(mensaje of mensajes; track i; let i = $index){
+            <ion-item>
+              <ion-label>
+                <h2>{{ mensaje.asunto }}</h2>
+                <p>{{ mensaje.texto }}</p>
+                <p><small>De: {{ mensaje.profesor }}</small></p>
+              </ion-label>
+            </ion-item>
+          }
+        </ion-list>
+      }
+      @else {
         <p>No tienes mensajes.</p>
-      </ng-template>
+      }
     </ion-card-content>
   </ion-card>
 

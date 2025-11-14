@@ -6,31 +6,37 @@
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding">
-      <ion-item button (click)="openGroupSelect()" *ngIf="!isAdministrator">
-        <ion-icon name="people-sharp" slot="start"></ion-icon>
-        <ion-label>Grupo</ion-label>
-        <div slot="end">{{ selectedGrupo?.nombre }}</div>
-      </ion-item>
+      @if(!isAdministrator){
+        <ion-item button (click)="openGroupSelect()">
+          <ion-icon name="people-sharp" slot="start"></ion-icon>
+          <ion-label>Grupo</ion-label>
+          <div slot="end">{{ selectedGrupo?.nombre }}</div>
+        </ion-item>
+      }
       <ion-select #groupSelect [(ngModel)]="selectedGrupo" (ionChange)="onGrupoChange($event)" [compareWith]="compareGrupos" style="display: none;">
-        <ion-select-option *ngFor="let grupo of grupos" [value]="grupo">{{ grupo.nombre }}</ion-select-option>
+        @for(grupo of grupos; track i; let i = $index){
+          <ion-select-option [value]="grupo">{{ grupo.nombre }}</ion-select-option>
+        }
       </ion-select>
       <ion-menu-toggle auto-hide="false">
-        <ion-item button [routerLink]="['/admin']" routerDirection="root" *ngIf="isAdministrator">
+        @if(isAdministrator){
+          <ion-item button [routerLink]="['/admin']" routerDirection="root">
+            <ion-icon name="briefcase-sharp" slot="start"></ion-icon>
+            <ion-label>Administración</ion-label>
+          </ion-item>
+        }
+        @if(isAdminOrProfessor && !isAdministrator){
+        <ion-item button [routerLink]="['/tabs/professor-admin']" routerDirection="root">
           <ion-icon name="briefcase-sharp" slot="start"></ion-icon>
           <ion-label>Administración</ion-label>
         </ion-item>
-        <ion-item button [routerLink]="['/admin']" routerDirection="root" *ngIf="isAdministrator">
-          <ion-icon name="briefcase-sharp" slot="start"></ion-icon>
-          <ion-label>Administración</ion-label>
-        </ion-item>
-        <ion-item button [routerLink]="['/tabs/professor-admin']" routerDirection="root" *ngIf="isAdminOrProfessor && !isAdministrator">
-          <ion-icon name="briefcase-sharp" slot="start"></ion-icon>
-          <ion-label>Administración</ion-label>
-        </ion-item>
-        <ion-item button [routerLink]="['/notificaciones']" routerDirection="root" *ngIf="!isAdministrator">
-          <ion-icon name="notifications-sharp" slot="start"></ion-icon>
-          <ion-label>Notificaciones</ion-label>
-        </ion-item>
+        }
+        @if(!isAdministrator){
+          <ion-item button [routerLink]="['/notificaciones']" routerDirection="root">
+            <ion-icon name="notifications-sharp" slot="start"></ion-icon>
+            <ion-label>Notificaciones</ion-label>
+          </ion-item>
+        }
         <ion-item button (click)="logout()">
           <ion-icon name="log-out-sharp" slot="start"></ion-icon>
           <ion-label>Cerrar Sesión</ion-label>

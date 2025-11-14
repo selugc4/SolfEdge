@@ -9,28 +9,32 @@
 
 <ion-content class="ion-padding">
   <!-- Sección para Administradores -->
-  <div *ngIf="userRole === 'administrador'">
-    <app-gestion-profesores></app-gestion-profesores>
-  </div>
-
+  @if(userRole === 'administrador'){
+    <div>
+      <app-gestion-profesores></app-gestion-profesores>
+    </div>
+  }
   <!-- Sección para Profesores -->
-  <div *ngIf="userRole === 'profesor'">
-    <app-gestion-alumnos></app-gestion-alumnos>
-    <app-gestion-grupos></app-gestion-grupos>
-    <ion-card>
-      <ion-card-header>
-        <ion-card-title>Comunicación</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <ion-button expand="block" (click)="presentMensajeModal()">
-          <ion-icon slot="start" name="send-outline"></ion-icon>
-          Enviar Mensaje a Alumnos
-        </ion-button>
-        <ion-button expand="block" (click)="presentCalificacionGeneralModal()" class="ion-margin-top">
-          <ion-icon slot="start" name="ribbon-outline"></ion-icon>
-          Adjuntar Calificación General
-        </ion-button>
-      </ion-card-content>
-    </ion-card>
-  </div>
+  @if(userRole === 'profesor'){
+    <div>
+      <app-gestion-alumnos></app-gestion-alumnos>
+      <app-gestion-grupos></app-gestion-grupos>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Comunicación</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-button expand="block" (click)="presentMensajeModal()">
+            <ion-icon slot="start" name="send-outline"></ion-icon>
+            Enviar Mensaje a Alumnos
+          </ion-button>
+          <ion-button expand="block" (click)="presentCalificacionGeneralModal()" class="ion-margin-top">
+            <ion-icon slot="start" name="ribbon-outline"></ion-icon>
+            Adjuntar Calificación General
+          </ion-button>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  }
+
 </ion-content>

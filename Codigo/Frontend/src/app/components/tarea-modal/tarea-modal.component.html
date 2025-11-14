@@ -18,16 +18,16 @@
       <ion-label position="floating">Descripción</ion-label>
       <ion-textarea formControlName="descripcion"></ion-textarea>
     </ion-item>
+    @if(currentGroup && studentsInSelectedGroups.length > 0){
+      <ion-item>
+        <ion-select label="Alumnos del Grupo" multiple="true" formControlName="selectedStudentsFromGroups" (ionChange)="onStudentsFromGroupsChange($event)">
+          @for(alumno of studentsInSelectedGroups; ; track i; let i = $index) {
+            <ion-select-option [value]="alumno._id">{{ alumno.username }}</ion-select-option>
+          }
 
-    <ion-item *ngIf="currentGroup && studentsInSelectedGroups.length > 0">
-      <ion-select label="Alumnos del Grupo" multiple="true" formControlName="selectedStudentsFromGroups" (ionChange)="onStudentsFromGroupsChange($event)">
-        @for(alumno of studentsInSelectedGroups; ; track i; let i = $index) {
-          <ion-select-option [value]="alumno._id">{{ alumno.username }}</ion-select-option>
-        }
-
-      </ion-select>
-    </ion-item>
-
+        </ion-select>
+      </ion-item>
+    }
     <ion-item>
       <ion-input type="file" (change)="onFileSelected($event)" accept="application/pdf"></ion-input>
     </ion-item>
