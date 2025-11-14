@@ -1,7 +1,6 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
-import { ModalController, ToastController } from '@ionic/angular';
 import { Tarea } from '../../models/tarea.model';
 import { Usuario } from '../../models/usuario.model';
 import { Grupo } from '../../models/grupo.model';
@@ -10,7 +9,7 @@ import { AuthService } from '../../services/auth.service';
 import { UsuarioService } from '../../services/usuario.service';
 import { GrupoService } from '../../services/grupo.service';
 import { TareaService } from 'src/app/services/tarea.service';
-import { IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent, IonItem, IonLabel, IonSelectOption, IonInput, IonFooter } from "@ionic/angular/standalone";
+import { IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent, IonItem, IonLabel, IonSelectOption, IonInput, IonFooter, ModalController, ToastController } from "@ionic/angular/standalone";
 
 @Component({
   selector: 'app-tarea-modal',

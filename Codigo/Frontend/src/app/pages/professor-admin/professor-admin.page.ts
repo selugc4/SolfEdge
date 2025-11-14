@@ -15,7 +15,7 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './professor-admin.page.html',
   styleUrls: ['./professor-admin.page.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, GestionAlumnosComponent, GestionGruposComponent, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, IonCard, IonCardTitle, IonCardHeader, IonCardContent, IonButton, IonIcon]
+  imports: [ CommonModule, FormsModule, GestionAlumnosComponent, GestionGruposComponent, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, IonCard, IonCardTitle, IonCardHeader, IonCardContent, IonButton, IonIcon]
 })
 export class ProfessorAdminPage implements OnInit {
   userId: string | null = null;

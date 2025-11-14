@@ -1,10 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormControl, Validators, FormArray, FormBuilder } from '@angular/forms';
-import { ModalController, ToastController } from '@ionic/angular';
 import { Cuestionario } from '../../models/cuestionario.model';
 import { CuestionarioService } from '../../services/cuestionario.service';
-import { IonHeader, IonToolbar, IonTitle, IonButton, IonButtons, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonItem, IonLabel, IonRadio, IonFooter } from "@ionic/angular/standalone";
+import { IonHeader, IonToolbar, IonTitle, IonButton, IonButtons, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonItem, IonLabel, IonRadio, IonFooter, ModalController, ToastController } from "@ionic/angular/standalone";
 
 @Component({
   selector: 'app-completar-cuestionario-modal',
@@ -16,12 +15,11 @@ export class CompletarCuestionarioModalComponent implements OnInit {
   @Input() cuestionarioId: string = '';
   cuestionario!: Cuestionario;
   form: FormGroup;
-
+  modalCtrl: ModalController = inject(ModalController);
+  toastCtrl: ToastController = inject(ToastController);
+  fb: FormBuilder = inject(FormBuilder);
+  cuestionarioService: CuestionarioService = inject(CuestionarioService);
   constructor(
-    private modalCtrl: ModalController,
-    private toastCtrl: ToastController,
-    private fb: FormBuilder,
-    private cuestionarioService: CuestionarioService
   ) {
     this.form = this.fb.group({
       respuestas: this.fb.array([])

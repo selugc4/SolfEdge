@@ -1,11 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormControl, Validators, FormArray, FormBuilder } from '@angular/forms';
-import { ModalController, ToastController } from '@ionic/angular';
 import { Cuestionario } from '../../models/cuestionario.model';
 import { Usuario } from '../../models/usuario.model';
 import { RamaConfigService } from '../../services/rama-config.service';
-import { IonHeader, IonToolbar, IonButtons, IonTitle, IonButton, IonContent, IonItem, IonLabel, IonSelectOption, IonListHeader, IonIcon, IonCardHeader, IonCardTitle, IonCardContent, IonFooter, IonInput } from "@ionic/angular/standalone";
+import { IonHeader, IonToolbar, IonButtons, IonTitle, IonButton, IonContent, IonItem, IonLabel, IonSelectOption, IonListHeader, IonIcon, IonCardHeader, IonCardTitle, IonCardContent, IonFooter, IonInput, ModalController, ToastController } from "@ionic/angular/standalone";
 
 @Component({
   selector: 'app-cuestionario-modal',
@@ -17,13 +16,13 @@ export class CuestionarioModalComponent implements OnInit {
   @Input() cuestionario: Cuestionario | null = null;
   @Input() rama: string = 'Teoría';
   @Input() alumnos: Usuario[] = [];
+  modalCtrl: ModalController = inject(ModalController);
+  toastCtrl: ToastController = inject(ToastController);
+  ramaConfigService: RamaConfigService = inject(RamaConfigService);
+  fb = inject(FormBuilder);
   form: FormGroup;
 
   constructor(
-    private modalCtrl: ModalController,
-    private toastCtrl: ToastController,
-    private fb: FormBuilder,
-    private ramaConfigService: RamaConfigService
   ) {
     this.form = this.fb.group({
       nombre: new FormControl('', [Validators.required]),

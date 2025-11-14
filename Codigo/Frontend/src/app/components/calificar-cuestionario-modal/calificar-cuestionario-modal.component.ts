@@ -1,8 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
-import { ModalController, ToastController } from '@ionic/angular';
-import { IonHeader, IonToolbar, IonButtons, IonTitle, IonButton, IonContent, IonItem, IonLabel, IonFooter, IonInput} from "@ionic/angular/standalone";
+import { IonHeader, IonToolbar, IonButtons, IonTitle, IonButton, IonContent, IonItem, IonLabel, IonFooter, IonInput, ModalController, ToastController} from "@ionic/angular/standalone";
 
 @Component({
   selector: 'app-calificar-cuestionario-modal',
@@ -13,10 +12,9 @@ import { IonHeader, IonToolbar, IonButtons, IonTitle, IonButton, IonContent, Ion
 export class CalificarCuestionarioModalComponent implements OnInit {
   @Input() cuestionarioId: string = '';
   form: FormGroup;
-
+  modalCtrl: ModalController = inject(ModalController);
+  toastCtrl: ToastController = inject(ToastController);
   constructor(
-    private modalCtrl: ModalController,
-    private toastCtrl: ToastController
   ) {
     this.form = new FormGroup({
       alumnoId: new FormControl('', [Validators.required]),

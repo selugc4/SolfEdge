@@ -1,10 +1,9 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ModalController } from '@ionic/angular';
 import { AuthService } from '../../services/auth.service';
 import { Usuario } from '../../models/usuario.model';
-import { IonHeader, IonButtons, IonToolbar, IonButton, IonTitle, IonContent, IonItem, IonList, IonLabel, IonCheckbox } from "@ionic/angular/standalone";
+import { IonHeader, IonButtons, IonToolbar, IonButton, IonTitle, IonContent, IonItem, IonList, IonLabel, IonCheckbox, ModalController } from "@ionic/angular/standalone";
 
 @Component({
   selector: 'app-select-alumnos-modal',

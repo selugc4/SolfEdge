@@ -1,13 +1,12 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ModalController, ToastController } from '@ionic/angular';
 import { SelectAlumnosModalComponent } from '../select-alumnos-modal/select-alumnos-modal.component';
 import { Usuario } from '../../models/usuario.model';
 import { GrupoService } from '../../services/grupo.service';
 import { GrupoStateService } from '../../services/grupo-state.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { IonCard, IonCardTitle, IonCardHeader, IonCardContent, IonItem, IonButton, IonList, IonListHeader, IonLabel, IonIcon, IonInput} from "@ionic/angular/standalone";
+import { IonCard, IonCardTitle, IonCardHeader, IonCardContent, IonItem, IonButton, IonList, IonListHeader, IonLabel, IonIcon, IonInput, ModalController, ToastController} from "@ionic/angular/standalone";
 
 @Component({
   selector: 'app-gestion-grupos',

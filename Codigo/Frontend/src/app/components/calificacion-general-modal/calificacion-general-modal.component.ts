@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
-import { ModalController, ToastController } from '@ionic/angular';
-import { IonHeader, IonTitle, IonButton, IonButtons, IonToolbar, IonLabel, IonContent, IonItem, IonFooter, IonInput} from "@ionic/angular/standalone";
+import { IonHeader, IonTitle, IonButton, IonButtons, IonToolbar, IonLabel, IonContent, IonItem, IonFooter, IonInput, ModalController, ToastController} from "@ionic/angular/standalone";
 
 @Component({
   selector: 'app-calificacion-general-modal',
@@ -12,10 +11,9 @@ import { IonHeader, IonTitle, IonButton, IonButtons, IonToolbar, IonLabel, IonCo
 })
 export class CalificacionGeneralModalComponent implements OnInit {
   form: FormGroup;
-
+  private modalController: ModalController = inject(ModalController);
+  private toastController: ToastController = inject(ToastController);
   constructor(
-    private modalCtrl: ModalController,
-    private toastCtrl: ToastController
   ) {
     this.form = new FormGroup({
       alumnoId: new FormControl('', [Validators.required]),
@@ -26,19 +24,19 @@ export class CalificacionGeneralModalComponent implements OnInit {
   ngOnInit() { }
 
   cancel() {
-    return this.modalCtrl.dismiss(null, 'cancel');
+    return this.modalController.dismiss(null, 'cancel');
   }
 
   confirm() {
     if (this.form.valid) {
-      return this.modalCtrl.dismiss(this.form.value, 'confirm');
+      return this.modalController.dismiss(this.form.value, 'confirm');
     }
     this.presentToast('Por favor, completa todos los campos y asegúrate de que la nota sea entre 0 y 10.');
     return;
   }
 
   async presentToast(message: string) {
-    const toast = await this.toastCtrl.create({ message, duration: 2000, color: 'warning' });
+    const toast = await this.toastController.create({ message, duration: 2000, color: 'warning' });
     toast.present();
   }
 }

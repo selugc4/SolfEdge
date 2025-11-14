@@ -1,9 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
-import { ModalController, ToastController } from '@ionic/angular';
 import { RamaConfigService } from '../../services/rama-config.service';
-import { IonHeader, IonToolbar, IonTitle, IonButton, IonButtons, IonContent, IonItem, IonLabel, IonFooter } from "@ionic/angular/standalone";
+import { IonHeader, IonToolbar, IonTitle, IonButton, IonButtons, IonContent, IonItem, IonLabel, IonFooter, ModalController, ToastController } from "@ionic/angular/standalone";
 
 @Component({
   selector: 'app-entregar-tarea-modal',
@@ -16,11 +15,10 @@ export class EntregarTareaModalComponent implements OnInit {
   form: FormGroup;
   selectedFile: File | null = null;
   materialEntregadoId: string | null = null;
-
+  private modalCtrl: ModalController = inject(ModalController);
+  private toastCtrl: ToastController = inject(ToastController);
+  ramaConfigService: RamaConfigService = inject(RamaConfigService);
   constructor(
-    private modalCtrl: ModalController,
-    private toastCtrl: ToastController,
-    private ramaConfigService: RamaConfigService
   ) {
     this.form = new FormGroup({
       comentario: new FormControl(''),
