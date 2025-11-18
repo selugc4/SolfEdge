@@ -14,14 +14,12 @@
         <ion-card>
           <ion-card-header>
             <ion-card-title>Pregunta {{ i + 1 }}: {{ pregunta.texto }}</ion-card-title>
-            <!-- Aquí se podría añadir un reproductor de audio si pregunta.audioMaterial existe -->
           </ion-card-header>
           <ion-card-content>
-            <ion-radio-group [formControlName]="i" class="ion-margin-top">
+            <ion-radio-group [formControlName]="i.toString()" class="ion-margin-top">
               @for(respuesta of pregunta.posiblesRespuestas; track j; let j = $index) {
                 <ion-item>
-                  <ion-label>{{ respuesta }}</ion-label>
-                  <ion-radio [value]="respuesta"></ion-radio>
+                  <ion-radio [value]="respuesta.texto" labelPlacement="end">{{ respuesta.texto }}</ion-radio>
                 </ion-item>
               }
             </ion-radio-group>
@@ -35,13 +33,12 @@
       <p>Cargando cuestionario...</p>
     </div>
   }
-
 </ion-content>
 
 <ion-footer>
   <ion-toolbar>
     <ion-buttons slot="end">
-      <ion-button (click)="confirm()" [strong]="true">Enviar Cuestionario</ion-button>
+      <ion-button (click)="confirm()" [strong]="true" [disabled]="form.invalid">Enviar Cuestionario</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-footer>

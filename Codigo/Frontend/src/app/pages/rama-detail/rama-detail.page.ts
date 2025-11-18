@@ -312,50 +312,6 @@ export class RamaDetailPage {
     }
   }
 
-  async presentCalificarModal(itemId: string, itemType: 'tarea' | 'cuestionario') {
-    if (!this.userId) {
-      this.presentToast('Error: ID de profesor no disponible.', 'danger');
-      return;
-    }
-
-    let modal;
-    if (itemType === 'tarea') {
-      modal = await this.modalController.create({
-        component: CalificarModalComponent,
-        componentProps: {
-          itemId: itemId,
-          itemType: itemType
-        }
-      });
-    } else if (itemType === 'cuestionario') {
-      modal = await this.modalController.create({
-        component: CalificarCuestionarioModalComponent,
-        componentProps: {
-          cuestionarioId: itemId
-        }
-      });
-    } else {
-      return;
-    }
-
-    modal.present();
-
-    const { data, role } = await modal.onWillDismiss();
-
-    if (role === 'confirm') {
-      if (itemType === 'tarea') {
-        this.tareaService.calificarTarea(itemId, data.alumnoId, data.nota).subscribe({
-          next: () => {
-            this.presentToast('Calificación de tarea guardada con éxito.');
-          },
-          error: (err) => {
-            this.presentToast(`Error al calificar tarea: ${err.error.message || err.message}`, 'danger');
-          }
-        });
-      }
-    }
-  }
-
   async presentEntregarTareaModal(tareaId: string) {
     const modal = await this.modalController.create({
       component: EntregarTareaModalComponent,

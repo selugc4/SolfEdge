@@ -1,4 +1,5 @@
 import { Pregunta } from './pregunta.model';
+import { Usuario } from './usuario.model';
 
 export interface Cuestionario {
   _id: string;
@@ -7,7 +8,7 @@ export interface Cuestionario {
   rama: 'Teoría';
   preguntas: Pregunta[];
   cerrada: boolean;
-  alumnos: string[]; // IDs
+  alumnos: Usuario[]; // IDs
   createdAt?: string;
   updatedAt?: string;
 }

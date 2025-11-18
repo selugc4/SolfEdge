@@ -1,44 +1,40 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule, FormGroup, FormControl, Validators, FormArray, FormBuilder } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Cuestionario } from '../../models/cuestionario.model';
 import { CuestionarioService } from '../../services/cuestionario.service';
-import { IonHeader, IonToolbar, IonTitle, IonButton, IonButtons, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonItem, IonLabel, IonRadio, IonFooter, ModalController, ToastController } from "@ionic/angular/standalone";
+import { IonHeader, IonToolbar, IonTitle, IonButton, IonButtons, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonItem, IonRadio, IonRadioGroup, IonFooter, ModalController, ToastController } from "@ionic/angular/standalone";
 
 @Component({
   selector: 'app-completar-cuestionario-modal',
   templateUrl: './completar-cuestionario-modal.component.html',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, IonHeader, IonToolbar, IonTitle, IonButton, IonButtons, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonItem, IonLabel, IonRadio, IonFooter]
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, IonHeader, IonToolbar, IonTitle, IonButton, IonButtons, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonItem, IonRadio, IonRadioGroup, IonFooter]
 })
 export class CompletarCuestionarioModalComponent implements OnInit {
-  @Input() cuestionarioId: string = '';
+  @Input() cuestionarioId!: string;
   cuestionario!: Cuestionario;
   form: FormGroup;
-  modalCtrl: ModalController = inject(ModalController);
-  toastCtrl: ToastController = inject(ToastController);
-  fb: FormBuilder = inject(FormBuilder);
-  cuestionarioService: CuestionarioService = inject(CuestionarioService);
-  constructor(
-  ) {
-    this.form = this.fb.group({
-      respuestas: this.fb.array([])
-    });
+
+  private modalCtrl: ModalController = inject(ModalController);
+  private toastCtrl: ToastController = inject(ToastController);
+  private fb: FormBuilder = inject(FormBuilder);
+  private cuestionarioService: CuestionarioService = inject(CuestionarioService);
+
+  constructor() {
+    this.form = this.fb.group({});
   }
 
   ngOnInit() {
     if (this.cuestionarioId) {
       this.cuestionarioService.getCuestionarioById(this.cuestionarioId).subscribe(cuestionario => {
         this.cuestionario = cuestionario;
-        this.cuestionario.preguntas.forEach(() => {
-          this.respuestas.push(new FormControl('', Validators.required));
+        // Create a form control for each question
+        this.cuestionario.preguntas.forEach((pregunta, index) => {
+          this.form.addControl(index.toString(), new FormControl('', Validators.required));
         });
       });
     }
-  }
-
-  get respuestas() {
-    return this.form.get('respuestas') as FormArray;
   }
 
   cancel() {
@@ -46,18 +42,30 @@ export class CompletarCuestionarioModalComponent implements OnInit {
   }
 
   confirm() {
-    if (this.form.valid) {
-      const respuestas = this.cuestionario.preguntas.map((pregunta, index) => {
-        return this.form.value.respuestas[index];
-      });
-      return this.modalCtrl.dismiss(respuestas, 'confirm');
+    if (this.form.invalid) {
+      this.presentToast('Por favor, responde a todas las preguntas.', 'danger');
+      return;
     }
-    this.presentToast('Por favor, responde a todas las preguntas.');
-    return;
+
+    // The form value is an object like { '0': 'respuesta1', '1': 'respuesta2', ... }
+    // We need to convert it to an array in the correct order.
+    const respuestasArray = Object.keys(this.form.value)
+      .sort((a, b) => parseInt(a) - parseInt(b))
+      .map(key => this.form.value[key]);
+
+    this.cuestionarioService.entregarCuestionario(this.cuestionarioId, respuestasArray).subscribe({
+      next: (calificacion) => {
+        this.presentToast(`Cuestionario entregado. Tu nota es: ${calificacion.nota.toFixed(2)}`, 'success');
+        this.modalCtrl.dismiss(calificacion, 'confirm');
+      },
+      error: (err) => {
+        this.presentToast(`Error al entregar: ${err.error.message || 'Error desconocido'}`, 'danger');
+      }
+    });
   }
 
-  async presentToast(message: string) {
-    const toast = await this.toastCtrl.create({ message, duration: 2000, color: 'warning' });
+  async presentToast(message: string, color: string = 'success') {
+    const toast = await this.toastCtrl.create({ message, duration: 4000, color });
     toast.present();
   }
 }

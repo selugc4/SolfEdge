@@ -31,11 +31,15 @@ export class TareaService {
     return this.http.patch(`${this.apiUrl}/${id}/close`, {});
   }
 
-  calificarTarea(id: string, alumnoId: string, nota: number): Observable<Calificacion> {
-    return this.http.post<Calificacion>(`${this.apiUrl}/${id}/calificar`, { alumnoId, nota });
+  getEntregasPorTarea(tareaId: string): Observable<Calificacion[]> {
+    return this.http.get<Calificacion[]>(`${this.apiUrl}/${tareaId}/entregas`);
   }
 
-  getCalificacion(id: string, alumnoId: string): Observable<Calificacion> {
-    return this.http.get<Calificacion>(`${this.apiUrl}/${id}/calificacion/alumno/${alumnoId}`);
+  calificarEntrega(calificacionId: string, nota: number): Observable<Calificacion> {
+    return this.http.put<Calificacion>(`${this.apiUrl}/entregas/${calificacionId}/calificar`, { nota });
+  }
+
+  entregarTarea(tareaId: string, formData: FormData): Observable<Calificacion> {
+    return this.http.post<Calificacion>(`${this.apiUrl}/${tareaId}/entregar`, formData);
   }
 }

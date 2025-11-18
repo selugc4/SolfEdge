@@ -28,5 +28,10 @@ export class CuestionarioService {
     return this.http.get<Cuestionario>(`${this.apiUrl}/${id}`);
   }
 
+  entregarCuestionario(cuestionarioId: string, respuestas: string[]): Observable<Calificacion> {
+    return this.http.post<Calificacion>(`${this.apiUrl}/${cuestionarioId}/entregar`, { respuestas });
+  }
+
   // Otros métodos como calificar, cerrar, etc., se añadirán según se necesiten
 }
+import { Calificacion } from '../models/calificacion.model';

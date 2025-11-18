@@ -4,30 +4,35 @@ import { Usuario } from '../../models/usuario.model';
 import { AuthService } from '../../services/auth.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Component, inject, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { TareaService } from 'src/app/services/tarea.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ToastController, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonCardHeader, IonCard, IonCardTitle, IonCardSubtitle, IonCardContent, IonButton } from '@ionic/angular/standalone';
+import { ModalController, ToastController, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonCardHeader, IonCard, IonCardTitle, IonCardSubtitle, IonCardContent, IonButton, IonList, IonItem, IonLabel, IonBadge, IonListHeader } from '@ionic/angular/standalone';
+import { Calificacion } from 'src/app/models/calificacion.model';
+import { CalificarModalComponent } from 'src/app/components/calificar-modal/calificar-modal.component';
 
 @Component({
   selector: 'app-tarea-detalle',
   templateUrl: './tarea-detalle.page.html',
   styleUrls: ['./tarea-detalle.page.scss'],
   standalone: true,
-  imports: [CommonModule, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonCardHeader, IonCard, IonCardTitle, IonCardSubtitle, IonCardContent, IonButton]
+  imports: [CommonModule, DatePipe, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonCardHeader, IonCard, IonCardTitle, IonCardSubtitle, IonCardContent, IonButton, IonList, IonItem, IonLabel, IonBadge, IonListHeader]
 })
 export class TareaDetallePage implements OnInit {
   tarea: Tarea | undefined;
+  entregas: Calificacion[] = [];
   pdfUrl: SafeResourceUrl | undefined;
   profesorNombre: string | undefined;
   isProfessor: boolean = false;
-  tareaService: TareaService = inject(TareaService);
-  usuarioService: UsuarioService = inject(UsuarioService);
-  authService: AuthService = inject(AuthService);
-  route: ActivatedRoute = inject(ActivatedRoute);
-  router: Router = inject(Router);
-  sanitizer: DomSanitizer = inject(DomSanitizer);
-  toastController: ToastController = inject(ToastController);
+  
+  private tareaService: TareaService = inject(TareaService);
+  private usuarioService: UsuarioService = inject(UsuarioService);
+  private authService: AuthService = inject(AuthService);
+  private route: ActivatedRoute = inject(ActivatedRoute);
+  private router: Router = inject(Router);
+  private sanitizer: DomSanitizer = inject(DomSanitizer);
+  private toastController: ToastController = inject(ToastController);
+  private modalCtrl: ModalController = inject(ModalController);
 
   constructor() { }
 
@@ -53,6 +58,9 @@ export class TareaDetallePage implements OnInit {
     this.tareaService.getTareaById(tareaId).subscribe({
       next: (tarea) => {
         this.tarea = tarea;
+        if (this.isProfessor) {
+          this.loadEntregas(tareaId);
+        }
         if (this.tarea.profesor) {
           this.usuarioService.getUsuarioById(this.tarea.profesor).subscribe({
             next: (profesor: Usuario) => {
@@ -66,7 +74,6 @@ export class TareaDetallePage implements OnInit {
         }
 
         if (this.tarea.materialDeApoyo) {
-          // Assuming materialDeApoyo is a Base64 string
           const pdfBlob = this.b64toBlob(this.tarea.materialDeApoyo, 'application/pdf');
           const url = URL.createObjectURL(pdfBlob);
           this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
@@ -77,6 +84,37 @@ export class TareaDetallePage implements OnInit {
         this.router.navigate(['/tabs/tab1']); // Navigate back on error
       }
     });
+  }
+
+  loadEntregas(tareaId: string) {
+    this.tareaService.getEntregasPorTarea(tareaId).subscribe({
+      next: (entregas) => {
+        this.entregas = entregas;
+      },
+      error: (err) => {
+        this.presentToast(`Error al cargar las entregas: ${err.error.message || err.message}`, 'danger');
+      }
+    });
+  }
+
+  async openCalificarModal(entrega: Calificacion) {
+    const modal = await this.modalCtrl.create({
+      component: CalificarModalComponent,
+      componentProps: {
+        entrega: entrega
+      }
+    });
+    await modal.present();
+
+    const { data, role } = await modal.onWillDismiss();
+
+    if (role === 'confirm' && data) {
+      // Find the submission in the local array and update its grade
+      const index = this.entregas.findIndex(e => e._id === entrega._id);
+      if (index !== -1) {
+        this.entregas[index].nota = data.nota;
+      }
+    }
   }
 
   async closeTarea() {

@@ -1,44 +1,78 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
-import { IonHeader, IonToolbar, IonButtons, IonTitle, IonButton, IonContent, IonLabel, IonItem, IonFooter, IonInput, ModalController, ToastController } from "@ionic/angular/standalone";
+import { IonHeader, IonToolbar, IonButtons, IonTitle, IonButton, IonContent, IonLabel, IonItem, IonFooter, IonInput, ModalController, ToastController, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonTextarea, IonIcon } from "@ionic/angular/standalone";
+import { Calificacion } from 'src/app/models/calificacion.model';
+import { TareaService } from 'src/app/services/tarea.service';
 
 @Component({
   selector: 'app-calificar-modal',
   templateUrl: './calificar-modal.component.html',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, IonHeader, IonToolbar, IonButtons, IonTitle, IonButton, IonContent, IonLabel, IonItem, IonFooter, IonInput]
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, IonHeader, IonToolbar, IonButtons, IonTitle, IonButton, IonContent, IonLabel, IonItem, IonFooter, IonInput, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonTextarea, IonIcon]
 })
 export class CalificarModalComponent implements OnInit {
-  @Input() itemId: string = '';
-  @Input() itemType: 'tarea' | 'cuestionario' = 'tarea';
+  @Input() entrega!: Calificacion;
   form: FormGroup;
-  modalCtrl: ModalController = inject(ModalController);
-  toastCtrl: ToastController = inject(ToastController);
-  constructor(
-  ) {
+
+  private modalCtrl = inject(ModalController);
+  private toastCtrl = inject(ToastController);
+  private tareaService = inject(TareaService);
+
+  constructor() {
     this.form = new FormGroup({
-      alumnoId: new FormControl('', [Validators.required]),
       nota: new FormControl(null, [Validators.required, Validators.min(0), Validators.max(10)])
     });
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    if (this.entrega && this.entrega.nota !== null) {
+      this.form.patchValue({ nota: this.entrega.nota });
+    }
+  }
 
   cancel() {
     return this.modalCtrl.dismiss(null, 'cancel');
   }
 
   confirm() {
-    if (this.form.valid) {
-      return this.modalCtrl.dismiss(this.form.value, 'confirm');
+    if (this.form.invalid) {
+      this.presentToast('Por favor, introduce una nota válida entre 0 y 10.', 'danger');
+      return;
     }
-    this.presentToast('Por favor, completa todos los campos y asegúrate de que la nota sea entre 0 y 10.');
-    return;
+
+    const { nota } = this.form.value;
+    this.tareaService.calificarEntrega(this.entrega._id, nota).subscribe({
+      next: (calificacionActualizada) => {
+        this.presentToast('Calificación guardada con éxito.', 'success');
+        this.modalCtrl.dismiss(calificacionActualizada, 'confirm');
+      },
+      error: (err) => {
+        this.presentToast(`Error al guardar la calificación: ${err.error.message || err.message}`, 'danger');
+      }
+    });
   }
 
-  async presentToast(message: string) {
-    const toast = await this.toastCtrl.create({ message, duration: 2000, color: 'warning' });
+  downloadArchivo() {
+    if (!this.entrega.respuestaArchivo || !this.entrega.nombreArchivo) return;
+
+    const byteCharacters = atob(this.entrega.respuestaArchivo);
+    const byteNumbers = new Array(byteCharacters.length);
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+    const byteArray = new Uint8Array(byteNumbers);
+    const blob = new Blob([byteArray], { type: this.entrega.tipoArchivo });
+
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = this.entrega.nombreArchivo;
+    link.click();
+    URL.revokeObjectURL(link.href);
+  }
+
+  async presentToast(message: string, color: string = 'success') {
+    const toast = await this.toastCtrl.create({ message, duration: 3000, color });
     toast.present();
   }
 }

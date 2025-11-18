@@ -47,7 +47,7 @@ const upload = multer({ storage: storage });
 router.post('/', upload.single('materialDeApoyo'), async (req, res) => {
         // req.body.taskData will be the JSON string of task data
         // req.file will be the uploaded file (if any)
-        const result = await tareaController.crearTarea(req.body.taskData, req.file);
+        const result = await tareaController.crearTarea(req.body.taskData, req.file, req.user.id);
         res.status(result.status).json(result.body);
 });
 /**
@@ -188,95 +188,32 @@ router.get('/:id', async (req, res) => {
     res.status(result.status).json(result.body);
 });
 
-/**
- * @swagger
- * /tareas/{id}/calificar:
- *   post:
- *     summary: Califica una tarea para un alumno.
- *     tags: [Tareas]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - in: path
- *         name: id
- *         schema:
- *           type: string
- *         required: true
- *         description: ID de la tarea a calificar.
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             required:
- *               - alumnoId
- *               - nota
- *             properties:
- *               alumnoId:
- *                 type: string
- *                 description: ID del alumno que realiza la tarea.
- *               nota:
- *                 type: number
- *                 minimum: 0
- *                 maximum: 10
- *                 description: Nota de la tarea.
- *     responses:
- *       201:
- *         description: Tarea calificada exitosamente.
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Calificacion'
- *       400:
- *         description: El alumno ya ha sido calificado, datos inválidos o la nota debe estar entre 0 y 10.
- *       404:
- *         description: Tarea o alumno no encontrado.
- *       500:
- *         description: Error interno del servidor.
- */
-router.post('/:id/calificar', async (req, res) => {
-    const { alumnoId, nota } = req.body;
-    const result = await tareaController.calificarTarea(req.params.id, alumnoId, nota);
+router.post('/:id/entregar', upload.single('respuestaArchivo'), async (req, res) => {
+    const tareaId = req.params.id;
+    const alumnoId = req.user.id;
+    const submissionData = req.body; // e.g., { respuestaTexto: '...' }
+    const file = req.file;
+
+    const result = await tareaController.entregarTarea(tareaId, alumnoId, submissionData, file);
     res.status(result.status).json(result.body);
 });
 
-/**
- * @swagger
- * /tareas/{id}/calificacion/alumno/{alumnoId}:
- *   get:
- *     summary: Obtiene la calificación de un alumno para una tarea.
- *     tags: [Tareas]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - in: path
- *         name: id
- *         schema:
- *           type: string
- *         required: true
- *         description: ID de la tarea.
- *       - in: path
- *         name: alumnoId
- *         schema:
- *           type: string
- *         required: true
- *         description: ID del alumno.
- *     responses:
- *       200:
- *         description: Calificación obtenida exitosamente.
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Calificacion'
- *       404:
- *         description: Calificación no encontrada.
- *       500:
- *         description: Error interno del servidor.
- */
-router.get('/:id/calificacion/alumno/:alumnoId', async (req, res) => {
-    const { id, alumnoId } = req.params;
-    const result = await tareaController.getCalificacion(id, alumnoId);
+router.get('/:id/entregas', async (req, res) => {
+    const tareaId = req.params.id;
+    const result = await tareaController.getEntregasPorTarea(tareaId);
+    res.status(result.status).json(result.body);
+});
+
+router.put('/entregas/:calificacionId/calificar', async (req, res) => {
+    const { calificacionId } = req.params;
+    const { nota } = req.body;
+    const profesorId = req.user.id;
+
+    if (nota === undefined) {
+        return res.status(400).json({ error: 'El campo "nota" es requerido.' });
+    }
+
+    const result = await tareaController.calificarEntrega(calificacionId, nota, profesorId);
     res.status(result.status).json(result.body);
 });
 

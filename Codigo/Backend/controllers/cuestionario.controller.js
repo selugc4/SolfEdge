@@ -1,6 +1,6 @@
 const Cuestionario = require('../models/cuestionario.model');
 const Usuario = require('../models/usuario.model');
-const CalificacionCuestionario = require('../models/calificacionCuestionario.model');
+const Calificacion = require('../models/calificacion.model');
 
 exports.crearCuestionario = async (cuestionarioData, profesorId) => {
     try {
@@ -76,42 +76,51 @@ exports.getCuestionarioById = async (cuestionarioId) => {
     }
 };
 
-exports.calificarCuestionario = async (cuestionarioId, alumnoId, respuestas) => {
+exports.entregarCuestionario = async (cuestionarioId, alumnoId, respuestasAlumno) => {
     try {
         const cuestionario = await Cuestionario.findById(cuestionarioId);
-        if (!cuestionario) return { status: 404, body: { error: 'Cuestionario no encontrado.' } };
+        if (!cuestionario) {
+            return { status: 404, body: { error: 'Cuestionario no encontrado.' } };
+        }
 
-        const alumno = await Usuario.findById(alumnoId);
-        if (!alumno || alumno.role !== 'alumno') return { status: 404, body: { error: 'Alumno no encontrado.' } };
+        if (cuestionario.cerrada) {
+            return { status: 400, body: { error: 'Este cuestionario está cerrado y no acepta más entregas.' } };
+        }
 
-        const calificacionExistente = await CalificacionCuestionario.findOne({ cuestionario: cuestionarioId, alumno: alumnoId });
-        if (calificacionExistente) return { status: 400, body: { error: 'Este alumno ya ha sido calificado para este cuestionario.' } };
+        const calificacionExistente = await Calificacion.findOne({ cuestionario: cuestionarioId, alumno: alumnoId });
+        if (calificacionExistente) {
+            return { status: 409, body: { error: 'Ya has realizado una entrega para este cuestionario.' } };
+        }
+
+        if (cuestionario.preguntas.length !== respuestasAlumno.length) {
+            return { status: 400, body: { error: 'El número de respuestas no coincide con el número de preguntas.' } };
+        }
 
         let correctas = 0;
         cuestionario.preguntas.forEach((pregunta, index) => {
-            if (pregunta.posiblesRespuestas[0] === respuestas[index]) {
+            const respuestaCorrecta = pregunta.posiblesRespuestas.find(r => r.esCorrecta);
+            if (respuestaCorrecta && respuestaCorrecta.texto === respuestasAlumno[index]) {
                 correctas++;
             }
         });
 
         const nota = (correctas / cuestionario.preguntas.length) * 10;
-        const calificacion = new CalificacionCuestionario({ nota, alumno: alumnoId, cuestionario: cuestionarioId });
-        await calificacion.save();
 
-        return { status: 201, body: calificacion };
+        const nuevaEntrega = new Calificacion({
+            nota: nota.toFixed(2),
+            alumno: alumnoId,
+            cuestionario: cuestionarioId,
+            respuestasCuestionario: respuestasAlumno,
+            fechaEntrega: new Date()
+        });
+
+        await nuevaEntrega.save();
+        return { status: 201, body: nuevaEntrega };
+
     } catch (error) {
-        return { status: 500, body: { error: error.message } };
-    }
-};
-
-exports.getCalificacion = async (cuestionarioId, alumnoId) => {
-    try {
-        const calificacion = await CalificacionCuestionario.findOne({ cuestionario: cuestionarioId, alumno: alumnoId });
-        if (!calificacion) {
-            return { status: 404, body: { error: 'Calificación no encontrada.' } };
+        if (error.name === 'ValidationError') {
+            return { status: 400, body: { error: error.message } };
         }
-        return { status: 200, body: calificacion };
-    } catch (error) {
-        return { status: 500, body: { error: error.message } };
+        return { status: 500, body: { error: `Error interno del servidor: ${error.message}` } };
     }
 };

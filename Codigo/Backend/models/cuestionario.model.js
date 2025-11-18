@@ -1,21 +1,41 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const respuestaCuestionarioSchema = new Schema({
+  texto: {
+    type: String,
+    required: true
+  },
+  esCorrecta: {
+    type: Boolean,
+    default: false
+  }
+});
+
 const preguntaSchema = new Schema({
   texto: {
     type: String,
     required: true
   },
   posiblesRespuestas: {
-    type: [String],
-    validate: [arrayLimit, 'No se pueden exceder las 4 posibles respuestas'],
+    type: [respuestaCuestionarioSchema],
+    validate: [
+      {
+        validator: function(v) {
+          return v.length >= 2 && v.length <= 4;
+        },
+        message: 'Cada pregunta debe tener entre 2 y 4 posibles respuestas.'
+      },
+      {
+        validator: function(v) {
+          return v.filter(respuesta => respuesta.esCorrecta).length === 1;
+        },
+        message: 'Debe haber exactamente una respuesta correcta por cada pregunta.'
+      }
+    ],
     required: true
   }
 });
-
-function arrayLimit(val) {
-  return val.length <= 4 && val.length >= 2;
-}
 
 const cuestionarioSchema = new Schema({
   nombre: {

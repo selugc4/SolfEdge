@@ -17,12 +17,31 @@
       <ion-card-content>
         <p><strong>Descripción:</strong> {{ tarea.descripcion }}</p>
         <p><strong>Profesor:</strong> {{ profesorNombre || 'Cargando...' }}</p>
-        <p><strong>Alumnos asignados:</strong></p>
-        <ul>
-          @for(alumnoId of tarea.alumnos ; track i; let i = $index) {
-            <li>{{ alumnoId }}</li>
-          }
-        </ul>
+        
+        @if(isProfessor){
+          <ion-list-header>Entregas de Alumnos</ion-list-header>
+          <ion-list>
+            @for(entrega of entregas; track entrega._id){
+              <ion-item>
+                <ion-label>
+                  <h2>{{ entrega.alumno.username }}</h2>
+                  <p>Entregado: {{ entrega.fechaEntrega | date:'short' }}</p>
+                </ion-label>
+                @if(entrega.nota !== null){
+                  <ion-badge slot="end" [color]="entrega.nota >= 5 ? 'success' : 'danger'">{{ entrega.nota }}</ion-badge>
+                }
+                @if(entrega.nota === null){
+                  <ion-button slot="end" (click)="openCalificarModal(entrega)">Calificar</ion-button>
+                }
+              </ion-item>
+            }
+            @if(entregas.length === 0){
+              <ion-item>
+                <ion-label>No hay entregas para esta tarea todavía.</ion-label>
+              </ion-item>
+            }
+          </ion-list>
+        }
 
         @if(pdfUrl){
           <div class="pdf-viewer-container">

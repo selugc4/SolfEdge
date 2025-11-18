@@ -69,8 +69,7 @@ const cuestionarioController = require('../controllers/cuestionario.controller')
  *         description: Error interno del servidor.
  */
 router.post('/', async (req, res) => {
-    const { profesorId, ...cuestionarioData } = req.body;
-    const result = await cuestionarioController.crearCuestionario(cuestionarioData, profesorId);
+    const result = await cuestionarioController.crearCuestionario(req.body, req.user.id);
     res.status(result.status).json(result.body);
 });
 
@@ -212,95 +211,16 @@ router.get('/:id', async (req, res) => {
     res.status(result.status).json(result.body);
 });
 
-/**
- * @swagger
- * /cuestionarios/{id}/calificar:
- *   post:
- *     summary: Califica un cuestionario para un alumno.
- *     tags: [Cuestionarios]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - in: path
- *         name: id
- *         schema:
- *           type: string
- *         required: true
- *         description: ID del cuestionario a calificar.
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             required:
- *               - alumnoId
- *               - respuestas
- *             properties:
- *               alumnoId:
- *                 type: string
- *                 description: ID del alumno que realiza el cuestionario.
- *               respuestas:
- *                 type: array
- *                 items:
- *                   type: string
- *                 description: Array de respuestas del alumno.
- *     responses:
- *       201:
- *         description: Cuestionario calificado exitosamente.
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/CalificacionCuestionario'
- *       400:
- *         description: El alumno ya ha sido calificado o datos inválidos.
- *       404:
- *         description: Cuestionario o alumno no encontrado.
- *       500:
- *         description: Error interno del servidor.
- */
-router.post('/:id/calificar', async (req, res) => {
-    const { alumnoId, respuestas } = req.body;
-    const result = await cuestionarioController.calificarCuestionario(req.params.id, alumnoId, respuestas);
-    res.status(result.status).json(result.body);
-});
+router.post('/:id/entregar', async (req, res) => {
+    const { respuestas } = req.body;
+    const alumnoId = req.user.id;
+    const cuestionarioId = req.params.id;
 
-/**
- * @swagger
- * /cuestionarios/{id}/calificacion/alumno/{alumnoId}:
- *   get:
- *     summary: Obtiene la calificación de un alumno para un cuestionario.
- *     tags: [Cuestionarios]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - in: path
- *         name: id
- *         schema:
- *           type: string
- *         required: true
- *         description: ID del cuestionario.
- *       - in: path
- *         name: alumnoId
- *         schema:
- *           type: string
- *         required: true
- *         description: ID del alumno.
- *     responses:
- *       200:
- *         description: Calificación obtenida exitosamente.
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/CalificacionCuestionario'
- *       404:
- *         description: Calificación no encontrada.
- *       500:
- *         description: Error interno del servidor.
- */
-router.get('/:id/calificacion/alumno/:alumnoId', async (req, res) => {
-    const { id, alumnoId } = req.params;
-    const result = await cuestionarioController.getCalificacion(id, alumnoId);
+    if (!respuestas || !Array.isArray(respuestas)) {
+        return res.status(400).json({ error: 'El campo "respuestas" es requerido y debe ser un array.' });
+    }
+
+    const result = await cuestionarioController.entregarCuestionario(cuestionarioId, alumnoId, respuestas);
     res.status(result.status).json(result.body);
 });
 /**

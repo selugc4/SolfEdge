@@ -10,21 +10,20 @@
 <ion-content class="ion-padding">
   <form [formGroup]="form">
     <ion-item>
-      <ion-label position="floating">Comentario (opcional)</ion-label>
-      <ion-textarea formControlName="comentario"></ion-textarea>
+      <ion-label position="floating">Respuesta de texto</ion-label>
+      <ion-textarea formControlName="respuestaTexto" rows="5"></ion-textarea>
     </ion-item>
 
     <ion-item class="ion-margin-top">
-      <ion-label>Archivo (PDF, MP3, MP4)</ion-label>
-      <input type="file" (change)="onFileSelected($event)" accept=".pdf,.mp3,.mp4">
+      <ion-label>Adjuntar archivo (PDF, MP3)</ion-label>
+      <input type="file" (change)="onFileSelected($event)" accept=".pdf,.mp3">
     </ion-item>
-    <ion-button expand="block" (click)="uploadMaterial()" [disabled]="!selectedFile" class="ion-margin-top">
-      Subir Archivo
-    </ion-button>
-    @if (materialEntregadoId) {
-      <p>Archivo subido: {{ materialEntregadoId }}</p>
+    @if(selectedFile){
+      <ion-item lines="none">
+        <ion-icon name="attach-outline" slot="start"></ion-icon>
+        <ion-label>{{ selectedFile.name }}</ion-label>
+      </ion-item>
     }
-
   </form>
 </ion-content>
 

@@ -1,47 +1,36 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
-import { RamaConfigService } from '../../services/rama-config.service';
-import { IonHeader, IonToolbar, IonTitle, IonButton, IonButtons, IonContent, IonItem, IonLabel, IonFooter, ModalController, ToastController } from "@ionic/angular/standalone";
+import { FormsModule, ReactiveFormsModule, FormGroup, FormControl } from '@angular/forms';
+import { TareaService } from '../../services/tarea.service';
+import { IonHeader, IonToolbar, IonTitle, IonButton, IonButtons, IonContent, IonItem, IonLabel, IonFooter, IonTextarea, ModalController, ToastController, IonIcon } from "@ionic/angular/standalone";
 
 @Component({
   selector: 'app-entregar-tarea-modal',
   templateUrl: './entregar-tarea-modal.component.html',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, IonHeader, IonToolbar, IonTitle, IonButton, IonButtons, IonContent, IonItem, IonLabel, IonFooter]
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, IonHeader, IonToolbar, IonTitle, IonButton, IonButtons, IonContent, IonItem, IonLabel, IonFooter, IonTextarea, IonIcon]
 })
 export class EntregarTareaModalComponent implements OnInit {
-  @Input() tareaId: string = '';
+  @Input() tareaId!: string;
   form: FormGroup;
   selectedFile: File | null = null;
-  materialEntregadoId: string | null = null;
-  private modalCtrl: ModalController = inject(ModalController);
-  private toastCtrl: ToastController = inject(ToastController);
-  ramaConfigService: RamaConfigService = inject(RamaConfigService);
-  constructor(
-  ) {
+
+  private modalCtrl = inject(ModalController);
+  private toastCtrl = inject(ToastController);
+  private tareaService = inject(TareaService);
+
+  constructor() {
     this.form = new FormGroup({
-      comentario: new FormControl(''),
-      // materialEntregado se gestionará por separado
+      respuestaTexto: new FormControl(''),
     });
   }
 
   ngOnInit() { }
 
   onFileSelected(event: any) {
-    this.selectedFile = event.target.files[0];
-  }
-
-  async uploadMaterial() {
-    if (this.selectedFile) {
-      try {
-        this.presentToast('Material entregado subido con éxito.', 'success');
-      } catch (error) {
-        this.presentToast('Error al subir el material entregado.', 'danger');
-        this.materialEntregadoId = null;
-      }
-    } else {
-      this.presentToast('Selecciona un archivo primero.');
+    const file = event.target.files[0];
+    if (file) {
+      this.selectedFile = file;
     }
   }
 
@@ -49,24 +38,31 @@ export class EntregarTareaModalComponent implements OnInit {
     return this.modalCtrl.dismiss(null, 'cancel');
   }
 
-  async confirm() {
-    if (this.form.valid) {
-      if (this.selectedFile && !this.materialEntregadoId) {
-        await this.uploadMaterial();
-        if (!this.materialEntregadoId) {
-          this.presentToast('Error al subir el material. Inténtalo de nuevo.', 'danger');
-          return;
-        }
-      }
-      const result = { ...this.form.value, materialEntregado: this.materialEntregadoId };
-      return this.modalCtrl.dismiss(result, 'confirm');
+  confirm() {
+    if (!this.form.value.respuestaTexto && !this.selectedFile) {
+      this.presentToast('Debes añadir un texto o un archivo para entregar.', 'danger');
+      return;
     }
-    this.presentToast('Por favor, completa el comentario o sube un archivo.');
-    return;
+
+    const formData = new FormData();
+    formData.append('respuestaTexto', this.form.value.respuestaTexto);
+    if (this.selectedFile) {
+      formData.append('respuestaArchivo', this.selectedFile, this.selectedFile.name);
+    }
+
+    this.tareaService.entregarTarea(this.tareaId, formData).subscribe({
+      next: (entrega) => {
+        this.presentToast('Tarea entregada con éxito.', 'success');
+        this.modalCtrl.dismiss(entrega, 'confirm');
+      },
+      error: (err) => {
+        this.presentToast(`Error al entregar la tarea: ${err.error.message || 'Error desconocido'}`, 'danger');
+      }
+    });
   }
 
   async presentToast(message: string, color: string = 'warning') {
-    const toast = await this.toastCtrl.create({ message, duration: 2000, color });
+    const toast = await this.toastCtrl.create({ message, duration: 3000, color });
     toast.present();
   }
 }

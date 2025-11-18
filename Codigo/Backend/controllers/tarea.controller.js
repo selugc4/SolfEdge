@@ -2,7 +2,7 @@ const Tarea = require('../models/tarea.model');
 const Usuario = require('../models/usuario.model');
 const Calificacion = require('../models/calificacion.model');
 
-exports.crearTarea = async (taskDataJsonString, file) => {
+exports.crearTarea = async (taskDataJsonString, file, profesorId) => {
     try {
         let tareaData;
         try {
@@ -10,9 +10,6 @@ exports.crearTarea = async (taskDataJsonString, file) => {
         } catch (error) {
             return { status: 400, body: { error: 'Invalid taskData JSON' } };
         }
-
-        const profesorId = tareaData.profesorId;
-        delete tareaData.profesorId; // Remove profesorId from tareaData
 
         if (!tareaData.alumnos || tareaData.alumnos.length === 0) {
             return { status: 400, body: { error: 'La tarea debe tener al menos un alumno.' } };
@@ -94,37 +91,76 @@ exports.getTareaById = async (tareaId) => {
     }
 };
 
-exports.calificarTarea = async (tareaId, alumnoId, nota) => {
+exports.entregarTarea = async (tareaId, alumnoId, submissionData, file) => {
     try {
-        if (nota < 0 || nota > 10) {
-            return { status: 400, body: { error: 'La nota debe estar entre 0 y 10.' } };
-        }
         const tarea = await Tarea.findById(tareaId);
-        if (!tarea) return { status: 404, body: { error: 'Tarea no encontrada.' } };
+        if (!tarea) {
+            return { status: 404, body: { error: 'Tarea no encontrada.' } };
+        }
 
-        const alumno = await Usuario.findById(alumnoId);
-        if (!alumno || alumno.role !== 'alumno') return { status: 404, body: { error: 'Alumno no encontrado.' } };
+        if (tarea.cerrada) {
+            return { status: 400, body: { error: 'Esta tarea está cerrada y no acepta más entregas.' } };
+        }
 
         const calificacionExistente = await Calificacion.findOne({ tarea: tareaId, alumno: alumnoId });
-        if (calificacionExistente) return { status: 400, body: { error: 'Este alumno ya ha sido calificado para esta tarea.' } };
+        if (calificacionExistente) {
+            return { status: 409, body: { error: 'Ya has realizado una entrega para esta tarea.' } };
+        }
 
-        const calificacion = new Calificacion({ nota, alumno: alumnoId, tarea: tareaId });
-        await calificacion.save();
+        const nuevaEntrega = new Calificacion({
+            alumno: alumnoId,
+            tarea: tareaId,
+            respuestaTexto: submissionData.respuestaTexto || '',
+            fechaEntrega: new Date()
+        });
 
-        return { status: 201, body: calificacion };
+        if (file) {
+            nuevaEntrega.respuestaArchivo = file.buffer.toString('base64');
+            nuevaEntrega.nombreArchivo = file.originalname;
+            nuevaEntrega.tipoArchivo = file.mimetype;
+        }
+
+        await nuevaEntrega.save();
+        return { status: 201, body: nuevaEntrega };
+
     } catch (error) {
-        return { status: 500, body: { error: error.message } };
+        if (error.name === 'ValidationError') {
+            return { status: 400, body: { error: error.message } };
+        }
+        return { status: 500, body: { error: `Error interno del servidor: ${error.message}` } };
     }
 };
 
-exports.getCalificacion = async (tareaId, alumnoId) => {
+exports.getEntregasPorTarea = async (tareaId) => {
     try {
-        const calificacion = await Calificacion.findOne({ tarea: tareaId, alumno: alumnoId });
-        if (!calificacion) {
-            return { status: 404, body: { error: 'Calificación no encontrada.' } };
-        }
-        return { status: 200, body: calificacion };
+        const entregas = await Calificacion.find({ tarea: tareaId }).populate('alumno', 'username email');
+        return { status: 200, body: entregas };
     } catch (error) {
-        return { status: 500, body: { error: error.message } };
+        return { status: 500, body: { error: `Error interno del servidor: ${error.message}` } };
+    }
+};
+
+exports.calificarEntrega = async (calificacionId, nota, profesorId) => {
+    try {
+        if (nota === null || nota < 0 || nota > 10) {
+            return { status: 400, body: { error: 'La nota debe estar entre 0 y 10.' } };
+        }
+
+        const calificacion = await Calificacion.findById(calificacionId).populate('tarea');
+        if (!calificacion) {
+            return { status: 404, body: { error: 'Entrega no encontrada.' } };
+        }
+
+        // Security check: Ensure the professor grading is the one who created the task
+        if (calificacion.tarea.profesor.toString() !== profesorId) {
+            return { status: 403, body: { error: 'No tienes permiso para calificar esta entrega.' } };
+        }
+
+        calificacion.nota = nota;
+        await calificacion.save();
+        return { status: 200, body: calificacion };
+
+    } catch (error) {
+        return { status: 500, body: { error: `Error interno del servidor: ${error.message}` } };
     }
 };

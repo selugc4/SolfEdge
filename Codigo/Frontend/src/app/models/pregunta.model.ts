@@ -1,5 +1,10 @@
-export interface Pregunta {
+export interface RespuestaCuestionario {
   texto: string;
-  posiblesRespuestas: string[];
-  // Aquí se podría añadir el campo para el archivo MP3
+  esCorrecta: boolean;
+}
+
+export interface Pregunta {
+  _id?: string;
+  texto: string;
+  posiblesRespuestas: RespuestaCuestionario[];
 }
