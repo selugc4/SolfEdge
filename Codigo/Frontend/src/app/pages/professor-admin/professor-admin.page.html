@@ -1,28 +1,34 @@
 <ion-header>
-  <ion-toolbar color="primary">
+  <ion-toolbar>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Administración Profesor</ion-title>
+    <ion-title class="ion-text-center">SolfEdge</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <app-gestion-alumnos></app-gestion-alumnos>
-  <app-gestion-grupos></app-gestion-grupos>
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Comunicación</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-button expand="block" (click)="presentMensajeModal()">
-        <ion-icon slot="start" name="send-outline"></ion-icon>
-        Enviar Mensaje a Alumnos
-      </ion-button>
-      <ion-button expand="block" (click)="presentCalificacionGeneralModal()" class="ion-margin-top">
-        <ion-icon slot="start" name="ribbon-outline"></ion-icon>
-        Adjuntar Calificación General
-      </ion-button>
-    </ion-card-content>
-  </ion-card>
+  @if(isLoading){
+    <div class="loading-container">
+      <ion-spinner name="crescent"></ion-spinner>
+    </div>
+  } @else {
+    <app-gestion-alumnos></app-gestion-alumnos>
+    <app-gestion-grupos></app-gestion-grupos>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Comunicación</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-button expand="block" (click)="presentMensajeModal()">
+          <ion-icon slot="start" name="send-outline"></ion-icon>
+          Enviar Mensaje a Alumnos
+        </ion-button>
+        <ion-button expand="block" (click)="presentCalificacionGeneralModal()" class="ion-margin-top">
+          <ion-icon slot="start" name="ribbon-outline"></ion-icon>
+          Adjuntar Calificación General
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+  }
 </ion-content>

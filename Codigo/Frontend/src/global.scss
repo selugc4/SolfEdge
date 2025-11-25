@@ -35,3 +35,261 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
+
+/* Import child-friendly font */
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&display=swap');
+
+/*
+ * Global App Styles
+ */
+
+body {
+  font-family: var(--ion-font-family, 'Lexend', sans-serif);
+  font-size: var(--ion-font-size-base, 18px);
+  color: var(--ion-text-color);
+  background-color: var(--ion-background-color);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  color: var(--ion-color-primary);
+}
+
+p {
+  line-height: 1.6;
+  font-size: 1.1em;
+}
+
+/*
+ * Accessibility & Usability Improvements
+ */
+
+/* Clearer focus indicators for all interactive elements */
+a:focus,
+button:focus,
+[tabindex]:focus,
+ion-button:focus,
+ion-item:focus,
+ion-input:focus,
+ion-select:focus,
+ion-textarea:focus,
+ion-checkbox:focus,
+ion-radio:focus {
+  outline: 3px solid var(--ion-color-secondary);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 5px rgba(var(--ion-color-secondary-rgb), 0.5);
+}
+
+/* Larger touch targets for buttons */
+ion-button {
+  --padding-top: 20px;
+  --padding-bottom: 20px;
+  --padding-start: 25px;
+  --padding-end: 25px;
+  height: auto;
+  min-height: 50px;
+}
+
+/*
+ * Playful & Friendly UI Components
+ */
+
+ion-header {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  ion-toolbar {
+    --border-width: 0;
+  }
+}
+
+ion-card {
+  border-radius: var(--ion-card-border-radius, 16px);
+  box-shadow: var(--ion-card-box-shadow, 0 4px 8px rgba(0,0,0,0.1));
+  ion-card-header {
+    ion-card-title {
+      font-size: 1.4em;
+      color: var(--ion-color-tertiary);
+    }
+  }
+}
+
+ion-item {
+  --border-radius: var(--ion-item-border-radius, 12px);
+  --inner-padding-end: 16px;
+  --inner-padding-start: 16px;
+  --padding-start: 0;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "@ionic/angular/css/normalize.css";
+@import "@ionic/angular/css/structure.css";
+@import "@ionic/angular/css/typography.css";
+@import "@ionic/angular/css/display.css";
+
+/* Optional CSS utils that can be commented out */
+@import "@ionic/angular/css/padding.css";
+@import "@ionic/angular/css/float-elements.css";
+@import "@ionic/angular/css/text-alignment.css";
+@import "@ionic/angular/css/text-transformation.css";
+@import "@ionic/angular/css/flex-utils.css";
+
+/**
+ * Ionic Dark Mode
+ * -----------------------------------------------------
+ * For more info, please see:
+ * https://ionicframework.com/docs/theming/dark-mode
+ */
+
+/* @import "@ionic/angular/css/palettes/dark.always.css"; */
+/* @import "@ionic/angular/css/palettes/dark.class.css"; */
+@import '@ionic/angular/css/palettes/dark.system.css';
+
+/* Import child-friendly font */
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&display=swap');
+
+/*
+ * Global App Styles
+ */
+
+body {
+  font-family: var(--ion-font-family, 'Lexend', sans-serif);
+  font-size: var(--ion-font-size-base, 18px);
+  color: var(--ion-text-color);
+  background: linear-gradient(135deg, #FFF0F5, #FFE4E1);
+  background-attachment: fixed;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  color: var(--ion-color-heading);
+}
+
+p {
+  line-height: 1.6;
+  font-size: 1.1em;
+}
+
+/*
+ * Accessibility & Usability Improvements
+ */
+
+/* Clearer focus indicators for all interactive elements */
+a:focus,
+button:focus,
+[tabindex]:focus,
+ion-button:focus,
+ion-item:focus,
+ion-input:focus,
+ion-select:focus,
+ion-textarea:focus,
+ion-checkbox:focus,
+ion-radio:focus {
+  outline: 3px solid var(--ion-color-secondary);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 5px rgba(var(--ion-color-secondary-rgb), 0.5);
+}
+
+/* Larger touch targets for buttons */
+ion-button {
+  --padding-top: 20px;
+  --padding-bottom: 20px;
+  --padding-start: 25px;
+  --padding-end: 25px;
+  height: auto;
+  min-height: 50px;
+}
+
+/*
+ * Playful & Friendly UI Components
+ */
+
+ion-header {
+  ion-toolbar {
+    --background: var(--ion-color-interface);
+    --color: var(--ion-color-interface-contrast);
+
+    ion-title {
+      color: var(--ion-text-color-on-interface);
+      font-size: 1.5em;
+      font-weight: 700;
+    }
+  }
+  &::after {
+    display: none; /* Remove the bottom border line on headers */
+  }
+}
+
+ion-card {
+  border-radius: var(--ion-card-border-radius, 20px);
+  box-shadow: var(--ion-card-box-shadow, 0 4px 12px rgba(44, 62, 80, 0.1));
+  background: var(--ion-card-background, #ffffff);
+  ion-card-header {
+    ion-card-title {
+      font-size: 1.4em;
+      color: var(--ion-color-heading);
+    }
+  }
+}
+
+  ion-item {
+    --background: rgba(var(--ion-color-light-rgb), 0.8);
+    --border-radius: var(--ion-item-border-radius, 16px);
+    --inner-padding-end: 16px;
+    --inner-padding-start: 16px;
+    --padding-start: 0;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+
+    ion-label {
+      font-size: 1.1em;
+      font-weight: 500;
+      color: var(--ion-color-dark);
+    }
+
+    ion-input, ion-textarea, ion-select {
+      --padding-top: 16px;
+      --padding-bottom: 16px;
+      font-size: 1.2em;
+      --color: #333333 !important; /* Specific color for input text */
+      input, textarea {
+        color: #333333 !important;
+      }
+    }
+  }
+
+/*
+ * Loading State Styles
+ */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: var(--ion-background-color); /* Fallback background */
+  z-index: 9999; /* Ensure it's on top */
+}
+
+.loading-container ion-spinner {
+  width: 50px;
+  height: 50px;
+  --color: var(--ion-color-primary); /* Spinner color */
+}

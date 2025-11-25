@@ -1,6 +1,6 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-title class="ion-text-center">Ritmo</ion-title>
+  <ion-toolbar>
+    <ion-title class="ion-text-center">SolfEdge</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -8,7 +8,7 @@
   <form [formGroup]="loginForm" (ngSubmit)="login()">
     <ion-item>
       <ion-label position="floating">Usuario</ion-label>
-      <ion-input formControlName="username" type="text" required></ion-input>
+      <ion-input formControlName="username" type="text" required style="--color: #333333;"></ion-input>
     </ion-item>
     @if(loginForm.get('username')?.invalid && loginForm.get('username')?.touched){
       <div class="error-message">

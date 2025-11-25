@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { AlertController, IonButtons, IonMenuButton, ModalController, ToastController, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonList, IonItem, IonLabel, IonFab, IonFabButton, IonIcon, IonToggle } from '@ionic/angular/standalone';
+import { AlertController, IonButtons, IonMenuButton, ModalController, ToastController, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonList, IonItem, IonLabel, IonFab, IonFabButton, IonIcon, IonToggle, IonSpinner } from '@ionic/angular/standalone'; // Added IonSpinner
 import { addIcons } from 'ionicons';
 import { add, cloudUploadOutline, createOutline, documentTextOutline, ribbonOutline, trashOutline, checkmarkCircleOutline } from 'ionicons/icons';
 
@@ -24,13 +24,15 @@ import { CalificarModalComponent } from '../../components/calificar-modal/califi
 import { CalificarCuestionarioModalComponent } from '../../components/calificar-cuestionario-modal/calificar-cuestionario-modal.component';
 import { EntregarTareaModalComponent } from '../../components/entregar-tarea-modal/entregar-tarea-modal.component';
 import { CompletarCuestionarioModalComponent } from '../../components/completar-cuestionario-modal/completar-cuestionario-modal.component';
+import { forkJoin, of } from 'rxjs'; // Added forkJoin and of
+import { tap } from 'rxjs/operators'; // Added tap
 
 @Component({
   selector: 'app-rama-detail',
   templateUrl: './rama-detail.page.html',
   styleUrls: ['./rama-detail.page.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, IonButtons, IonMenuButton, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonIcon, IonList, IonItem, IonLabel, IonFab, IonFabButton, RouterModule, IonToggle]
+  imports: [CommonModule, FormsModule, IonButtons, IonMenuButton, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonIcon, IonList, IonItem, IonLabel, IonFab, IonFabButton, RouterModule, IonToggle, IonSpinner] // Added IonSpinner
 })
 export class RamaDetailPage {
   title: string = '';
@@ -46,6 +48,7 @@ export class RamaDetailPage {
   pdfUrl: SafeResourceUrl | null = null;
   hasLibroDeApoyo = false;
   useCuestionarios = false;
+  isLoading: boolean = true; // Added isLoading
 
   private readonly route: ActivatedRoute = inject(ActivatedRoute);
   private readonly ramaConfigService: RamaConfigService = inject(RamaConfigService);
@@ -71,6 +74,7 @@ export class RamaDetailPage {
   }
 
   ionViewWillEnter() {
+    this.isLoading = true; // Set loading to true
     this.route.data.subscribe(data => {
       this.title = data['title'];
       this.ramaNombre = data['ramaNombre'];
@@ -84,57 +88,70 @@ export class RamaDetailPage {
         this.grupoStateService.selectedGrupo$.subscribe(grupo => {
           this.selectedGrupo = grupo;
           if (grupo) {
-            this.loadTareas();
-            this.loadRamaConfig(grupo._id);
-            if (this.isTeoria) {
-              this.loadCuestionarios();
-            }
+            forkJoin([
+              this.loadTareas(),
+              this.loadRamaConfig(grupo._id),
+              this.isTeoria ? this.loadCuestionarios() : of([]) // Handle conditional loading
+            ]).subscribe(() => {
+              this.isLoading = false; // Set to false after all data is loaded
+            }, () => {
+              this.isLoading = false; // Also set to false on error
+            });
           } else {
             this.tareas = [];
             this.cuestionarios = [];
             this.ramaConfig = undefined;
             this.pdfUrl = null;
             this.hasLibroDeApoyo = false;
+            this.isLoading = false; // Set to false if no group
           }
         });
+      } else {
+        this.isLoading = false; // Set to false if no user
       }
     });
   }
 
   loadRamaConfig(grupoId: string) {
-    this.ramaConfigService.getAllRamas().subscribe(ramas => {
-      this.ramaConfig = ramas.find(r => r.nombre === this.ramaNombre && r.grupo === grupoId);
-      if (this.ramaConfig) {
-        this.ramaConfigService.getRamaPdf(this.ramaConfig._id).subscribe({
-          next: (pdfBlob) => {
-            const url = URL.createObjectURL(pdfBlob);
-            this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
-            this.hasLibroDeApoyo = true;
-          },
-          error: () => {
-            this.pdfUrl = null;
-            this.hasLibroDeApoyo = false;
-          }
-        });
-      } else {
-        this.pdfUrl = null;
-        this.hasLibroDeApoyo = false;
-      }
-    });
+    return this.ramaConfigService.getAllRamas().pipe(
+      tap(ramas => {
+        this.ramaConfig = ramas.find(r => r.nombre === this.ramaNombre && r.grupo === grupoId);
+        if (this.ramaConfig) {
+          this.ramaConfigService.getRamaPdf(this.ramaConfig._id).subscribe({
+            next: (pdfBlob) => {
+              const url = URL.createObjectURL(pdfBlob);
+              this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+              this.hasLibroDeApoyo = true;
+            },
+            error: () => {
+              this.pdfUrl = null;
+              this.hasLibroDeApoyo = false;
+            }
+          });
+        } else {
+          this.pdfUrl = null;
+          this.hasLibroDeApoyo = false;
+        }
+      })
+    );
   }
 
   loadTareas() {
-    if (!this.userId) return;
-    this.tareaService.getTareasByUsuarioAndRama(this.userId, this.ramaNombre).subscribe(tareas => {
-      this.tareas = tareas;
-    });
+    if (!this.userId) return of([]); // Return an observable
+    return this.tareaService.getTareasByUsuarioAndRama(this.userId, this.ramaNombre).pipe(
+      tap(tareas => {
+        this.tareas = tareas;
+      })
+    );
   }
 
   loadCuestionarios() {
-    if (!this.userId) return;
-    this.cuestionarioService.getCuestionariosByUsuarioAndRama(this.userId, this.ramaNombre).subscribe(cuestionarios => {
-      this.cuestionarios = cuestionarios;
-    });
+    if (!this.userId) return of([]); // Return an observable
+    return this.cuestionarioService.getCuestionariosByUsuarioAndRama(this.userId, this.ramaNombre).pipe(
+      tap(cuestionarios => {
+        this.cuestionarios = cuestionarios;
+      })
+    );
   }
 
   async onFileSelected(event: any) {

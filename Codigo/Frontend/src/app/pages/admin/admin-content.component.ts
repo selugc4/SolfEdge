@@ -8,7 +8,7 @@ import { GestionGruposComponent } from '../../components/gestion-grupos/gestion-
 import { MensajeModalComponent } from '../../components/mensaje-modal/mensaje-modal.component';
 import { MensajeService } from '../../services/mensaje.service';
 import { CalificacionGeneralModalComponent } from '../../components/calificacion-general-modal/calificacion-general-modal.component';
-import { ModalController, ToastController, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, IonCard, IonCardTitle, IonCardHeader, IonCardContent, IonButton } from '@ionic/angular/standalone';
+import { ModalController, ToastController, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, IonCard, IonCardTitle, IonCardHeader, IonCardContent, IonButton, IonSpinner } from '@ionic/angular/standalone'; // Added IonSpinner
 import { IonIcon } from "@ionic/angular/standalone";
 
 @Component({
@@ -16,7 +16,7 @@ import { IonIcon } from "@ionic/angular/standalone";
   templateUrl: './admin-content.component.html',
   styleUrls: ['./admin-content.component.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, GestionProfesoresComponent, GestionAlumnosComponent, GestionGruposComponent, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, IonCard, IonCardTitle, IonCardHeader, IonCardContent, IonButton, IonIcon]
+  imports: [CommonModule, FormsModule, GestionProfesoresComponent, GestionAlumnosComponent, GestionGruposComponent, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, IonCard, IonCardTitle, IonCardHeader, IonCardContent, IonButton, IonIcon, IonSpinner] // Added IonSpinner
 })
 export class AdminContentComponent implements OnInit {
   userRole: string | undefined;
@@ -25,11 +25,13 @@ export class AdminContentComponent implements OnInit {
   modalController: ModalController = inject(ModalController);
   mensajeService: MensajeService = inject(MensajeService);
   toastController: ToastController = inject(ToastController);
+  isLoading: boolean = true; // Added isLoading
 
   ngOnInit() {
     this.authService.currentUser.subscribe(user => {
       this.userRole = user?.role;
       this.userId = user?._id || null;
+      this.isLoading = false; // Set to false after user is loaded
     });
   }
 

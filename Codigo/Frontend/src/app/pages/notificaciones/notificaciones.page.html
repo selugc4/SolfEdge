@@ -1,32 +1,38 @@
 <ion-header>
-  <ion-toolbar color="primary">
+  <ion-toolbar>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Notificaciones</ion-title>
+    <ion-title class="ion-text-center">SolfEdge</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  @if(notificaciones.length > 0) {
-    <ion-list >
-      @for(notificacion of notificaciones; ; track i; let i = $index) {
-        <ion-item [class.leida]="notificacion.leida" (click)="marcarComoLeida(notificacion)">
-          <ion-icon slot="start" [name]="notificacion.leida ? 'mail-open-outline' : 'mail-outline'"></ion-icon>
-          <ion-label>
-            <h2>{{ notificacion.asunto }}</h2>
-            <p>{{ notificacion.mensaje }}</p>
-            <p><small>{{ notificacion.createdAt | date:'short' }}</small></p>
-          </ion-label>
-        </ion-item>
-      }
-    </ion-list>
-  }
-  @else {
-    <ion-card>
-      <ion-card-content>
-        <p>No tienes notificaciones.</p>
-      </ion-card-content>
-    </ion-card>
+  @if(isLoading){
+    <div class="loading-container">
+      <ion-spinner name="crescent"></ion-spinner>
+    </div>
+  } @else {
+    @if(notificaciones.length > 0) {
+      <ion-list >
+        @for(notificacion of notificaciones; ; track i; let i = $index) {
+          <ion-item [class.leida]="notificacion.leida" (click)="marcarComoLeida(notificacion)">
+            <ion-icon slot="start" [name]="notificacion.leida ? 'mail-open-outline' : 'mail-outline'"></ion-icon>
+            <ion-label>
+              <h2>{{ notificacion.asunto }}</h2>
+              <p>{{ notificacion.mensaje }}</p>
+              <p><small>{{ notificacion.createdAt | date:'short' }}</small></p>
+            </ion-label>
+          </ion-item>
+        }
+      </ion-list>
+    }
+    @else {
+      <ion-card>
+        <ion-card-content>
+          <p>No tienes notificaciones.</p>
+        </ion-card-content>
+      </ion-card>
+    }
   }
 </ion-content>
