@@ -24,6 +24,7 @@ export class TareaModalComponent implements OnInit {
   @Input() currentGroup: Grupo | null = null;
   form: FormGroup;
   selectedFile: File | null = null;
+  minDate: string;
   modalCtrl: ModalController = inject(ModalController);
   toastCtrl: ToastController = inject(ToastController);
   ramaConfigService: RamaConfigService = inject(RamaConfigService);
@@ -37,6 +38,9 @@ export class TareaModalComponent implements OnInit {
   selectedStudentsFromGroups: string[] = [];
 
   constructor() {
+    const today = new Date();
+    today.setDate(today.getDate() + 1);
+    this.minDate = today.toISOString().split('T')[0];
     const user = this.authService.currentUserValue;
     const profesorId = user ? user._id : '';
 
@@ -48,13 +52,15 @@ export class TareaModalComponent implements OnInit {
       materialDeApoyo: '',
       cerrada: false,
       rama: this.rama,
-      alumnos: []
+      alumnos: [],
+      fechaCierre: undefined
     };
 
     this.form = new FormGroup({
       titulo: new FormControl(this.nuevaTarea.titulo, [Validators.required]),
       descripcion: new FormControl(this.nuevaTarea.descripcion, [Validators.required]),
       selectedStudentsFromGroups: new FormControl([]),
+      fechaCierre: new FormControl(null)
     });
   }
 
@@ -67,6 +73,10 @@ export class TareaModalComponent implements OnInit {
 
     if (this.tarea) {
       this.form.patchValue(this.tarea);
+      if (this.tarea.fechaCierre) {
+        const fechaCierre = new Date(this.tarea.fechaCierre);
+        this.form.patchValue({ fechaCierre: fechaCierre.toISOString().split('T')[0] });
+      }
       // If editing, pre-select students from the current group if they are part of the task
       if (this.tarea.alumnos && this.currentGroup) {
         this.selectedStudentsFromGroups = this.currentGroup.alumnos
@@ -116,6 +126,7 @@ export class TareaModalComponent implements OnInit {
         titulo: this.form.value.titulo,
         descripcion: this.form.value.descripcion,
         rama: this.rama,
+        fechaCierre: this.form.value.fechaCierre,
         // Add materialDeApoyo here if no file is selected
         ...(this.selectedFile ? {} : { materialDeApoyo: null }),
         alumnos: finalAlumnos,

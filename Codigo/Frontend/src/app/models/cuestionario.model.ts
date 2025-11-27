@@ -9,6 +9,7 @@ export interface Cuestionario {
   preguntas: Pregunta[];
   cerrada: boolean;
   alumnos: Usuario[]; // IDs
+  fechaCierre: Date;
   createdAt?: string;
   updatedAt?: string;
 }

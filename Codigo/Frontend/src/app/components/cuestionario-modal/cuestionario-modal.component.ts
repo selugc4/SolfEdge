@@ -21,12 +21,17 @@ export class CuestionarioModalComponent implements OnInit {
   private toastCtrl = inject(ToastController);
   private fb = inject(FormBuilder);
   form: FormGroup;
+  minDate: string;
 
   constructor() {
+    const today = new Date();
+    today.setDate(today.getDate() + 1);
+    this.minDate = today.toISOString().split('T')[0];
     this.form = this.fb.group({
       nombre: ['', [Validators.required]],
       alumnos: [[], [Validators.required, Validators.minLength(1)]],
-      preguntas: this.fb.array([], [Validators.required, Validators.minLength(1)])
+      preguntas: this.fb.array([], [Validators.required, Validators.minLength(1)]),
+      fechaCierre: [null]
     });
   }
 
@@ -36,6 +41,10 @@ export class CuestionarioModalComponent implements OnInit {
         nombre: this.cuestionario.nombre,
         alumnos: this.cuestionario.alumnos.map(a => a._id)
       });
+      if (this.cuestionario.fechaCierre) {
+        const fechaCierre = new Date(this.cuestionario.fechaCierre);
+        this.form.patchValue({ fechaCierre: fechaCierre.toISOString().split('T')[0] });
+      }
       this.cuestionario.preguntas.forEach(pregunta => {
         this.addPregunta(pregunta);
       });
@@ -75,7 +84,8 @@ export class CuestionarioModalComponent implements OnInit {
     const respuestasArray = this.getPosiblesRespuestas(preguntaIndex);
     if (respuestasArray.length < 4) {
       respuestasArray.push(this.fb.group({ texto: ['', Validators.required] }));
-    } else {
+    }
+    else {
       this.presentToast('No se pueden añadir más de 4 respuestas.', 'warning');
     }
   }
@@ -89,7 +99,8 @@ export class CuestionarioModalComponent implements OnInit {
       if (preguntaGroup.get('respuestaCorrecta')?.value === respuestaIndex.toString()) {
         preguntaGroup.get('respuestaCorrecta')?.setValue('0');
       }
-    } else {
+    }
+    else {
       this.presentToast('Debe haber al menos 2 respuestas.', 'warning');
     }
   }
@@ -124,7 +135,8 @@ export class CuestionarioModalComponent implements OnInit {
       nombre: formValue.nombre,
       alumnos: formValue.alumnos,
       preguntas: transformedPreguntas,
-      rama: this.rama
+      rama: this.rama,
+      fechaCierre: formValue.fechaCierre
     };
 
     return this.modalCtrl.dismiss(finalCuestionario, 'confirm');

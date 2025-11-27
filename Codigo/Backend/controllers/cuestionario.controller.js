@@ -44,16 +44,6 @@ exports.getCuestionariosByUsuarioAndRama = async (usuarioId, nombreRama) => {
     }
 };
 
-exports.closeCuestionario = async (cuestionarioId) => {
-    try {
-        const cuestionario = await Cuestionario.findByIdAndUpdate(cuestionarioId, { cerrada: true }, { new: true });
-        if (!cuestionario) return { status: 404, body: { error: 'Cuestionario no encontrado.' } };
-        return { status: 200, body: cuestionario };
-    } catch (error) {
-        return { status: 500, body: { error: error.message } };
-    }
-};
-
 exports.deleteCuestionario = async (cuestionarioId) => {
     try {
         const cuestionario = await Cuestionario.findByIdAndDelete(cuestionarioId);
@@ -83,7 +73,7 @@ exports.entregarCuestionario = async (cuestionarioId, alumnoId, respuestasAlumno
             return { status: 404, body: { error: 'Cuestionario no encontrado.' } };
         }
 
-        if (cuestionario.cerrada) {
+        if (cuestionario.fechaCierre && new Date() > cuestionario.fechaCierre) {
             return { status: 400, body: { error: 'Este cuestionario está cerrado y no acepta más entregas.' } };
         }
 

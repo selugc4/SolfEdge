@@ -57,9 +57,9 @@ const cuestionarioSchema = new Schema({
   },
 
   preguntas: [preguntaSchema],
-  cerrada: {
-    type: Boolean,
-    default: false
+  fechaCierre: {
+    type: Date,
+    required: false
   },
   alumnos: [{
     type: Schema.Types.ObjectId,

@@ -311,6 +311,7 @@ export class RamaDetailPage {
         rama: this.RAMA_NOMBRE,
         alumnos: data.alumnos,
         profesor: this.userId,
+        fechaCierre: data.fechaCierre
       };
 
       if (cuestionario) {

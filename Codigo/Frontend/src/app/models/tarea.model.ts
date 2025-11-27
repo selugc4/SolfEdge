@@ -11,4 +11,5 @@ export interface Tarea {
   alumnos: string[];
   createdAt?: string;
   updatedAt?: string;
+  fechaCierre: Date;
 }

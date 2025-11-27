@@ -25,9 +25,9 @@ const tareaSchema = new Schema({
     type: String,
     ref: 'fs.files'
   },
-  cerrada: {
-    type: Boolean,
-    default: false
+  fechaCierre: {
+    type: Date,
+    required: false
   },
   alumnos: [{
     type: Schema.Types.ObjectId,

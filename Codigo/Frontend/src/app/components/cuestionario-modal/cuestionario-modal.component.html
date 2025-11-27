@@ -23,6 +23,11 @@
       </ion-select>
     </ion-item>
 
+    <ion-item>
+      <ion-label position="floating">Fecha de Cierre</ion-label>
+      <ion-input type="date" formControlName="fechaCierre" [min]="minDate"></ion-input>
+    </ion-item>
+
     <ion-list-header>
       <ion-label>Preguntas</ion-label>
       <ion-button (click)="addPregunta()" size="small" fill="outline">

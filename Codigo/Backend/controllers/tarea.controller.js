@@ -59,16 +59,6 @@ exports.getTareasByUsuarioAndRama = async (usuarioId, nombreRama) => {
     }
 };
 
-exports.closeTarea = async (tareaId) => {
-    try {
-        const tarea = await Tarea.findByIdAndUpdate(tareaId, { cerrada: true }, { new: true });
-        if (!tarea) return { status: 404, body: { error: 'Tarea no encontrada.' } };
-        return { status: 200, body: tarea };
-    } catch (error) {
-        return { status: 500, body: { error: error.message } };
-    }
-};
-
 exports.deleteTarea = async (tareaId) => {
     try {
         const tarea = await Tarea.findByIdAndDelete(tareaId);
@@ -98,7 +88,7 @@ exports.entregarTarea = async (tareaId, alumnoId, submissionData, file) => {
             return { status: 404, body: { error: 'Tarea no encontrada.' } };
         }
 
-        if (tarea.cerrada) {
+        if (tarea.fechaCierre && new Date() > tarea.fechaCierre) {
             return { status: 400, body: { error: 'Esta tarea está cerrada y no acepta más entregas.' } };
         }
 
