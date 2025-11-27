@@ -159,6 +159,59 @@ router.delete('/:id', async (req, res) => {
 /**
  * @swagger
  * /tareas/{id}:
+ *   put:
+ *     summary: Actualiza una tarea existente.
+ *     tags: [Tareas]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID de la tarea a actualizar.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               taskData:
+ *                 type: string
+ *                 format: json
+ *                 description: Datos de la tarea en formato JSON.
+ *               materialDeApoyo:
+ *                 type: string
+ *                 format: binary
+ *                 description: Archivo de material de apoyo (opcional).
+ *     responses:
+ *       200:
+ *         description: Tarea actualizada con éxito.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Tarea'
+ *       400:
+ *         description: Solicitud inválida.
+ *       403:
+ *         description: No tienes permiso para modificar esta tarea.
+ *       404:
+ *         description: Tarea no encontrada.
+ *       500:
+ *         description: Error interno del servidor.
+ */
+router.put('/:id', upload.single('materialDeApoyo'), async (req, res) => {
+    const { id } = req.params;
+    const result = await tareaController.updateTarea(id, req.body.taskData, req.file, req.user.id);
+    res.status(result.status).json(result.body);
+});
+
+
+/**
+ * @swagger
+ * /tareas/{id}:
  *   get:
  *     summary: Obtiene una tarea por su ID.
  *     tags: [Tareas]

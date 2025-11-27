@@ -9,13 +9,13 @@ import { AuthService } from '../../services/auth.service';
 import { UsuarioService } from '../../services/usuario.service';
 import { GrupoService } from '../../services/grupo.service';
 import { TareaService } from 'src/app/services/tarea.service';
-import { IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent, IonItem, IonLabel, IonSelectOption, IonInput, IonFooter, ModalController, ToastController } from "@ionic/angular/standalone";
+import { IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent, IonItem, IonLabel, IonSelectOption, IonInput, IonFooter, ModalController, ToastController, IonTextarea, IonSelect} from "@ionic/angular/standalone";
 
 @Component({
   selector: 'app-tarea-modal',
   templateUrl: './tarea-modal.component.html',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent, IonItem, IonLabel, IonSelectOption, IonInput, IonFooter]
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent, IonItem, IonLabel, IonSelectOption, IonInput, IonFooter, IonTextarea, IonSelect]
 })
 export class TareaModalComponent implements OnInit {
   @Input() tarea: Tarea | null = null;
@@ -53,7 +53,7 @@ export class TareaModalComponent implements OnInit {
       cerrada: false,
       rama: this.rama,
       alumnos: [],
-      fechaCierre: undefined
+      fechaCierre: Date.now() as unknown as Date
     };
 
     this.form = new FormGroup({

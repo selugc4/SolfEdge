@@ -25,6 +25,44 @@ exports.crearCuestionario = async (cuestionarioData, profesorId) => {
     }
 };
 
+exports.updateCuestionario = async (cuestionarioId, cuestionarioData, profesorId) => {
+    try {
+        const cuestionario = await Cuestionario.findById(cuestionarioId);
+        if (!cuestionario) {
+            return { status: 404, body: { error: 'Cuestionario no encontrado.' } };
+        }
+
+        // Security check: ensure the professor updating the questionnaire is the one who created it.
+        if (cuestionario.profesor.toString() !== profesorId) {
+            return { status: 403, body: { error: 'No tienes permiso para modificar este cuestionario.' } };
+        }
+
+        if (cuestionarioData.rama !== 'Teoria') {
+            return { status: 400, body: { error: 'Los cuestionarios solo pueden crearse en la rama \'Teoria\'.' } };
+        }
+        if (!cuestionarioData.preguntas || cuestionarioData.preguntas.length < 1 || cuestionarioData.preguntas.length > 20) {
+            return { status: 400, body: { error: 'El cuestionario debe tener entre 1 y 20 preguntas.' } };
+        }
+        if (!cuestionarioData.alumnos || cuestionarioData.alumnos.length === 0) {
+            return { status: 400, body: { error: 'El cuestionario debe tener al menos un alumno.' } };
+        }
+
+        // Handle fechaCierre
+        if (cuestionarioData.fechaCierre) {
+            const fecha = new Date(cuestionarioData.fechaCierre);
+            if (isNaN(fecha.getTime())) {
+                return { status: 400, body: { error: 'fechaCierre no es una fecha válida.' } };
+            }
+            cuestionarioData.fechaCierre = fecha;
+        }
+
+        const updatedCuestionario = await Cuestionario.findByIdAndUpdate(cuestionarioId, cuestionarioData, { new: true });
+        return { status: 200, body: updatedCuestionario };
+    } catch (error) {
+        return { status: 500, body: { error: error.message } };
+    }
+};
+
 exports.getCuestionariosByUsuarioAndRama = async (usuarioId, nombreRama) => {
     try {
         const usuario = await Usuario.findById(usuarioId);
@@ -43,6 +81,17 @@ exports.getCuestionariosByUsuarioAndRama = async (usuarioId, nombreRama) => {
         return { status: 500, body: { error: error.message } };
     }
 };
+
+exports.closeCuestionario = async (cuestionarioId) => {
+    try {
+        const cuestionario = await Cuestionario.findByIdAndUpdate(cuestionarioId, { cerrada: true }, { new: true });
+        if (!cuestionario) return { status: 404, body: { error: 'Cuestionario no encontrado.' } };
+        return { status: 200, body: cuestionario };
+    } catch (error) {
+        return { status: 500, body: { error: error.message } };
+    }
+};
+
 
 exports.deleteCuestionario = async (cuestionarioId) => {
     try {
@@ -73,7 +122,7 @@ exports.entregarCuestionario = async (cuestionarioId, alumnoId, respuestasAlumno
             return { status: 404, body: { error: 'Cuestionario no encontrado.' } };
         }
 
-        if (cuestionario.fechaCierre && new Date() > cuestionario.fechaCierre) {
+        if (cuestionario.cerrada || (cuestionario.fechaCierre && new Date() > cuestionario.fechaCierre)) {
             return { status: 400, body: { error: 'Este cuestionario está cerrado y no acepta más entregas.' } };
         }
 

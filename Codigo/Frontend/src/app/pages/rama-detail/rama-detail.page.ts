@@ -5,7 +5,7 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { AlertController, IonButtons, IonMenuButton, ModalController, ToastController, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonList, IonItem, IonLabel, IonFab, IonFabButton, IonIcon, IonToggle, IonSpinner } from '@ionic/angular/standalone'; // Added IonSpinner
 import { addIcons } from 'ionicons';
-import { add, cloudUploadOutline, createOutline, documentTextOutline, ribbonOutline, trashOutline, checkmarkCircleOutline } from 'ionicons/icons';
+import { add, cloudUploadOutline, createOutline, documentTextOutline, ribbonOutline, trashOutline, checkmarkCircleOutline, closeCircleOutline } from 'ionicons/icons';
 
 import { RamaConfigService } from '../../services/rama-config.service';
 import { TareaService } from '../../services/tarea.service';
@@ -69,7 +69,8 @@ export class RamaDetailPage {
       documentTextOutline,
       ribbonOutline,
       trashOutline,
-      checkmarkCircleOutline
+      checkmarkCircleOutline,
+      closeCircleOutline
     });
   }
 
@@ -235,6 +236,46 @@ export class RamaDetailPage {
     await alert.present();
   }
 
+  async closeTarea(tareaId: string) {
+    const alert = await this.alertController.create({
+      header: 'Confirmar Cierre',
+      message: '¿Estás seguro de que quieres cerrar esta tarea? No se aceptarán más entregas.',
+      buttons: [
+        { text: 'Cancelar', role: 'cancel' },
+        {
+          text: 'Cerrar',
+          handler: () => {
+            this.tareaService.closeTarea(tareaId).subscribe(() => {
+              this.presentToast('Tarea cerrada.');
+              this.loadTareas();
+            });
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+  async closeCuestionario(cuestionarioId: string) {
+    const alert = await this.alertController.create({
+      header: 'Confirmar Cierre',
+      message: '¿Estás seguro de que quieres cerrar este cuestionario? No se aceptarán más entregas.',
+      buttons: [
+        { text: 'Cancelar', role: 'cancel' },
+        {
+          text: 'Cerrar',
+          handler: () => {
+            this.cuestionarioService.closeCuestionario(cuestionarioId).subscribe(() => {
+              this.presentToast('Cuestionario cerrado.');
+              this.loadCuestionarios();
+            });
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
   async presentTareaModal(tarea?: Tarea) {
     if (!this.userId || !this.selectedGrupo) {
       this.presentToast('Error: ID de usuario o grupo no disponible.', 'danger');
@@ -267,7 +308,15 @@ export class RamaDetailPage {
       }
 
       if (tarea) {
-        this.presentToast('Funcionalidad pendiente: Actualizar tarea requiere un endpoint en el backend.', 'warning');
+        this.tareaService.updateTarea(tarea._id, formData).subscribe({
+          next: () => {
+            this.presentToast('Tarea actualizada con éxito.');
+            this.loadTareas();
+          },
+          error: (err) => {
+            this.presentToast(`Error al actualizar tarea: ${err.error.message || err.message}`, 'danger');
+          }
+        });
       } else {
         this.tareaService.crearTarea(formData).subscribe({
           next: () => {
@@ -315,7 +364,15 @@ export class RamaDetailPage {
       };
 
       if (cuestionario) {
-        this.presentToast('Funcionalidad pendiente: Actualizar cuestionario requiere un endpoint en el backend.', 'warning');
+        this.cuestionarioService.updateCuestionario(cuestionario._id, cuestionarioData).subscribe({
+          next: () => {
+            this.presentToast('Cuestionario actualizado con éxito.');
+            this.loadCuestionarios();
+          },
+          error: (err) => {
+            this.presentToast(`Error al actualizar cuestionario: ${err.error.message || err.message}`, 'danger');
+          }
+        });
       } else {
         this.cuestionarioService.crearCuestionario(cuestionarioData).subscribe({
           next: () => {

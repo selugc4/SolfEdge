@@ -40,6 +40,57 @@ exports.crearTarea = async (taskDataJsonString, file, profesorId) => {
     }
 };
 
+exports.updateTarea = async (tareaId, taskDataJsonString, file, profesorId) => {
+    try {
+        let tareaData;
+        try {
+            tareaData = JSON.parse(taskDataJsonString);
+        } catch (error) {
+            return { status: 400, body: { error: 'Invalid taskData JSON' } };
+        }
+
+        const tarea = await Tarea.findById(tareaId);
+        if (!tarea) {
+            return { status: 404, body: { error: 'Tarea no encontrada.' } };
+        }
+
+        // Security check: ensure the professor updating the task is the one who created it.
+        if (tarea.profesor.toString() !== profesorId) {
+            return { status: 403, body: { error: 'No tienes permiso para modificar esta tarea.' } };
+        }
+
+        if (!tareaData.alumnos || tareaData.alumnos.length === 0) {
+            return { status: 400, body: { error: 'La tarea debe tener al menos un alumno.' } };
+        }
+
+        // Handle materialDeApoyo
+        if (file) {
+            if (!file.buffer) {
+                return { status: 400, body: { error: 'File buffer is missing.' } };
+            }
+            tareaData.materialDeApoyo = file.buffer.toString('base64');
+        } else if (tareaData.materialDeApoyo === undefined) {
+            // If no file was uploaded and materialDeApoyo was not explicitly set to null in taskData
+            tareaData.materialDeApoyo = tarea.materialDeApoyo; // Keep the old one
+        }
+
+        // Handle fechaCierre
+        if (tareaData.fechaCierre) {
+            const fecha = new Date(tareaData.fechaCierre);
+            if (isNaN(fecha.getTime())) {
+                return { status: 400, body: { error: 'fechaCierre no es una fecha válida.' } };
+            }
+            tareaData.fechaCierre = fecha;
+        }
+
+        const updatedTarea = await Tarea.findByIdAndUpdate(tareaId, tareaData, { new: true });
+        return { status: 200, body: updatedTarea };
+    } catch (error) {
+        console.error('Controller: Error in updateTarea:', error);
+        return { status: 500, body: { error: error.message } };
+    }
+};
+
 exports.getTareasByUsuarioAndRama = async (usuarioId, nombreRama) => {
     try {
         const usuario = await Usuario.findById(usuarioId);
@@ -58,6 +109,17 @@ exports.getTareasByUsuarioAndRama = async (usuarioId, nombreRama) => {
         return { status: 500, body: { error: error.message } };
     }
 };
+
+exports.closeTarea = async (tareaId) => {
+    try {
+        const tarea = await Tarea.findByIdAndUpdate(tareaId, { cerrada: true }, { new: true });
+        if (!tarea) return { status: 404, body: { error: 'Tarea no encontrada.' } };
+        return { status: 200, body: tarea };
+    } catch (error) {
+        return { status: 500, body: { error: error.message } };
+    }
+};
+
 
 exports.deleteTarea = async (tareaId) => {
     try {
@@ -88,7 +150,7 @@ exports.entregarTarea = async (tareaId, alumnoId, submissionData, file) => {
             return { status: 404, body: { error: 'Tarea no encontrada.' } };
         }
 
-        if (tarea.fechaCierre && new Date() > tarea.fechaCierre) {
+        if (tarea.cerrada || (tarea.fechaCierre && new Date() > tarea.fechaCierre)) {
             return { status: 400, body: { error: 'Esta tarea está cerrada y no acepta más entregas.' } };
         }
 

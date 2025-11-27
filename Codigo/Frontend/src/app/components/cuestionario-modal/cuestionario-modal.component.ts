@@ -22,11 +22,10 @@ export class CuestionarioModalComponent implements OnInit {
   private fb = inject(FormBuilder);
   form: FormGroup;
   minDate: string;
-
+  private today = new Date();
   constructor() {
-    const today = new Date();
-    today.setDate(today.getDate() + 1);
-    this.minDate = today.toISOString().split('T')[0];
+    this.today.setDate(this.today.getDate() + 1);
+    this.minDate = this.today.toISOString().split('T')[0];
     this.form = this.fb.group({
       nombre: ['', [Validators.required]],
       alumnos: [[], [Validators.required, Validators.minLength(1)]],

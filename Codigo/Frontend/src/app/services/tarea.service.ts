@@ -23,6 +23,10 @@ export class TareaService {
     return this.http.post<Tarea>(this.apiUrl, formData);
   }
 
+  updateTarea(id: string, formData: FormData): Observable<Tarea> {
+    return this.http.put<Tarea>(`${this.apiUrl}/${id}`, formData);
+  }
+
   deleteTarea(id: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
@@ -30,7 +34,6 @@ export class TareaService {
   closeTarea(id: string): Observable<any> {
     return this.http.patch(`${this.apiUrl}/${id}/close`, {});
   }
-
   getEntregasPorTarea(tareaId: string): Observable<Calificacion[]> {
     return this.http.get<Calificacion[]>(`${this.apiUrl}/${tareaId}/entregas`);
   }

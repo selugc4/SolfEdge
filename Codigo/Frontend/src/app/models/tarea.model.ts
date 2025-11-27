@@ -1,5 +1,3 @@
-import { Usuario } from './usuario.model';
-
 export interface Tarea {
   _id: string;
   titulo: string;

@@ -182,6 +182,50 @@ router.delete('/:id', async (req, res) => {
 /**
  * @swagger
  * /cuestionarios/{id}:
+ *   put:
+ *     summary: Actualiza un cuestionario existente.
+ *     tags: [Cuestionarios]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID del cuestionario a actualizar.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Cuestionario'
+ *     responses:
+ *       200:
+ *         description: Cuestionario actualizado con éxito.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Cuestionario'
+ *       400:
+ *         description: Solicitud inválida.
+ *       403:
+ *         description: No tienes permiso para modificar este cuestionario.
+ *       404:
+ *         description: Cuestionario no encontrado.
+ *       500:
+ *         description: Error interno del servidor.
+ */
+router.put('/:id', async (req, res) => {
+    const { id } = req.params;
+    const result = await cuestionarioController.updateCuestionario(id, req.body, req.user.id);
+    res.status(result.status).json(result.body);
+});
+
+
+/**
+ * @swagger
+ * /cuestionarios/{id}:
  *   get:
  *     summary: Obtiene un cuestionario por su ID.
  *     tags: [Cuestionarios]

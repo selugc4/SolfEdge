@@ -61,6 +61,10 @@ const cuestionarioSchema = new Schema({
     type: Date,
     required: false
   },
+  cerrada: {
+    type: Boolean,
+    default: false
+  },
   alumnos: [{
     type: Schema.Types.ObjectId,
     ref: 'Usuario'
