@@ -38,7 +38,7 @@ export class CuestionarioModalComponent implements OnInit {
     if (this.cuestionario) {
       this.form.patchValue({
         nombre: this.cuestionario.nombre,
-        alumnos: this.cuestionario.alumnos.map(a => a._id)
+        alumnos: this.cuestionario.alumnos
       });
       if (this.cuestionario.fechaCierre) {
         const fechaCierre = new Date(this.cuestionario.fechaCierre);

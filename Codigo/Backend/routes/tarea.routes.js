@@ -26,8 +26,8 @@ const upload = multer({ storage: storage });
  *               taskData:
  *                 type: string
  *                 format: json
- *                 description: Datos de la tarea en formato JSON (titulo, descripcion, rama, alumnos, profesorId).
- *                 example: '{"titulo":"Nueva Tarea","descripcion":"Descripción de la tarea","rama":"Ritmo","alumnos":["60d5ec49f8c7a10015a4b5c8"],"profesorId":"60d5ec49f8c7a10015a4b5c6"}'
+ *                 description: Datos de la tarea en formato JSON (titulo, descripcion, rama, alumnos, profesorId, fechaCierre).
+ *                 example: '{"titulo":"Nueva Tarea","descripcion":"Descripción de la tarea","rama":"Ritmo","alumnos":["60d5ec49f8c7a10015a4b5c8"],"profesorId":"60d5ec49f8c7a10015a4b5c6", "fechaCierre": "2025-12-31T23:59:59.999Z"}'
  *               materialDeApoyo:
  *                 type: string
  *                 format: binary
@@ -178,14 +178,15 @@ router.delete('/:id', async (req, res) => {
  *           schema:
  *             type: object
  *             properties:
- *               taskData:
- *                 type: string
- *                 format: json
- *                 description: Datos de la tarea en formato JSON.
- *               materialDeApoyo:
- *                 type: string
- *                 format: binary
- *                 description: Archivo de material de apoyo (opcional).
+  *                   taskData:
+  *                     type: string
+  *                     format: json
+  *                     description: Datos de la tarea en formato JSON (titulo, descripcion, rama, alumnos, profesorId, fechaCierre).
+  *                     example: '{"titulo":"Tarea Actualizada","descripcion":"Descripción actualizada de la tarea","rama":"Ritmo","alumnos":["60d5ec49f8c7a10015a4b5c8"],"profesorId":"60d5ec49f8c7a10015a4b5c6", "fechaCierre": "2025-12-31T23:59:59.999Z"}'
+  *                   materialDeApoyo:
+  *                     type: string
+  *                     format: binary
+  *                     description: Archivo de material de apoyo (opcional).
  *     responses:
  *       200:
  *         description: Tarea actualizada con éxito.
@@ -299,6 +300,11 @@ router.put('/entregas/:calificacionId/calificar', async (req, res) => {
  *           nullable: true
  *           description: ID del fichero de material de apoyo en GridFS.
  *           example: 60d5ec49f8c7a10015a4b5c8
+ *         fechaCierre:
+ *           type: string
+ *           format: date
+ *           nullable: true
+ *           description: Fecha de cierre de la tarea.
  *         cerrada:
  *           type: boolean
  *           example: false

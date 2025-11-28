@@ -4,11 +4,11 @@ import { Usuario } from './usuario.model';
 export interface Cuestionario {
   _id: string;
   nombre: string;
-  profesor: string; // ID
+  profesor: string;
   rama: 'Teoría';
   preguntas: Pregunta[];
   cerrada: boolean;
-  alumnos: Usuario[]; // IDs
+  alumnos: string[];
   fechaCierre: Date;
   createdAt?: string;
   updatedAt?: string;

@@ -17,7 +17,7 @@
       <ion-card-content>
         <p><strong>Descripción:</strong> {{ tarea.descripcion }}</p>
         <p><strong>Profesor:</strong> {{ profesorNombre || 'Cargando...' }}</p>
-        
+
         @if(isProfessor){
           <ion-list-header>Entregas de Alumnos</ion-list-header>
           <ion-list>
@@ -59,7 +59,8 @@
             <p>No hay material de apoyo asociado a esta tarea.</p>
           </div>
         }
-        @if(isProfessor && tarea && !tarea.cerrada){
+
+        @if(isProfessor && tarea && !isTareaClosed(tarea)){
           <div class="ion-margin-top">
             <ion-button expand="block" color="warning" (click)="closeTarea()">
               Cerrar Tarea

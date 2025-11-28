@@ -386,7 +386,24 @@ export class RamaDetailPage {
       }
     }
   }
-
+  isTareaClosed(tarea: Tarea): boolean {
+    if (tarea.cerrada) {
+      return true;
+    }
+    if (tarea.fechaCierre) {
+      return new Date() > new Date(tarea.fechaCierre);
+    }
+    return false;
+  }
+  isCuestionarioClosed(cuestionario: Cuestionario): boolean {
+    if (cuestionario.cerrada) {
+      return true;
+    }
+    if (cuestionario.fechaCierre) {
+      return new Date() > new Date(cuestionario.fechaCierre);
+    }
+    return false;
+  }
   async presentEntregarTareaModal(tareaId: string) {
     const modal = await this.modalController.create({
       component: EntregarTareaModalComponent,

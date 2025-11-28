@@ -28,6 +28,7 @@ const cuestionarioController = require('../controllers/cuestionario.controller')
  *               - nombre
  *               - rama
  *               - preguntas
+ *               - fechaCierre
  *             properties:
  *               profesorId:
  *                 type: string
@@ -42,6 +43,12 @@ const cuestionarioController = require('../controllers/cuestionario.controller')
  *                 enum: [Teoria]
  *                 description: Rama a la que pertenece el cuestionario (solo 'Teoria').
  *                 example: Teoria
+ *               fechaCierre:
+ *                 type: string
+ *                 format: date
+ *                 nullable: true
+ *                 description: Fecha de cierre del cuestionario.
+ *                 example: "2025-12-31T23:59:59.999Z"
  *               preguntas:
  *                 type: array
  *                 items:
@@ -307,6 +314,11 @@ router.post('/:id/entregar', async (req, res) => {
  *             $ref: '#/components/schemas/Pregunta'
  *           minItems: 1
  *           maxItems: 20
+ *         fechaCierre:
+ *           type: string
+ *           format: date
+ *           nullable: true
+ *           description: Fecha de cierre del cuestionario.
  *         cerrada:
  *           type: boolean
  *           example: false

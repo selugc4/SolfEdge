@@ -30,7 +30,6 @@ export class TareaService {
   deleteTarea(id: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
-
   closeTarea(id: string): Observable<any> {
     return this.http.patch(`${this.apiUrl}/${id}/close`, {});
   }

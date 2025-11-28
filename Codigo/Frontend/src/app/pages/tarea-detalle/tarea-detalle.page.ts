@@ -24,7 +24,7 @@ export class TareaDetallePage implements OnInit {
   pdfUrl: SafeResourceUrl | undefined;
   profesorNombre: string | undefined;
   isProfessor: boolean = false;
-  
+
   private tareaService: TareaService = inject(TareaService);
   private usuarioService: UsuarioService = inject(UsuarioService);
   private authService: AuthService = inject(AuthService);
@@ -129,7 +129,15 @@ export class TareaDetallePage implements OnInit {
       }
     });
   }
-
+  isTareaClosed(tarea: Tarea): boolean {
+    if (tarea.cerrada) {
+      return true;
+    }
+    if (tarea.fechaCierre) {
+      return new Date() > new Date(tarea.fechaCierre);
+    }
+    return false;
+  }
   async deleteTarea() {
     if (!this.tarea || !this.tarea._id) return;
     this.tareaService.deleteTarea(this.tarea._id).subscribe({

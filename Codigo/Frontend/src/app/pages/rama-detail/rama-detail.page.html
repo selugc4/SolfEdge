@@ -91,9 +91,11 @@
                         <ion-button fill="clear" slot="end" (click)="presentTareaModal(tarea)">
                           <ion-icon name="create-outline" color="dark"></ion-icon>
                         </ion-button>
-                        <ion-button fill="clear" slot="end" (click)="closeTarea(tarea._id)">
-                          <ion-icon name="close-circle-outline" color="warning"></ion-icon>
-                        </ion-button>
+                        @if(!isTareaClosed(tarea)){
+                          <ion-button fill="clear" slot="end" (click)="closeTarea(tarea._id)">
+                            <ion-icon name="close-circle-outline" color="warning"></ion-icon>
+                          </ion-button>
+                        }
                         <ion-button fill="clear" slot="end" (click)="deleteTarea(tarea._id)">
                           <ion-icon name="trash-outline" color="danger"></ion-icon>
                         </ion-button>
@@ -142,9 +144,11 @@
                         <ion-button fill="clear" slot="end" (click)="presentCuestionarioModal(cuestionario)">
                           <ion-icon name="create-outline" color="dark"></ion-icon>
                         </ion-button>
-                        <ion-button fill="clear" slot="end" (click)="closeCuestionario(cuestionario._id)">
-                          <ion-icon name="close-circle-outline" color="warning"></ion-icon>
-                        </ion-button>
+                        @if(!isCuestionarioClosed(cuestionario)){
+                          <ion-button fill="clear" slot="end" (click)="closeCuestionario(cuestionario._id)" @if(!isCuestionarioClosed(cuestionario))>
+                            <ion-icon name="close-circle-outline" color="warning"></ion-icon>
+                          </ion-button>
+                        }
                         <ion-button fill="clear" slot="end" (click)="deleteCuestionario(cuestionario._id)">
                           <ion-icon name="trash-outline" color="danger"></ion-icon>
                         </ion-button>

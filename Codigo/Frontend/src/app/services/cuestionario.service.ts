@@ -27,11 +27,9 @@ export class CuestionarioService {
   deleteCuestionario(id: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
-
   closeCuestionario(id: string): Observable<any> {
     return this.http.patch(`${this.apiUrl}/${id}/close`, {});
   }
-
   getCuestionarioById(id: string): Observable<Cuestionario> {
     return this.http.get<Cuestionario>(`${this.apiUrl}/${id}`);
   }
