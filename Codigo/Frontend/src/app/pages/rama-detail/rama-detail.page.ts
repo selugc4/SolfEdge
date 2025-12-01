@@ -1,7 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, NgZone, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule, Router } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { AlertController, IonButtons, IonMenuButton, ModalController, ToastController, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonList, IonItem, IonLabel, IonFab, IonFabButton, IonIcon, IonToggle, IonSpinner } from '@ionic/angular/standalone'; // Added IonSpinner
 import { addIcons } from 'ionicons';
@@ -12,6 +12,8 @@ import { TareaService } from '../../services/tarea.service';
 import { CuestionarioService } from '../../services/cuestionario.service';
 import { AuthService } from '../../services/auth.service';
 import { GrupoStateService } from '../../services/grupo-state.service';
+import { TareaStateService } from '../../services/tarea-state.service';
+import { Subscription } from 'rxjs';
 
 import { RamaConfig } from '../../models/rama-config.model';
 import { Tarea } from '../../models/tarea.model';
@@ -34,7 +36,7 @@ import { tap } from 'rxjs/operators'; // Added tap
   standalone: true,
   imports: [CommonModule, FormsModule, IonButtons, IonMenuButton, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonIcon, IonList, IonItem, IonLabel, IonFab, IonFabButton, RouterModule, IonToggle, IonSpinner] // Added IonSpinner
 })
-export class RamaDetailPage {
+export class RamaDetailPage implements OnDestroy {
   title: string = '';
   readonly RAMA_NOMBRE = 'Teoría';
   ramaNombre: string = '';
@@ -60,6 +62,10 @@ export class RamaDetailPage {
   private readonly modalController: ModalController = inject(ModalController);
   private readonly grupoStateService: GrupoStateService = inject(GrupoStateService);
   private readonly sanitizer: DomSanitizer = inject(DomSanitizer);
+  private readonly router: Router = inject(Router);
+  private readonly zone: NgZone = inject(NgZone);
+  private readonly tareaStateService: TareaStateService = inject(TareaStateService);
+  private tareaSubscription: Subscription | undefined;
 
   constructor() {
     addIcons({
@@ -72,6 +78,20 @@ export class RamaDetailPage {
       checkmarkCircleOutline,
       closeCircleOutline
     });
+
+    this.tareaSubscription = this.tareaStateService.tareaModified$.subscribe(() => {
+      this.loadTareas().subscribe();
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.tareaSubscription) {
+      this.tareaSubscription.unsubscribe();
+    }
+  }
+
+  navigateToTask(taskId: string): void {
+    this.router.navigate(['/tarea-detalle', taskId]);
   }
 
   ionViewWillEnter() {
@@ -206,8 +226,10 @@ export class RamaDetailPage {
           text: 'Eliminar',
           handler: () => {
             this.tareaService.deleteTarea(tareaId).subscribe(() => {
-              this.presentToast('Tarea eliminada.');
-              this.loadTareas();
+              this.zone.run(() => {
+                this.presentToast('Tarea eliminada.');
+                this.loadTareas().subscribe();
+              });
             });
           }
         }
@@ -226,8 +248,10 @@ export class RamaDetailPage {
           text: 'Eliminar',
           handler: () => {
             this.cuestionarioService.deleteCuestionario(cuestionarioId).subscribe(() => {
-              this.presentToast('Cuestionario eliminado.');
-              this.loadCuestionarios();
+              this.zone.run(() => {
+                this.presentToast('Cuestionario eliminado.');
+                this.loadCuestionarios().subscribe();
+              });
             });
           }
         }
@@ -246,8 +270,10 @@ export class RamaDetailPage {
           text: 'Cerrar',
           handler: () => {
             this.tareaService.closeTarea(tareaId).subscribe(() => {
-              this.presentToast('Tarea cerrada.');
-              this.loadTareas();
+              this.zone.run(() => {
+                this.presentToast('Tarea cerrada.');
+                this.loadTareas().subscribe();
+              });
             });
           }
         }
@@ -266,8 +292,10 @@ export class RamaDetailPage {
           text: 'Cerrar',
           handler: () => {
             this.cuestionarioService.closeCuestionario(cuestionarioId).subscribe(() => {
-              this.presentToast('Cuestionario cerrado.');
-              this.loadCuestionarios();
+              this.zone.run(() => {
+                this.presentToast('Cuestionario cerrado.');
+                this.loadCuestionarios().subscribe();
+              });
             });
           }
         }
@@ -311,7 +339,7 @@ export class RamaDetailPage {
         this.tareaService.updateTarea(tarea._id, formData).subscribe({
           next: () => {
             this.presentToast('Tarea actualizada con éxito.');
-            this.loadTareas();
+            this.loadTareas().subscribe();
           },
           error: (err) => {
             this.presentToast(`Error al actualizar tarea: ${err.error.message || err.message}`, 'danger');
@@ -321,7 +349,7 @@ export class RamaDetailPage {
         this.tareaService.crearTarea(formData).subscribe({
           next: () => {
             this.presentToast('Tarea creada con éxito.');
-            this.loadTareas();
+            this.loadTareas().subscribe();
           },
           error: (err) => {
             this.presentToast(`Error al crear tarea: ${err.error.message || err.message}`, 'danger');
@@ -357,7 +385,7 @@ export class RamaDetailPage {
       const cuestionarioData: Partial<Cuestionario> = {
         nombre: data.nombre,
         preguntas: data.preguntas,
-        rama: this.RAMA_NOMBRE,
+        rama: 'Teoria',
         alumnos: data.alumnos,
         profesor: this.userId,
         fechaCierre: data.fechaCierre
@@ -367,7 +395,7 @@ export class RamaDetailPage {
         this.cuestionarioService.updateCuestionario(cuestionario._id, cuestionarioData).subscribe({
           next: () => {
             this.presentToast('Cuestionario actualizado con éxito.');
-            this.loadCuestionarios();
+            this.loadCuestionarios().subscribe();
           },
           error: (err) => {
             this.presentToast(`Error al actualizar cuestionario: ${err.error.message || err.message}`, 'danger');
@@ -377,7 +405,7 @@ export class RamaDetailPage {
         this.cuestionarioService.crearCuestionario(cuestionarioData).subscribe({
           next: () => {
             this.presentToast('Cuestionario creado con éxito.');
-            this.loadCuestionarios();
+            this.loadCuestionarios().subscribe();
           },
           error: (err) => {
             this.presentToast(`Error al crear cuestionario: ${err.error.message || err.message}`, 'danger');
@@ -411,7 +439,11 @@ export class RamaDetailPage {
         tareaId: tareaId
       }
     });
-    modal.present();
+    await modal.present();
+    const { role } = await modal.onWillDismiss();
+    if (role === 'confirm') {
+      this.loadTareas().subscribe();
+    }
   }
 
   async presentCompletarCuestionarioModal(cuestionarioId: string) {
@@ -421,7 +453,11 @@ export class RamaDetailPage {
         cuestionarioId: cuestionarioId
       }
     });
-    modal.present();
+    await modal.present();
+    const { role } = await modal.onWillDismiss();
+    if (role === 'confirm') {
+      this.loadCuestionarios().subscribe();
+    }
   }
 
   async presentToast(message: string, color: string = 'success') {

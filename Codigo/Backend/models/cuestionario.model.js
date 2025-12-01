@@ -53,7 +53,7 @@ const cuestionarioSchema = new Schema({
   rama: {
     type: String,
     required: true,
-    enum: ['Ritmo', 'Entonación', 'Audición', 'Teoría'] 
+    enum: ['Ritmo', 'Entonación', 'Audición', 'Teoria'] 
   },
 
   preguntas: [preguntaSchema],

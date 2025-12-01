@@ -4,7 +4,8 @@ import { Usuario } from '../../models/usuario.model';
 import { AuthService } from '../../services/auth.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Component, inject, OnInit } from '@angular/core';
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule, DatePipe, Location } from '@angular/common';
+import { TareaStateService } from 'src/app/services/tarea-state.service';
 import { TareaService } from 'src/app/services/tarea.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalController, ToastController, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonCardHeader, IonCard, IonCardTitle, IonCardSubtitle, IonCardContent, IonButton, IonList, IonItem, IonLabel, IonBadge, IonListHeader } from '@ionic/angular/standalone';
@@ -33,6 +34,8 @@ export class TareaDetallePage implements OnInit {
   private sanitizer: DomSanitizer = inject(DomSanitizer);
   private toastController: ToastController = inject(ToastController);
   private modalCtrl: ModalController = inject(ModalController);
+  private tareaStateService: TareaStateService = inject(TareaStateService);
+  private location: Location = inject(Location);
 
   constructor() { }
 
@@ -123,6 +126,7 @@ export class TareaDetallePage implements OnInit {
       next: () => {
         this.presentToast('Tarea cerrada con éxito.');
         if (this.tarea) this.tarea.cerrada = true; // Update UI
+        this.tareaStateService.touch();
       },
       error: (err) => {
         this.presentToast(`Error al cerrar tarea: ${err.error.message || err.message}`, 'danger');
@@ -143,7 +147,8 @@ export class TareaDetallePage implements OnInit {
     this.tareaService.deleteTarea(this.tarea._id).subscribe({
       next: () => {
         this.presentToast('Tarea eliminada con éxito.');
-        this.router.navigate(['/tabs/tab1']); // Navigate back after deletion
+        this.tareaStateService.touch();
+        this.location.back();
       },
       error: (err) => {
         this.presentToast(`Error al eliminar tarea: ${err.error.message || err.message}`, 'danger');

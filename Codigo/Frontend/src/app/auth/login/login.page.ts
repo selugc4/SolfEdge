@@ -6,6 +6,8 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { UsuarioService } from '../../services/usuario.service';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonLabel, IonButton, IonInput} from "@ionic/angular/standalone";
+import { sendOutline } from 'ionicons/icons';
+import { addIcons } from 'ionicons';
 
 @Component({
   selector: 'app-login',
@@ -23,6 +25,7 @@ export class LoginPage implements OnInit {
   toastController: ToastController = inject(ToastController);
 
   constructor() {
+    addIcons({ 'send-outline': sendOutline });
     this.loginForm = new FormGroup({
       username: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required])
