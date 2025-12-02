@@ -9,6 +9,7 @@ import { add, cloudUploadOutline, createOutline, documentTextOutline, ribbonOutl
 
 import { RamaConfigService } from '../../services/rama-config.service';
 import { TareaService } from '../../services/tarea.service';
+import { CuestionarioStateService } from '../../services/cuestionario-state.service';
 import { CuestionarioService } from '../../services/cuestionario.service';
 import { AuthService } from '../../services/auth.service';
 import { GrupoStateService } from '../../services/grupo-state.service';
@@ -21,11 +22,7 @@ import { Cuestionario } from '../../models/cuestionario.model';
 import { Grupo } from '../../models/grupo.model';
 
 import { TareaModalComponent } from '../../components/tarea-modal/tarea-modal.component';
-import { CuestionarioModalComponent } from '../../components/cuestionario-modal/cuestionario-modal.component';
-import { CalificarModalComponent } from '../../components/calificar-modal/calificar-modal.component';
-import { CalificarCuestionarioModalComponent } from '../../components/calificar-cuestionario-modal/calificar-cuestionario-modal.component';
 import { EntregarTareaModalComponent } from '../../components/entregar-tarea-modal/entregar-tarea-modal.component';
-import { CompletarCuestionarioModalComponent } from '../../components/completar-cuestionario-modal/completar-cuestionario-modal.component';
 import { forkJoin, of } from 'rxjs'; // Added forkJoin and of
 import { tap } from 'rxjs/operators'; // Added tap
 
@@ -38,7 +35,7 @@ import { tap } from 'rxjs/operators'; // Added tap
 })
 export class RamaDetailPage implements OnDestroy {
   title: string = '';
-  readonly RAMA_NOMBRE = 'Teoría';
+  readonly RAMA_NOMBRE = 'Teoria';
   ramaNombre: string = '';
   isTeoria: boolean = false;
   ramaConfig: RamaConfig | undefined;
@@ -64,7 +61,9 @@ export class RamaDetailPage implements OnDestroy {
   private readonly sanitizer: DomSanitizer = inject(DomSanitizer);
   private readonly router: Router = inject(Router);
   private readonly zone: NgZone = inject(NgZone);
+  private readonly cuestionarioStateService: CuestionarioStateService = inject(CuestionarioStateService); // Inject CuestionarioStateService
   private readonly tareaStateService: TareaStateService = inject(TareaStateService);
+  private cuestionarioSubscription: Subscription | undefined; // Add cuestionarioSubscription
   private tareaSubscription: Subscription | undefined;
 
   constructor() {
@@ -82,16 +81,31 @@ export class RamaDetailPage implements OnDestroy {
     this.tareaSubscription = this.tareaStateService.tareaModified$.subscribe(() => {
       this.loadTareas().subscribe();
     });
+
+    this.cuestionarioSubscription = this.cuestionarioStateService.cuestionarioModified$.subscribe(() => {
+      this.loadCuestionarios().subscribe(); // Subscribe to questionnaire changes
+    });
   }
 
   ngOnDestroy() {
     if (this.tareaSubscription) {
       this.tareaSubscription.unsubscribe();
     }
+    if (this.cuestionarioSubscription) { // Unsubscribe from questionnaire changes
+      this.cuestionarioSubscription.unsubscribe();
+    }
   }
 
   navigateToTask(taskId: string): void {
-    this.router.navigate(['/tarea-detalle', taskId]);
+    this.router.navigate(['/Tarea-detalle', taskId]);
+  }
+
+  trackByTarea(index: number, tarea: Tarea): string {
+    return tarea._id;
+  }
+
+  trackByCuestionario(index: number, cuestionario: Cuestionario): string {
+    return cuestionario._id;
   }
 
   ionViewWillEnter() {
@@ -99,7 +113,7 @@ export class RamaDetailPage implements OnDestroy {
     this.route.data.subscribe(data => {
       this.title = data['title'];
       this.ramaNombre = data['ramaNombre'];
-      this.isTeoria = this.ramaNombre === 'Teoría';
+      this.isTeoria = this.ramaNombre === 'Teoria';
     });
 
     this.authService.currentUser.subscribe(user => {
@@ -360,58 +374,22 @@ export class RamaDetailPage implements OnDestroy {
   }
 
   async presentCuestionarioModal(cuestionario?: Cuestionario) {
-    if (!this.userId || !this.selectedGrupo) {
-      this.presentToast('Error: ID de usuario o grupo no disponible.', 'danger');
+    if (!this.userId || !this.selectedGrupo || !this.ramaNombre) {
+      this.presentToast('Error: ID de usuario, grupo o rama no disponible.', 'danger');
       return;
     }
 
-    const allAlumnos = this.selectedGrupo.alumnos;
-    const uniqueAlumnos = [...new Map(allAlumnos.map(item => [item['_id'], item])).values()];
-
-    const modal = await this.modalController.create({
-      component: CuestionarioModalComponent,
-      componentProps: {
+    const navigationExtras = {
+      queryParams: {
         rama: this.ramaNombre,
-        cuestionario: cuestionario || null,
-        alumnos: uniqueAlumnos,
         grupoId: this.selectedGrupo._id
       }
-    });
-    modal.present();
+    };
 
-    const { data, role } = await modal.onWillDismiss();
-
-    if (role === 'confirm') {
-      const cuestionarioData: Partial<Cuestionario> = {
-        nombre: data.nombre,
-        preguntas: data.preguntas,
-        rama: 'Teoria',
-        alumnos: data.alumnos,
-        profesor: this.userId,
-        fechaCierre: data.fechaCierre
-      };
-
-      if (cuestionario) {
-        this.cuestionarioService.updateCuestionario(cuestionario._id, cuestionarioData).subscribe({
-          next: () => {
-            this.presentToast('Cuestionario actualizado con éxito.');
-            this.loadCuestionarios().subscribe();
-          },
-          error: (err) => {
-            this.presentToast(`Error al actualizar cuestionario: ${err.error.message || err.message}`, 'danger');
-          }
-        });
-      } else {
-        this.cuestionarioService.crearCuestionario(cuestionarioData).subscribe({
-          next: () => {
-            this.presentToast('Cuestionario creado con éxito.');
-            this.loadCuestionarios().subscribe();
-          },
-          error: (err) => {
-            this.presentToast(`Error al crear cuestionario: ${err.error.message || err.message}`, 'danger');
-          }
-        });
-      }
+    if (cuestionario) {
+      this.router.navigate(['/Cuestionario-edit', cuestionario._id], navigationExtras);
+    } else {
+      this.router.navigate(['/Cuestionario-edit'], navigationExtras);
     }
   }
   isTareaClosed(tarea: Tarea): boolean {
@@ -447,17 +425,7 @@ export class RamaDetailPage implements OnDestroy {
   }
 
   async presentCompletarCuestionarioModal(cuestionarioId: string) {
-    const modal = await this.modalController.create({
-      component: CompletarCuestionarioModalComponent,
-      componentProps: {
-        cuestionarioId: cuestionarioId
-      }
-    });
-    await modal.present();
-    const { role } = await modal.onWillDismiss();
-    if (role === 'confirm') {
-      this.loadCuestionarios().subscribe();
-    }
+    this.router.navigate(['/Cuestionario-completar', cuestionarioId]);
   }
 
   async presentToast(message: string, color: string = 'success') {

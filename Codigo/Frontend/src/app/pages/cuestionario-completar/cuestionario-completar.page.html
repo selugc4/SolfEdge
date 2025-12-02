@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Completar Cuestionario</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  @if(cuestionario){
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <ion-list-header>
+        <ion-label>
+          <h1>{{ cuestionario.nombre }}</h1>
+        </ion-label>
+      </ion-list-header>
+      @for(pregunta of cuestionario.preguntas; track i; let i = $index) {
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Pregunta {{ i + 1 }}: {{ pregunta.texto }}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-radio-group [formControlName]="i.toString()" class="ion-margin-top">
+              @for(respuesta of pregunta.posiblesRespuestas; track j; let j = $index) {
+                <ion-item>
+                  <ion-radio [value]="respuesta.texto" labelPlacement="end">{{ respuesta.texto }}</ion-radio>
+                </ion-item>
+              }
+            </ion-radio-group>
+          </ion-card-content>
+        </ion-card>
+      }
+      <ion-button expand="block" type="submit" [disabled]="form.invalid" class="ion-margin-top">
+        Enviar Cuestionario
+      </ion-button>
+    </form>
+  }
+  @else{
+    <div>
+      <p>Cargando cuestionario...</p>
+    </div>
+  }
+</ion-content>

@@ -46,9 +46,9 @@ export class LoginPage implements OnInit {
           next: () => {
             const userRole = this.authService.currentUserValue?.role;
             if (userRole === 'administrador') {
-              this.router.navigate(['/admin']);
+              this.router.navigate(['/Admin']);
             } else {
-              this.router.navigate(['/tabs']);
+              this.router.navigate(['/Areas']);
             }
           },
           error: async (err) => {

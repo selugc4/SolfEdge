@@ -6,38 +6,48 @@ import { AdminContentComponent } from './pages/admin/admin-content.component';
 
 export const routes: Routes = [
   {
-    path: 'login',
+    path: 'Login',
     loadComponent: () => import('./auth/login/login.page').then( m => m.LoginPage),
     canActivate: [LoginGuard]
   },
   {
-    path: 'tabs',
+    path: 'Areas',
     loadChildren: () => import('./tabs/tabs.routes').then((m) => m.routes),
     canActivate: [AuthGuard]
   },
   {
-    path: 'admin',
+    path: 'Admin',
     component: AdminContentComponent,
     canActivate: [AdminGuard]
   },
   {
-    path: 'notificaciones',
-    loadComponent: () => import('./pages/notificaciones/notificaciones.page').then( m => m.NotificacionesPage),
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'tarea-detalle/:id',
+    path: 'Tarea-detalle/:id',
     loadComponent: () => import('./pages/tarea-detalle/tarea-detalle.page').then( m => m.TareaDetallePage),
     canActivate: [AuthGuard]
   },
   {
+    path: 'Cuestionario-edit/:id',
+    loadComponent: () => import('./pages/cuestionario-edit/cuestionario-edit.page').then( m => m.CuestionarioEditPage),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'Cuestionario-edit',
+    loadComponent: () => import('./pages/cuestionario-edit/cuestionario-edit.page').then( m => m.CuestionarioEditPage),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'Cuestionario-completar/:id',
+    loadComponent: () => import('./pages/cuestionario-completar/cuestionario-completar.page').then( m => m.CuestionarioCompletarPage),
+    canActivate: [AuthGuard]
+  },
+  {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'Login',
     pathMatch: 'full'
   },
   {
     path: '**',
-    redirectTo: 'login',
+    redirectTo: 'Login',
     pathMatch: 'full'
   }
 ];

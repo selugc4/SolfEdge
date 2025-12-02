@@ -1,0 +1,88 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ pageTitle }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <ion-item>
+      <ion-label position="floating">Nombre del Cuestionario</ion-label>
+      <ion-input formControlName="nombre"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Alumnos</ion-label>
+      <ion-select formControlName="alumnos" multiple="true" placeholder="Seleccionar alumnos">
+        @for(alumno of alumnos; track alumno._id){
+          <ion-select-option [value]="alumno._id">{{ alumno.username }}</ion-select-option>
+        }
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Fecha de Cierre</ion-label>
+      <ion-input type="date" formControlName="fechaCierre" [min]="minDate"></ion-input>
+    </ion-item>
+
+    <ion-list-header>
+      <ion-label>Preguntas</ion-label>
+      <ion-button (click)="addPregunta()" size="small" fill="outline">
+        <ion-icon slot="start" name="add-circle-outline"></ion-icon>
+        Añadir Pregunta
+      </ion-button>
+    </ion-list-header>
+
+    <div formArrayName="preguntas">
+      @for(preguntaGroup of preguntas.controls; track i; let i = $index){
+        <ion-card [formGroupName]="i">
+          <ion-card-header>
+            <ion-card-title>Pregunta {{ i + 1 }}</ion-card-title>
+            <ion-button (click)="removePregunta(i)" color="danger" fill="clear" slot="end">
+              <ion-icon name="trash-outline"></ion-icon>
+            </ion-button>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-item>
+              <ion-label position="floating">Texto de la Pregunta</ion-label>
+              <ion-textarea formControlName="texto" rows="2" [autoGrow]="true"></ion-textarea>
+            </ion-item>
+
+            <ion-list-header>
+              <ion-label>Posibles Respuestas</ion-label>
+              @if(getPosiblesRespuestas(i).length < 4){
+                <ion-button (click)="addRespuesta(i)" size="small" fill="outline">
+                  <ion-icon slot="start" name="add-circle-outline"></ion-icon>
+                  Añadir
+                </ion-button>
+              }
+            </ion-list-header>
+
+            <ion-radio-group formControlName="respuestaCorrecta">
+              <div formArrayName="posiblesRespuestas">
+                @for(respuestaGroup of getPosiblesRespuestas(i).controls; track j; let j = $index){
+                  <ion-item [formGroupName]="j">
+                    <ion-radio [value]="j.toString()" slot="start"></ion-radio>
+                    <ion-input formControlName="texto" placeholder="Texto de la respuesta"></ion-input>
+                    @if(getPosiblesRespuestas(i).length > 2){
+                      <ion-button (click)="removeRespuesta(i, j)" color="danger" fill="clear" slot="end">
+                        <ion-icon name="trash-outline"></ion-icon>
+                      </ion-button>
+                    }
+                  </ion-item>
+                }
+              </div>
+            </ion-radio-group>
+          </ion-card-content>
+        </ion-card>
+      }
+    </div>
+    
+    <ion-button expand="block" type="submit" [disabled]="form.invalid" class="ion-margin-top">
+      {{ isEditMode ? 'Guardar Cambios' : 'Crear Cuestionario' }}
+    </ion-button>
+  </form>
+</ion-content>

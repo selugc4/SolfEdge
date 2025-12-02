@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { TabsPage } from './tabs.page';
+import { AuthGuard } from '../guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -7,45 +8,50 @@ export const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'tab1',
+        path: 'Ritmo',
         loadComponent: () => import('../pages/rama-detail/rama-detail.page').then(m => m.RamaDetailPage),
         data: { title: 'Ritmo', ramaNombre: 'Ritmo' }
       },
       {
-        path: 'tab2',
+        path: 'Entonacion',
         loadComponent: () => import('../pages/rama-detail/rama-detail.page').then(m => m.RamaDetailPage),
         data: { title: 'Entonación', ramaNombre: 'Entonación' }
       },
       {
-        path: 'tab3',
+        path: 'Audicion',
         loadComponent: () => import('../pages/rama-detail/rama-detail.page').then(m => m.RamaDetailPage),
         data: { title: 'Lectura', ramaNombre: 'Audición' }
       },
       {
-        path: 'tab4',
+        path: 'Teoria',
         loadComponent: () => import('../pages/rama-detail/rama-detail.page').then(m => m.RamaDetailPage),
-        data: { title: 'Teoría', ramaNombre: 'Teoría' }
+        data: { title: 'Teoría', ramaNombre: 'Teoria' }
       },
       {
-        path: 'tab5',
+        path: 'Perfil',
         loadComponent: () =>
           import('../tab5/tab5.page').then((m) => m.Tab5Page),
       },
       {
-        path: 'professor-admin',
+        path: 'Professor-admin',
         loadComponent: () =>
-          import('../pages/professor-admin/professor-admin.page').then((m) => m.ProfessorAdminPage),
+        import('../pages/professor-admin/professor-admin.page').then((m) => m.ProfessorAdminPage),
+      },
+      {
+        path: 'Notificaciones',
+        loadComponent: () => import('../pages/notificaciones/notificaciones.page').then( m => m.NotificacionesPage),
+        canActivate: [AuthGuard]
       },
       {
         path: '',
-        redirectTo: '/tabs/tab1',
+        redirectTo: '/Areas/Ritmo',
         pathMatch: 'full',
       },
     ],
   },
   {
     path: '',
-    redirectTo: '/tabs/tab1',
+    redirectTo: '/Areas/Ritmo',
     pathMatch: 'full',
   },
 ];

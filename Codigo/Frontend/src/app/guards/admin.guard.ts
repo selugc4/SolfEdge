@@ -15,11 +15,11 @@ export class AdminGuard implements CanActivate {
       if (currentUser && currentUser.role === 'administrador') {
         return true;
       } else {
-        this.router.navigate(['/tabs']);
+        this.router.navigate(['/Areas']);
         return false;
       }
     } else {
-      this.router.navigate(['/login']);
+      this.router.navigate(['/Login']);
       return false;
     }
   }

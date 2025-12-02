@@ -20,19 +20,19 @@
       </ion-select>
       <ion-menu-toggle auto-hide="false">
         @if(isAdministrator){
-          <ion-item button [routerLink]="['/admin']" routerDirection="root">
+          <ion-item button [routerLink]="['/Admin']" routerDirection="root">
             <ion-icon name="briefcase-sharp" slot="start"></ion-icon>
             <ion-label>Administración</ion-label>
           </ion-item>
         }
         @if(isAdminOrProfessor && !isAdministrator){
-        <ion-item button [routerLink]="['/tabs/professor-admin']" routerDirection="root">
+        <ion-item button [routerLink]="['/Areas/Professor-admin']" routerDirection="root">
           <ion-icon name="briefcase-sharp" slot="start"></ion-icon>
           <ion-label>Administración</ion-label>
         </ion-item>
         }
         @if(!isAdministrator){
-          <ion-item button [routerLink]="['/notificaciones']" routerDirection="root">
+          <ion-item button [routerLink]="['/Areas/Notificaciones']" routerDirection="root">
             <ion-icon name="notifications-sharp" slot="start"></ion-icon>
             <ion-label>Notificaciones</ion-label>
           </ion-item>

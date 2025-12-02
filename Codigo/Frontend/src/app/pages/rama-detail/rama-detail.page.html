@@ -114,7 +114,7 @@
           </ion-card>
         }
         <!-- FAB para añadir tarea -->
-        @if(isProfessor && !useCuestionarios){
+        @if(isProfessor){
           <ion-fab vertical="bottom" horizontal="end" slot="fixed">
             <ion-fab-button (click)="presentTareaModal()">
               <ion-icon name="add"></ion-icon>
@@ -147,7 +147,7 @@
                           <ion-icon name="create-outline" color="dark"></ion-icon>
                         </ion-button>
                         @if(!isCuestionarioClosed(cuestionario)){
-                          <ion-button fill="clear" slot="end" (click)="closeCuestionario(cuestionario._id)" @if(!isCuestionarioClosed(cuestionario))>
+                          <ion-button fill="clear" slot="end" (click)="closeCuestionario(cuestionario._id)">
                             <ion-icon name="close-circle-outline" color="warning"></ion-icon>
                           </ion-button>
                         }
@@ -166,13 +166,14 @@
           </ion-card>
         }
         <!-- FAB para añadir cuestionario -->
-        @if(isProfessor && useCuestionarios){
+        @if(isProfessor && isTeoria){
           <ion-fab vertical="bottom" horizontal="end" slot="fixed">
             <ion-fab-button (click)="presentCuestionarioModal()">
               <ion-icon name="add"></ion-icon>
             </ion-fab-button>
           </ion-fab>
         }
+
       </div>
     }
   }

@@ -19,7 +19,8 @@ exports.login = async (username, password) => {
         const payload = {
             id: usuario._id,
             username: usuario.username,
-            role: usuario.role
+            role: usuario.role,
+            email: usuario.email
         };
         const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '1h' });
         return { status: 200, body: { message: 'Login correcto', token: token } };

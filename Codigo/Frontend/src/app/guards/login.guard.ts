@@ -14,10 +14,10 @@ export class LoginGuard implements CanActivate {
     const currentUser = this.authService.currentUserValue;
     if (this.authService.isAuthenticated()) {
       if (currentUser && currentUser.role === 'administrador') {
-        this.router.navigate(['/admin']);
+        this.router.navigate(['/Admin']);
         return false;
       } else {
-        this.router.navigate(['/tabs']);
+        this.router.navigate(['/Areas']);
         return false;
       }
     } else {

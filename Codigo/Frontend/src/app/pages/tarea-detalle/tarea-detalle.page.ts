@@ -52,7 +52,7 @@ export class TareaDetallePage implements OnInit {
         this.loadTareaDetalle(tareaId);
       } else {
         this.presentToast('ID de tarea no proporcionado.', 'danger');
-        this.router.navigate(['/tabs/tab1']); // Navigate back if no ID
+        this.router.navigate(['/Areas/Ritmo']); // Navigate back if no ID
       }
     });
   }
