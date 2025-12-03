@@ -51,7 +51,7 @@
                 <ion-label>
                   <h2>{{ mensaje.asunto }}</h2>
                   <p>{{ mensaje.texto }}</p>
-                  <p><small>De: {{ mensaje.remitente }}</small></p>
+                  <p><small>De: {{ mensaje.remitente._id === currentUser?._id ? 'Mí' : mensaje.remitente.username }}</small></p>
                 </ion-label>
               </ion-item>
             }
@@ -62,15 +62,16 @@
         }
       </ion-card-content>
     </ion-card>
-
-    <ion-card class="ion-margin-top">
-      <ion-card-header>
-        <ion-card-title>Mis Calificaciones</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <p>Aquí se mostrarán tus calificaciones de tareas y cuestionarios.</p>
-        <p>Funcionalidad pendiente de implementación.</p>
-      </ion-card-content>
-    </ion-card>
+    @if(currentUser?.role === 'alumno'){
+      <ion-card class="ion-margin-top">
+        <ion-card-header>
+          <ion-card-title>Mis Calificaciones</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <p>Aquí se mostrarán tus calificaciones de tareas y cuestionarios.</p>
+          <p>Funcionalidad pendiente de implementación.</p>
+        </ion-card-content>
+      </ion-card>
+    }
   }
 </ion-content>

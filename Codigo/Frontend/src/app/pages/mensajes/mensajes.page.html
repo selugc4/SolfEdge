@@ -19,7 +19,7 @@
           <ion-item [class.leida]="isLeido(mensaje)" (click)="marcarComoLeido(mensaje)">
             <ion-icon slot="start" [name]="isLeido(mensaje) ? 'mail-open-outline' : 'mail-outline'"></ion-icon>
             <ion-label>
-              <h2>De: {{ mensaje.remitente.username }}</h2>
+              <h2>De: {{ mensaje.remitente._id === userId ? 'Mí' : mensaje.remitente.username }}</h2>
               <h3>{{ mensaje.asunto }}</h3>
               <p>{{ mensaje.texto }}</p>
               <p><small>{{ mensaje.createdAt | date:'short' }}</small></p>

@@ -42,25 +42,13 @@ export class MensajesPage implements OnInit {
     }
 
     this.mensajeService.getMensajesByUsuario(this.userId, this.currentPage).subscribe(response => {
-      console.log('API Response for getMensajesByUsuario:', response); // Debugging line
-      if (response && Array.isArray(response.mensajes)) {
-        this.mensajes.push(...response.mensajes);
-      } else {
-        console.error('Expected an array of messages, but received:', response);
-        // Optionally, display an error message to the user
-      }
+      this.mensajes.push(...response.mensajes);
       this.isLoading = false;
       if (event) {
         event.target.complete();
-        if (response && response.page >= response.pages) { // Added check for response
+        if (response.page >= response.pages) {
           event.target.disabled = true;
         }
-      }
-    }, error => { // Added error handling
-      console.error('Error loading messages:', error);
-      this.isLoading = false;
-      if (event) {
-        event.target.complete();
       }
     });
   }

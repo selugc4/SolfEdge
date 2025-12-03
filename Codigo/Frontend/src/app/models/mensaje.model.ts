@@ -2,9 +2,9 @@ import { Usuario } from './usuario.model';
 
 export interface Mensaje {
   _id: string;
-  remitente: Usuario;
   asunto: string;
   texto: string;
+  remitente: Usuario;
   destinatarios: { usuario: Usuario; leida: boolean; }[]; // Updated structure
   createdAt?: string;
   updatedAt?: string;

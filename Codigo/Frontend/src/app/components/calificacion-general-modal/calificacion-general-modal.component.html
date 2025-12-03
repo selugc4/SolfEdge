@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Calificación General</ion-title>
+    <ion-title>Calificación General de Alumno</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="cancel()">Cancelar</ion-button>
     </ion-buttons>
@@ -10,25 +10,66 @@
 <ion-content class="ion-padding">
   <form [formGroup]="form">
     <ion-item>
-      <ion-button (click)="openSelectAlumnosModal()">Seleccionar Alumno</ion-button>
+      <ion-button expand="block" (click)="openSelectAlumnosModal()">Seleccionar Alumno</ion-button>
     </ion-item>
     @if(selectedAlumno) {
       <ion-item>
         <ion-label>Alumno Seleccionado:</ion-label>
         <ion-label>{{ selectedAlumno.username }}</ion-label>
       </ion-item>
+    } @else {
+      <ion-item>
+        <ion-label color="medium">Ningún alumno seleccionado</ion-label>
+      </ion-item>
     }
-    <ion-item>
-      <ion-label position="floating">Nota (0-10)</ion-label>
-      <ion-input formControlName="nota" type="number"></ion-input>
+
+    <ion-item class="ion-margin-top">
+      <ion-select
+        label="Tipo de Calificación"
+        placeholder="Selecciona el tipo"
+        [(ngModel)]="selectedTipo"
+        (ionChange)="onTipoChange($event)"
+        [ngModelOptions]="{standalone: true}"
+      >
+        @for(tipo of tiposCalificacion; track tipo) {
+          @if (tipo === 'Extraordinaria') {
+            <ion-select-option [value]="tipo" [disabled]="!showExtraordinariaOption">
+              {{ tipo }} @if (!showExtraordinariaOption) { (Ordinaria ≥ 5 o no existe) }
+            </ion-select-option>
+          } @else {
+            <ion-select-option [value]="tipo">{{ tipo }}</ion-select-option>
+          }
+        }
+      </ion-select>
     </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Nota (1-10)</ion-label>
+      <ion-input formControlName="nota" type="number" min="1" max="10"></ion-input>
+    </ion-item>
+
+    @if (selectedAlumno && grupoId) {
+      <ion-note class="ion-padding-top">
+        Calificaciones existentes para {{ selectedAlumno.username }} en este grupo:<br>
+        @if (calificacionesExistentes.length > 0) {
+          @for (calif of calificacionesExistentes; track calif._id) {
+            - {{ calif.tipo }}: {{ calif.nota }}<br>
+          }
+        } @else {
+          No hay calificaciones registradas.
+        }
+        @if (ordinariaNota !== null) {
+          <br>Nota Ordinaria: {{ ordinariaNota }} @if (ordinariaNota < 5) { (Permite Extraordinaria) }
+        }
+      </ion-note>
+    }
   </form>
 </ion-content>
 
 <ion-footer>
   <ion-toolbar>
     <ion-buttons slot="end">
-      <ion-button (click)="confirm()" [strong]="true">Guardar Calificación</ion-button>
+      <ion-button (click)="guardarCalificacion()" [strong]="true" [disabled]="!isFormValid()">Guardar Calificación</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-footer>
