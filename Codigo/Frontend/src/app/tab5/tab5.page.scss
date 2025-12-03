@@ -1,8 +1,5 @@
-ion-item {
-  ion-label {
-    text-align: left;
-  }
-  ion-text {
-    text-align: left;
-  }
+.item-content {
+  display: flex;
+  align-items: center;
+  gap: 16px; /* Adjust the gap as needed */
 }

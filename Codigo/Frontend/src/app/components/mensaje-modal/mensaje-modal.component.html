@@ -18,9 +18,18 @@
       <ion-textarea formControlName="texto"></ion-textarea>
     </ion-item>
     <ion-item>
-      <ion-label position="floating">IDs de Alumnos (separados por coma)</ion-label>
-      <ion-textarea formControlName="alumnoIds"></ion-textarea>
+      <ion-button (click)="openSelectAlumnosModal()">Seleccionar Alumnos</ion-button>
     </ion-item>
+    <ion-item>
+      <ion-label>Alumnos Seleccionados:</ion-label>
+    </ion-item>
+    <ion-list>
+      @for(alumno of selectedAlumnos; track alumno._id) {
+        <ion-item>
+          <ion-label>{{ alumno.username }}</ion-label>
+        </ion-item>
+      }
+    </ion-list>
   </form>
 </ion-content>
 

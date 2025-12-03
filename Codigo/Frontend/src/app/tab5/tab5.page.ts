@@ -32,9 +32,9 @@ export class Tab5Page implements OnInit {
   }
 
   loadMensajes(userId: string) {
-    this.mensajeService.getMensajesByUsuario(userId).subscribe(mensajes => {
-      this.mensajes = mensajes;
-      this.isLoading = false; // Set to false after messages are loaded
+    this.mensajeService.getMensajesByUsuario(userId).subscribe(response => {
+      this.mensajes = response.mensajes || [];
+      this.isLoading = false;
     });
   }
 }

@@ -38,8 +38,8 @@ export const routes: Routes = [
         import('../pages/professor-admin/professor-admin.page').then((m) => m.ProfessorAdminPage),
       },
       {
-        path: 'Notificaciones',
-        loadComponent: () => import('../pages/notificaciones/notificaciones.page').then( m => m.NotificacionesPage),
+        path: 'Mensajes',
+        loadComponent: () => import('../pages/mensajes/mensajes.page').then( m => m.MensajesPage),
         canActivate: [AuthGuard]
       },
       {

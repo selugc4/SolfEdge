@@ -32,9 +32,9 @@
         </ion-item>
         }
         @if(!isAdministrator){
-          <ion-item button [routerLink]="['/Areas/Notificaciones']" routerDirection="root">
-            <ion-icon name="notifications-sharp" slot="start"></ion-icon>
-            <ion-label>Notificaciones</ion-label>
+          <ion-item button [routerLink]="['/Areas/Mensajes']" routerDirection="root">
+            <ion-icon name="mail-sharp" slot="start"></ion-icon>
+            <ion-label>Mensajes</ion-label>
           </ion-item>
         }
         <ion-item button (click)="logout()">

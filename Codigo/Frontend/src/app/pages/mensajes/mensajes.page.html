@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Mensajes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  @if(isLoading && mensajes.length === 0){
+    <div class="loading-container">
+      <ion-spinner name="crescent"></ion-spinner>
+    </div>
+  } @else {
+    @if(mensajes.length > 0) {
+      <ion-list >
+        @for(mensaje of mensajes; ; track mensaje._id) {
+          <ion-item [class.leida]="isLeido(mensaje)" (click)="marcarComoLeido(mensaje)">
+            <ion-icon slot="start" [name]="isLeido(mensaje) ? 'mail-open-outline' : 'mail-outline'"></ion-icon>
+            <ion-label>
+              <h2>De: {{ mensaje.remitente.username }}</h2>
+              <h3>{{ mensaje.asunto }}</h3>
+              <p>{{ mensaje.texto }}</p>
+              <p><small>{{ mensaje.createdAt | date:'short' }}</small></p>
+            </ion-label>
+          </ion-item>
+        }
+      </ion-list>
+    }
+    @else {
+      <ion-card>
+        <ion-card-content>
+          <p>No tienes mensajes.</p>
+        </ion-card-content>
+      </ion-card>
+    }
+  }
+
+  <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

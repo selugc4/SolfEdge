@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { IonApp, IonRouterOutlet, IonMenu, IonHeader, IonToolbar, IonTitle, IonContent, IonMenuToggle, IonItem, IonIcon, IonLabel, ModalController, IonSelect, IonSelectOption } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { briefcaseSharp, logOutSharp, notificationsSharp, peopleSharp } from 'ionicons/icons';
+import { briefcaseSharp, logOutSharp, notificationsSharp, peopleSharp, mailSharp } from 'ionicons/icons';
 import { AuthService } from './services/auth.service';
 import { RouterLink } from '@angular/router';
 import { Grupo } from './models/grupo.model';
@@ -33,7 +33,7 @@ export class AppComponent implements OnInit {
   grupoStateService: GrupoStateService = inject(GrupoStateService);
 
   constructor() {
-    addIcons({ briefcaseSharp, logOutSharp, notificationsSharp, peopleSharp });
+    addIcons({ briefcaseSharp, logOutSharp, notificationsSharp, peopleSharp, mailSharp });
   }
 
   ngOnInit() {

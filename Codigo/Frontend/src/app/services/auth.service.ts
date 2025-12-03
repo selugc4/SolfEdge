@@ -36,7 +36,7 @@ export class AuthService {
             _id: response.sessionData.id,
             username: response.sessionData.username,
             role: response.sessionData.role,
-            email: ''
+            email: response.sessionData.email
           };
           localStorage.setItem('currentUser', JSON.stringify(user));
           this.currentUserSubject.next(user);

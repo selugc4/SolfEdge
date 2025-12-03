@@ -10,9 +10,14 @@
 <ion-content class="ion-padding">
   <form [formGroup]="form">
     <ion-item>
-      <ion-label position="floating">ID de Alumno</ion-label>
-      <ion-input formControlName="alumnoId"></ion-input>
+      <ion-button (click)="openSelectAlumnosModal()">Seleccionar Alumno</ion-button>
     </ion-item>
+    @if(selectedAlumno) {
+      <ion-item>
+        <ion-label>Alumno Seleccionado:</ion-label>
+        <ion-label>{{ selectedAlumno.username }}</ion-label>
+      </ion-item>
+    }
     <ion-item>
       <ion-label position="floating">Nota (0-10)</ion-label>
       <ion-input formControlName="nota" type="number"></ion-input>

@@ -7,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-content class="ion-padding profile-content">
   @if(isLoading){
     <div class="loading-container">
       <ion-spinner name="crescent"></ion-spinner>
@@ -19,16 +19,22 @@
       </ion-card-header>
       <ion-card-content>
         <ion-item>
-          <ion-label>Usuario:</ion-label>
-          <ion-text>{{ currentUser?.username }}</ion-text>
+          <div class="item-content">
+            <ion-label>Usuario:</ion-label>
+            <ion-text>{{ currentUser?.username }}</ion-text>
+          </div>
         </ion-item>
         <ion-item>
-          <ion-label>Email:</ion-label>
-          <ion-text>{{ currentUser?.email }}</ion-text>
+          <div class="item-content">
+            <ion-label>Email:</ion-label>
+            <ion-text>{{ currentUser?.email }}</ion-text>
+          </div>
         </ion-item>
         <ion-item>
-          <ion-label>Rol:</ion-label>
-          <ion-text>{{ currentUser?.role }}</ion-text>
+          <div class="item-content">
+            <ion-label>Rol:</ion-label>
+            <ion-text>{{ currentUser?.role }}</ion-text>
+          </div>
         </ion-item>
       </ion-card-content>
     </ion-card>
@@ -45,7 +51,7 @@
                 <ion-label>
                   <h2>{{ mensaje.asunto }}</h2>
                   <p>{{ mensaje.texto }}</p>
-                  <p><small>De: {{ mensaje.profesor }}</small></p>
+                  <p><small>De: {{ mensaje.remitente }}</small></p>
                 </ion-label>
               </ion-item>
             }

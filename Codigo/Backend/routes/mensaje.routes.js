@@ -13,7 +13,7 @@ const mensajeController = require('../controllers/mensaje.controller');
  * @swagger
  * /mensajes:
  *   post:
- *     summary: Crea y envía un nuevo mensaje de un profesor a alumnos.
+ *     summary: Crea y envía un nuevo mensaje.
  *     tags: [Mensajes]
  *     security:
  *       - bearerAuth: []
@@ -24,14 +24,14 @@ const mensajeController = require('../controllers/mensaje.controller');
  *           schema:
  *             type: object
  *             required:
- *               - profesorId
+ *               - remitenteId
  *               - asunto
  *               - texto
- *               - alumnoIds
+ *               - destinatarioIds
  *             properties:
- *               profesorId:
+ *               remitenteId:
  *                 type: string
- *                 description: ID del profesor que envía el mensaje.
+ *                 description: ID del usuario que envía el mensaje.
  *                 example: 60d5ec49f8c7a10015a4b5c6
  *               asunto:
  *                 type: string
@@ -39,28 +39,24 @@ const mensajeController = require('../controllers/mensaje.controller');
  *               texto:
  *                 type: string
  *                 example: No olvides entregar la tarea de teoría antes del viernes.
- *               alumnoIds:
+ *               destinatarioIds:
  *                 type: array
  *                 items:
  *                   type: string
  *                 minItems: 1
- *                 description: Array de IDs de los alumnos destinatarios.
+ *                 description: Array de IDs de los usuarios destinatarios.
  *                 example: ["60d5ec49f8c7a10015a4b5c7", "60d5ec49f8c7a10015a4b5c8"]
  *     responses:
  *       201:
  *         description: Mensaje creado y enviado exitosamente.
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Mensaje'
  *       400:
- *         description: Datos de entrada inválidos, profesor no válido o el mensaje debe tener al menos un destinatario.
+ *         description: Datos de entrada inválidos o el mensaje debe tener al menos un destinatario.
  *       500:
  *         description: Error interno del servidor.
  */
 router.post('/', async (req, res) => {
-    const { profesorId, asunto, texto, alumnoIds } = req.body;
-    const result = await mensajeController.crearMensaje(profesorId, asunto, texto, alumnoIds);
+    const { remitenteId, asunto, texto, destinatarioIds } = req.body;
+    const result = await mensajeController.crearMensaje(remitenteId, asunto, texto, destinatarioIds);
     res.status(result.status).json(result.body);
 });
 
@@ -68,7 +64,7 @@ router.post('/', async (req, res) => {
  * @swagger
  * /mensajes/usuario/{usuarioId}:
  *   get:
- *     summary: Obtiene los mensajes de un usuario (enviados por profesor, recibidos por alumno).
+ *     summary: Obtiene los mensajes de un usuario (enviados o recibidos).
  *     tags: [Mensajes]
  *     security:
  *       - bearerAuth: []
@@ -79,22 +75,29 @@ router.post('/', async (req, res) => {
  *           type: string
  *         required: true
  *         description: ID del usuario para el que se buscan los mensajes.
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *           default: 1
+ *         description: Número de página para la paginación.
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *           default: 10
+ *         description: Número de mensajes por página.
  *     responses:
  *       200:
- *         description: Lista de mensajes.
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Mensaje'
+ *         description: Lista de mensajes paginada.
  *       404:
  *         description: Usuario no encontrado.
  *       500:
  *         description: Error interno del servidor.
  */
 router.get('/usuario/:usuarioId', async (req, res) => {
-    const result = await mensajeController.getMensajesByUsuario(req.params.usuarioId);
+    const { page, limit } = req.query;
+    const result = await mensajeController.getMensajesByUsuario(req.params.usuarioId, page, limit);
     res.status(result.status).json(result.body);
 });
 
@@ -116,10 +119,6 @@ router.get('/usuario/:usuarioId', async (req, res) => {
  *     responses:
  *       200:
  *         description: Mensaje obtenido exitosamente.
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Mensaje'
  *       404:
  *         description: Mensaje no encontrado.
  *       500:
@@ -127,6 +126,48 @@ router.get('/usuario/:usuarioId', async (req, res) => {
  */
 router.get('/:id', async (req, res) => {
     const result = await mensajeController.getMensajeById(req.params.id);
+    res.status(result.status).json(result.body);
+});
+
+/**
+ * @swagger
+ * /mensajes/{id}/leido:
+ *   patch:
+ *     summary: Marca un mensaje como leído para un destinatario específico.
+ *     tags: [Mensajes]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID del mensaje a marcar como leído.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - usuarioId
+ *             properties:
+ *               usuarioId:
+ *                 type: string
+ *                 description: ID del usuario que marca el mensaje como leído.
+ *                 example: 60d5ec49f8c7a10015a4b5c7
+ *     responses:
+ *       200:
+ *         description: Mensaje marcado como leído exitosamente.
+ *       404:
+ *         description: Mensaje no encontrado o usuario no es destinatario.
+ *       500:
+ *         description: Error interno del servidor.
+ */
+router.patch('/:id/leido', async (req, res) => {
+    const { usuarioId } = req.body;
+    const result = await mensajeController.marcarComoLeido(req.params.id, usuarioId);
     res.status(result.status).json(result.body);
 });
 
@@ -141,28 +182,43 @@ router.get('/:id', async (req, res) => {
  *         _id:
  *           type: string
  *           example: 60d5ec49f8c7a10015a4b5c6
- *         profesor:
- *           type: string
- *           description: ID del profesor que envió el mensaje.
- *           example: 60d5ec49f8c7a10015a4b5c7
+ *         remitente:
+ *           $ref: '#/components/schemas/UsuarioInfo'
  *         asunto:
  *           type: string
  *           example: Aviso importante
  *         texto:
  *           type: string
- *           example: Mañana no habrá clase de lenguaje musical.
- *         alumnos:
+ *           example: Mañana no habrá clase.
+ *         destinatarios:
  *           type: array
  *           items:
- *             type: string
- *           description: IDs de los alumnos que recibieron el mensaje.
- *           example: ["60d5ec49f8c7a10015a4b5c8"]
+ *             type: object
+ *             properties:
+ *               usuario:
+ *                 $ref: '#/components/schemas/UsuarioInfo'
+ *               leida:
+ *                 type: boolean
+ *                 example: false
+ *           description: Array de objetos que contienen el usuario destinatario y su estado de lectura.
  *         createdAt:
  *           type: string
  *           format: date-time
  *         updatedAt:
  *           type: string
  *           format: date-time
+ *     UsuarioInfo:
+ *       type: object
+ *       properties:
+ *         _id:
+ *           type: string
+ *           example: "60d5ec49f8c7a10015a4b5c7"
+ *         username:
+ *           type: string
+ *           example: "johndoe"
+ *         email:
+ *           type: string
+ *           example: "john.doe@example.com"
  */
 
 module.exports = router;

@@ -1,21 +1,23 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UsuarioService } from '../../services/usuario.service';
 import { Usuario } from '../../models/usuario.model';
-import { IonHeader, IonButtons, IonToolbar, IonButton, IonTitle, IonContent, IonItem, IonList, IonLabel, IonCheckbox, ModalController } from "@ionic/angular/standalone";
+import { IonHeader, IonButtons, IonToolbar, IonButton, IonTitle, IonContent, IonItem, IonList, IonLabel, IonCheckbox, ModalController, IonRadioGroup, IonRadio } from "@ionic/angular/standalone";
 
 @Component({
   selector: 'app-select-alumnos-modal',
   templateUrl: './select-alumnos-modal.component.html',
   styleUrls: ['./select-alumnos-modal.component.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, IonHeader, IonButtons, IonToolbar, IonButton, IonTitle, IonContent, IonItem, IonList, IonLabel, IonCheckbox]
+  imports: [CommonModule, FormsModule, IonHeader, IonButtons, IonToolbar, IonButton, IonTitle, IonContent, IonItem, IonList, IonLabel, IonCheckbox, IonRadioGroup, IonRadio]
 })
 export class SelectAlumnosModalComponent implements OnInit {
+  @Input() multiple = true;
   alumnos: Usuario[] = [];
   filteredAlumnos: Usuario[] = [];
   selectedAlumnos: Usuario[] = [];
+  selectedAlumno: Usuario | null = null;
   searchTerm: string = '';
 
   private usuarioService = inject(UsuarioService);
@@ -49,20 +51,31 @@ export class SelectAlumnosModalComponent implements OnInit {
   }
 
   toggleAlumnoSelection(alumno: Usuario) {
-    const index = this.selectedAlumnos.findIndex(a => a._id === alumno._id);
-    if (index > -1) {
-      this.selectedAlumnos.splice(index, 1);
+    if (this.multiple) {
+      const index = this.selectedAlumnos.findIndex(a => a._id === alumno._id);
+      if (index > -1) {
+        this.selectedAlumnos.splice(index, 1);
+      } else {
+        this.selectedAlumnos.push(alumno);
+      }
     } else {
-      this.selectedAlumnos.push(alumno);
+      this.selectedAlumno = alumno;
     }
   }
 
   isAlumnoSelected(alumno: Usuario): boolean {
-    return this.selectedAlumnos.some(a => a._id === alumno._id);
+    if (this.multiple) {
+      return this.selectedAlumnos.some(a => a._id === alumno._id);
+    }
+    return this.selectedAlumno?._id === alumno._id;
   }
 
   confirmSelection() {
-    this.modalController.dismiss(this.selectedAlumnos, 'confirm');
+    if (this.multiple) {
+      this.modalController.dismiss(this.selectedAlumnos, 'confirm');
+    } else {
+      this.modalController.dismiss(this.selectedAlumno, 'confirm');
+    }
   }
 
   cancel() {

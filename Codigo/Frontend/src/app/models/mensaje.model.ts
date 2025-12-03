@@ -2,10 +2,17 @@ import { Usuario } from './usuario.model';
 
 export interface Mensaje {
   _id: string;
-  profesor: string; // ID
+  remitente: Usuario;
   asunto: string;
   texto: string;
-  alumnos: string[]; // IDs
+  destinatarios: { usuario: Usuario; leida: boolean; }[]; // Updated structure
   createdAt?: string;
   updatedAt?: string;
+}
+
+export interface MensajesResponse {
+  mensajes: Mensaje[];
+  total: number;
+  page: number;
+  pages: number;
 }
