@@ -8,17 +8,16 @@ import { Usuario } from '../../models/usuario.model';
 import { CuestionarioService } from '../../services/cuestionario.service';
 import { GrupoService } from '../../services/grupo.service';
 import { AuthService } from '../../services/auth.service';
-import { TareaStateService } from '../../services/tarea-state.service';
 import { CuestionarioStateService } from '../../services/cuestionario-state.service';
-import { IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonItem, IonLabel, IonSelect, IonSelectOption, IonListHeader, IonIcon, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonInput, IonTextarea, ToastController, IonRadioGroup, IonRadio } from "@ionic/angular/standalone";
+import { IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonItem, IonLabel, IonSelect, IonSelectOption, IonListHeader, IonIcon, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonInput, IonTextarea, ToastController, IonRadioGroup, IonRadio, IonText } from "@ionic/angular/standalone";
 import { addIcons } from 'ionicons';
-import { addCircleOutline, trashOutline } from 'ionicons/icons';
+import { addCircleOutline, trashOutline, musicalNotesOutline, closeCircleOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-cuestionario-edit',
   templateUrl: './cuestionario-edit.page.html',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonItem, IonLabel, IonSelect, IonSelectOption, IonListHeader, IonIcon, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonInput, IonTextarea, IonRadioGroup, IonRadio]
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonItem, IonLabel, IonSelect, IonSelectOption, IonListHeader, IonIcon, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonInput, IonTextarea, IonRadioGroup, IonRadio, IonText]
 })
 export class CuestionarioEditPage implements OnInit {
   private route = inject(ActivatedRoute);
@@ -27,7 +26,6 @@ export class CuestionarioEditPage implements OnInit {
   private cuestionarioService = inject(CuestionarioService);
   private grupoService = inject(GrupoService);
   private authService = inject(AuthService);
-  private tareaStateService = inject(TareaStateService);
   private toastCtrl = inject(ToastController);
   private cuestionarioStateService = inject(CuestionarioStateService);
   form: FormGroup;
@@ -49,7 +47,7 @@ export class CuestionarioEditPage implements OnInit {
       preguntas: this.fb.array([], [Validators.required, Validators.minLength(1)]),
       fechaCierre: [null]
     });
-    addIcons({ addCircleOutline, trashOutline });
+    addIcons({ addCircleOutline, trashOutline, musicalNotesOutline, closeCircleOutline }); // Added musicalNotesOutline, closeCircleOutline
   }
 
   ngOnInit() {
@@ -103,6 +101,7 @@ export class CuestionarioEditPage implements OnInit {
 
     const preguntaGroup = this.fb.group({
       texto: [pregunta?.texto || '', Validators.required],
+      recursoAudicion: [pregunta?.recursoAudicion || ''], // Added new form control
       respuestaCorrecta: [respuestaCorrectaIndex !== -1 ? respuestaCorrectaIndex.toString() : '0', Validators.required],
       posiblesRespuestas: this.fb.array(
         respuestas.map(r => this.fb.group({ texto: [r.texto, Validators.required] })),
@@ -142,6 +141,41 @@ export class CuestionarioEditPage implements OnInit {
     }
   }
 
+  onFileSelected(event: any, preguntaIndex: number) {
+    const file: File = event.target.files[0];
+    if (file) {
+      if (file.type !== 'audio/mpeg') { // Check for MP3 type
+        this.presentToast('Solo se permiten archivos MP3.', 'danger');
+        return;
+      }
+      if (file.size > 5 * 1024 * 1024) { // Max 5MB
+        this.presentToast('El archivo de audio no puede exceder los 5MB.', 'danger');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.preguntas.at(preguntaIndex).get('recursoAudicion')?.setValue(reader.result as string);
+        this.presentToast('Archivo de audio cargado con éxito.', 'success');
+      };
+      reader.onerror = (error) => {
+        console.error('Error al leer el archivo:', error);
+        this.presentToast('Error al cargar el archivo de audio.', 'danger');
+      };
+    }
+  }
+
+  onRecursoAudicionUrlInput(event: any, preguntaIndex: number) {
+    const url = event.detail.value;
+    this.preguntas.at(preguntaIndex).get('recursoAudicion')?.setValue(url);
+  }
+
+  clearRecursoAudicion(preguntaIndex: number) {
+    this.preguntas.at(preguntaIndex).get('recursoAudicion')?.setValue('');
+    this.presentToast('Recurso de audición eliminado.', 'success');
+  }
+
   goBack() {
     this.location.back();
   }
@@ -167,6 +201,7 @@ export class CuestionarioEditPage implements OnInit {
       }));
       return {
         texto: pregunta.texto,
+        recursoAudicion: pregunta.recursoAudicion, // Include recursoAudicion
         posiblesRespuestas: transformedRespuestas
       };
     });

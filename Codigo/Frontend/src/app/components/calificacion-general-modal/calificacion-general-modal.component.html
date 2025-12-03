@@ -69,7 +69,7 @@
 <ion-footer>
   <ion-toolbar>
     <ion-buttons slot="end">
-      <ion-button (click)="guardarCalificacion()" [strong]="true" [disabled]="!isFormValid()">Guardar Calificación</ion-button>
+      <ion-button (click)="guardarCalificacion()" [strong]="true" [disabled]="!isFormValid() || isSaving">Guardar Calificación</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-footer>

@@ -17,6 +17,9 @@ const preguntaSchema = new Schema({
     type: String,
     required: true
   },
+  recursoAudicion: {
+    type: String
+  },
   posiblesRespuestas: {
     type: [respuestaCuestionarioSchema],
     validate: [

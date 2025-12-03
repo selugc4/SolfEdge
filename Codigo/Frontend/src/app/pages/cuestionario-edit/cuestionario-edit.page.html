@@ -51,6 +51,42 @@
               <ion-textarea formControlName="texto" rows="2" [autoGrow]="true"></ion-textarea>
             </ion-item>
 
+            <!-- Recurso de audición -->
+            <ion-item>
+              <ion-input
+                formControlName="recursoAudicion"
+                placeholder="URL de audio (YouTube, Spotify) o subir MP3"
+                (ionChange)="onRecursoAudicionUrlInput($event, i)"
+              ></ion-input>
+              <input
+                type="file"
+                #fileInput
+                style="display: none;"
+                accept="audio/mpeg"
+                (change)="onFileSelected($event, i)"
+              />
+              <ion-button (click)="fileInput.click()" fill="clear" slot="end">
+                <ion-icon name="musical-notes-outline"></ion-icon>
+              </ion-button>
+              @if (preguntaGroup.get('recursoAudicion')?.value) {
+                <ion-button (click)="clearRecursoAudicion(i)" color="danger" fill="clear" slot="end">
+                  <ion-icon name="close-circle-outline"></ion-icon>
+                </ion-button>
+              }
+            </ion-item>
+            @if (preguntaGroup.get('recursoAudicion')?.value) {
+              <ion-item lines="none">
+                <ion-label>Recurso adjunto:
+                  @if (preguntaGroup.get('recursoAudicion')?.value.startsWith('data:audio/mpeg;base64,')) {
+                    <ion-text color="success">MP3 (Base64)</ion-text>
+                  } @else {
+                    <ion-text color="primary">{{ preguntaGroup.get('recursoAudicion')?.value }}</ion-text>
+                  }
+                </ion-label>
+              </ion-item>
+            }
+
+
             <ion-list-header>
               <ion-label>Posibles Respuestas</ion-label>
               @if(getPosiblesRespuestas(i).length < 4){

@@ -25,6 +25,7 @@ export class CalificacionGeneralModalComponent implements OnInit {
   calificacionesExistentes: CalificacionGeneral[] = [];
   ordinariaNota: number | null = null;
   profesorId: string | null = null;
+  isSaving: boolean = false;
 
   private modalController: ModalController = inject(ModalController);
   private toastController: ToastController = inject(ToastController);
@@ -58,8 +59,14 @@ export class CalificacionGeneralModalComponent implements OnInit {
     if (role === 'confirm' && data) {
       this.selectedAlumno = data;
       if (this.selectedAlumno) {
+        if (this.selectedAlumno.role !== 'alumno') {
+            await this.presentToast('El usuario seleccionado no es un alumno. Por favor, selecciona un alumno.');
+            this.selectedAlumno = null;
+            this.form.controls['alumnoId'].setValue('');
+            return;
+        }
         this.form.controls['alumnoId'].setValue(this.selectedAlumno._id);
-        this.cargarCalificacionesExistentes(); // Load grades for the newly selected student
+        this.cargarCalificacionesExistentes();
       }
     }
   }
@@ -76,7 +83,6 @@ export class CalificacionGeneralModalComponent implements OnInit {
           console.error('Error al cargar calificaciones existentes:', err);
           this.calificacionesExistentes = [];
           this.ordinariaNota = null;
-          // Not necessarily an error, could just be no grades yet (404)
         }
       });
     }
@@ -105,34 +111,25 @@ export class CalificacionGeneralModalComponent implements OnInit {
     }
 
     if (!this.selectedTipo) {
-        await this.presentToast('Por favor, selecciona un tipo de calificación.');
-        return;
+      await this.presentToast('Por favor, selecciona un tipo de calificación.');
+      return;
     }
 
     if (this.selectedTipo === 'Extraordinaria' && !this.showExtraordinariaOption) {
-        await this.presentToast('No se puede guardar una calificación Extraordinaria si la Ordinaria es >= 5 o no existe.');
-        return;
+      await this.presentToast('No se puede guardar una calificación Extraordinaria si la Ordinaria es >= 5 o no existe.');
+      return;
     }
 
     const { alumnoId, nota } = this.form.value;
+    const notaNumber = parseInt(nota, 10);
 
-    this.calificacionGeneralService.crearOActualizarCalificacion(
-      alumnoId,
-      this.grupoId,
-      this.selectedTipo,
-      nota,
-      this.profesorId || undefined // Pass profesorId if available
-    ).subscribe({
-      next: async (calificacion) => {
-        await this.presentToast(`Calificación '${calificacion.tipo}' guardada exitosamente.`);
-        this.modalController.dismiss(calificacion, 'confirm');
-      },
-      error: async (err) => {
-        console.error('Error al guardar calificación:', err);
-        const errorMessage = err.error && err.error.error ? err.error.error : 'Error al guardar la calificación.';
-        await this.presentToast(errorMessage);
-      }
-    });
+    return this.modalController.dismiss({
+      alumnoId: alumnoId,
+      alumnoUsername: this.selectedAlumno!.username,
+      selectedTipo: this.selectedTipo,
+      nota: notaNumber,
+      profesorId: this.profesorId
+    }, 'confirm');
   }
 
   async presentToast(message: string) {

@@ -6,13 +6,13 @@ import { GestionGruposComponent } from '../../components/gestion-grupos/gestion-
 import { MensajeModalComponent } from '../../components/mensaje-modal/mensaje-modal.component';
 import { MensajeService } from '../../services/mensaje.service';
 import { CalificacionGeneralModalComponent } from '../../components/calificacion-general-modal/calificacion-general-modal.component';
-import { ModalController, ToastController, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, IonCard, IonCardTitle, IonCardHeader, IonCardContent, IonButton, IonSpinner } from '@ionic/angular/standalone';
-import { IonIcon } from "@ionic/angular/standalone";
+import { IonIcon, ModalController, ToastController, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, IonCard, IonCardTitle, IonCardHeader, IonCardContent, IonButton, IonSpinner } from '@ionic/angular/standalone';
 import { AuthService } from '../../services/auth.service';
 import { GrupoStateService } from '../../services/grupo-state.service';
 import { Grupo } from '../../models/grupo.model';
 import { CalificacionGeneralService } from '../../services/calificacion-general.service';
-
+import { sendOutline, ribbonOutline } from 'ionicons/icons';
+import { addIcons } from 'ionicons';
 @Component({
   selector: 'app-professor-admin-page',
   templateUrl: './professor-admin.page.html',
@@ -42,7 +42,12 @@ export class ProfessorAdminPage implements OnInit {
       this.selectedGrupo = grupo;
     });
   }
-
+  constructor() {
+    addIcons({
+      'send-outline': sendOutline,
+      'ribbon-outline': ribbonOutline
+    });
+  }
   async presentMensajeModal() {
     const modal = await this.modalController.create({
       component: MensajeModalComponent,
@@ -96,7 +101,7 @@ export class ProfessorAdminPage implements OnInit {
         this.userId
       ).subscribe({
         next: async (calificacion) => {
-          await this.presentToast(`Calificación '${calificacion.tipo}' guardada para ${calificacion.alumno.username}.`);
+          await this.presentToast(`Calificación '${calificacion.tipo}' guardada para ${data.alumnoUsername}.`);
         },
         error: async (err) => {
           console.error('Error al guardar calificación general:', err);

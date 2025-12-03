@@ -21,6 +21,36 @@
             <ion-card-title>Pregunta {{ i + 1 }}: {{ pregunta.texto }}</ion-card-title>
           </ion-card-header>
           <ion-card-content>
+            @if (pregunta.recursoAudicion) {
+              <div class="ion-padding-bottom">
+                @if (isBase64Audio(pregunta.recursoAudicion)) {
+                  <audio controls [src]="getSafeBase64Url(pregunta.recursoAudicion)"></audio>
+                } @else if (isYouTubeUrl(pregunta.recursoAudicion)) {
+                  <iframe
+                    width="100%"
+                    height="200"
+                    [src]="getYouTubeEmbedUrl(isYouTubeUrl(pregunta.recursoAudicion)!)"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                  ></iframe>
+                } @else if (isSpotifyUrl(pregunta.recursoAudicion)) {
+                  <iframe
+                    style="border-radius:12px"
+                    [src]="getSpotifyEmbedUrl(isSpotifyUrl(pregunta.recursoAudicion)!.type, isSpotifyUrl(pregunta.recursoAudicion)!.id)"
+                    width="100%"
+                    height="152"
+                    frameBorder="0"
+                    allowfullscreen=""
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                    loading="lazy"
+                  ></iframe>
+                } @else {
+                  <p>Recurso de audición no reconocido o no soportado: {{ pregunta.recursoAudicion }}</p>
+                }
+              </div>
+            }
+
             <ion-radio-group [formControlName]="i.toString()" class="ion-margin-top">
               @for(respuesta of pregunta.posiblesRespuestas; track j; let j = $index) {
                 <ion-item>
