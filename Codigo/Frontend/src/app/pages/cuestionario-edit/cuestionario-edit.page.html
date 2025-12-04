@@ -53,11 +53,13 @@
 
             <!-- Recurso de audición -->
             <ion-item>
-              <ion-input
-                formControlName="recursoAudicion"
-                placeholder="URL de audio (YouTube, Spotify) o subir MP3"
-                (ionChange)="onRecursoAudicionUrlInput($event, i)"
-              ></ion-input>
+              @if(!isBase64Audio(preguntaGroup.get('recursoAudicion')?.value)){
+                <ion-input
+                  formControlName="recursoAudicion"
+                  placeholder="URL de audio (YouTube, Spotify) o subir MP3"
+                  (ionChange)="onRecursoAudicionUrlInput($event, i)"
+                ></ion-input>
+              }
               <input
                 type="file"
                 #fileInput
@@ -68,22 +70,50 @@
               <ion-button (click)="fileInput.click()" fill="clear" slot="end">
                 <ion-icon name="musical-notes-outline"></ion-icon>
               </ion-button>
-              @if (preguntaGroup.get('recursoAudicion')?.value) {
+              @if (preguntaGroup.get('recursoAudicion')?.value || preguntaGroup.get('archivoParaSubir')?.value) {
                 <ion-button (click)="clearRecursoAudicion(i)" color="danger" fill="clear" slot="end">
                   <ion-icon name="close-circle-outline"></ion-icon>
                 </ion-button>
               }
             </ion-item>
-            @if (preguntaGroup.get('recursoAudicion')?.value) {
+            @if (preguntaGroup.get('archivoParaSubir')?.value) {
               <ion-item lines="none">
-                <ion-label>Recurso adjunto:
-                  @if (preguntaGroup.get('recursoAudicion')?.value.startsWith('data:audio/mpeg;base64,')) {
-                    <ion-text color="success">MP3 (Base64)</ion-text>
-                  } @else {
-                    <ion-text color="primary">{{ preguntaGroup.get('recursoAudicion')?.value }}</ion-text>
-                  }
+                <ion-label>Archivo pendiente:
+                  <ion-text color="secondary">{{ preguntaGroup.get('archivoParaSubir')?.value.name }}</ion-text>
                 </ion-label>
               </ion-item>
+            } @else if (preguntaGroup.get('recursoAudicion')?.value) {
+              <div class="ion-padding-vertical">
+                @if (isBase64Audio(preguntaGroup.get('recursoAudicion')?.value)) {
+                  <audio controls [src]="getSafeBase64Url(preguntaGroup.get('recursoAudicion')?.value)"></audio>
+                } @else if (isYouTubeUrl(preguntaGroup.get('recursoAudicion')?.value)) {
+                  <iframe
+                    width="100%"
+                    height="200"
+                    [src]="getYouTubeEmbedUrl(isYouTubeUrl(preguntaGroup.get('recursoAudicion')?.value)!)"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                  ></iframe>
+                } @else if (isSpotifyUrl(preguntaGroup.get('recursoAudicion')?.value)) {
+                  <iframe
+                    style="border-radius:12px"
+                    [src]="getSpotifyEmbedUrl(isSpotifyUrl(preguntaGroup.get('recursoAudicion')?.value)!.type, isSpotifyUrl(preguntaGroup.get('recursoAudicion')?.value)!.id)"
+                    width="100%"
+                    height="152"
+                    frameBorder="0"
+                    allowfullscreen=""
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                    loading="lazy"
+                  ></iframe>
+                } @else {
+                  <ion-item lines="none">
+                    <ion-label>Recurso adjunto:
+                      <ion-text color="primary">{{ preguntaGroup.get('recursoAudicion')?.value }}</ion-text>
+                    </ion-label>
+                  </ion-item>
+                }
+              </div>
             }
 
 

@@ -2,6 +2,8 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { forkJoin, of, Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { Cuestionario } from '../../models/cuestionario.model';
 import { Pregunta } from '../../models/pregunta.model';
 import { Usuario } from '../../models/usuario.model';
@@ -10,6 +12,7 @@ import { GrupoService } from '../../services/grupo.service';
 import { AuthService } from '../../services/auth.service';
 import { CuestionarioStateService } from '../../services/cuestionario-state.service';
 import { IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonItem, IonLabel, IonSelect, IonSelectOption, IonListHeader, IonIcon, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonInput, IonTextarea, ToastController, IonRadioGroup, IonRadio, IonText } from "@ionic/angular/standalone";
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { addIcons } from 'ionicons';
 import { addCircleOutline, trashOutline, musicalNotesOutline, closeCircleOutline } from 'ionicons/icons';
 
@@ -28,6 +31,7 @@ export class CuestionarioEditPage implements OnInit {
   private authService = inject(AuthService);
   private toastCtrl = inject(ToastController);
   private cuestionarioStateService = inject(CuestionarioStateService);
+  private domSanitizer: DomSanitizer = inject(DomSanitizer);
   form: FormGroup;
   isEditMode = false;
   cuestionarioId: string | null = null;
@@ -104,7 +108,8 @@ export class CuestionarioEditPage implements OnInit {
 
     const preguntaGroup = this.fb.group({
       texto: [pregunta?.texto || '', Validators.required],
-      recursoAudicion: [pregunta?.recursoAudicion || ''], // Added new form control
+      recursoAudicion: [pregunta?.recursoAudicion || ''],
+      archivoParaSubir: [null], // control para el archivo
       respuestaCorrecta: [respuestaCorrectaIndex !== -1 ? respuestaCorrectaIndex.toString() : '0', Validators.required],
       posiblesRespuestas: this.fb.array(
         respuestas.map(r => this.fb.group({ texto: [r.texto, Validators.required] })),
@@ -157,69 +162,89 @@ export class CuestionarioEditPage implements OnInit {
       return;
     }
 
-    if (!this.cuestionarioId) {
-      this.presentToast('Guarda el cuestionario primero para poder subir archivos de audio.', 'danger');
-      event.target.value = ''; // Clear file input
-      return;
-    }
-
-    this.cuestionarioService.uploadAudioRecurso(this.cuestionarioId, preguntaIndex, file).subscribe({
-      next: (response) => {
-        this.preguntas.at(preguntaIndex).get('recursoAudicion')?.setValue(response.recursoAudicion);
-        this.presentToast('Archivo de audio subido con éxito.', 'success');
-      },
-      error: (err) => {
-        console.error('Error al subir el archivo:', err);
-        this.presentToast(`Error al subir el archivo de audio: ${err.error?.message || err.message}`, 'danger');
-      }
-    });
+    const pregunta = this.preguntas.at(preguntaIndex);
+    pregunta.get('archivoParaSubir')?.setValue(file);
+    // Clear the URL field to avoid confusion
+    pregunta.get('recursoAudicion')?.setValue('');
+    event.target.value = ''; // Allow re-selecting the same file if needed
+    this.presentToast(`"${file.name}" listo para subir.`, 'success');
   }
 
   onRecursoAudicionUrlInput(event: any, preguntaIndex: number) {
     const url = event.detail.value;
-    const currentRecursoAudicion = this.preguntas.at(preguntaIndex).get('recursoAudicion')?.value;
-
-    if (currentRecursoAudicion === url) return; // No change, do nothing
-
-    if (!this.cuestionarioId) {
-      this.preguntas.at(preguntaIndex).get('recursoAudicion')?.setValue(url);
-      return;
+    const pregunta = this.preguntas.at(preguntaIndex);
+    pregunta.get('recursoAudicion')?.setValue(url, { emitEvent: false });
+    // If user types a URL, clear any pending file upload
+    if (url) {
+      pregunta.get('archivoParaSubir')?.setValue(null);
     }
-
-    // If questionnaire exists, update via service
-    this.cuestionarioService.updateAudioRecursoUrl(this.cuestionarioId, preguntaIndex, url).subscribe({
-      next: (response) => {
-        this.preguntas.at(preguntaIndex).get('recursoAudicion')?.setValue(response.recursoAudicion);
-        this.presentToast('URL de recurso de audición actualizada con éxito.', 'success');
-      },
-      error: (err) => {
-        console.error('Error al actualizar URL:', err);
-        this.presentToast(`Error al actualizar URL del recurso: ${err.error?.message || err.message}`, 'danger');
-      }
-    });
   }
 
   clearRecursoAudicion(preguntaIndex: number) {
-    if (!this.cuestionarioId) {
-      this.preguntas.at(preguntaIndex).get('recursoAudicion')?.setValue('');
-      this.presentToast('Recurso de audición eliminado localmente.', 'success');
-      return;
-    }
+    const pregunta = this.preguntas.at(preguntaIndex);
+    pregunta.get('recursoAudicion')?.setValue('');
+    pregunta.get('archivoParaSubir')?.setValue(null);
+    this.presentToast('Recurso de audición eliminado localmente.', 'success');
+  }
 
-    this.cuestionarioService.clearAudioRecurso(this.cuestionarioId, preguntaIndex).subscribe({
-      next: () => {
-        this.preguntas.at(preguntaIndex).get('recursoAudicion')?.setValue('');
-        this.presentToast('Recurso de audición eliminado del cuestionario.', 'success');
-      },
-      error: (err) => {
-        console.error('Error al eliminar recurso:', err);
-        this.presentToast(`Error al eliminar recurso de audición: ${err.error?.message || err.message}`, 'danger');
-      }
-    });
+  // Helper to check if resource is Base64 audio
+  isBase64Audio(resource: string | undefined): boolean {
+    return resource ? resource.startsWith('data:audio/mpeg;base64,') : false;
+  }
+
+  // Helper to get safe URL for Base64 audio
+  getSafeBase64Url(resource: string | undefined): SafeResourceUrl | null {
+    return resource ? this.domSanitizer.bypassSecurityTrustResourceUrl(resource) : null;
+  }
+
+  // Helper to check if resource is a YouTube URL and extract video ID
+  isYouTubeUrl(resource: string | undefined): string | null {
+    if (!resource) return null;
+    const youtubeRegex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+    const match = resource.match(youtubeRegex);
+    return match && match[1] ? match[1] : null;
+  }
+
+  // Helper to check if resource is a Spotify URL and extract ID
+  isSpotifyUrl(resource: string | undefined): { type: string, id: string } | null {
+    if (!resource) return null;
+    const spotifyRegex = /open\.spotify\.com\/(track|album|playlist|artist)\/([a-zA-Z0-9]+)/;
+    const match = resource.match(spotifyRegex);
+    return match && match[1] && match[2] ? { type: match[1], id: match[2] } : null;
+  }
+
+  // Helper to get safe YouTube embed URL
+  getYouTubeEmbedUrl(videoId: string): SafeResourceUrl {
+    return this.domSanitizer.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/${videoId}`);
+  }
+
+  // Helper to get safe Spotify embed URL
+  getSpotifyEmbedUrl(type: string, id: string): SafeResourceUrl {
+    return this.domSanitizer.bypassSecurityTrustResourceUrl(`https://open.spotify.com/embed/${type}/${id}`);
   }
 
   goBack() {
     this.location.back();
+  }
+
+  private handleAudioUploads(cuestionarioId: string): Observable<any> {
+    const formValue = this.form.getRawValue();
+    const uploadObservables: Observable<{ recursoAudicion: string }>[] = [];
+
+    formValue.preguntas.forEach((pregunta: any, index: number) => {
+      if (pregunta.archivoParaSubir) {
+        const file = pregunta.archivoParaSubir as File;
+        uploadObservables.push(
+          this.cuestionarioService.uploadAudioRecurso(cuestionarioId, index, file)
+        );
+      }
+    });
+
+    if (uploadObservables.length === 0) {
+      return of(null); // No files to upload
+    }
+
+    return forkJoin(uploadObservables);
   }
 
   onSubmit() {
@@ -231,58 +256,55 @@ export class CuestionarioEditPage implements OnInit {
     const formValue = this.form.getRawValue();
     const currentUserId = this.authService.currentUserValue?._id;
     if (!currentUserId) {
-        this.presentToast('Error de autenticación.', 'danger');
-        return;
+      this.presentToast('Error de autenticación.', 'danger');
+      return;
     }
 
     const transformedPreguntas = formValue.preguntas.map((pregunta: any) => {
       const correctIndex = parseInt(pregunta.respuestaCorrecta, 10);
-      const transformedRespuestas = pregunta.posiblesRespuestas.map((respuesta: any, index: number) => ({
-        texto: respuesta.texto,
-        esCorrecta: index === correctIndex
-      }));
-      
-      const preguntaToSend: Partial<Pregunta> = {
+      return {
         texto: pregunta.texto,
-        posiblesRespuestas: transformedRespuestas
+        posiblesRespuestas: pregunta.posiblesRespuestas.map((respuesta: any, index: number) => ({
+          texto: respuesta.texto,
+          esCorrecta: index === correctIndex
+        })),
+        recursoAudicion: pregunta.recursoAudicion || ''
       };
-
-      // Only include recursoAudicion if it's a new questionnaire (URLs only)
-      // or if it's a URL in edit mode. Base64 is handled out-of-band by dedicated upload.
-      if (!this.isEditMode || (pregunta.recursoAudicion && !pregunta.recursoAudicion.startsWith('data:audio/mpeg;base64,'))) {
-        preguntaToSend.recursoAudicion = pregunta.recursoAudicion;
-      }
-      return preguntaToSend;
     });
 
     const cuestionarioData: Partial<Cuestionario> = {
       nombre: formValue.nombre,
-      alumnos: formValue.alumnos.map((a: any) => (a as any)._id || a), // Ensure only IDs are sent
+      alumnos: formValue.alumnos.map((a: any) => (a as any)._id || a),
       preguntas: transformedPreguntas,
       rama: 'Teoria',
       fechaCierre: formValue.fechaCierre,
       profesor: currentUserId
     };
 
-    if (this.isEditMode) {
-      this.cuestionarioService.updateCuestionario(this.cuestionarioId!, cuestionarioData).subscribe({
-        next: () => {
-          this.presentToast('Cuestionario actualizado con éxito.', 'success');
-          this.cuestionarioStateService.touch(); // Call touch()
-          this.goBack();
-        },
-        error: (err) => this.presentToast(`Error al actualizar: ${err.error.message}`, 'danger')
-      });
-    } else {
-      this.cuestionarioService.crearCuestionario(cuestionarioData).subscribe({
-        next: () => {
-          this.presentToast('Cuestionario creado con éxito.', 'success');
-          this.cuestionarioStateService.touch(); // Call touch()
-          this.goBack();
-        },
-        error: (err) => this.presentToast(`Error al crear: ${err.error.message}`, 'danger')
-      });
-    }
+    const saveOperation: Observable<Cuestionario> = this.isEditMode
+      ? this.cuestionarioService.updateCuestionario(this.cuestionarioId!, cuestionarioData)
+      : this.cuestionarioService.crearCuestionario(cuestionarioData);
+
+    saveOperation.pipe(
+      switchMap(savedCuestionario => {
+        const cuestionarioId = savedCuestionario._id;
+        if (!cuestionarioId) {
+          throw new Error('No se pudo obtener el ID del cuestionario guardado.');
+        }
+        return this.handleAudioUploads(cuestionarioId);
+      })
+    ).subscribe({
+      next: () => {
+        const message = this.isEditMode ? 'Cuestionario actualizado con éxito.' : 'Cuestionario creado con éxito.';
+        this.presentToast(message, 'success');
+        this.cuestionarioStateService.touch();
+        this.goBack();
+      },
+      error: (err) => {
+        const action = this.isEditMode ? 'actualizar' : 'crear';
+        this.presentToast(`Error al ${action} el cuestionario: ${err.error?.message || err.message}`, 'danger');
+      }
+    });
   }
 
   async presentToast(message: string, color: string = 'warning') {
