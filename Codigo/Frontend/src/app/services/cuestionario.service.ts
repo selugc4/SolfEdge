@@ -38,6 +38,30 @@ export class CuestionarioService {
     return this.http.post<Calificacion>(`${this.apiUrl}/${cuestionarioId}/entregar`, { respuestas });
   }
 
+  uploadAudioRecurso(cuestionarioId: string, preguntaIndex: number, file: File): Observable<{ recursoAudicion: string }> {
+    const formData = new FormData();
+    formData.append('audioFile', file, file.name); // 'audioFile' must match the multer field name in backend
+
+    return this.http.patch<{ recursoAudicion: string }>(
+      `${this.apiUrl}/${cuestionarioId}/preguntas/${preguntaIndex}/audicion-upload`,
+      formData
+    );
+  }
+
+  updateAudioRecursoUrl(cuestionarioId: string, preguntaIndex: number, url: string): Observable<{ recursoAudicion: string }> {
+    return this.http.patch<{ recursoAudicion: string }>(
+      `${this.apiUrl}/${cuestionarioId}/preguntas/${preguntaIndex}/audicion-url`,
+      { url }
+    );
+  }
+
+  clearAudioRecurso(cuestionarioId: string, preguntaIndex: number): Observable<any> {
+    return this.http.patch(
+      `${this.apiUrl}/${cuestionarioId}/preguntas/${preguntaIndex}/audicion-clear`,
+      {}
+    );
+  }
+
   // Otros métodos como calificar, cerrar, etc., se añadirán según se necesiten
 }
 import { Calificacion } from '../models/calificacion.model';

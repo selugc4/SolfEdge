@@ -80,11 +80,14 @@ export class CuestionarioEditPage implements OnInit {
   setupForm(cuestionario: Cuestionario) {
       this.form.patchValue({
         nombre: cuestionario.nombre,
-        alumnos: cuestionario.alumnos as any
+        alumnos: cuestionario.alumnos.map(a => (a as any)._id || a) // Handle partial User object or just ID
       });
       if (cuestionario.fechaCierre) {
         const fechaCierre = new Date(cuestionario.fechaCierre);
-        this.form.patchValue({ fechaCierre: fechaCierre.toISOString().split('T')[0] });
+        // Only set if fechaCierre is a valid date object. The API returns it as Date object.
+        if (!isNaN(fechaCierre.getTime())) {
+          this.form.patchValue({ fechaCierre: fechaCierre.toISOString().split('T')[0] });
+        }
       }
       cuestionario.preguntas.forEach(pregunta => {
         this.addPregunta(pregunta);
@@ -143,37 +146,76 @@ export class CuestionarioEditPage implements OnInit {
 
   onFileSelected(event: any, preguntaIndex: number) {
     const file: File = event.target.files[0];
-    if (file) {
-      if (file.type !== 'audio/mpeg') { // Check for MP3 type
-        this.presentToast('Solo se permiten archivos MP3.', 'danger');
-        return;
-      }
-      if (file.size > 5 * 1024 * 1024) { // Max 5MB
-        this.presentToast('El archivo de audio no puede exceder los 5MB.', 'danger');
-        return;
-      }
+    if (!file) return;
 
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        this.preguntas.at(preguntaIndex).get('recursoAudicion')?.setValue(reader.result as string);
-        this.presentToast('Archivo de audio cargado con éxito.', 'success');
-      };
-      reader.onerror = (error) => {
-        console.error('Error al leer el archivo:', error);
-        this.presentToast('Error al cargar el archivo de audio.', 'danger');
-      };
+    if (file.type !== 'audio/mpeg') {
+      this.presentToast('Solo se permiten archivos MP3.', 'danger');
+      return;
     }
+    if (file.size > 5 * 1024 * 1024) { // Max 5MB
+      this.presentToast('El archivo de audio no puede exceder los 5MB.', 'danger');
+      return;
+    }
+
+    if (!this.cuestionarioId) {
+      this.presentToast('Guarda el cuestionario primero para poder subir archivos de audio.', 'danger');
+      event.target.value = ''; // Clear file input
+      return;
+    }
+
+    this.cuestionarioService.uploadAudioRecurso(this.cuestionarioId, preguntaIndex, file).subscribe({
+      next: (response) => {
+        this.preguntas.at(preguntaIndex).get('recursoAudicion')?.setValue(response.recursoAudicion);
+        this.presentToast('Archivo de audio subido con éxito.', 'success');
+      },
+      error: (err) => {
+        console.error('Error al subir el archivo:', err);
+        this.presentToast(`Error al subir el archivo de audio: ${err.error?.message || err.message}`, 'danger');
+      }
+    });
   }
 
   onRecursoAudicionUrlInput(event: any, preguntaIndex: number) {
     const url = event.detail.value;
-    this.preguntas.at(preguntaIndex).get('recursoAudicion')?.setValue(url);
+    const currentRecursoAudicion = this.preguntas.at(preguntaIndex).get('recursoAudicion')?.value;
+
+    if (currentRecursoAudicion === url) return; // No change, do nothing
+
+    if (!this.cuestionarioId) {
+      this.preguntas.at(preguntaIndex).get('recursoAudicion')?.setValue(url);
+      return;
+    }
+
+    // If questionnaire exists, update via service
+    this.cuestionarioService.updateAudioRecursoUrl(this.cuestionarioId, preguntaIndex, url).subscribe({
+      next: (response) => {
+        this.preguntas.at(preguntaIndex).get('recursoAudicion')?.setValue(response.recursoAudicion);
+        this.presentToast('URL de recurso de audición actualizada con éxito.', 'success');
+      },
+      error: (err) => {
+        console.error('Error al actualizar URL:', err);
+        this.presentToast(`Error al actualizar URL del recurso: ${err.error?.message || err.message}`, 'danger');
+      }
+    });
   }
 
   clearRecursoAudicion(preguntaIndex: number) {
-    this.preguntas.at(preguntaIndex).get('recursoAudicion')?.setValue('');
-    this.presentToast('Recurso de audición eliminado.', 'success');
+    if (!this.cuestionarioId) {
+      this.preguntas.at(preguntaIndex).get('recursoAudicion')?.setValue('');
+      this.presentToast('Recurso de audición eliminado localmente.', 'success');
+      return;
+    }
+
+    this.cuestionarioService.clearAudioRecurso(this.cuestionarioId, preguntaIndex).subscribe({
+      next: () => {
+        this.preguntas.at(preguntaIndex).get('recursoAudicion')?.setValue('');
+        this.presentToast('Recurso de audición eliminado del cuestionario.', 'success');
+      },
+      error: (err) => {
+        console.error('Error al eliminar recurso:', err);
+        this.presentToast(`Error al eliminar recurso de audición: ${err.error?.message || err.message}`, 'danger');
+      }
+    });
   }
 
   goBack() {
@@ -199,16 +241,23 @@ export class CuestionarioEditPage implements OnInit {
         texto: respuesta.texto,
         esCorrecta: index === correctIndex
       }));
-      return {
+      
+      const preguntaToSend: Partial<Pregunta> = {
         texto: pregunta.texto,
-        recursoAudicion: pregunta.recursoAudicion, // Include recursoAudicion
         posiblesRespuestas: transformedRespuestas
       };
+
+      // Only include recursoAudicion if it's a new questionnaire (URLs only)
+      // or if it's a URL in edit mode. Base64 is handled out-of-band by dedicated upload.
+      if (!this.isEditMode || (pregunta.recursoAudicion && !pregunta.recursoAudicion.startsWith('data:audio/mpeg;base64,'))) {
+        preguntaToSend.recursoAudicion = pregunta.recursoAudicion;
+      }
+      return preguntaToSend;
     });
 
     const cuestionarioData: Partial<Cuestionario> = {
       nombre: formValue.nombre,
-      alumnos: formValue.alumnos as any,
+      alumnos: formValue.alumnos.map((a: any) => (a as any)._id || a), // Ensure only IDs are sent
       preguntas: transformedPreguntas,
       rama: 'Teoria',
       fechaCierre: formValue.fechaCierre,

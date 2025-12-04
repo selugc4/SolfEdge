@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const cuestionarioController = require('../controllers/cuestionario.controller');
+const authMiddleware = require('../middleware/authMiddleware'); // Import authMiddleware
+const multer = require('multer'); // Import multer
+const upload = multer({ storage: multer.memoryStorage() }); // Multer setup
 
 /**
  * @swagger
@@ -63,6 +66,11 @@ const cuestionarioController = require('../controllers/cuestionario.controller')
  *                         type: string
  *                       maxItems: 4
  *                       example: [Do, Fa, Sol, Si]
+ *                     recursoAudicion:
+ *                       type: string
+ *                       nullable: true
+ *                       description: Recurso de audición en Base64 o URL.
+ *                       example: "data:audio/mpeg;base64,AAAA..."
  *     responses:
  *       201:
  *         description: Cuestionario creado exitosamente.
@@ -75,11 +83,228 @@ const cuestionarioController = require('../controllers/cuestionario.controller')
  *       500:
  *         description: Error interno del servidor.
  */
-router.post('/', async (req, res) => {
+router.post('/', authMiddleware.verifyToken, async (req, res) => { // Added authMiddleware
     const result = await cuestionarioController.crearCuestionario(req.body, req.user.id);
     res.status(result.status).json(result.body);
 });
 
+/**
+ * @swagger
+ * /cuestionarios/{cuestionarioId}/preguntas/{preguntaIndex}/audicion-upload:
+ *   patch:
+ *     summary: Sube un archivo de audio para una pregunta específica y lo guarda en Base64.
+ *     tags: [Cuestionarios]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: cuestionarioId
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID del cuestionario.
+ *       - in: path
+ *         name: preguntaIndex
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: Índice de la pregunta dentro del array de preguntas del cuestionario.
+ *       - in: header
+ *         name: Authorization
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Token de autenticación JWT.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               audioFile:
+ *                 type: string
+ *                 format: binary
+ *                 description: Archivo de audio (MP3) a subir.
+ *     responses:
+ *       200:
+ *         description: Recurso de audición actualizado con éxito.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 recursoAudicion:
+ *                   type: string
+ *                   description: Contenido del audio en Base64.
+ *       400:
+ *         description: Archivo no proporcionado o índice de pregunta inválido.
+ *       403:
+ *         description: No autorizado.
+ *       404:
+ *         description: Cuestionario no encontrado.
+ *       500:
+ *         description: Error interno del servidor.
+ */
+router.patch(
+    '/:cuestionarioId/preguntas/:preguntaIndex/audicion-upload',
+    authMiddleware.verifyToken,
+    upload.single('audioFile'), // Expect a file named 'audioFile'
+    async (req, res) => {
+        try {
+            const { cuestionarioId, preguntaIndex } = req.params;
+            if (!req.file) {
+                return res.status(400).json({ error: 'No se proporcionó ningún archivo de audio.' });
+            }
+            // req.file.buffer contains the file content
+            const result = await cuestionarioController.uploadAndSetAudioRecurso(
+                cuestionarioId,
+                parseInt(preguntaIndex, 10), // Convert index to number
+                req.file.buffer
+            );
+            res.status(result.status).json(result.body);
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ error: error.message });
+        }
+    }
+);
+
+/**
+ * @swagger
+ * /cuestionarios/{cuestionarioId}/preguntas/{preguntaIndex}/audicion-url:
+ *   patch:
+ *     summary: Actualiza el recurso de audición de una pregunta con una URL.
+ *     tags: [Cuestionarios]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: cuestionarioId
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID del cuestionario.
+ *       - in: path
+ *         name: preguntaIndex
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: Índice de la pregunta dentro del array de preguntas del cuestionario.
+ *       - in: header
+ *         name: Authorization
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Token de autenticación JWT.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               url:
+ *                 type: string
+ *                 description: La URL del recurso de audición.
+ *                 example: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+ *     responses:
+ *       200:
+ *         description: Recurso de audición actualizado con éxito.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 recursoAudicion:
+ *                   type: string
+ *                   description: La URL del recurso de audición.
+ *       400:
+ *         description: URL no proporcionada o índice de pregunta inválido.
+ *       403:
+ *         description: No autorizado.
+ *       404:
+ *         description: Cuestionario no encontrado.
+ *       500:
+ *         description: Error interno del servidor.
+ */
+router.patch(
+    '/:cuestionarioId/preguntas/:preguntaIndex/audicion-url',
+    authMiddleware.verifyToken,
+    async (req, res) => {
+        try {
+            const { cuestionarioId, preguntaIndex } = req.params;
+            const { url } = req.body;
+            if (!url) {
+                return res.status(400).json({ error: 'La URL no fue proporcionada.' });
+            }
+            const result = await cuestionarioController.updateQuestionAuditionUrl(
+                cuestionarioId,
+                parseInt(preguntaIndex, 10),
+                url
+            );
+            res.status(result.status).json(result.body);
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ error: error.message });
+        }
+    }
+);
+
+/**
+ * @swagger
+ * /cuestionarios/{cuestionarioId}/preguntas/{preguntaIndex}/audicion-clear:
+ *   patch:
+ *     summary: Elimina el recurso de audición de una pregunta específica.
+ *     tags: [Cuestionarios]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: cuestionarioId
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID del cuestionario.
+ *       - in: path
+ *         name: preguntaIndex
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: Índice de la pregunta dentro del array de preguntas del cuestionario.
+ *       - in: header
+ *         name: Authorization
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Token de autenticación JWT.
+ *     responses:
+ *       200:
+ *         description: Recurso de audición eliminado con éxito.
+ *       403:
+ *         description: No autorizado.
+ *       404:
+ *         description: Cuestionario no encontrado.
+ *       500:
+ *         description: Error interno del servidor.
+ */
+router.patch(
+    '/:cuestionarioId/preguntas/:preguntaIndex/audicion-clear',
+    authMiddleware.verifyToken,
+    async (req, res) => {
+        try {
+            const { cuestionarioId, preguntaIndex } = req.params;
+            const result = await cuestionarioController.clearQuestionAuditionResource(
+                cuestionarioId,
+                parseInt(preguntaIndex, 10)
+            );
+            res.status(result.status).json(result.body);
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ error: error.message });
+        }
+    }
+);
 /**
  * @swagger
  * /cuestionarios/usuario/{usuarioId}/rama/{nombreRama}:
@@ -116,7 +341,7 @@ router.post('/', async (req, res) => {
  *       500:
  *         description: Error interno del servidor.
  */
-router.get('/usuario/:usuarioId/rama/:nombreRama', async (req, res) => {
+router.get('/usuario/:usuarioId/rama/:nombreRama', authMiddleware.verifyToken, async (req, res) => { // Added authMiddleware
     const { usuarioId, nombreRama } = req.params;
     const result = await cuestionarioController.getCuestionariosByUsuarioAndRama(usuarioId, nombreRama);
     res.status(result.status).json(result.body);
@@ -149,7 +374,7 @@ router.get('/usuario/:usuarioId/rama/:nombreRama', async (req, res) => {
  *       500:
  *         description: Error interno del servidor.
  */
-router.patch('/:id/close', async (req, res) => {
+router.patch('/:id/close', authMiddleware.verifyToken, async (req, res) => { // Added authMiddleware
     const result = await cuestionarioController.closeCuestionario(req.params.id);
     res.status(result.status).json(result.body);
 });
@@ -181,7 +406,7 @@ router.patch('/:id/close', async (req, res) => {
  *       500:
  *         description: Error interno del servidor.
  */
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', authMiddleware.verifyToken, async (req, res) => { // Added authMiddleware
     const result = await cuestionarioController.deleteCuestionario(req.params.id);
     res.status(result.status).json(result.body);
 });
@@ -223,7 +448,7 @@ router.delete('/:id', async (req, res) => {
  *       500:
  *         description: Error interno del servidor.
  */
-router.put('/:id', async (req, res) => {
+router.put('/:id', authMiddleware.verifyToken, async (req, res) => {
     const { id } = req.params;
     const result = await cuestionarioController.updateCuestionario(id, req.body, req.user.id);
     res.status(result.status).json(result.body);
@@ -262,7 +487,7 @@ router.get('/:id', async (req, res) => {
     res.status(result.status).json(result.body);
 });
 
-router.post('/:id/entregar', async (req, res) => {
+router.post('/:id/entregar', authMiddleware.verifyToken, async (req, res) => { // Added authMiddleware
     const { respuestas } = req.body;
     const alumnoId = req.user.id;
     const cuestionarioId = req.params.id;
@@ -291,6 +516,11 @@ router.post('/:id/entregar', async (req, res) => {
  *           minItems: 2
  *           maxItems: 4
  *           example: [Do, Re, Mi]
+ *         recursoAudicion: # Added to Swagger schema
+ *           type: string
+ *           nullable: true
+ *           description: Recurso de audición en Base64 o URL.
+ *           example: "data:audio/mpeg;base64,AAAA..."
  *     Cuestionario:
  *       type: object
  *       properties:
@@ -360,3 +590,4 @@ router.post('/:id/entregar', async (req, res) => {
  */
 
 module.exports = router;
+

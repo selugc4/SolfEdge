@@ -163,3 +163,69 @@ exports.entregarCuestionario = async (cuestionarioId, alumnoId, respuestasAlumno
         return { status: 500, body: { error: `Error interno del servidor: ${error.message}` } };
     }
 };
+
+exports.uploadAndSetAudioRecurso = async (cuestionarioId, preguntaIndex, fileBuffer) => {
+    try {
+        const cuestionario = await Cuestionario.findById(cuestionarioId);
+        if (!cuestionario) {
+            return { status: 404, body: { error: 'Cuestionario no encontrado.' } };
+        }
+
+        if (preguntaIndex < 0 || preguntaIndex >= cuestionario.preguntas.length) {
+            return { status: 400, body: { error: 'Índice de pregunta inválido.' } };
+        }
+
+        const base64Audio = `data:audio/mpeg;base64,${fileBuffer.toString('base64')}`;
+        cuestionario.preguntas[preguntaIndex].recursoAudicion = base64Audio;
+
+        await cuestionario.save();
+
+        // Return the updated question's recursoAudicion
+        return { status: 200, body: { recursoAudicion: cuestionario.preguntas[preguntaIndex].recursoAudicion } };
+
+    } catch (error) {
+        return { status: 500, body: { error: `Error al subir recurso de audición: ${error.message}` } };
+    }
+};
+
+exports.updateQuestionAuditionUrl = async (cuestionarioId, preguntaIndex, url) => {
+    try {
+        const cuestionario = await Cuestionario.findById(cuestionarioId);
+        if (!cuestionario) {
+            return { status: 404, body: { error: 'Cuestionario no encontrado.' } };
+        }
+
+        if (preguntaIndex < 0 || preguntaIndex >= cuestionario.preguntas.length) {
+            return { status: 400, body: { error: 'Índice de pregunta inválido.' } };
+        }
+
+        cuestionario.preguntas[preguntaIndex].recursoAudicion = url;
+        await cuestionario.save();
+
+        return { status: 200, body: { recursoAudicion: cuestionario.preguntas[preguntaIndex].recursoAudicion } };
+
+    } catch (error) {
+        return { status: 500, body: { error: `Error al actualizar recurso de audición (URL): ${error.message}` } };
+    }
+};
+
+exports.clearQuestionAuditionResource = async (cuestionarioId, preguntaIndex) => {
+    try {
+        const cuestionario = await Cuestionario.findById(cuestionarioId);
+        if (!cuestionario) {
+            return { status: 404, body: { error: 'Cuestionario no encontrado.' } };
+        }
+
+        if (preguntaIndex < 0 || preguntaIndex >= cuestionario.preguntas.length) {
+            return { status: 400, body: { error: 'Índice de pregunta inválido.' } };
+        }
+
+        cuestionario.preguntas[preguntaIndex].recursoAudicion = ''; // Set to empty string
+        await cuestionario.save();
+
+        return { status: 200, body: { message: 'Recurso de audición eliminado.' } };
+
+    } catch (error) {
+        return { status: 500, body: { error: `Error al eliminar recurso de audición: ${error.message}` } };
+    }
+};

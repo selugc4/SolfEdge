@@ -12,6 +12,12 @@ const validateNota = (nota) => {
 
 exports.crearOActualizarCalificacionGeneral = async (alumnoId, grupoId, tipo, nota, profesorId) => {
     try {
+        // Explicit validation for 'tipo' before findOneAndUpdate
+        const validTypes = ['Q1', 'Q2', 'Q3', 'Ordinaria', 'Extraordinaria'];
+        if (!tipo || !validTypes.includes(tipo)) {
+            return { status: 400, body: { error: 'El tipo de calificación proporcionado no es válido.' } };
+        }
+
         if (!validateNota(nota)) {
             return { status: 400, body: { error: 'La nota debe ser un número entero entre 1 y 10.' } };
         }
@@ -46,7 +52,7 @@ exports.crearOActualizarCalificacionGeneral = async (alumnoId, grupoId, tipo, no
 
         const calificacion = await CalificacionGeneral.findOneAndUpdate(
             { alumno: alumnoId, grupo: grupoId, tipo: tipo },
-            { nota, profesor: profesorId },
+            { tipo: tipo, nota: nota, profesor: profesorId }, // Explicitly include 'tipo' in $set
             { upsert: true, new: true, runValidators: true } // upsert creates if not found, new returns updated doc
         );
 
