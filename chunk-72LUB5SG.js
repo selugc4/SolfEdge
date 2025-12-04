@@ -1,1 +1,0 @@
-import{a as o,k as r}from"./chunk-WF5P22OB.js";var n=(()=>{let t=class t{constructor(){this.tareaModifiedSource=new o,this.tareaModified$=this.tareaModifiedSource.asObservable()}touch(){this.tareaModifiedSource.next()}};t.\u0275fac=function(i){return new(i||t)},t.\u0275prov=r({token:t,factory:t.\u0275fac,providedIn:"root"});let e=t;return e})();export{n as a};
