@@ -76,9 +76,6 @@ exports.getCalificacionesByAlumnoAndGrupo = async (alumnoId, grupoId) => {
             .populate('grupo', 'nombre')
             .populate('profesor', 'username email');
         
-        if (!calificaciones || calificaciones.length === 0) {
-            return { status: 404, body: { error: 'No se encontraron calificaciones para este alumno en este grupo.' } };
-        }
         return { status: 200, body: calificaciones };
     } catch (error) {
         return { status: 500, body: { error: `Error al obtener calificaciones: ${error.message}` } };
@@ -92,9 +89,6 @@ exports.getCalificacionesByGrupo = async (grupoId) => {
             .populate('grupo', 'nombre')
             .populate('profesor', 'username email');
 
-        if (!calificaciones || calificaciones.length === 0) {
-            return { status: 404, body: { error: 'No se encontraron calificaciones para este grupo.' } };
-        }
         return { status: 200, body: calificaciones };
     } catch (error) {
         return { status: 500, body: { error: `Error al obtener calificaciones del grupo: ${error.message}` } };

@@ -1,29 +1,22 @@
-// This model has been defined based on backend population
-// It assumes that 'tarea' will be populated with at least 'titulo'
-// and 'cuestionario' will be populated with at least 'nombre'.
-
-interface PopulatedTarea {
-  _id: string;
-  titulo: string;
-}
-
-interface PopulatedCuestionario {
-  _id: string;
-  nombre: string;
-}
+import { Usuario } from "./usuario.model";
 
 export interface Calificacion {
   _id: string;
-  nota: number | null;
-  alumno: string; // ObjectId as string
-  tarea?: PopulatedTarea;
-  cuestionario?: PopulatedCuestionario;
+  nota: number; // Can be null if not graded yet
+  alumno: Usuario; // Populated from backend
+  tarea?: string; // ID
+  cuestionario?: string; // ID
+
+  // For Tarea submissions
   respuestaTexto?: string;
-  respuestaArchivo?: string;
+  respuestaArchivo?: string; // Base64 content
   nombreArchivo?: string;
   tipoArchivo?: string;
+
+  // For Cuestionario submissions
   respuestasCuestionario?: any[];
-  fechaEntrega: Date;
+
+  fechaEntrega: string;
   createdAt?: string;
   updatedAt?: string;
 }

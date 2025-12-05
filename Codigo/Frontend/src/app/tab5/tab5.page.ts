@@ -5,11 +5,12 @@ import { AuthService } from '../services/auth.service';
 import { CalificacionService } from '../services/calificacion.service';
 import { CalificacionGeneralService } from '../services/calificacion-general.service';
 import { Usuario } from '../models/usuario.model';
-import { Calificacion } from '../models/calificacion.model';
+import { PerfilCalificacion } from '../models/perfil-calificacion.model';
 import { CalificacionGeneral } from '../models/calificacionGeneral.model';
 import { FormsModule } from '@angular/forms';
 import { IonButtons, IonMenuButton, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonItem, IonLabel, IonText, IonList, IonSpinner, IonSegment, IonSegmentButton, IonListHeader, IonNote } from '@ionic/angular/standalone';
-
+import { MensajeService } from '../services/mensaje.service';
+import { Mensaje } from '../models/mensaje.model';
 @Component({
   selector: 'app-tab5',
   templateUrl: 'tab5.page.html',
@@ -21,9 +22,10 @@ export class Tab5Page implements OnInit {
   authService: AuthService = inject(AuthService);
   calificacionService: CalificacionService = inject(CalificacionService);
   calificacionGeneralService: CalificacionGeneralService = inject(CalificacionGeneralService);
-
+  mensajes: Mensaje[] = [];
+  mensajeService: MensajeService = inject(MensajeService);
   currentUser: Usuario | null = null;
-  calificacionesContinuas: Calificacion[] = [];
+  calificacionesContinuas: PerfilCalificacion[] = [];
   calificacionesGeneralesList: CalificacionGeneral[] = [];
   isLoading: boolean = true;
   segmentoSeleccionado: string = 'continuas';
@@ -31,8 +33,11 @@ export class Tab5Page implements OnInit {
   ngOnInit() {
     this.authService.currentUser.subscribe(user => {
       this.currentUser = user;
-      if (user?._id && user.role === 'alumno' && user.grupoId) {
-        this.loadAllGrades(user._id, user.grupoId);
+      if (user?._id) {
+        this.loadMensajes(user._id);
+        if(user.role === 'alumno' && user.grupoId){
+          this.loadAllGrades(user._id, user.grupoId);
+        }
       } else {
         this.isLoading = false;
       }
@@ -61,7 +66,12 @@ export class Tab5Page implements OnInit {
     const calificacion = this.calificacionesGeneralesList.find(g => g.tipo === tipo);
     return calificacion ? calificacion.nota : null;
   }
-
+  loadMensajes(userId: string) {
+    this.mensajeService.getMensajesByUsuario(userId).subscribe(response => {
+      this.mensajes = response.mensajes || [];
+      this.isLoading = false;
+    });
+  }
   segmentChanged(event: any) {
     this.segmentoSeleccionado = event.detail.value;
   }
