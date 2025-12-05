@@ -98,7 +98,7 @@ export class CuestionarioCompletarPage implements OnInit {
 
     this.cuestionarioService.entregarCuestionario(this.cuestionarioId!, respuestasArray).subscribe({
       next: (calificacion) => {
-        this.presentToast(`Cuestionario entregado. Tu nota es: ${calificacion.nota.toFixed(2)}`, 'success');
+        this.presentToast(`Cuestionario entregado. Tu nota es: ${calificacion.nota!.toFixed(2)}`, 'success');
         this.tareaStateService.touch();
         this.location.back();
       },

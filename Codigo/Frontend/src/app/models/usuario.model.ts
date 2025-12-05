@@ -3,6 +3,7 @@ export interface Usuario {
   username: string;
   email: string;
   role: 'alumno' | 'profesor' | 'administrador';
+  grupoId?: string; // Add grupoId
   createdAt?: string;
   updatedAt?: string;
 }

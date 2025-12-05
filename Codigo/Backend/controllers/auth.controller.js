@@ -1,4 +1,5 @@
 require('dotenv').config();
+const mongoose = require('mongoose');
 const Usuario = require('../models/usuario.model');
 const jwt = require('jsonwebtoken');
 
@@ -13,7 +14,7 @@ exports.login = async (username, password) => {
         const isMatch = (password === usuario.password);
 
         if (!isMatch) {
-            return { status: 401, body: { error: 'Contraseña incorrecta.' } }; 
+            return { status: 401, body: { error: 'Contraseña incorrecta.' } };
         }
 
         const payload = {
@@ -22,6 +23,14 @@ exports.login = async (username, password) => {
             role: usuario.role,
             email: usuario.email
         };
+
+        if (usuario.role === 'alumno') {
+            const grupo = await mongoose.model('Grupo').findOne({ alumnos: usuario._id });
+            if (grupo) {
+                payload.grupoId = grupo._id;
+            }
+        }
+
         const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '1h' });
         return { status: 200, body: { message: 'Login correcto', token: token } };
 

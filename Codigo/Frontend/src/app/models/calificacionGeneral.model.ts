@@ -1,13 +1,10 @@
-import { Usuario } from './usuario.model';
-import { Grupo } from './grupo.model';
-
 export interface CalificacionGeneral {
   _id: string;
-  alumno: Usuario;
-  grupo: Grupo;
+  alumno: string; // ObjectId as string
+  grupo: string; // ObjectId as string
   tipo: 'Q1' | 'Q2' | 'Q3' | 'Ordinaria' | 'Extraordinaria';
   nota: number;
-  profesor?: Usuario;
+  profesor?: string; // ObjectId as string
   createdAt?: string;
   updatedAt?: string;
 }

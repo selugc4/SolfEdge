@@ -3,11 +3,11 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title class="ion-text-center">SolfEdge</ion-title>
+    <ion-title class="ion-text-center">Mi Perfil</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding profile-content">
+<ion-content class="ion-padding">
   @if(isLoading){
     <div class="loading-container">
       <ion-spinner name="crescent"></ion-spinner>
@@ -19,59 +19,111 @@
       </ion-card-header>
       <ion-card-content>
         <ion-item>
-          <div class="item-content">
-            <ion-label>Usuario:</ion-label>
-            <ion-text>{{ currentUser?.username }}</ion-text>
-          </div>
+          <ion-label>Usuario:</ion-label>
+          <ion-text slot="end">{{ currentUser?.username }}</ion-text>
         </ion-item>
         <ion-item>
-          <div class="item-content">
-            <ion-label>Email:</ion-label>
-            <ion-text>{{ currentUser?.email }}</ion-text>
-          </div>
+          <ion-label>Email:</ion-label>
+          <ion-text slot="end">{{ currentUser?.email }}</ion-text>
         </ion-item>
         <ion-item>
-          <div class="item-content">
-            <ion-label>Rol:</ion-label>
-            <ion-text>{{ currentUser?.role }}</ion-text>
-          </div>
+          <ion-label>Rol:</ion-label>
+          <ion-text slot="end">{{ currentUser?.role }}</ion-text>
         </ion-item>
       </ion-card-content>
     </ion-card>
-
-    <ion-card class="ion-margin-top">
-      <ion-card-header>
-        <ion-card-title>Mis Mensajes</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        @if(mensajes.length > 0){
-          <ion-list>
-            @for(mensaje of mensajes; track i; let i = $index){
+  }
+  @if(currentUser?.role === 'alumno'){
+  <ion-card class="ion-margin-top">
+    <ion-card-header>
+      <ion-card-title>Mis Calificaciones</ion-card-title>
+    </ion-card-header>
+    <ion-segment (ionChange)="segmentChanged($event)" [(ngModel)]="segmentoSeleccionado">
+      <ion-segment-button value="continuas">
+        <ion-label>Continuas</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="generales">
+        <ion-label>Generales</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+    <ion-card-content>
+      @if (segmentoSeleccionado === 'continuas') {
+        <ion-list>
+          <ion-list-header>
+            <ion-label>Calificaciones Continuas</ion-label>
+          </ion-list-header>
+          @if(calificacionesContinuas.length > 0){
+            @for(cal of calificacionesContinuas; track cal._id){
               <ion-item>
                 <ion-label>
-                  <h2>{{ mensaje.asunto }}</h2>
-                  <p>{{ mensaje.texto }}</p>
-                  <p><small>De: {{ mensaje.remitente._id === currentUser?._id ? 'Mí' : mensaje.remitente.username }}</small></p>
+                  @if(cal.tarea){
+                  <p><strong>Tarea:</strong> {{ cal.tarea.titulo }}</p>
+                  } @if(cal.cuestionario){
+                  <p><strong>Cuestionario:</strong> {{ cal.cuestionario.nombre }}</p>
+                  }
                 </ion-label>
+                <ion-note slot="end" [color]="(cal.nota ?? 0) < 5 ? 'danger' : 'success'">
+                  {{ cal.nota?.toFixed(2) ?? 'Pendiente' }}
+                </ion-note>
               </ion-item>
             }
-          </ion-list>
-        }
-        @else {
-          <p>No tienes mensajes.</p>
-        }
+          }
+          @else {
+            <ion-item>
+              <ion-label>No hay calificaciones continuas disponibles.</ion-label>
+            </ion-item>
+          }
+        </ion-list>
+      }
+      @if (segmentoSeleccionado === 'generales') {
+      <ion-list>
+        <ion-list-header>
+          <ion-label>Calificaciones Generales</ion-label>
+        </ion-list-header>
+        <ion-item>
+          <ion-label>Primer Trimestre</ion-label>
+          <ion-note slot="end" [color]="(getNotaPorTipo('Q1') ?? 0) < 5 ? 'danger' : 'success'">
+            {{ getNotaPorTipo('Q1') ?? 'Aun no calificado' }}
+          </ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label>Segundo Trimestre</ion-label>
+          <ion-note slot="end" [color]="(getNotaPorTipo('Q2') ?? 0) < 5 ? 'danger' : 'success'">
+            {{ getNotaPorTipo('Q2') ?? 'Aun no calificado' }}
+          </ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label>Tercer Trimestre</ion-label>
+          <ion-note slot="end" [color]="(getNotaPorTipo('Q3') ?? 0) < 5 ? 'danger' : 'success'">
+            {{ getNotaPorTipo('Q3') ?? 'Aun no calificado' }}
+          </ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label>Ordinaria</ion-label>
+          <ion-note slot="end" [color]="(getNotaPorTipo('Ordinaria') ?? 0) < 5 ? 'danger' : 'success'">
+            {{ getNotaPorTipo('Ordinaria') ?? 'Aun no calificado' }}
+          </ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-label>Extraordinaria</ion-label>
+          @if(getNotaPorTipo('Ordinaria') && getNotaPorTipo('Ordinaria')! >= 5) {
+            <ion-note slot="end" color="success">¡Felicidades, no tienes que presentarte a la extraordinaria!</ion-note>
+          } @else {
+            <ion-note slot="end" [color]="(getNotaPorTipo('Extraordinaria') ?? 0) < 5 ? 'danger' : 'success'">
+              {{ getNotaPorTipo('Extraordinaria') ?? 'Aun no calificado' }}
+            </ion-note>
+          }
+        </ion-item>
+      </ion-list>
+      }
+    </ion-card-content>
+  </ion-card>
+  }
+  @else {
+    <ion-card class="ion-margin-top">
+      <ion-card-content>
+        <p>La sección de calificaciones solo está disponible para alumnos.</p>
       </ion-card-content>
     </ion-card>
-    @if(currentUser?.role === 'alumno'){
-      <ion-card class="ion-margin-top">
-        <ion-card-header>
-          <ion-card-title>Mis Calificaciones</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <p>Aquí se mostrarán tus calificaciones de tareas y cuestionarios.</p>
-          <p>Funcionalidad pendiente de implementación.</p>
-        </ion-card-content>
-      </ion-card>
-    }
   }
 </ion-content>

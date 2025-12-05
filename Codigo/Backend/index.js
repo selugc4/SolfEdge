@@ -17,6 +17,7 @@ const ramaRoutes = require('./routes/rama.routes');
 const tareaRoutes = require('./routes/tarea.routes');
 const cuestionarioRoutes = require('./routes/cuestionario.routes');
 const calificacionGeneralRoutes = require('./routes/calificacionGeneral.routes');
+const calificacionRoutes = require('./routes/calificacion.routes');
 
 const app = express();
 app.use(express.json());
@@ -68,6 +69,7 @@ async function startServer() {
         app.use('/api/tareas', authMiddleware.verifyToken, tareaRoutes);
         app.use('/api/cuestionarios', authMiddleware.verifyToken, cuestionarioRoutes);
         app.use('/api/calificaciones-generales', authMiddleware.verifyToken, calificacionGeneralRoutes);
+        app.use('/api/calificaciones', authMiddleware.verifyToken, calificacionRoutes);
 
         const PORT = process.env.PORT;
         const server = app.listen(PORT, () => {
