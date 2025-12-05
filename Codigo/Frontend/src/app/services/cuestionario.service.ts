@@ -40,7 +40,7 @@ export class CuestionarioService {
 
   uploadAudioRecurso(cuestionarioId: string, preguntaIndex: number, file: File): Observable<{ recursoAudicion: string }> {
     const formData = new FormData();
-    formData.append('audioFile', file, file.name); // 'audioFile' must match the multer field name in backend
+    formData.append('audioFile', file, file.name);
 
     return this.http.patch<{ recursoAudicion: string }>(
       `${this.apiUrl}/${cuestionarioId}/preguntas/${preguntaIndex}/audicion-upload`,

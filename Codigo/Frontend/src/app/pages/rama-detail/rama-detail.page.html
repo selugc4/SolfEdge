@@ -55,7 +55,7 @@
         </ion-card>
 
         <!-- Toggle para Tareas/Cuestionarios -->
-        @if(isTeoria && isProfessor){
+        @if(isTeoria){
         <ion-item>
           <ion-toggle [(ngModel)]="useCuestionarios" justify="space-between">Usar Cuestionarios</ion-toggle>
         </ion-item>
@@ -83,7 +83,7 @@
                         <p>{{ tarea.descripcion }}</p>
                       </ion-label>
                       <div slot="end" (click)="$event.stopPropagation()">
-                        @if(!isProfessor){
+                        @if(!isProfessor && !isTareaClosed(tarea)){
                           <ion-button fill="clear" (click)="presentEntregarTareaModal(tarea._id)">
                             <ion-icon name="document-text-outline"></ion-icon>
                           </ion-button>
@@ -137,7 +137,7 @@
                         <h2>{{ cuestionario.nombre }}</h2>
                         <p>Preguntas: {{ cuestionario.preguntas.length }}</p>
                       </ion-label>
-                      @if(!isProfessor){
+                      @if(!isProfessor && !isCuestionarioClosed(cuestionario)){
                         <ion-button fill="clear" slot="end" (click)="presentCompletarCuestionarioModal(cuestionario._id)">
                           <ion-icon name="checkmark-circle-outline"></ion-icon>
                         </ion-button>

@@ -47,11 +47,14 @@ export class CompletarCuestionarioModalComponent implements OnInit {
       return;
     }
 
-    // The form value is an object like { '0': 'respuesta1', '1': 'respuesta2', ... }
-    // We need to convert it to an array in the correct order.
+    // The form value is an object like { '0': 1, '1': 0, ... } where keys are question indices
+    // and values are the selected answer's index.
     const respuestasArray = Object.keys(this.form.value)
       .sort((a, b) => parseInt(a) - parseInt(b))
-      .map(key => this.form.value[key]);
+      .map(questionIndexStr => {
+        const answerIndex = this.form.value[questionIndexStr];
+        return answerIndex.toString();
+      });
 
     this.cuestionarioService.entregarCuestionario(this.cuestionarioId, respuestasArray).subscribe({
       next: (calificacion) => {

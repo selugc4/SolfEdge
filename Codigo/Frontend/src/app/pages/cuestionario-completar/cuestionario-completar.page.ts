@@ -91,7 +91,10 @@ export class CuestionarioCompletarPage implements OnInit {
 
     const respuestasArray = Object.keys(this.form.value)
       .sort((a, b) => parseInt(a) - parseInt(b))
-      .map(key => this.form.value[key]);
+      .map(questionIndexStr => {
+        const answerIndex = this.form.value[questionIndexStr];
+        return answerIndex.toString();
+      });
 
     this.cuestionarioService.entregarCuestionario(this.cuestionarioId!, respuestasArray).subscribe({
       next: (calificacion) => {

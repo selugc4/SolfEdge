@@ -54,7 +54,7 @@
             <ion-radio-group [formControlName]="i.toString()" class="ion-margin-top">
               @for(respuesta of pregunta.posiblesRespuestas; track j; let j = $index) {
                 <ion-item>
-                  <ion-radio [value]="respuesta.texto" labelPlacement="end">{{ respuesta.texto }}</ion-radio>
+                  <ion-radio [value]="j" labelPlacement="end">{{ respuesta.texto }}</ion-radio>
                 </ion-item>
               }
             </ion-radio-group>

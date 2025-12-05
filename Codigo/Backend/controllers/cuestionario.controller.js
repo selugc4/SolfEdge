@@ -137,8 +137,9 @@ exports.entregarCuestionario = async (cuestionarioId, alumnoId, respuestasAlumno
 
         let correctas = 0;
         cuestionario.preguntas.forEach((pregunta, index) => {
-            const respuestaCorrecta = pregunta.posiblesRespuestas.find(r => r.esCorrecta);
-            if (respuestaCorrecta && respuestaCorrecta.texto === respuestasAlumno[index]) {
+            const respuestaCorrectaIndex = pregunta.posiblesRespuestas.findIndex(r => r.esCorrecta);
+            const selectedAnswerIndex = parseInt(respuestasAlumno[index], 10); // Parse the submitted index
+            if (respuestaCorrectaIndex !== -1 && respuestaCorrectaIndex === selectedAnswerIndex) {
                 correctas++;
             }
         });
