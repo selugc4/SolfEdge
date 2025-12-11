@@ -49,7 +49,7 @@ async function createDefaultAdmin() {
             const newAdmin = new Usuario({
                 username: 'sistema',
                 password: process.env.ADMIN_PASSWORD,
-                email: process.env.ADMIN_USERNAME+'@example.com',
+                email: process.env.ADMIN_USERNAME+'@example1.com',
                 role: 'administrador'
             });
             await newAdmin.save();
