@@ -276,7 +276,7 @@ export class CuestionarioEditPage implements OnInit {
       nombre: formValue.nombre,
       alumnos: formValue.alumnos.map((a: any) => (a as any)._id || a),
       preguntas: transformedPreguntas,
-      ramaId: this.rama!,
+      rama: this.rama!,
       fechaCierre: formValue.fechaCierre,
       profesor: currentUserId
     };

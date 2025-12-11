@@ -12,7 +12,7 @@ export class CalificacionService {
 
   constructor(private http: HttpClient) { }
 
-  getCalificacionesByAlumno(alumnoId: string): Observable<PerfilCalificacion[]> {
-    return this.http.get<PerfilCalificacion[]>(`${this.apiUrl}/${alumnoId}`);
+  getCalificacionesByAlumno(alumnoId: string, grupoId: string): Observable<PerfilCalificacion[]> {
+    return this.http.get<PerfilCalificacion[]>(`${this.apiUrl}/${alumnoId}/${grupoId}`);
   }
 }

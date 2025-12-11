@@ -39,15 +39,15 @@ const authMiddleware = require('../middleware/authMiddleware');
  *       500:
  *         description: Error interno del servidor.
  */
-router.get('/:alumnoId', authMiddleware.verifyToken, async (req, res) => {
-    const { alumnoId } = req.params;
+router.get('/:alumnoId/:grupoId', authMiddleware.verifyToken, async (req, res) => {
+    const { alumnoId, grupoId } = req.params;
 
     // Security check: ensure the logged-in user is the one requesting their grades, or is a professor.
     if (req.user.role !== 'profesor' && req.user.id !== alumnoId) {
         return res.status(403).json({ error: 'No tienes permiso para ver estas calificaciones.' });
     }
 
-    const result = await calificacionController.getCalificacionesByAlumno(alumnoId);
+    const result = await calificacionController.getCalificacionesByAlumno(alumnoId, grupoId);
     res.status(result.status).json(result.body);
 });
 

@@ -49,7 +49,7 @@ export class Tab5Page implements OnInit {
   loadAllGrades(alumnoId: string, grupoId: string) {
     this.isLoading = true;
     forkJoin({
-      continuas: this.calificacionService.getCalificacionesByAlumno(alumnoId),
+      continuas: this.calificacionService.getCalificacionesByAlumno(alumnoId, grupoId),
       generales: this.calificacionGeneralService.getCalificacionesByAlumnoAndGrupo(alumnoId, grupoId)
     }).subscribe({
       next: ({ continuas, generales }) => {

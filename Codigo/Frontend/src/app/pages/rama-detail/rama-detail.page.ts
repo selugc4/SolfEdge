@@ -122,33 +122,33 @@ export class RamaDetailPage implements OnDestroy {
         this.userId = user._id;
         this.grupoStateService.selectedGrupo$.subscribe(grupo => {
           this.selectedGrupo = grupo;
-      if (grupo) {
-        this.isLoading = true;
+          if (grupo) {
+            this.isLoading = true;
 
-        this.loadRamaConfig(grupo._id).pipe(
-          switchMap(() =>
-            forkJoin([
-              this.loadTareas(),
-              this.isTeoria ? this.loadCuestionarios() : of([])
-            ])
-          ),
-          finalize(() => {
-            this.isLoading = false; // Siempre se ejecuta
-          })
-        ).subscribe({
-          error: (err) => {
-            console.error('Error cargando datos', err);
+            this.loadRamaConfig(grupo._id).pipe(
+              switchMap(() =>
+                forkJoin([
+                  this.loadTareas(),
+                  this.isTeoria ? this.loadCuestionarios() : of([])
+                ])
+              ),
+              finalize(() => {
+                this.isLoading = false; // Siempre se ejecuta
+              })
+            ).subscribe({
+              error: (err) => {
+                console.error('Error cargando datos', err);
+              }
+            });
+
+          } else {
+            this.tareas = [];
+            this.cuestionarios = [];
+            this.ramaConfig = undefined;
+            this.pdfUrl = null;
+            this.hasLibroDeApoyo = false;
+            this.isLoading = false;
           }
-        });
-
-      } else {
-        this.tareas = [];
-        this.cuestionarios = [];
-        this.ramaConfig = undefined;
-        this.pdfUrl = null;
-        this.hasLibroDeApoyo = false;
-        this.isLoading = false;
-      }
         });
       } else {
         this.isLoading = false; // Set to false if no user

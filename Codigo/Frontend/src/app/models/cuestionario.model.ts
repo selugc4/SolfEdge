@@ -3,7 +3,7 @@ export interface Cuestionario {
   _id: string;
   nombre: string;
   profesor: string;
-  ramaId: string;
+  rama: string;
   preguntas: Pregunta[];
   cerrada: boolean;
   alumnos: string[];

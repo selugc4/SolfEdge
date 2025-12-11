@@ -3,7 +3,7 @@ export interface Tarea {
   titulo: string;
   descripcion: string;
   profesor: string;
-  ramaId: string;
+  rama: string;
   materialDeApoyo?: string;
   cerrada: boolean;
   alumnos: string[];

@@ -51,7 +51,7 @@ export class TareaModalComponent implements OnInit {
       profesor: profesorId,
       materialDeApoyo: '',
       cerrada: false,
-      ramaId: this.rama,
+      rama: this.rama,
       alumnos: [],
       fechaCierre: Date.now() as unknown as Date
     };
@@ -85,7 +85,7 @@ export class TareaModalComponent implements OnInit {
         this.form.get('selectedStudentsFromGroups')?.setValue(this.selectedStudentsFromGroups);
       }
     } else {
-      this.form.patchValue({ ramaId: this.rama });
+      this.form.patchValue({ rama: this.rama });
     }
   }
 
@@ -125,7 +125,7 @@ export class TareaModalComponent implements OnInit {
       const taskData: any = {
         titulo: this.form.value.titulo,
         descripcion: this.form.value.descripcion,
-        ramaId: this.rama,
+        rama: this.rama,
         fechaCierre: this.form.value.fechaCierre,
         // Add materialDeApoyo here if no file is selected
         ...(this.selectedFile ? {} : { materialDeApoyo: null }),

@@ -8,7 +8,7 @@ import { CommonModule, DatePipe, Location } from '@angular/common';
 import { TareaStateService } from 'src/app/services/tarea-state.service';
 import { TareaService } from 'src/app/services/tarea.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ModalController, ToastController, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonCardHeader, IonCard, IonCardTitle, IonCardSubtitle, IonCardContent, IonButton, IonList, IonItem, IonLabel, IonBadge, IonListHeader } from '@ionic/angular/standalone';
+import { ModalController, ToastController, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonCardHeader, IonCard, IonCardTitle, IonCardContent, IonButton, IonList, IonItem, IonLabel, IonBadge, IonListHeader } from '@ionic/angular/standalone';
 import { Calificacion } from 'src/app/models/calificacion.model';
 import { CalificarModalComponent } from 'src/app/components/calificar-modal/calificar-modal.component';
 
@@ -17,7 +17,7 @@ import { CalificarModalComponent } from 'src/app/components/calificar-modal/cali
   templateUrl: './tarea-detalle.page.html',
   styleUrls: ['./tarea-detalle.page.scss'],
   standalone: true,
-  imports: [CommonModule, DatePipe, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonCardHeader, IonCard, IonCardTitle, IonCardSubtitle, IonCardContent, IonButton, IonList, IonItem, IonLabel, IonBadge, IonListHeader]
+  imports: [CommonModule, DatePipe, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonCardHeader, IonCard, IonCardTitle, IonCardContent, IonButton, IonList, IonItem, IonLabel, IonBadge, IonListHeader]
 })
 export class TareaDetallePage implements OnInit {
   tarea: Tarea | undefined;
