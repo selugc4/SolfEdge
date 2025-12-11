@@ -1,12 +1,14 @@
+const mongoose = require('mongoose');
 const Calificacion = require('../models/calificacion.model');
 
 exports.getCalificacionesByAlumnoYGrupo = async (alumnoId, grupoId) => {
   try {
-    const calificaciones = await Calificacion.aggregate([
-      // Filtrar por alumno
-      { $match: { alumno: alumnoId } },
+    const alumnoObjId = mongoose.Types.ObjectId(alumnoId);
+    const grupoObjId = mongoose.Types.ObjectId(grupoId);
 
-      // Lookup tarea
+    const calificaciones = await Calificacion.aggregate([
+      { $match: { alumno: alumnoObjId } },
+
       {
         $lookup: {
           from: 'tareas',
@@ -17,7 +19,6 @@ exports.getCalificacionesByAlumnoYGrupo = async (alumnoId, grupoId) => {
       },
       { $unwind: { path: '$tarea', preserveNullAndEmptyArrays: true } },
 
-      // Lookup rama para tarea
       {
         $lookup: {
           from: 'ramaconfigs',
@@ -28,7 +29,6 @@ exports.getCalificacionesByAlumnoYGrupo = async (alumnoId, grupoId) => {
       },
       { $unwind: { path: '$tareaRamaConfig', preserveNullAndEmptyArrays: true } },
 
-      // Lookup cuestionario
       {
         $lookup: {
           from: 'cuestionarios',
@@ -49,20 +49,17 @@ exports.getCalificacionesByAlumnoYGrupo = async (alumnoId, grupoId) => {
       },
       { $unwind: { path: '$cuestionarioRamaConfig', preserveNullAndEmptyArrays: true } },
 
-      // Filtro: Que tarea o cuestionario pertenezcan al grupo
       {
         $match: {
           $or: [
-            { 'tareaRamaConfig.grupo': grupoId },
-            { 'cuestionarioRamaConfig.grupo': grupoId }
+            { 'tareaRamaConfig.grupo': grupoObjId },
+            { 'cuestionarioRamaConfig.grupo': grupoObjId }
           ]
         }
       },
 
-      // Ordenar por fecha de creación descendente
       { $sort: { createdAt: -1 } },
 
-      // Proyección campos que quieres devolver
       {
         $project: {
           alumno: 1,
@@ -83,4 +80,3 @@ exports.getCalificacionesByAlumnoYGrupo = async (alumnoId, grupoId) => {
     return { status: 500, body: { error: `Error interno del servidor: ${error.message}` } };
   }
 };
-
