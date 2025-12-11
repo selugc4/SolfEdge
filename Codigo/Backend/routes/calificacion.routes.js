@@ -47,7 +47,7 @@ router.get('/:alumnoId/:grupoId', authMiddleware.verifyToken, async (req, res) =
         return res.status(403).json({ error: 'No tienes permiso para ver estas calificaciones.' });
     }
 
-    const result = await calificacionController.getCalificacionesByAlumno(alumnoId, grupoId);
+    const result = await calificacionController.getCalificacionesByAlumnoYGrupo(alumnoId, grupoId);
     res.status(result.status).json(result.body);
 });
 
