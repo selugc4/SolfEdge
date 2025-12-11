@@ -8,7 +8,7 @@ import { Usuario } from '../models/usuario.model';
 import { PerfilCalificacion } from '../models/perfil-calificacion.model';
 import { CalificacionGeneral } from '../models/calificacionGeneral.model';
 import { FormsModule } from '@angular/forms';
-import { IonButtons, IonMenuButton, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonItem, IonLabel, IonText, IonList, IonSpinner, IonSegment, IonSegmentButton, IonListHeader, IonNote } from '@ionic/angular/standalone';
+import { IonButtons, IonMenuButton, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonItem, IonLabel, IonText, IonList, IonSpinner, IonSegment, IonSegmentButton, IonListHeader, IonNote, ViewWillEnter } from '@ionic/angular/standalone';
 import { MensajeService } from '../services/mensaje.service';
 import { Mensaje } from '../models/mensaje.model';
 @Component({
@@ -34,9 +34,11 @@ export class Tab5Page implements OnInit {
     this.authService.currentUser.subscribe(user => {
       this.currentUser = user;
       if (user?._id) {
-        this.loadMensajes(user._id);
         if(user.role === 'alumno' && user.grupoId){
           this.loadAllGrades(user._id, user.grupoId);
+        }
+        else{
+          this.isLoading = false;
         }
       } else {
         this.isLoading = false;
@@ -65,12 +67,6 @@ export class Tab5Page implements OnInit {
   getNotaPorTipo(tipo: 'Q1' | 'Q2' | 'Q3' | 'Ordinaria' | 'Extraordinaria'): number | null {
     const calificacion = this.calificacionesGeneralesList.find(g => g.tipo === tipo);
     return calificacion ? calificacion.nota : null;
-  }
-  loadMensajes(userId: string) {
-    this.mensajeService.getMensajesByUsuario(userId).subscribe(response => {
-      this.mensajes = response.mensajes || [];
-      this.isLoading = false;
-    });
   }
   segmentChanged(event: any) {
     this.segmentoSeleccionado = event.detail.value;

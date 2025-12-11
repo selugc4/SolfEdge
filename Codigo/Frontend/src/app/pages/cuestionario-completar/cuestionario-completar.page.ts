@@ -95,7 +95,6 @@ export class CuestionarioCompletarPage implements OnInit {
         const answerIndex = this.form.value[questionIndexStr];
         return answerIndex.toString();
       });
-
     this.cuestionarioService.entregarCuestionario(this.cuestionarioId!, respuestasArray).subscribe({
       next: (calificacion) => {
         this.presentToast(`Cuestionario entregado. Tu nota es: ${calificacion.nota!.toFixed(2)}`, 'success');

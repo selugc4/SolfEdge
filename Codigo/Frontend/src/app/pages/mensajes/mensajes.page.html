@@ -23,6 +23,9 @@
               <h3>{{ mensaje.asunto }}</h3>
               <p>{{ mensaje.texto }}</p>
               <p><small>{{ mensaje.createdAt | date:'short' }}</small></p>
+              @if(!isLeido(mensaje) && mensaje.remitente._id !== userId) {
+                <p><small>Clickar para marcar como leída</small></p>
+              }
             </ion-label>
           </ion-item>
         }

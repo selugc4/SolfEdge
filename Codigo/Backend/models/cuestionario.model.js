@@ -54,9 +54,9 @@ const cuestionarioSchema = new Schema({
   },
 
   rama: {
-    type: String,
-    required: true,
-    enum: ['Ritmo', 'Entonación', 'Audición', 'Teoria'] 
+    type: Schema.Types.ObjectId,
+    ref: 'RamaConfig',
+    required: true
   },
 
   preguntas: [preguntaSchema],

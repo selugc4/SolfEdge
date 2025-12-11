@@ -24,7 +24,7 @@ import { Grupo } from '../../models/grupo.model';
 import { TareaModalComponent } from '../../components/tarea-modal/tarea-modal.component';
 import { EntregarTareaModalComponent } from '../../components/entregar-tarea-modal/entregar-tarea-modal.component';
 import { forkJoin, of } from 'rxjs'; // Added forkJoin and of
-import { tap } from 'rxjs/operators'; // Added tap
+import { finalize, switchMap, tap } from 'rxjs/operators'; // Added tap
 
 @Component({
   selector: 'app-rama-detail',
@@ -122,31 +122,39 @@ export class RamaDetailPage implements OnDestroy {
         this.userId = user._id;
         this.grupoStateService.selectedGrupo$.subscribe(grupo => {
           this.selectedGrupo = grupo;
-          if (grupo) {
+      if (grupo) {
+        this.isLoading = true;
+
+        this.loadRamaConfig(grupo._id).pipe(
+          switchMap(() =>
             forkJoin([
               this.loadTareas(),
-              this.loadRamaConfig(grupo._id),
-              this.isTeoria ? this.loadCuestionarios() : of([]) // Handle conditional loading
-            ]).subscribe(() => {
-              this.isLoading = false; // Set to false after all data is loaded
-            }, () => {
-              this.isLoading = false; // Also set to false on error
-            });
-          } else {
-            this.tareas = [];
-            this.cuestionarios = [];
-            this.ramaConfig = undefined;
-            this.pdfUrl = null;
-            this.hasLibroDeApoyo = false;
-            this.isLoading = false; // Set to false if no group
+              this.isTeoria ? this.loadCuestionarios() : of([])
+            ])
+          ),
+          finalize(() => {
+            this.isLoading = false; // Siempre se ejecuta
+          })
+        ).subscribe({
+          error: (err) => {
+            console.error('Error cargando datos', err);
           }
+        });
+
+      } else {
+        this.tareas = [];
+        this.cuestionarios = [];
+        this.ramaConfig = undefined;
+        this.pdfUrl = null;
+        this.hasLibroDeApoyo = false;
+        this.isLoading = false;
+      }
         });
       } else {
         this.isLoading = false; // Set to false if no user
       }
     });
   }
-
   loadRamaConfig(grupoId: string) {
     return this.ramaConfigService.getAllRamas().pipe(
       tap(ramas => {
@@ -173,7 +181,7 @@ export class RamaDetailPage implements OnDestroy {
 
   loadTareas() {
     if (!this.userId) return of([]); // Return an observable
-    return this.tareaService.getTareasByUsuarioAndRama(this.userId, this.ramaNombre).pipe(
+    return this.tareaService.getTareasByUsuarioAndRama(this.userId, this.ramaConfig!._id).pipe(
       tap(tareas => {
         this.tareas = tareas;
       })
@@ -182,7 +190,7 @@ export class RamaDetailPage implements OnDestroy {
 
   loadCuestionarios() {
     if (!this.userId) return of([]); // Return an observable
-    return this.cuestionarioService.getCuestionariosByUsuarioAndRama(this.userId, this.ramaNombre).pipe(
+    return this.cuestionarioService.getCuestionariosByUsuarioAndRama(this.userId, this.ramaConfig!._id).pipe(
       tap(cuestionarios => {
         this.cuestionarios = cuestionarios;
       })
@@ -330,7 +338,7 @@ export class RamaDetailPage implements OnDestroy {
     const modal = await this.modalController.create({
       component: TareaModalComponent,
       componentProps: {
-        rama: this.ramaNombre,
+        rama: this.ramaConfig?._id,
         tarea: tarea || null,
         alumnos: uniqueAlumnos,
         currentGroup: this.selectedGrupo
@@ -381,7 +389,7 @@ export class RamaDetailPage implements OnDestroy {
 
     const navigationExtras = {
       queryParams: {
-        rama: this.ramaNombre,
+        rama: this.ramaConfig?._id,
         grupoId: this.selectedGrupo._id
       }
     };

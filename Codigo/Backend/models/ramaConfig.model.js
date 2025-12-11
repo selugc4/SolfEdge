@@ -5,7 +5,7 @@ const ramaConfigSchema = new Schema({
   nombre: {
     type: String,
     required: true,
-    enum: ['Ritmo', 'Entonación', 'Audición', 'Teoría']
+    enum: ['Ritmo', 'Entonación', 'Audición', 'Teoria']
   },
   libroDeApoyo: {
     type: String

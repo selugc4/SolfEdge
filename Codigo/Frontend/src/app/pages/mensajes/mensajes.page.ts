@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MensajeService } from '../../services/mensaje.service';
@@ -7,7 +7,9 @@ import { Mensaje } from '../../models/mensaje.model';
 import { IonButtons, IonMenuButton, IonToolbar, IonHeader, IonTitle, IonContent, IonList, IonItem, IonLabel, IonCard, IonCardContent, IonSpinner, IonInfiniteScroll, IonInfiniteScrollContent } from '@ionic/angular/standalone';
 import { IonIcon } from "@ionic/angular/standalone";
 import { InfiniteScrollCustomEvent } from '@ionic/angular';
-
+import { mailOutline, mailOpenOutline } from 'ionicons/icons';
+import { addIcons } from 'ionicons';
+import { ViewWillEnter } from '@ionic/angular/standalone';
 @Component({
   selector: 'app-mensajes',
   templateUrl: './mensajes.page.html',
@@ -15,14 +17,32 @@ import { InfiniteScrollCustomEvent } from '@ionic/angular';
   standalone: true,
   imports: [CommonModule, FormsModule, IonButtons, IonMenuButton, IonToolbar, IonHeader, IonTitle, IonContent, IonList, IonItem, IonIcon, IonLabel, IonCard, IonCardContent, IonSpinner, IonInfiniteScroll, IonInfiniteScrollContent]
 })
-export class MensajesPage implements OnInit {
+export class MensajesPage implements OnInit, ViewWillEnter {
   mensajes: Mensaje[] = [];
   userId: string | null = null;
   mensajeService: MensajeService = inject(MensajeService);
   authService: AuthService = inject(AuthService);
   isLoading: boolean = true;
   currentPage = 1;
+  @ViewChild(IonInfiniteScroll) infiniteScroll!: IonInfiniteScroll;
 
+  constructor() {
+    addIcons({
+      'mail-outline': mailOutline,
+      'mail-open-outline': mailOpenOutline
+    });
+  }
+  ionViewWillEnter() {
+      if (this.userId) {
+        this.currentPage = 1;
+        if (this.infiniteScroll) {
+          this.infiniteScroll.disabled = false;
+        }
+        this.loadMensajes();
+      } else {
+        this.isLoading = false;
+      }
+  }
   ngOnInit() {
     this.authService.currentUser.subscribe(user => {
       this.userId = user?._id || null;
@@ -40,9 +60,13 @@ export class MensajesPage implements OnInit {
       if (event) event.target.complete();
       return;
     }
-
     this.mensajeService.getMensajesByUsuario(this.userId, this.currentPage).subscribe(response => {
-      this.mensajes.push(...response.mensajes);
+      if(this.currentPage == 1){
+        this.mensajes = response.mensajes
+      }
+      else{
+        this.mensajes.push(...response.mensajes);
+      }
       this.isLoading = false;
       if (event) {
         event.target.complete();
@@ -52,7 +76,6 @@ export class MensajesPage implements OnInit {
       }
     });
   }
-
   onIonInfinite(event: InfiniteScrollCustomEvent) {
     this.currentPage++;
     this.loadMensajes(event);

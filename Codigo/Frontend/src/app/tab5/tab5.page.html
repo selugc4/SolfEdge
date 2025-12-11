@@ -38,29 +38,6 @@
         </ion-item>
       </ion-card-content>
     </ion-card>
-    <ion-card class="ion-margin-top">
-      <ion-card-header>
-        <ion-card-title>Mis Mensajes</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        @if(mensajes.length > 0){
-          <ion-list>
-            @for(mensaje of mensajes; track i; let i = $index){
-              <ion-item>
-                <ion-label>
-                  <h2>{{ mensaje.asunto }}</h2>
-                  <p>{{ mensaje.texto }}</p>
-                  <p><small>De: {{ mensaje.remitente._id === currentUser?._id ? 'Mí' : mensaje.remitente.username }}</small></p>
-                </ion-label>
-              </ion-item>
-            }
-          </ion-list>
-        }
-        @else {
-          <p>No tienes mensajes.</p>
-        }
-      </ion-card-content>
-    </ion-card>
   }
   @if(currentUser?.role === 'alumno'){
   <ion-card class="ion-margin-top">
@@ -147,12 +124,5 @@
       }
     </ion-card-content>
   </ion-card>
-  }
-  @else {
-    <ion-card class="ion-margin-top">
-      <ion-card-content>
-        <p>La sección de calificaciones solo está disponible para alumnos.</p>
-      </ion-card-content>
-    </ion-card>
   }
 </ion-content>

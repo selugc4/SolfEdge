@@ -11,7 +11,7 @@ exports.crearGrupo = async (nombre, profesorId, alumnoIds) => {
 
         const grupo = new Grupo({ nombre, profesor: profesorId, alumnos: alumnoIds });
 
-        const ramas = ['Ritmo', 'Entonación', 'Audición', 'Teoría'].map(nombreRama => ({
+        const ramas = ['Ritmo', 'Entonación', 'Audición', 'Teoria'].map(nombreRama => ({
             nombre: nombreRama,
             grupo: grupo._id
         }));

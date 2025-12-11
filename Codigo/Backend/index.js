@@ -44,6 +44,17 @@ async function createDefaultAdmin() {
             await newAdmin.save();
             console.log('Usuario administrador por defecto creado.');
         }
+        const sistemaUser = await Usuario.findOne({ username: 'sistema' });
+        if(!sistemaUser) {
+            const newAdmin = new Usuario({
+                username: 'sistema',
+                password: process.env.ADMIN_PASSWORD,
+                email: process.env.ADMIN_USERNAME+'@example.com',
+                role: 'administrador'
+            });
+            await newAdmin.save();
+            console.log('Usuario administrador por defecto creado.');            
+        }
     } catch (error) {
         console.error('Error al crear el usuario administrador por defecto:', error);
     }

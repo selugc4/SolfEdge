@@ -17,9 +17,9 @@ const tareaSchema = new Schema({
     required: true
   },
   rama: {
-    type: String,
-    required: true,
-    enum: ['Ritmo', 'Entonación', 'Audición', 'Teoría'] 
+    type: Schema.Types.ObjectId,
+    ref: 'RamaConfig',
+    required: true
   },
   materialDeApoyo: {
     type: String,

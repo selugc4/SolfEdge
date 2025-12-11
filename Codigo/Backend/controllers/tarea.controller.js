@@ -1,7 +1,7 @@
 const Tarea = require('../models/tarea.model');
 const Usuario = require('../models/usuario.model');
 const Calificacion = require('../models/calificacion.model');
-
+const mensajeController = require('./mensaje.controller');
 exports.crearTarea = async (taskDataJsonString, file, profesorId) => {
     try {
         let tareaData;
@@ -91,12 +91,12 @@ exports.updateTarea = async (tareaId, taskDataJsonString, file, profesorId) => {
     }
 };
 
-exports.getTareasByUsuarioAndRama = async (usuarioId, nombreRama) => {
+exports.getTareasByUsuarioAndRama = async (usuarioId, ramaId) => {
     try {
         const usuario = await Usuario.findById(usuarioId);
         if (!usuario) return { status: 404, body: { error: 'Usuario no encontrado.' } };
 
-        const query = { rama: nombreRama };
+        const query = { rama: ramaId };
         if (usuario.role === 'profesor') {
             query.profesor = usuarioId;
         }
@@ -156,8 +156,17 @@ exports.entregarTarea = async (tareaId, alumnoId, submissionData, file) => {
 
         const calificacionExistente = await Calificacion.findOne({ tarea: tareaId, alumno: alumnoId });
         if (calificacionExistente) {
-            return { status: 409, body: { error: 'Ya has realizado una entrega para esta tarea.' } };
+            calificacionExistente.respuestaTexto = submissionData.respuestaTexto || '';
+            calificacionExistente.fechaEntrega = new Date();
+            if (file) {
+                calificacionExistente.respuestaArchivo = file.buffer.toString('base64');
+                calificacionExistente.nombreArchivo = file.originalname;
+                calificacionExistente.tipoArchivo = file.mimetype;
+            }
+            await calificacionExistente.save();
+            return { status: 200, body: calificacionExistente };
         }
+
 
         const nuevaEntrega = new Calificacion({
             alumno: alumnoId,
@@ -210,6 +219,14 @@ exports.calificarEntrega = async (calificacionId, nota, profesorId) => {
 
         calificacion.nota = nota;
         await calificacion.save();
+
+        const sistemaUser = await Usuario.findOne({ username: 'sistema' });
+        if (sistemaUser) {
+            const asunto = `Calificación de tarea (${calificacion.tarea.nombre})`;
+            const texto = `La calificación obtenida en ${calificacion.tarea.nombre} es ${nota}`;
+            await mensajeController.crearMensaje(sistemaUser._id, asunto, texto, [calificacion.alumno]);
+        }
+
         return { status: 200, body: calificacion };
 
     } catch (error) {

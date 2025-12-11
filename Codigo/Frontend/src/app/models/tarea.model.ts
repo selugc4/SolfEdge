@@ -3,7 +3,7 @@ export interface Tarea {
   titulo: string;
   descripcion: string;
   profesor: string;
-  rama: 'Ritmo' | 'Entonación' | 'Audición' | 'Teoría';
+  ramaId: string;
   materialDeApoyo?: string;
   cerrada: boolean;
   alumnos: string[];

@@ -1,6 +1,7 @@
 const CalificacionGeneral = require('../models/calificacionGeneral.model');
 const Usuario = require('../models/usuario.model');
 const Grupo = require('../models/grupo.model');
+const mensajeController = require('./mensaje.controller');
 
 // Helper to validate grades
 const validateNota = (nota) => {
@@ -55,6 +56,13 @@ exports.crearOActualizarCalificacionGeneral = async (alumnoId, grupoId, tipo, no
             { tipo: tipo, nota: nota, profesor: profesorId }, // Explicitly include 'tipo' in $set
             { upsert: true, new: true, runValidators: true } // upsert creates if not found, new returns updated doc
         );
+
+        const sistemaUser = await Usuario.findOne({ username: 'sistema' });
+        if (sistemaUser) {
+            const asunto = `Calificación general de (${tipo})`;
+            const texto = `La calificación obtenida en ${tipo} es ${nota}`;
+            await mensajeController.crearMensaje(sistemaUser._id, asunto, texto, [alumnoId]);
+        }
 
         return { status: 200, body: calificacion };
 
