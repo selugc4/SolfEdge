@@ -16,7 +16,7 @@
       <ion-card-content>
         <p><strong>Descripción:</strong> {{ tarea.descripcion }}</p>
         <p><strong>Profesor:</strong> {{ profesorNombre || 'Cargando...' }}</p>
-        <p><strong>Fecha de entrega:</strong> {{ tarea.fechaCierre || 'Cargando...' }}</p>
+        <p><strong>Fecha de entrega:</strong> {{ tarea.fechaCierre || 'Cargando...' | date:'fullDate'}}</p>
         @if(isProfessor){
           <ion-list-header>Entregas de Alumnos</ion-list-header>
           <ion-list>

@@ -7,6 +7,10 @@ import { AppComponent } from './app/app.component';
 
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { AuthInterceptor } from './app/interceptors/auth.interceptor';
+import { registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es';
+import { LOCALE_ID } from '@angular/core';
+registerLocaleData(localeEs);
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -14,5 +18,6 @@ bootstrapApplication(AppComponent, {
     provideIonicAngular(),
     provideRouter(routes, withPreloading(PreloadAllModules)),
     provideHttpClient(withInterceptors([AuthInterceptor])),
+    { provide: LOCALE_ID, useValue: 'es' }
   ],
 });

@@ -3,50 +3,69 @@ const Usuario = require('../models/usuario.model');
 const Calificacion = require('../models/calificacion.model');
 const mensajeController = require('./mensaje.controller');
 exports.crearTarea = async (taskDataJsonString, file, profesorId) => {
+  try {
+    let tareaData;
     try {
-        let tareaData;
-        try {
-            tareaData = JSON.parse(taskDataJsonString);
-        } catch (error) {
-            return { status: 400, body: { error: 'Invalid taskData JSON' } };
-        }
-
-        if (!tareaData.alumnos || tareaData.alumnos.length === 0) {
-            return { status: 400, body: { error: 'La tarea debe tener al menos un alumno.' } };
-        }
-
-        const profesor = await Usuario.findById(profesorId);
-        if (!profesor || profesor.role !== 'profesor') {
-            return { status: 400, body: { error: 'Usuario no es un profesor válido.' } };
-        }
-        if (file) {
-            if (!file.buffer) { 
-                return { status: 400, body: { error: 'File buffer is missing.' } };
-            }
-            tareaData.materialDeApoyo = file.buffer.toString('base64');
-        } else if (tareaData.materialDeApoyo === undefined) {
-            tareaData.materialDeApoyo = null;
-        }
-        const tarea = new Tarea({ ...tareaData, profesor: profesorId });
-        await tarea.save();
-        await tarea.populate({
-            path: 'rama',
-            select: 'nombre grupo',
-            populate: {
-                path: 'grupo',
-                select: 'nombre'
-            }
-        });
-        const nombreRama = tarea.rama?.nombre ?? 'rama desconocida';
-        const nombreGrupo = tarea.rama?.grupo?.nombre ?? 'grupo desconocido';
-        const asunto = 'Nueva tarea disponible';
-        const texto = `Tienes pendiente una nueva tarea del grupo "${nombreGrupo}" en la rama "${nombreRama}" llamada "${tarea.titulo}"`;
-        await mensajeController.crearMensaje(sistemaUser._id, asunto, texto, tarea.alumnos);
-        return { status: 201, body: tarea };
-    } catch (error) {
-        console.error('Controller: Error in crearTarea:', error);
-        return { status: 500, body: { error: error.message } };
+      tareaData = JSON.parse(taskDataJsonString);
+    } catch {
+      return { status: 400, body: { error: 'Invalid taskData JSON' } };
     }
+
+    if (!tareaData.alumnos || tareaData.alumnos.length === 0) {
+      return { status: 400, body: { error: 'La tarea debe tener al menos un alumno.' } };
+    }
+
+    if (!tareaData.rama) {
+      return { status: 400, body: { error: 'La tarea debe tener una rama asociada.' } };
+    }
+
+    if (!tareaData.titulo || tareaData.titulo.trim() === '') {
+      return { status: 400, body: { error: 'La tarea debe tener un título.' } };
+    }
+
+    const profesor = await Usuario.findById(profesorId);
+    if (!profesor || profesor.role !== 'profesor') {
+      return { status: 400, body: { error: 'Usuario no es un profesor válido.' } };
+    }
+
+    if (file) {
+      if (!file.buffer) {
+        return { status: 400, body: { error: 'File buffer is missing.' } };
+      }
+      tareaData.materialDeApoyo = file.buffer.toString('base64');
+    } else if (tareaData.materialDeApoyo === undefined) {
+      tareaData.materialDeApoyo = null;
+    }
+
+    const tarea = new Tarea({ ...tareaData, profesor: profesorId });
+    await tarea.save();
+
+    await tarea.populate({
+      path: 'rama',
+      select: 'nombre grupo',
+      populate: { path: 'grupo', select: 'nombre' }
+    });
+
+    if (!tarea.rama) {
+      return { status: 500, body: { error: 'No se pudo cargar la rama asociada a la tarea.' } };
+    }
+
+    if (!tarea.rama.grupo) {
+      return { status: 500, body: { error: 'No se pudo cargar el grupo asociado a la rama.' } };
+    }
+
+    const nombreRama = tarea.rama.nombre;
+    const nombreGrupo = tarea.rama.grupo.nombre;
+    const asunto = 'Nueva tarea disponible';
+    const texto = `Tienes pendiente una nueva tarea del grupo "${nombreGrupo}" en la rama "${nombreRama}" llamada "${tarea.titulo}"`;
+
+    await mensajeController.crearMensaje(sistemaUser._id, asunto, texto, tarea.alumnos);
+
+    return { status: 201, body: tarea };
+  } catch (error) {
+    console.error('Controller: Error in crearTarea:', error);
+    return { status: 500, body: { error: error.message } };
+  }
 };
 
 exports.updateTarea = async (tareaId, taskDataJsonString, file, profesorId) => {

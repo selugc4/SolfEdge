@@ -3,7 +3,7 @@ import { UsuarioService } from '../../services/usuario.service';
 import { Usuario } from '../../models/usuario.model';
 import { AuthService } from '../../services/auth.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, LOCALE_ID } from '@angular/core';
 import { CommonModule, DatePipe, Location } from '@angular/common';
 import { TareaStateService } from 'src/app/services/tarea-state.service';
 import { TareaService } from 'src/app/services/tarea.service';
