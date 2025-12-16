@@ -9,7 +9,6 @@ import { CalificacionGeneralModalComponent } from '../../components/calificacion
 import { IonIcon, ModalController, ToastController, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, IonCard, IonCardTitle, IonCardHeader, IonCardContent, IonButton, IonSpinner } from '@ionic/angular/standalone';
 import { AuthService } from '../../services/auth.service';
 import { GrupoStateService } from '../../services/grupo-state.service';
-import { Grupo } from '../../models/grupo.model';
 import { CalificacionGeneralService } from '../../services/calificacion-general.service';
 import { sendOutline, ribbonOutline } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
@@ -22,7 +21,7 @@ import { addIcons } from 'ionicons';
 })
 export class ProfessorAdminPage implements OnInit {
   userId: string | null = null;
-  selectedGrupo: Grupo | null = null;
+
   isLoading: boolean = true;
 
   authService: AuthService = inject(AuthService);
@@ -36,10 +35,6 @@ export class ProfessorAdminPage implements OnInit {
     this.authService.currentUser.subscribe(user => {
       this.userId = user?._id || null;
       this.isLoading = false;
-    });
-
-    this.grupoStateService.selectedGrupo$.subscribe(grupo => {
-      this.selectedGrupo = grupo;
     });
   }
   constructor() {
@@ -67,46 +62,6 @@ export class ProfessorAdminPage implements OnInit {
         },
         error: (err) => {
           this.presentToast(`Error al enviar mensaje: ${err.error.message || err.message}`, 'danger');
-        }
-      });
-    }
-  }
-
-  async presentCalificacionGeneralModal() {
-    if (!this.selectedGrupo) {
-      await this.presentToast('Por favor, selecciona un grupo primero.', 'warning');
-      return;
-    }
-    if (!this.userId) {
-      await this.presentToast('Error: ID de profesor no disponible para calificar.', 'danger');
-      return;
-    }
-
-    const modal = await this.modalController.create({
-      component: CalificacionGeneralModalComponent,
-      componentProps: {
-        grupoId: this.selectedGrupo._id
-      }
-    });
-    modal.present();
-
-    const { data, role } = await modal.onWillDismiss();
-
-    if (role === 'confirm' && data) {
-      this.calificacionGeneralService.crearOActualizarCalificacion(
-        data.alumnoId,
-        this.selectedGrupo._id,
-        data.selectedTipo,
-        data.nota,
-        this.userId
-      ).subscribe({
-        next: async (calificacion) => {
-          await this.presentToast(`Calificación '${calificacion.tipo}' guardada para ${data.alumnoUsername}.`);
-        },
-        error: async (err) => {
-          console.error('Error al guardar calificación general:', err);
-          const errorMessage = err.error && err.error.error ? err.error.error : 'Error al guardar la calificación general.';
-          await this.presentToast(errorMessage, 'danger');
         }
       });
     }

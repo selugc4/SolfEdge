@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { UsuarioService } from '../../services/usuario.service';
 import { Usuario } from '../../models/usuario.model';
 import { IonHeader, IonButtons, IonToolbar, IonButton, IonTitle, IonContent, IonItem, IonList, IonLabel, IonCheckbox, ModalController, IonRadioGroup, IonRadio } from "@ionic/angular/standalone";
+import { GrupoStateService } from '../../services/grupo-state.service';
+import { Grupo } from 'src/app/models/grupo.model';
 
 @Component({
   selector: 'app-select-alumnos-modal',
@@ -19,22 +21,16 @@ export class SelectAlumnosModalComponent implements OnInit {
   selectedAlumnos: Usuario[] = [];
   selectedAlumno: Usuario | null = null;
   searchTerm: string = '';
-
+  private grupoStateService = inject(GrupoStateService);
   private usuarioService = inject(UsuarioService);
   private modalController = inject(ModalController);
-
+  selectedGrupo: Grupo | null = null;
   ngOnInit() {
-    this.loadAlumnos();
-  }
-
-  loadAlumnos() {
-    this.usuarioService.getAllAlumnos().subscribe({
-      next: (alumnos) => {
-        this.alumnos = alumnos;
+    this.grupoStateService.selectedGrupo$.subscribe(grupo => {
+      this.selectedGrupo = grupo;
+      if (grupo) {
+        this.alumnos = grupo.alumnos as Usuario[];
         this.filteredAlumnos = [...this.alumnos];
-      },
-      error: (err) => {
-        console.error('Error al cargar alumnos:', err);
       }
     });
   }

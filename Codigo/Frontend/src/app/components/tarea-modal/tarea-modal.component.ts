@@ -110,7 +110,6 @@ export class TareaModalComponent implements OnInit {
 
   async confirm() {
     if (this.form.valid) {
-      // Frontend validation for at least one alumno
       let finalAlumnos: string[] = this.alumnos.map(alumno => alumno._id);
       finalAlumnos.push(...this.selectedStudentsFromGroups);
       finalAlumnos = [...new Set(finalAlumnos)];

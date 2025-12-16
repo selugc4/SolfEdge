@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title class="ion-text-center">Mi Perfil</ion-title>
+    <ion-title class="ion-text-center">SolfEdge</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -124,5 +124,11 @@
       }
     </ion-card-content>
   </ion-card>
+  }
+  @else {
+    <ion-button expand="block" (click)="presentCalificacionGeneralModal()" class="ion-margin-top">
+      <ion-icon slot="start" name="ribbon-outline"></ion-icon>
+        Adjuntar Calificación General
+    </ion-button>
   }
 </ion-content>

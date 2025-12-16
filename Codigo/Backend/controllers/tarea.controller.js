@@ -222,8 +222,8 @@ exports.calificarEntrega = async (calificacionId, nota, profesorId) => {
 
         const sistemaUser = await Usuario.findOne({ username: 'sistema' });
         if (sistemaUser) {
-            const asunto = `Calificación de tarea (${calificacion.tarea.nombre})`;
-            const texto = `La calificación obtenida en ${calificacion.tarea.nombre} es ${nota}`;
+            const asunto = `Calificación de tarea (${calificacion.tarea.titulo})`;
+            const texto = `La calificación obtenida en ${calificacion.tarea.titulo} es ${nota}`;
             await mensajeController.crearMensaje(sistemaUser._id, asunto, texto, [calificacion.alumno]);
         }
 
