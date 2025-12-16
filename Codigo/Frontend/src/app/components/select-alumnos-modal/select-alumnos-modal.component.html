@@ -14,7 +14,7 @@
   <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="filterAlumnos()" placeholder="Buscar alumnos"></ion-searchbar>
 
   <ion-list>
-    <ng-container *ngIf="multiple; else singleSelect">
+    @if(multiple) {
       @if(filteredAlumnos.length === 0){
         <ion-item>
           <ion-label>No se encontraron alumnos.</ion-label>
@@ -33,8 +33,8 @@
           </ion-label>
         </ion-item>
       }
-    </ng-container>
-    <ng-template #singleSelect>
+    }
+    @else {
       <ion-radio-group [(ngModel)]="selectedAlumno">
         @if(filteredAlumnos.length === 0){
           <ion-item>
@@ -51,6 +51,6 @@
           </ion-item>
         }
       </ion-radio-group>
-    </ng-template>
+    }
   </ion-list>
 </ion-content>

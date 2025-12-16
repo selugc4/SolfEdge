@@ -42,7 +42,7 @@ exports.getMensajesByUsuario = async (usuarioId, page = 1, limit = 10) => {
 
         const mensajes = await Mensaje.find(query)
             .populate('remitente', 'username email')
-            .populate('destinatarios.usuario', 'username email') // Populate the 'usuario' field within 'destinatarios'
+            .populate('destinatarios.usuario', 'username email')
             .sort({ createdAt: -1 })
             .skip(skip)
             .limit(limit);

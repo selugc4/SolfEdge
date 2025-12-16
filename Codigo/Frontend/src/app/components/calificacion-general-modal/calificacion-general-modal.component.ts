@@ -59,12 +59,6 @@ export class CalificacionGeneralModalComponent implements OnInit {
     if (role === 'confirm' && data) {
       this.selectedAlumno = data;
       if (this.selectedAlumno) {
-        if (this.selectedAlumno.role !== 'alumno') {
-            await this.presentToast('El usuario seleccionado no es un alumno. Por favor, selecciona un alumno.');
-            this.selectedAlumno = null;
-            this.form.controls['alumnoId'].setValue('');
-            return;
-        }
         this.form.controls['alumnoId'].setValue(this.selectedAlumno._id);
         this.cargarCalificacionesExistentes();
       }

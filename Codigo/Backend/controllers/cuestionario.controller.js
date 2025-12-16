@@ -21,6 +21,19 @@ exports.crearCuestionario = async (cuestionarioData, profesorId) => {
         }
         const cuestionario = new Cuestionario({ ...cuestionarioData, profesor: profesorId });
         await cuestionario.save();
+        await cuestionario.populate({
+            path: 'rama',
+            select: 'nombre grupo',
+            populate: {
+                path: 'grupo',
+                select: 'nombre'
+            }
+        });
+        const nombreRama = cuestionario.rama?.nombre ?? 'rama desconocida';
+        const nombreGrupo = cuestionario.rama?.grupo?.nombre ?? 'grupo desconocido';
+        const asunto = 'Nuevo cuestionario disponible';
+        const texto = `Tienes pendiente un nuevo cuestionario del grupo "${nombreGrupo}" en la rama "${nombreRama}" llamado "${cuestionario.titulo}"`;
+        await mensajeController.crearMensaje(sistemaUser._id, asunto, texto, cuestionario.alumnos);
         return { status: 201, body: cuestionario };
     } catch (error) {
         return { status: 500, body: { error: error.message } };
@@ -58,8 +71,20 @@ exports.updateCuestionario = async (cuestionarioId, cuestionarioData, profesorId
             }
             cuestionarioData.fechaCierre = fecha;
         }
-
         const updatedCuestionario = await Cuestionario.findByIdAndUpdate(cuestionarioId, cuestionarioData, { new: true });
+        await updatedCuestionario.populate({
+            path: 'rama',
+            select: 'nombre grupo',
+            populate: {
+                path: 'grupo',
+                select: 'nombre'
+            }
+        });
+        const nombreRama = updatedCuestionario.rama?.nombre ?? 'rama desconocida';
+        const nombreGrupo = updatedCuestionario.rama?.grupo?.nombre ?? 'grupo desconocido';
+        const asunto = `Cuestionario "${updatedCuestionario.titulo}" actualizado`;
+        const texto = `El cuestionario "${updatedCuestionario.titulo}" de la rama "${nombreRama}" del grupo "${nombreGrupo}" ha sido actualizado`;
+        await mensajeController.crearMensaje(sistemaUser._id, asunto, texto, updatedTarea.alumnos);
         return { status: 200, body: updatedCuestionario };
     } catch (error) {
         return { status: 500, body: { error: error.message } };
@@ -160,7 +185,6 @@ exports.entregarCuestionario = async (cuestionarioId, alumnoId, respuestasAlumno
             respuestasCuestionario: respuestasAlumno,
             fechaEntrega: new Date()
         });
-
         await nuevaEntrega.save();
         return { status: 201, body: nuevaEntrega };
 

@@ -33,6 +33,7 @@ export class SelectAlumnosModalComponent implements OnInit {
         this.filteredAlumnos = [...this.alumnos];
       }
     });
+
   }
 
   filterAlumnos() {

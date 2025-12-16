@@ -19,20 +19,29 @@ exports.crearTarea = async (taskDataJsonString, file, profesorId) => {
         if (!profesor || profesor.role !== 'profesor') {
             return { status: 400, body: { error: 'Usuario no es un profesor válido.' } };
         }
-
-        // Handle materialDeApoyo
         if (file) {
             if (!file.buffer) { 
                 return { status: 400, body: { error: 'File buffer is missing.' } };
             }
             tareaData.materialDeApoyo = file.buffer.toString('base64');
         } else if (tareaData.materialDeApoyo === undefined) {
-            // If no file was uploaded and materialDeApoyo was not explicitly set to null in taskData
             tareaData.materialDeApoyo = null;
         }
-
         const tarea = new Tarea({ ...tareaData, profesor: profesorId });
         await tarea.save();
+        await tarea.populate({
+            path: 'rama',
+            select: 'nombre grupo',
+            populate: {
+                path: 'grupo',
+                select: 'nombre'
+            }
+        });
+        const nombreRama = tarea.rama?.nombre ?? 'rama desconocida';
+        const nombreGrupo = tarea.rama?.grupo?.nombre ?? 'grupo desconocido';
+        const asunto = 'Nueva tarea disponible';
+        const texto = `Tienes pendiente una nueva tarea del grupo "${nombreGrupo}" en la rama "${nombreRama}" llamada "${tarea.titulo}"`;
+        await mensajeController.crearMensaje(sistemaUser._id, asunto, texto, tarea.alumnos);
         return { status: 201, body: tarea };
     } catch (error) {
         console.error('Controller: Error in crearTarea:', error);
@@ -84,6 +93,19 @@ exports.updateTarea = async (tareaId, taskDataJsonString, file, profesorId) => {
         }
 
         const updatedTarea = await Tarea.findByIdAndUpdate(tareaId, tareaData, { new: true });
+        await updatedTarea.populate({
+            path: 'rama',
+            select: 'nombre grupo',
+            populate: {
+                path: 'grupo',
+                select: 'nombre'
+            }
+        });
+        const nombreRama = updatedTarea.rama?.nombre ?? 'rama desconocida';
+        const nombreGrupo = updatedTarea.rama?.grupo?.nombre ?? 'grupo desconocido';
+        const asunto = `Tarea "${updatedTarea.titulo}" actualizada`;
+        const texto = `La tarea "${updatedTarea.titulo}" de la rama "${nombreRama}" del grupo "${nombreGrupo}" ha sido actualizada`;
+        await mensajeController.crearMensaje(sistemaUser._id, asunto, texto, updatedTarea.alumnos);
         return { status: 200, body: updatedTarea };
     } catch (error) {
         console.error('Controller: Error in updateTarea:', error);
@@ -182,6 +204,23 @@ exports.entregarTarea = async (tareaId, alumnoId, submissionData, file) => {
         }
 
         await nuevaEntrega.save();
+        await tarea.populate({
+            path: 'rama',
+            select: 'nombre grupo',
+            populate: {
+                path: 'grupo',
+                select: 'nombre'
+            }
+        });
+        await nuevaEntrega.populate({
+            path: 'alumno',
+            select: 'username'
+        });
+        const nombreRama = tarea.rama?.nombre ?? 'rama desconocida';
+        const nombreGrupo = tarea.rama?.grupo?.nombre ?? 'grupo desconocido';
+        const asunto = 'Nueva entrega disponible';
+        const texto = `Tienes pendiente la correción de una nueva entrega del alumno "${nuevaEntrega.alumno.username}" del grupo "${nombreGrupo}" en la tarea "${tarea.titulo}" de la rama "${nombreRama}"`;
+        await mensajeController.crearMensaje(sistemaUser._id, asunto, texto, [tarea.profesor]);        
         return { status: 201, body: nuevaEntrega };
 
     } catch (error) {
