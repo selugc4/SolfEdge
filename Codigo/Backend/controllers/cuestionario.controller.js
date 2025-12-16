@@ -29,6 +29,7 @@ exports.crearCuestionario = async (cuestionarioData, profesorId) => {
                 select: 'nombre'
             }
         });
+        const sistemaUser = await Usuario.findOne({ username: 'sistema' });
         const nombreRama = cuestionario.rama?.nombre ?? 'rama desconocida';
         const nombreGrupo = cuestionario.rama?.grupo?.nombre ?? 'grupo desconocido';
         const asunto = 'Nuevo cuestionario disponible';
@@ -80,11 +81,12 @@ exports.updateCuestionario = async (cuestionarioId, cuestionarioData, profesorId
                 select: 'nombre'
             }
         });
+        const sistemaUser = await Usuario.findOne({ username: 'sistema' });
         const nombreRama = updatedCuestionario.rama?.nombre ?? 'rama desconocida';
         const nombreGrupo = updatedCuestionario.rama?.grupo?.nombre ?? 'grupo desconocido';
         const asunto = `Cuestionario "${updatedCuestionario.titulo}" actualizado`;
         const texto = `El cuestionario "${updatedCuestionario.titulo}" de la rama "${nombreRama}" del grupo "${nombreGrupo}" ha sido actualizado`;
-        await mensajeController.crearMensaje(sistemaUser._id, asunto, texto, updatedTarea.alumnos);
+        await mensajeController.crearMensaje(sistemaUser._id, asunto, texto, updatedCuestionario.alumnos);
         return { status: 200, body: updatedCuestionario };
     } catch (error) {
         return { status: 500, body: { error: error.message } };

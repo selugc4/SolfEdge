@@ -45,7 +45,6 @@ exports.crearTarea = async (taskDataJsonString, file, profesorId) => {
       select: 'nombre grupo',
       populate: { path: 'grupo', select: 'nombre' }
     });
-
     if (!tarea.rama) {
       return { status: 500, body: { error: 'No se pudo cargar la rama asociada a la tarea.' } };
     }
@@ -53,7 +52,7 @@ exports.crearTarea = async (taskDataJsonString, file, profesorId) => {
     if (!tarea.rama.grupo) {
       return { status: 500, body: { error: 'No se pudo cargar el grupo asociado a la rama.' } };
     }
-
+    const sistemaUser = await Usuario.findOne({ username: 'sistema' });
     const nombreRama = tarea.rama.nombre;
     const nombreGrupo = tarea.rama.grupo.nombre;
     const asunto = 'Nueva tarea disponible';
@@ -120,6 +119,7 @@ exports.updateTarea = async (tareaId, taskDataJsonString, file, profesorId) => {
                 select: 'nombre'
             }
         });
+        const sistemaUser = await Usuario.findOne({ username: 'sistema' });
         const nombreRama = updatedTarea.rama?.nombre ?? 'rama desconocida';
         const nombreGrupo = updatedTarea.rama?.grupo?.nombre ?? 'grupo desconocido';
         const asunto = `Tarea "${updatedTarea.titulo}" actualizada`;
@@ -235,6 +235,7 @@ exports.entregarTarea = async (tareaId, alumnoId, submissionData, file) => {
             path: 'alumno',
             select: 'username'
         });
+        const sistemaUser = await Usuario.findOne({ username: 'sistema' });
         const nombreRama = tarea.rama?.nombre ?? 'rama desconocida';
         const nombreGrupo = tarea.rama?.grupo?.nombre ?? 'grupo desconocido';
         const asunto = 'Nueva entrega disponible';
