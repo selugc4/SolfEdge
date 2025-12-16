@@ -21,19 +21,14 @@ exports.crearCuestionario = async (cuestionarioData, profesorId) => {
         }
         const cuestionario = new Cuestionario({ ...cuestionarioData, profesor: profesorId });
         await cuestionario.save();
-        await cuestionario.populate({
-            path: 'rama',
-            select: 'nombre grupo',
-            populate: {
-                path: 'grupo',
-                select: 'nombre'
-            }
+        await ramaConfig.populate({
+            path: 'grupo',
+            select: 'nombre'
         });
         const sistemaUser = await Usuario.findOne({ username: 'sistema' });
-        const nombreRama = cuestionario.rama?.nombre ?? 'rama desconocida';
-        const nombreGrupo = cuestionario.rama?.grupo?.nombre ?? 'grupo desconocido';
+        const nombreGrupo = ramaConfig.grupo?.nombre ?? 'grupo desconocido';
         const asunto = 'Nuevo cuestionario disponible';
-        const texto = `Tienes pendiente un nuevo cuestionario del grupo "${nombreGrupo}" en la rama "${nombreRama}" llamado "${cuestionario.nombre}"`;
+        const texto = `Tienes pendiente un nuevo cuestionario del grupo "${nombreGrupo}" en la rama "${ramaConfig.nombre}" llamado "${cuestionario.nombre}"`;
         await mensajeController.crearMensaje(sistemaUser._id, asunto, texto, cuestionario.alumnos);
         return { status: 201, body: cuestionario };
     } catch (error) {
@@ -73,19 +68,14 @@ exports.updateCuestionario = async (cuestionarioId, cuestionarioData, profesorId
             cuestionarioData.fechaCierre = fecha;
         }
         const updatedCuestionario = await Cuestionario.findByIdAndUpdate(cuestionarioId, cuestionarioData, { new: true });
-        await updatedCuestionario.populate({
-            path: 'rama',
-            select: 'nombre grupo',
-            populate: {
-                path: 'grupo',
-                select: 'nombre'
-            }
+        await ramaConfig.populate({
+            path: 'grupo',
+            select: 'nombre'
         });
         const sistemaUser = await Usuario.findOne({ username: 'sistema' });
-        const nombreRama = updatedCuestionario.rama?.nombre ?? 'rama desconocida';
-        const nombreGrupo = updatedCuestionario.rama?.grupo?.nombre ?? 'grupo desconocido';
+        const nombreGrupo = ramaConfig.grupo?.nombre ?? 'grupo desconocido';
         const asunto = `Cuestionario "${updatedCuestionario.nombre}" actualizado`;
-        const texto = `El cuestionario "${updatedCuestionario.nombre}" de la rama "${nombreRama}" del grupo "${nombreGrupo}" ha sido actualizado`;
+        const texto = `El cuestionario "${updatedCuestionario.nombre}" de la rama "${ramaConfig.nombre}" del grupo "${nombreGrupo}" ha sido actualizado`;
         await mensajeController.crearMensaje(sistemaUser._id, asunto, texto, updatedCuestionario.alumnos);
         return { status: 200, body: updatedCuestionario };
     } catch (error) {
