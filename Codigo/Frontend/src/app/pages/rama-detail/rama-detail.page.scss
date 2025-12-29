@@ -26,6 +26,9 @@ ion-card {
 
   ion-card-header {
     background-color: rgba(var(--ion-color-interface-rgb), 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     ion-card-title {
       color: var(--ion-color-heading);
       font-size: 1.5em;

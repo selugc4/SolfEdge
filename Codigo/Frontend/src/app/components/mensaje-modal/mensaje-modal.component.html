@@ -17,19 +17,29 @@
       <ion-label position="floating">Mensaje</ion-label>
       <ion-textarea formControlName="texto"></ion-textarea>
     </ion-item>
-    <ion-item>
-      <ion-button (click)="openSelectAlumnosModal()">Seleccionar Alumnos</ion-button>
+    <ion-item (click)="openSelectAlumnosModal()" [detail]="true" button>
+      <ion-label>Alumnos</ion-label>
+      <div slot="end" class="ion-text-end">
+        <span class="placeholder">Seleccionar</span>
+      </div>
     </ion-item>
     <ion-item>
       <ion-label>Alumnos Seleccionados:</ion-label>
     </ion-item>
-    <ion-list>
-      @for(alumno of selectedAlumnos; track alumno._id) {
-        <ion-item>
-          <ion-label>{{ alumno.username }}</ion-label>
-        </ion-item>
-      }
-    </ion-list>
+    @if(selectedAlumnos.length === 0){
+      <ion-item>
+        <ion-label class="ion-text-center">No hay alumnos seleccionados.</ion-label>
+      </ion-item>
+    }
+    @else{
+      <ion-list class="selected-alumnos-list">
+        @for(alumno of selectedAlumnos; track alumno._id) {
+          <ion-item>
+            <ion-label>{{ alumno.username }}</ion-label>
+          </ion-item>
+        }
+      </ion-list>
+    }
   </form>
 </ion-content>
 

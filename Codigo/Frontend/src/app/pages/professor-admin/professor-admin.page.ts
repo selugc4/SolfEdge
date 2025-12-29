@@ -5,25 +5,25 @@ import { GestionAlumnosComponent } from '../../components/gestion-alumnos/gestio
 import { GestionGruposComponent } from '../../components/gestion-grupos/gestion-grupos.component';
 import { MensajeModalComponent } from '../../components/mensaje-modal/mensaje-modal.component';
 import { MensajeService } from '../../services/mensaje.service';
-import { CalificacionGeneralModalComponent } from '../../components/calificacion-general-modal/calificacion-general-modal.component';
 import { IonIcon, ModalController, ToastController, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, IonCard, IonCardTitle, IonCardHeader, IonCardContent, IonButton, IonSpinner } from '@ionic/angular/standalone';
 import { AuthService } from '../../services/auth.service';
 import { GrupoStateService } from '../../services/grupo-state.service';
 import { CalificacionGeneralService } from '../../services/calificacion-general.service';
 import { sendOutline, ribbonOutline } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-professor-admin-page',
   templateUrl: './professor-admin.page.html',
   styleUrls: ['./professor-admin.page.scss'],
   standalone: true,
-  imports: [ CommonModule, FormsModule, GestionAlumnosComponent, GestionGruposComponent, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, IonCard, IonCardTitle, IonCardHeader, IonCardContent, IonButton, IonIcon, IonSpinner]
+  imports: [CommonModule, FormsModule, GestionAlumnosComponent, GestionGruposComponent, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, IonCard, IonCardTitle, IonCardHeader, IonCardContent, IonButton, IonIcon, IonSpinner]
 })
 export class ProfessorAdminPage implements OnInit {
   userId: string | null = null;
 
   isLoading: boolean = true;
-
+  router: Router = inject(Router);
   authService: AuthService = inject(AuthService);
   modalController: ModalController = inject(ModalController);
   mensajeService: MensajeService = inject(MensajeService);
@@ -66,7 +66,9 @@ export class ProfessorAdminPage implements OnInit {
       });
     }
   }
-
+  navegarAPerfil(){
+    this.router.navigate(['/Areas/Perfil'], { queryParams: { openModal: 'true' } });
+  }
   async presentToast(message: string, color: string = 'success') {
     const toast = await this.toastController.create({ message, duration: 3000, color });
     toast.present();

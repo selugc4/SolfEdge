@@ -8,6 +8,7 @@ import { Usuario } from '../../models/usuario.model';
 @Component({
   selector: 'app-mensaje-modal',
   templateUrl: './mensaje-modal.component.html',
+  styleUrls: ['./mensaje-modal.component.scss'],
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule, IonHeader, IonToolbar, IonButtons, IonTitle, IonContent, IonButton, IonLabel, IonItem, IonFooter, IonInput, IonList, IonTextarea]
 })
@@ -30,6 +31,10 @@ export class MensajeModalComponent implements OnInit {
   async openSelectAlumnosModal() {
     const modal = await this.modalCtrl.create({
       component: SelectAlumnosModalComponent,
+      componentProps: {
+        multiple: true,
+        previouslySelectedAlumnos: this.selectedAlumnos
+      }
     });
     modal.present();
 

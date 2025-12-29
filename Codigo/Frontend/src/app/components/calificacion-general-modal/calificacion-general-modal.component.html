@@ -9,19 +9,16 @@
 
 <ion-content class="ion-padding">
   <form [formGroup]="form">
-    <ion-item>
-      <ion-button expand="block" (click)="openSelectAlumnosModal()">Seleccionar Alumno</ion-button>
+    <ion-item (click)="openSelectAlumnosModal()" [detail]="true" button>
+      <ion-label>Alumno</ion-label>
+      <div slot="end" class="ion-text-end">
+        @if(selectedAlumno) {
+          <span>{{ selectedAlumno.username }}</span>
+        } @else {
+          <span class="placeholder">Seleccionar</span>
+        }
+      </div>
     </ion-item>
-    @if(selectedAlumno) {
-      <ion-item>
-        <ion-label>Alumno Seleccionado:</ion-label>
-        <ion-label>{{ selectedAlumno.username }}</ion-label>
-      </ion-item>
-    } @else {
-      <ion-item>
-        <ion-label color="medium">Ningún alumno seleccionado</ion-label>
-      </ion-item>
-    }
 
     <ion-item class="ion-margin-top">
       <ion-select

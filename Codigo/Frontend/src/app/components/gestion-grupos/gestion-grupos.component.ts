@@ -33,7 +33,8 @@ export class GestionGruposComponent implements OnInit {
     const modal = await this.modalController.create({
       component: SelectAlumnosModalComponent,
       componentProps: {
-        selectedAlumnos: this.selectedAlumnos // Pass already selected students
+        previouslySelectedAlumnos: this.selectedAlumnos, // Pass already selected students
+        fetchAllAlumnos: true
       }
     });
     modal.present();

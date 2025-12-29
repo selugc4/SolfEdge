@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const usuarioController = require('../controllers/usuario.controller');
+const authMiddleware = require('../middleware/authMiddleware');
 /**
  * @swagger
  * tags:
@@ -165,6 +166,9 @@ router.get('/alumnos/all', async (req, res) => {
     const result = await usuarioController.getAllAlumnos(req.user.id);
     res.status(result.status).json(result.body);
 });
+
+router.get('/alumnos/profesor/:profesorId', [authMiddleware.verifyToken], usuarioController.getAlumnosByProfesor);
+
 
 // Definición del esquema de Usuario para reutilización
 /**

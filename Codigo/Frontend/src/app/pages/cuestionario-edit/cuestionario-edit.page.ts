@@ -208,7 +208,7 @@ export class CuestionarioEditPage implements OnInit {
   // Helper to check if resource is a Spotify URL and extract ID
   isSpotifyUrl(resource: string | undefined): { type: string, id: string } | null {
     if (!resource) return null;
-    const spotifyRegex = /open\.spotify\.com\/(track|album|playlist|artist)\/([a-zA-Z0-9]+)/;
+    const spotifyRegex = /open\.spotify\.com\/(?:[a-z\-]+\/)?(track|album|playlist|artist)\/([a-zA-Z0-9]+)(?:\?si=[a-zA-Z0-9]+)?/;
     const match = resource.match(spotifyRegex);
     return match && match[1] && match[2] ? { type: match[1], id: match[2] } : null;
   }

@@ -44,5 +44,9 @@ export class UsuarioService {
     return this.http.get<Usuario[]>(`${this.apiUrl}/alumnos/all`);
   }
 
+  getAlumnosByProfesor(profesorId: string): Observable<Usuario[]> {
+    return this.http.get<Usuario[]>(`${this.apiUrl}/alumnos/profesor/${profesorId}`);
+  }
+
   // Aquí se podrían añadir más métodos para gestionar usuarios (obtener, eliminar, etc.)
 }

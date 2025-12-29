@@ -9,13 +9,15 @@ import { AuthService } from '../../services/auth.service';
 import { UsuarioService } from '../../services/usuario.service';
 import { GrupoService } from '../../services/grupo.service';
 import { TareaService } from 'src/app/services/tarea.service';
-import { IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent, IonItem, IonLabel, IonSelectOption, IonInput, IonFooter, ModalController, ToastController, IonTextarea, IonSelect} from "@ionic/angular/standalone";
-
+import { IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent, IonItem, IonLabel, IonSelectOption, IonInput, IonFooter, ModalController, ToastController, IonTextarea, IonSelect, IonIcon } from "@ionic/angular/standalone";
+import { documentAttachOutline } from 'ionicons/icons';
+import { addIcons } from 'ionicons';
 @Component({
   selector: 'app-tarea-modal',
   templateUrl: './tarea-modal.component.html',
+  styleUrls: ['./tarea-modal.component.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent, IonItem, IonLabel, IonSelectOption, IonInput, IonFooter, IonTextarea, IonSelect]
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent, IonItem, IonLabel, IonSelectOption, IonInput, IonFooter, IonTextarea, IonSelect, IonIcon]
 })
 export class TareaModalComponent implements OnInit {
   @Input() tarea: Tarea | null = null;
@@ -38,6 +40,9 @@ export class TareaModalComponent implements OnInit {
   selectedStudentsFromGroups: string[] = [];
 
   constructor() {
+    addIcons({
+      'document-attach-outline': documentAttachOutline
+    });
     const today = new Date();
     today.setDate(today.getDate() + 1);
     this.minDate = today.toISOString().split('T')[0];

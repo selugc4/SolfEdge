@@ -131,3 +131,13 @@ exports.getAllAlumnos = async (profesorId) => {
         return { status: 500, body: { error: `Error interno del servidor: ${error.message}` } };
     }
 };
+
+exports.getAlumnosByProfesor = async (req, res) => {
+    try {
+        const { profesorId } = req.params;
+        const result = await exports.getAllAlumnos(profesorId);
+        res.status(result.status).json(result.body);
+    } catch (error) {
+        res.status(500).json({ error: `Error interno del servidor: ${error.message}` });
+    }
+};

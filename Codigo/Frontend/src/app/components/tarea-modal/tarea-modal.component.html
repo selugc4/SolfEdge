@@ -32,9 +32,18 @@
         </ion-select>
       </ion-item>
     }
-    <ion-item>
-      <ion-input type="file" (change)="onFileSelected($event)" accept="application/pdf"></ion-input>
-    </ion-item>
+      <input type="file" #fileInput (change)="onFileSelected($event)" accept="application/pdf" style="display: none;">
+      <ion-button expand="block" (click)="fileInput.click()">
+        <ion-icon slot="start" name="document-attach-outline"></ion-icon>
+        Subir Archivo (PDF)
+      </ion-button>
+      <div class="file-status ion-padding-top">
+        @if(selectedFile) {
+          <span class="file-selected">Archivo Seleccionado: {{ selectedFile.name }}</span>
+        } @else {
+          <span class="no-file">Archivo seleccionado: No</span>
+        }
+      </div>
   </form>
 </ion-content>
 

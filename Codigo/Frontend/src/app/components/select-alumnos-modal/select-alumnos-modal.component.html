@@ -11,9 +11,6 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="filterAlumnos()" placeholder="Buscar alumnos"></ion-searchbar>
-
-  <ion-list>
     @if(multiple) {
       @if(filteredAlumnos.length === 0){
         <ion-item>
@@ -52,5 +49,4 @@
         }
       </ion-radio-group>
     }
-  </ion-list>
 </ion-content>

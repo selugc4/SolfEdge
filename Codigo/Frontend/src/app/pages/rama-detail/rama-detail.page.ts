@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterModule, Router } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { AlertController, IonButtons, IonMenuButton, ModalController, ToastController, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonList, IonItem, IonLabel, IonFab, IonFabButton, IonIcon, IonToggle, IonSpinner } from '@ionic/angular/standalone'; // Added IonSpinner
+import { AlertController, IonButtons, IonMenuButton, ModalController, ToastController, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonList, IonItem, IonLabel, IonIcon, IonToggle, IonSpinner, IonFab, IonFabButton } from '@ionic/angular/standalone'; // Added IonSpinner
 import { addIcons } from 'ionicons';
-import { add, cloudUploadOutline, createOutline, documentTextOutline, ribbonOutline, trashOutline, checkmarkCircleOutline, closeCircleOutline } from 'ionicons/icons';
+import { add, addCircleOutline, cloudUploadOutline, createOutline, documentTextOutline, ribbonOutline, trashOutline, checkmarkCircleOutline, closeCircleOutline } from 'ionicons/icons';
 
 import { RamaConfigService } from '../../services/rama-config.service';
 import { TareaService } from '../../services/tarea.service';
@@ -31,7 +31,7 @@ import { finalize, switchMap, tap } from 'rxjs/operators'; // Added tap
   templateUrl: './rama-detail.page.html',
   styleUrls: ['./rama-detail.page.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, IonButtons, IonMenuButton, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonIcon, IonList, IonItem, IonLabel, IonFab, IonFabButton, RouterModule, IonToggle, IonSpinner] // Added IonSpinner
+  imports: [CommonModule, FormsModule, IonButtons, IonMenuButton, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonIcon, IonList, IonItem, IonLabel, IonButtons, RouterModule, IonToggle, IonSpinner, IonFab, IonFabButton] // Added IonSpinner
 })
 export class RamaDetailPage implements OnDestroy {
   title: string = '';
@@ -69,6 +69,7 @@ export class RamaDetailPage implements OnDestroy {
   constructor() {
     addIcons({
       add,
+      addCircleOutline,
       cloudUploadOutline,
       createOutline,
       documentTextOutline,

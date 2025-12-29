@@ -3,37 +3,57 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UsuarioService } from '../../services/usuario.service';
 import { Usuario } from '../../models/usuario.model';
-import { IonHeader, IonButtons, IonToolbar, IonButton, IonTitle, IonContent, IonItem, IonList, IonLabel, IonCheckbox, ModalController, IonRadioGroup, IonRadio } from "@ionic/angular/standalone";
+import { IonHeader, IonButtons, IonToolbar, IonButton, IonTitle, IonContent, IonItem, IonLabel, IonCheckbox, ModalController, IonRadioGroup, IonRadio } from "@ionic/angular/standalone";
 import { GrupoStateService } from '../../services/grupo-state.service';
 import { Grupo } from 'src/app/models/grupo.model';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-select-alumnos-modal',
   templateUrl: './select-alumnos-modal.component.html',
   styleUrls: ['./select-alumnos-modal.component.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, IonHeader, IonButtons, IonToolbar, IonButton, IonTitle, IonContent, IonItem, IonList, IonLabel, IonCheckbox, IonRadioGroup, IonRadio]
+  imports: [CommonModule, FormsModule, IonHeader, IonButtons, IonToolbar, IonButton, IonTitle, IonContent, IonItem, IonLabel, IonCheckbox, IonRadioGroup, IonRadio]
 })
 export class SelectAlumnosModalComponent implements OnInit {
   @Input() multiple = true;
+  @Input() previouslySelectedAlumno: Usuario | null = null;
+  @Input() previouslySelectedAlumnos: Usuario[] = [];
+  @Input() fetchAllAlumnos: boolean = false;
   alumnos: Usuario[] = [];
   filteredAlumnos: Usuario[] = [];
   selectedAlumnos: Usuario[] = [];
   selectedAlumno: Usuario | null = null;
   searchTerm: string = '';
   private grupoStateService = inject(GrupoStateService);
-  private usuarioService = inject(UsuarioService);
   private modalController = inject(ModalController);
+  private usuarioService = inject(UsuarioService);
+  private authService = inject(AuthService);
   selectedGrupo: Grupo | null = null;
   ngOnInit() {
-    this.grupoStateService.selectedGrupo$.subscribe(grupo => {
-      this.selectedGrupo = grupo;
-      if (grupo) {
-        this.alumnos = grupo.alumnos as Usuario[];
-        this.filteredAlumnos = [...this.alumnos];
+    if (this.fetchAllAlumnos) {
+      const currentUser = this.authService.currentUserValue;
+      if (currentUser && currentUser.role === 'profesor') {
+        this.usuarioService.getAlumnosByProfesor(currentUser._id).subscribe(alumnos => {
+          this.alumnos = alumnos;
+          this.filteredAlumnos = [...this.alumnos];
+        });
       }
-    });
+    } else {
+      this.grupoStateService.selectedGrupo$.subscribe(grupo => {
+        this.selectedGrupo = grupo;
+        if (grupo) {
+          this.alumnos = grupo.alumnos as Usuario[];
+          this.filteredAlumnos = [...this.alumnos];
+        }
+      });
+    }
 
+    if (this.multiple) {
+      this.selectedAlumnos = [...this.previouslySelectedAlumnos];
+    } else if (this.previouslySelectedAlumno) {
+      this.selectedAlumno = this.previouslySelectedAlumno;
+    }
   }
 
   filterAlumnos() {

@@ -16,6 +16,7 @@ import { addIcons } from 'ionicons';
 import { GrupoStateService } from '../services/grupo-state.service';
 import { Grupo } from '../models/grupo.model';
 import { CalificacionGeneralModalComponent } from '../components/calificacion-general-modal/calificacion-general-modal.component';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-tab5',
@@ -33,6 +34,8 @@ import { CalificacionGeneralModalComponent } from '../components/calificacion-ge
 ]
 })
 export class Tab5Page implements OnInit {
+  activatedRoute: ActivatedRoute = inject(ActivatedRoute);
+  router: Router = inject(Router);
   authService: AuthService = inject(AuthService);
   calificacionService: CalificacionService = inject(CalificacionService);
   calificacionGeneralService: CalificacionGeneralService = inject(CalificacionGeneralService);
@@ -62,6 +65,16 @@ export class Tab5Page implements OnInit {
             this.loadAllGrades(user!._id, grupo._id);
           }
           this.isLoading = false;
+          this.activatedRoute.queryParams.subscribe(params => {
+            if (params['openModal'] === 'true') {
+              this.presentCalificacionGeneralModal();
+              this.router.navigate([], {
+              relativeTo: this.activatedRoute,
+              queryParams: { openModal: null },
+              queryParamsHandling: 'merge'
+              });
+            }
+          });
         }
       });
     });

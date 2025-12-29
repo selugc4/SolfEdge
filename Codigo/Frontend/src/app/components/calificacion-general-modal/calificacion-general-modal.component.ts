@@ -49,7 +49,8 @@ export class CalificacionGeneralModalComponent implements OnInit {
     const modal = await this.modalController.create({
       component: SelectAlumnosModalComponent,
       componentProps: {
-        multiple: false
+        multiple: false,
+        previouslySelectedAlumno: this.selectedAlumno
       }
     });
     modal.present();
