@@ -55,7 +55,7 @@ const authMiddleware = require('../middleware/authMiddleware');
  *       500:
  *         description: Error interno del servidor.
  */
-router.post('/alumnos', async (req, res) => {
+router.post('/alumnos', authMiddleware.verifyToken, async (req, res) => {
     const result = await usuarioController.addUsuarios(req.body, 'alumno', req.user.id);
     res.status(result.status).json(result.body);
 });
@@ -105,7 +105,7 @@ router.post('/alumnos', async (req, res) => {
  *       500:
  *         description: Error interno del servidor.
  */
-router.post('/profesores', async (req, res) => {
+router.post('/profesores', authMiddleware.verifyToken, async (req, res) => {
     const result = await usuarioController.addUsuarios(req.body, 'profesor');
     res.status(result.status).json(result.body);
 });
@@ -136,9 +136,90 @@ router.post('/profesores', async (req, res) => {
  *         description: Usuario no encontrado.
  *       500:
  *         description: Error interno del servidor.
+ *   delete:
+ *     summary: Elimina un usuario por su ID.
+ *     tags: [Usuarios]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID del usuario a eliminar.
+ *     responses:
+ *       200:
+ *         description: Usuario eliminado exitosamente.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Usuario'
+ *       403:
+ *         description: No tienes permiso para eliminar este usuario.
+ *       404:
+ *         description: Usuario no encontrado.
+ *       500:
+ *         description: Error interno del servidor.
+ *   put:
+ *     summary: Actualiza un usuario existente.
+ *     tags: [Usuarios]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID del usuario a actualizar.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *                 format: email
+ *               role:
+ *                 type: string
+ *                 enum: [alumno, profesor, administrador]
+ *             example:
+ *               username: nuevo_nombre_usuario
+ *               email: nuevo_email@example.com
+ *               role: profesor
+ *     responses:
+ *       200:
+ *         description: Usuario actualizado con éxito.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Usuario'
+ *       400:
+ *         description: Solicitud inválida.
+ *       403:
+ *         description: No tienes permiso para modificar este usuario.
+ *       404:
+ *         description: Usuario no encontrado.
+ *       500:
+ *         description: Error interno del servidor.
  */
 router.get('/:id', async (req, res) => {
     const result = await usuarioController.getUsuarioById(req.params.id);
+    res.status(result.status).json(result.body);
+});
+
+router.delete('/:id', authMiddleware.verifyToken, async (req, res) => {
+    const result = await usuarioController.deleteUsuario(req.params.id, req.user.id);
+    res.status(result.status).json(result.body);
+});
+
+router.put('/:id', authMiddleware.verifyToken, async (req, res) => {
+    const result = await usuarioController.updateUsuario(req.params.id, req.body, req.user.id);
     res.status(result.status).json(result.body);
 });
 
@@ -162,12 +243,41 @@ router.get('/:id', async (req, res) => {
  *       500:
  *         description: Error interno del servidor.
  */
-router.get('/alumnos/all', async (req, res) => {
+router.get('/alumnos/all', authMiddleware.verifyToken, async (req, res) => {
     const result = await usuarioController.getAllAlumnos(req.user.id);
     res.status(result.status).json(result.body);
 });
 
-router.get('/alumnos/profesor/:profesorId', [authMiddleware.verifyToken], usuarioController.getAlumnosByProfesor);
+/**
+ * @swagger
+ * /usuarios/alumnos/profesor/{profesorId}:
+ *   get:
+ *     summary: Obtiene los alumnos asociados a un profesor específico.
+ *     tags: [Usuarios]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: profesorId
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID del profesor.
+ *     responses:
+ *       200:
+ *         description: Lista de alumnos del profesor.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Usuario'
+ *       403:
+ *         description: No tienes permiso para ver los alumnos de este profesor.
+ *       500:
+ *         description: Error interno del servidor.
+ */
+router.get('/alumnos/profesor/:profesorId', authMiddleware.verifyToken, usuarioController.getAlumnosByProfesor);
 
 
 // Definición del esquema de Usuario para reutilización

@@ -487,6 +487,51 @@ router.get('/:id', async (req, res) => {
     res.status(result.status).json(result.body);
 });
 
+/**
+ * @swagger
+ * /cuestionarios/{id}/entregar:
+ *   post:
+ *     summary: Entrega las respuestas de un alumno para un cuestionario.
+ *     tags: [Cuestionarios]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID del cuestionario.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - respuestas
+ *             properties:
+ *               respuestas:
+ *                 type: array
+ *                 description: Array con las respuestas del alumno.
+ *                 items:
+ *                   type: object 
+ *     responses:
+ *       200:
+ *         description: Cuestionario entregado y calificado con éxito.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/CalificacionCuestionario'
+ *       400:
+ *         description: El campo "respuestas" es requerido y debe ser un array.
+ *       404:
+ *         description: Cuestionario no encontrado.
+ *       409:
+ *         description: Ya has entregado este cuestionario.
+ *       500:
+ *         description: Error al entregar el cuestionario.
+ */
 router.post('/:id/entregar', authMiddleware.verifyToken, async (req, res) => { // Added authMiddleware
     const { respuestas } = req.body;
     const alumnoId = req.user.id;

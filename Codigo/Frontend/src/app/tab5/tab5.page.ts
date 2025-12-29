@@ -11,10 +11,11 @@ import { FormsModule } from '@angular/forms';
 import { IonButtons, IonMenuButton, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonItem, IonLabel, IonText, IonList, IonSpinner, IonSegment, IonSegmentButton, IonListHeader, IonNote, IonButton, IonIcon, ToastController, ModalController } from '@ionic/angular/standalone';
 import { MensajeService } from '../services/mensaje.service';
 import { Mensaje } from '../models/mensaje.model';
-import { ribbonOutline } from 'ionicons/icons';
+import { ribbonOutline, sendOutline } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
 import { GrupoStateService } from '../services/grupo-state.service';
 import { Grupo } from '../models/grupo.model';
+import { MensajeModalComponent } from '../components/mensaje-modal/mensaje-modal.component';
 import { CalificacionGeneralModalComponent } from '../components/calificacion-general-modal/calificacion-general-modal.component';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -30,7 +31,8 @@ import { ActivatedRoute, Router } from '@angular/router';
     IonList, IonSpinner, IonSegment, IonSegmentButton,
     IonListHeader, IonNote,
     IonButton,
-    IonIcon
+    IonIcon,
+    MensajeModalComponent
 ]
 })
 export class Tab5Page implements OnInit {
@@ -52,7 +54,8 @@ export class Tab5Page implements OnInit {
   segmentoSeleccionado: string = 'continuas';
   constructor() {
     addIcons({
-      'ribbon-outline': ribbonOutline
+      'ribbon-outline': ribbonOutline,
+      'send-outline': sendOutline
     });
   }
   ngOnInit() {
@@ -66,18 +69,46 @@ export class Tab5Page implements OnInit {
           }
           this.isLoading = false;
           this.activatedRoute.queryParams.subscribe(params => {
-            if (params['openModal'] === 'true') {
-              this.presentCalificacionGeneralModal();
+            const tool = params['tool'];
+            if (tool) {
+              if (tool === 'mensajes') {
+                this.presentMensajeModal();
+              } else if (tool === 'calificaciones') {
+                this.presentCalificacionGeneralModal();
+              }
               this.router.navigate([], {
-              relativeTo: this.activatedRoute,
-              queryParams: { openModal: null },
-              queryParamsHandling: 'merge'
+                relativeTo: this.activatedRoute,
+                queryParams: { tool: null },
+                queryParamsHandling: 'merge'
               });
             }
           });
         }
       });
     });
+  }
+  async presentMensajeModal() {
+    const modal = await this.modalController.create({
+      component: MensajeModalComponent,
+    });
+    modal.present();
+
+    const { data, role } = await modal.onWillDismiss();
+
+    if (role === 'confirm') {
+      if (!this.currentUser) {
+        this.presentToast('Error: ID de profesor no disponible.', 'danger');
+        return;
+      }
+      this.mensajeService.crearMensaje(this.currentUser._id, data.asunto, data.texto, data.alumnoIds).subscribe({
+        next: () => {
+          this.presentToast('Mensaje enviado con éxito.');
+        },
+        error: (err) => {
+          this.presentToast(`Error al enviar mensaje: ${err.error.message || err.message}`, 'danger');
+        }
+      });
+    }
   }
   loadAllGrades(alumnoId: string, grupoId: string) {
     forkJoin({

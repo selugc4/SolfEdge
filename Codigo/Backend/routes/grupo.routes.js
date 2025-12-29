@@ -60,11 +60,16 @@ router.post('/', async (req, res) => {
     res.status(result.status).json(result.body);
 });
 
+router.get('/:id', async (req, res) => {
+    const result = await grupoController.getGrupoById(req.params.id);
+    res.status(result.status).json(result.body);
+});
+
 /**
  * @swagger
  * /grupos/{id}:
- *   get:
- *     summary: Obtiene un grupo por su ID.
+ *   put:
+ *     summary: Actualiza un grupo existente.
  *     tags: [Grupos]
  *     security:
  *       - bearerAuth: []
@@ -74,33 +79,28 @@ router.post('/', async (req, res) => {
  *         schema:
  *           type: string
  *         required: true
- *         description: ID del grupo.
+ *         description: ID del grupo a actualizar.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               nombre:
+ *                 type: string
+ *                 example: "Grupo A-Modificado"
+ *               profesorId:
+ *                 type: string
+ *                 example: "60d5ec49f8c7a10015a4b5c6"
+ *               alumnos:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *                 example: ["60d5ec49f8c7a10015a4b5c7", "60d5ec49f8c7a10015a4b5c8"]
  *     responses:
  *       200:
- *         description: Datos del grupo.
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Grupo'
- *       404:
- *         description: Grupo no encontrado.
- *       500:
- *         description: Error interno del servidor.
- *   delete:
- *     summary: Elimina un grupo por su ID.
- *     tags: [Grupos]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - in: path
- *         name: id
- *         schema:
- *           type: string
- *         required: true
- *         description: ID del grupo a eliminar.
- *     responses:
- *       200:
- *         description: Grupo eliminado exitosamente.
+ *         description: Grupo actualizado exitosamente.
  *         content:
  *           application/json:
  *             schema:
@@ -110,8 +110,8 @@ router.post('/', async (req, res) => {
  *       500:
  *         description: Error interno del servidor.
  */
-router.get('/:id', async (req, res) => {
-    const result = await grupoController.getGrupoById(req.params.id);
+router.put('/:id', async (req, res) => {
+    const result = await grupoController.updateGrupo(req.params.id, req.body);
     res.status(result.status).json(result.body);
 });
 
@@ -133,10 +133,6 @@ router.get('/:id', async (req, res) => {
  *     responses:
  *       200:
  *         description: Grupo eliminado exitosamente.
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Grupo'
  *       404:
  *         description: Grupo no encontrado.
  *       500:
@@ -188,6 +184,16 @@ router.delete('/:id', async (req, res) => {
  *         description: Grupo no encontrado.
  *       500:
  *         description: Error interno del servidor.
+ */
+router.post('/:id/alumnos', async (req, res) => {
+    const { alumnoIds } = req.body;
+    const result = await grupoController.addAlumnosToGrupo(req.params.id, alumnoIds);
+    res.status(result.status).json(result.body);
+});
+
+/**
+ * @swagger
+ * /grupos/{id}/alumnos:
  *   delete:
  *     summary: Elimina alumnos de un grupo, asegurando que no quede vacío.
  *     tags: [Grupos]
@@ -229,12 +235,6 @@ router.delete('/:id', async (req, res) => {
  *       500:
  *         description: Error interno del servidor.
  */
-router.post('/:id/alumnos', async (req, res) => {
-    const { alumnoIds } = req.body;
-    const result = await grupoController.addAlumnosToGrupo(req.params.id, alumnoIds);
-    res.status(result.status).json(result.body);
-});
-
 router.delete('/:id/alumnos', async (req, res) => {
     const { alumnoIds } = req.body;
     const result = await grupoController.removeAlumnosFromGrupo(req.params.id, alumnoIds);

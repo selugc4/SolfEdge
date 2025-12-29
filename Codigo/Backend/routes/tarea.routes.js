@@ -155,7 +155,6 @@ router.delete('/:id', async (req, res) => {
     const result = await tareaController.deleteTarea(req.params.id);
     res.status(result.status).json(result.body);
 });
-
 /**
  * @swagger
  * /tareas/{id}:
@@ -178,15 +177,15 @@ router.delete('/:id', async (req, res) => {
  *           schema:
  *             type: object
  *             properties:
-  *                   taskData:
-  *                     type: string
-  *                     format: json
-  *                     description: Datos de la tarea en formato JSON (titulo, descripcion, rama, alumnos, profesorId, fechaCierre).
-  *                     example: '{"titulo":"Tarea Actualizada","descripcion":"Descripción actualizada de la tarea","rama":"Ritmo","alumnos":["60d5ec49f8c7a10015a4b5c8"],"profesorId":"60d5ec49f8c7a10015a4b5c6", "fechaCierre": "2025-12-31T23:59:59.999Z"}'
-  *                   materialDeApoyo:
-  *                     type: string
-  *                     format: binary
-  *                     description: Archivo de material de apoyo (opcional).
+ *               taskData:
+ *                 type: string
+ *                 format: json
+ *                 description: Datos de la tarea en formato JSON (titulo, descripcion, rama, alumnos, profesorId, fechaCierre).
+ *                 example: '{"titulo":"Tarea Actualizada","descripcion":"Descripción actualizada de la tarea","rama":"Ritmo","alumnos":["60d5ec49f8c7a10015a4b5c8"],"profesorId":"60d5ec49f8c7a10015a4b5c6", "fechaCierre": "2025-12-31T23:59:59.999Z"}'
+ *               materialDeApoyo:
+ *                 type: string
+ *                 format: binary
+ *                 description: Archivo de material de apoyo (opcional).
  *     responses:
  *       200:
  *         description: Tarea actualizada con éxito.
@@ -242,6 +241,52 @@ router.get('/:id', async (req, res) => {
     res.status(result.status).json(result.body);
 });
 
+/**
+ * @swagger
+ * /tareas/{id}/entregar:
+ *   post:
+ *     summary: Entrega una tarea.
+ *     tags: [Tareas]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID de la tarea a entregar.
+ *     requestBody:
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               respuestaTexto:
+ *                 type: string
+ *                 description: Texto de la respuesta.
+ *               respuestaArchivo:
+ *                 type: string
+ *                 format: binary
+ *                 description: Archivo de la respuesta.
+ *     responses:
+ *       201:
+ *         description: Tarea entregada con éxito.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Calificacion'
+ *       400:
+ *         description: Solicitud inválida.
+ *       403:
+ *         description: No tienes permiso para entregar esta tarea.
+ *       404:
+ *         description: Tarea no encontrada.
+ *       409:
+ *         description: Ya has entregado esta tarea.
+ *       500:
+ *         description: Error interno del servidor.
+ */
 router.post('/:id/entregar', upload.single('respuestaArchivo'), async (req, res) => {
     const tareaId = req.params.id;
     const alumnoId = req.user.id;
@@ -252,12 +297,82 @@ router.post('/:id/entregar', upload.single('respuestaArchivo'), async (req, res)
     res.status(result.status).json(result.body);
 });
 
+/**
+ * @swagger
+ * /tareas/{id}/entregas:
+ *   get:
+ *     summary: Obtiene todas las entregas de una tarea.
+ *     tags: [Tareas]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID de la tarea.
+ *     responses:
+ *       200:
+ *         description: Lista de entregas de la tarea.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Calificacion'
+ *       404:
+ *         description: Tarea no encontrada.
+ *       500:
+ *         description: Error interno del servidor.
+ */
 router.get('/:id/entregas', async (req, res) => {
     const tareaId = req.params.id;
     const result = await tareaController.getEntregasPorTarea(tareaId);
     res.status(result.status).json(result.body);
 });
 
+/**
+ * @swagger
+ * /tareas/entregas/{calificacionId}/calificar:
+ *   put:
+ *     summary: Califica una entrega.
+ *     tags: [Tareas]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: calificacionId
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID de la calificación a calificar.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               nota:
+ *                 type: number
+ *                 description: Nota de la entrega.
+ *     responses:
+ *       200:
+ *         description: Entrega calificada con éxito.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Calificacion'
+ *       400:
+ *         description: El campo "nota" es requerido.
+ *       403:
+ *         description: No tienes permiso para calificar esta entrega.
+ *       404:
+ *         description: Calificación no encontrada.
+ *       500:
+ *         description: Error interno del servidor.
+ */
 router.put('/entregas/:calificacionId/calificar', async (req, res) => {
     const { calificacionId } = req.params;
     const { nota } = req.body;
