@@ -13,4 +13,9 @@ module.exports = {
     '**/test/**/*.test.js'
   ],
   setupFiles: ['dotenv/config']
+  
+};
+module.exports = {
+  testEnvironment: 'node',
+  setupFiles: ['<rootDir>/test/jest.setup.js'],
 };
