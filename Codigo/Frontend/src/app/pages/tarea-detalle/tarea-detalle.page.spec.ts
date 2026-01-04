@@ -57,7 +57,9 @@ describe('GestionGruposComponent', () => {
     currentUserValue: mockProfesor
   };
 
-  const grupoStateServiceMock = jasmine.createSpyObj('GrupoStateService', ['addGrupo']);
+  // Aquí agregamos 'refreshGrupos' para que no falle
+  const grupoStateServiceMock = jasmine.createSpyObj('GrupoStateService', ['addGrupo', 'refreshGrupos']);
+  grupoStateServiceMock.refreshGrupos.and.returnValue(undefined);
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({

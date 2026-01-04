@@ -7,36 +7,33 @@ import { AppComponent } from './app.component';
 import { AuthService } from './services/auth.service';
 import { GrupoStateService } from './services/grupo-state.service';
 import { ActivatedRoute } from '@angular/router';
-const authServiceMock = {
-  currentUser: of(null),
-  logout: jasmine.createSpy('logout'),
-};
-
-const grupoStateServiceMock = {
-  refreshGrupos: jasmine.createSpy('refreshGrupos'),
-  grupos$: of([]),
-  selectedGrupo$: of(null),
-  setSelectedGrupo: jasmine.createSpy('setSelectedGrupo'),
-};
-
-const modalControllerMock = {
-  create: jasmine.createSpy('create'),
-};
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
   let component: AppComponent;
+  let authServiceSpy: jasmine.SpyObj<AuthService>;
+  let grupoStateServiceSpy: jasmine.SpyObj<GrupoStateService>;
+  let modalControllerSpy: jasmine.SpyObj<ModalController>;
 
   beforeEach(waitForAsync(() => {
+    authServiceSpy = jasmine.createSpyObj('AuthService', ['logout'], {
+      currentUser: of(null)
+    });
+
+    grupoStateServiceSpy = jasmine.createSpyObj('GrupoStateService', ['refreshGrupos', 'setSelectedGrupo'], {
+      grupos$: of([]),
+      selectedGrupo$: of(null)
+    });
+
+    modalControllerSpy = jasmine.createSpyObj('ModalController', ['create']);
+
     TestBed.configureTestingModule({
-      imports: [
-        AppComponent,
-      ],
+      imports: [AppComponent],
       providers: [
         { provide: ActivatedRoute, useValue: { snapshot: {}, params: of({}) } },
-        { provide: AuthService, useValue: authServiceMock },
-        { provide: GrupoStateService, useValue: grupoStateServiceMock },
-        { provide: ModalController, useValue: modalControllerMock },
+        { provide: AuthService, useValue: authServiceSpy },
+        { provide: GrupoStateService, useValue: grupoStateServiceSpy },
+        { provide: ModalController, useValue: modalControllerSpy },
         provideHttpClient(),
         provideHttpClientTesting()
       ],
@@ -51,9 +48,9 @@ describe('AppComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call logout and navigate', () => {
+  it('should call logout and update state', () => {
     component.logout();
-    expect(authServiceMock.logout).toHaveBeenCalled();
-    expect(grupoStateServiceMock.setSelectedGrupo).toHaveBeenCalledWith(null);
+    expect(authServiceSpy.logout).toHaveBeenCalled();
+    expect(grupoStateServiceSpy.setSelectedGrupo).toHaveBeenCalledWith(null);
   });
 });
