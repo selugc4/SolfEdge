@@ -38,7 +38,7 @@
             <ion-label>No se encontraron alumnos.</ion-label>
           </ion-item>
         }
-        @for(alumno of filteredAlumnos; track i; let i = $index) {
+        @for(alumno of filteredAlumnos; track $index) {
           <ion-item>
             <ion-radio [value]="alumno" slot="start"></ion-radio>
             <ion-label>

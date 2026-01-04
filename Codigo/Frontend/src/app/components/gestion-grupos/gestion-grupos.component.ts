@@ -7,7 +7,8 @@ import { GrupoService } from '../../services/grupo.service';
 import { GrupoStateService } from '../../services/grupo-state.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { IonCard, IonCardTitle, IonCardHeader, IonCardContent, IonItem, IonButton, IonList, IonListHeader, IonLabel, IonIcon, IonInput, ModalController, ToastController} from "@ionic/angular/standalone";
-
+import { addIcons } from 'ionicons';
+import { closeCircleOutline } from 'ionicons/icons';
 @Component({
   selector: 'app-gestion-grupos',
   templateUrl: './gestion-grupos.component.html',
@@ -25,7 +26,9 @@ export class GestionGruposComponent implements OnInit {
   private authService = inject(AuthService);
   private grupoStateService = inject(GrupoStateService);
 
-  constructor() { }
+  constructor() {
+    addIcons({ closeCircleOutline })
+  }
 
   ngOnInit() {}
 
@@ -81,7 +84,7 @@ export class GestionGruposComponent implements OnInit {
         this.presentToast(`Grupo '${grupoCreado.nombre}' creado con éxito.`, 'success');
         this.nombreGrupo = '';
         this.selectedAlumnos = [];
-        this.grupoStateService.addGrupo(grupoCreado);
+        this.grupoStateService.refreshGrupos();
       },
       error: (err) => {
         this.presentToast(`Error al crear el grupo: ${err.error.message || err.message}`, 'danger');
