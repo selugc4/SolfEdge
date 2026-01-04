@@ -23,7 +23,10 @@ app.use(express.json());
 app.use('/auth', authRouter);
 
 describe('Auth API', () => {
-
+  beforeEach(() => {
+    process.env.JWT_SECRET = 'test-secret';
+    jest.clearAllMocks();
+  });
   afterEach(() => {
     jest.clearAllMocks();
   });
