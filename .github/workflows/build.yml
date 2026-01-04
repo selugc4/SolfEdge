@@ -21,10 +21,12 @@ jobs:
       - name: Install dependencies
         working-directory: ./Codigo/Frontend
         run: npm ci
-      - name: Run tests
+
+      - name: Run frontend tests (Jasmine + Karma)
         working-directory: ./Codigo/Frontend
         run: npm test -- --no-watch --browsers=ChromeHeadless
-        continue-on-error: true
+
+
       - name: Install Ionic CLI
         working-directory: ./Codigo/Frontend
         run: npm install -g @ionic/cli
@@ -55,7 +57,8 @@ jobs:
       - name: Install dependencies
         working-directory: ./Codigo/Backend
         run: npm ci
-      - name: Run tests
+
+      - name: Run backend tests (Jest)
         working-directory: ./Codigo/Backend
         run: npm test
   deploy-frontend:
@@ -68,6 +71,7 @@ jobs:
         with: 
           name: www
           path: ./www  
+
       - name: Deploy to Github Pages
         uses: peaceiris/actions-gh-pages@v4
         with:

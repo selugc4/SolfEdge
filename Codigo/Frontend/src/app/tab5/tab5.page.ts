@@ -31,8 +31,7 @@ import { ActivatedRoute, Router } from '@angular/router';
     IonList, IonSpinner, IonSegment, IonSegmentButton,
     IonListHeader, IonNote,
     IonButton,
-    IonIcon,
-    MensajeModalComponent
+    IonIcon
 ]
 })
 export class Tab5Page implements OnInit {

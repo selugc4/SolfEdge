@@ -5,7 +5,7 @@ import { Cuestionario } from '../../models/cuestionario.model';
 import { Pregunta } from '../../models/pregunta.model';
 import { Usuario } from '../../models/usuario.model';
 import { IonHeader, IonToolbar, IonButtons, IonTitle, IonButton, IonContent, IonItem, IonLabel, IonSelect, IonSelectOption, IonListHeader, IonIcon, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonFooter, IonInput, IonTextarea, ModalController, ToastController, IonRadioGroup, IonRadio } from "@ionic/angular/standalone";
-import { addCircleOutline } from 'ionicons/icons';
+import { addCircleOutline, closeCircleOutline, trashOutline } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
 @Component({
   selector: 'app-cuestionario-modal',
@@ -33,7 +33,10 @@ export class CuestionarioModalComponent implements OnInit {
       preguntas: this.fb.array([], [Validators.required, Validators.minLength(1)]),
       fechaCierre: [null]
     });
-    addIcons({ addCircleOutline });
+    addIcons({ addCircleOutline,
+      closeCircleOutline,
+      trashOutline
+     });
   }
 
   ngOnInit() {

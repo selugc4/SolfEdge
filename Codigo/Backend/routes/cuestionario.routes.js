@@ -164,7 +164,6 @@ router.patch(
             );
             res.status(result.status).json(result.body);
         } catch (error) {
-            console.error(error);
             res.status(500).json({ error: error.message });
         }
     }
@@ -245,7 +244,6 @@ router.patch(
             );
             res.status(result.status).json(result.body);
         } catch (error) {
-            console.error(error);
             res.status(500).json({ error: error.message });
         }
     }
@@ -300,7 +298,6 @@ router.patch(
             );
             res.status(result.status).json(result.body);
         } catch (error) {
-            console.error(error);
             res.status(500).json({ error: error.message });
         }
     }

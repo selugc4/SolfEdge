@@ -1,18 +1,20 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 
 import { TabsPage } from './tabs.page';
 
-describe('TabsPage', () => {
+describe('TabsPage (standalone)', () => {
   let component: TabsPage;
   let fixture: ComponentFixture<TabsPage>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
       imports: [TabsPage],
-      providers: [provideRouter([])]
+      providers: [
+        provideRouter([])
+      ]
     }).compileComponents();
-  });
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TabsPage);
@@ -24,3 +26,4 @@ describe('TabsPage', () => {
     expect(component).toBeTruthy();
   });
 });
+

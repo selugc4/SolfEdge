@@ -1,13 +1,14 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
-import { IonHeader, IonToolbar, IonButtons, IonTitle, IonButton, IonContent, IonItem, IonLabel, IonFooter, IonInput, ModalController, ToastController} from "@ionic/angular/standalone";
+import { IonHeader, IonTextarea, IonToolbar, IonButtons, IonTitle, IonButton, IonContent, IonItem, IonLabel, IonFooter, IonInput, ModalController, ToastController} from "@ionic/angular/standalone";
+import { IonText } from '@ionic/angular';
 
 @Component({
   selector: 'app-calificar-cuestionario-modal',
   templateUrl: './calificar-cuestionario-modal.component.html',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, IonHeader, IonToolbar, IonButtons, IonTitle, IonButton, IonContent, IonItem, IonLabel, IonFooter, IonInput]
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, IonHeader, IonToolbar, IonButtons, IonTitle, IonButton, IonContent, IonItem, IonLabel, IonFooter, IonInput, IonTextarea]
 })
 export class CalificarCuestionarioModalComponent implements OnInit {
   @Input() cuestionarioId: string = '';

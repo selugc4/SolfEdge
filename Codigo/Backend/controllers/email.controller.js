@@ -20,10 +20,8 @@ export const enviarEmailCredenciales = async (destinatario, username, password) 
   };
   try {
     await sgMail.send(msg);
-    console.log(`Correo enviado a ${destinatario}`);
     return { message: 'Correo enviado correctamente.' };
   } catch (err) {
-    console.error('Error enviando correo:', err);
     return { message: 'Error al enviar el correo.', error: err.message || err };
   }
 };

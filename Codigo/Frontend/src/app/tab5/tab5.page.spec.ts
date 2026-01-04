@@ -1,22 +1,91 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Tab5Page } from './tab5.page';
-import { IonicModule } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular/standalone';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { of } from 'rxjs';
+import { AuthService } from '../services/auth.service';
+import { CalificacionService } from '../services/calificacion.service';
+import { CalificacionGeneralService } from '../services/calificacion-general.service';
+import { MensajeService } from '../services/mensaje.service';
+import { GrupoStateService } from '../services/grupo-state.service';
+import { ActivatedRoute } from '@angular/router';
 
 describe('Tab5Page', () => {
   let component: Tab5Page;
   let fixture: ComponentFixture<Tab5Page>;
+  let modalController: ModalController;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [Tab5Page, IonicModule.forRoot()]
+  const authServiceMock = { currentUser: of({ _id: 'user123', role: 'profesor' }) };
+  const calificacionServiceMock = { getCalificacionesByAlumno: jasmine.createSpy('getCalificacionesByAlumno').and.returnValue(of([])) };
+  const calificacionGeneralServiceMock = { getCalificacionesByAlumnoAndGrupo: jasmine.createSpy('getCalificacionesByAlumnoAndGrupo').and.returnValue(of([])) };
+  const mensajeServiceMock = { crearMensaje: jasmine.createSpy('crearMensaje').and.returnValue(of({})) };
+  const grupoStateServiceMock = { selectedGrupo$: of({ _id: 'grupo123', nombre: 'Test Grupo', alumnos: [] }) };
+
+  const modalControllerMock = {
+    create: jasmine.createSpy('create').and.returnValue(
+      Promise.resolve({
+        present: jasmine.createSpy('present').and.returnValue(Promise.resolve()),
+        onWillDismiss: jasmine.createSpy('onWillDismiss').and.returnValue(Promise.resolve({ role: 'cancel' }))
+      })
+    ),
+    dismiss: jasmine.createSpy('dismiss').and.returnValue(Promise.resolve())
+  };
+
+  const toastControllerMock = {
+    create: jasmine.createSpy('create').and.returnValue(
+      Promise.resolve({
+        present: jasmine.createSpy('present').and.returnValue(Promise.resolve())
+      })
+    )
+  };
+
+  const activatedRouteMock = { queryParams: of({}) };
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [
+        Tab5Page
+      ],
+      providers: [
+        { provide: AuthService, useValue: authServiceMock },
+        { provide: CalificacionService, useValue: calificacionServiceMock },
+        { provide: CalificacionGeneralService, useValue: calificacionGeneralServiceMock },
+        { provide: MensajeService, useValue: mensajeServiceMock },
+        { provide: GrupoStateService, useValue: grupoStateServiceMock },
+        { provide: ModalController, useValue: modalControllerMock },
+        { provide: ToastController, useValue: toastControllerMock },
+        { provide: ActivatedRoute, useValue: activatedRouteMock },
+        provideHttpClient(),
+        provideHttpClientTesting()
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(Tab5Page);
     component = fixture.componentInstance;
+    modalController = TestBed.inject(ModalController);
     fixture.detectChanges();
-  }));
+  });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should present mensaje modal', async () => {
+    await component.presentMensajeModal();
+    expect(modalController.create).toHaveBeenCalled();
+  });
+
+  it('should present calificacion general modal if a group is selected', async () => {
+    component.selectedGrupo = { _id: 'grupo123', nombre: 'Test Grupo', profesor: { _id: 'prof123' }, alumnos: [] };
+    await component.presentCalificacionGeneralModal();
+    expect(modalController.create).toHaveBeenCalled();
+  });
+
+  it('should not present calificacion general modal if no group is selected', async () => {
+    (modalController.create as jasmine.Spy).calls.reset();
+    component.selectedGrupo = null;
+    await component.presentCalificacionGeneralModal();
+    expect(modalController.create).not.toHaveBeenCalled();
   });
 });

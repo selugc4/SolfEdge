@@ -5,14 +5,14 @@ import { ActivatedRoute } from '@angular/router';
 import { Cuestionario } from '../../models/cuestionario.model';
 import { CuestionarioService } from '../../services/cuestionario.service';
 import { TareaStateService } from '../../services/tarea-state.service';
-import { IonHeader, IonToolbar, IonTitle, IonButton, IonButtons, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonItem, IonRadio, IonRadioGroup, ToastController, IonBackButton, IonListHeader, IonLabel } from "@ionic/angular/standalone";
+import { IonHeader, IonToolbar, IonTitle, IonButton, IonButtons, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonItem, IonRadio, IonRadioGroup, ToastController, IonBackButton, IonListHeader, IonLabel, IonText } from "@ionic/angular/standalone";
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser'; // Import DomSanitizer and SafeResourceUrl
 
 @Component({
   selector: 'app-cuestionario-completar',
   templateUrl: './cuestionario-completar.page.html',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, IonHeader, IonToolbar, IonTitle, IonButton, IonButtons, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonItem, IonRadio, IonRadioGroup, IonBackButton, IonListHeader, IonLabel]
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, IonHeader, IonToolbar, IonTitle, IonButton, IonButtons, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonItem, IonRadio, IonRadioGroup, IonBackButton, IonListHeader, IonLabel, IonText]
 })
 export class CuestionarioCompletarPage implements OnInit {
   private route = inject(ActivatedRoute);

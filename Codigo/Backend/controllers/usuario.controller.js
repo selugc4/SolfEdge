@@ -64,12 +64,12 @@ exports.addUsuarios = async (usersData, role, creatorId) => {
 
         const createdUsers = await Usuario.insertMany(newUsers);
 
-//        for (const user of createdUsers) {
-//            const emailResult = await emailController.enviarEmailCredenciales(user.email, user.username, user.password);
-//            if (emailResult.message !== 'Correo enviado correctamente.') {
-//                console.error(`Error al enviar correo a ${user.email}: ${emailResult.error || emailResult.message}`);
-//            }
-//        }
+        for (const user of createdUsers) {
+            const emailResult = await emailController.enviarEmailCredenciales(user.email, user.username, user.password);
+            if (emailResult.message !== 'Correo enviado correctamente.') {
+                console.error(`Error al enviar correo a ${user.email}: ${emailResult.error || emailResult.message}`);
+            }
+        }
 
         return { status: 201, body: createdUsers };
 
