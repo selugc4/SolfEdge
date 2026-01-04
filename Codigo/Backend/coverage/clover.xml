@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1767487135889" clover="3.2.0">
-  <project timestamp="1767487135889" name="All files">
+<coverage generated="1767487429978" clover="3.2.0">
+  <project timestamp="1767487429978" name="All files">
     <metrics statements="881" coveredstatements="719" conditionals="348" coveredconditionals="248" methods="104" coveredmethods="86" elements="1333" coveredelements="1053" complexity="0" loc="881" ncloc="881" packages="2" files="19" classes="19"/>
     <package name="controllers">
       <metrics statements="634" coveredstatements="518" conditionals="326" coveredconditionals="227" methods="57" coveredmethods="56"/>
@@ -276,9 +276,9 @@
       </file>
       <file name="email.controller.js" path="C:\Users\jl444\OneDrive\Escritorio\TFG\Codigo\Backend\controllers\email.controller.js">
         <metrics statements="8" coveredstatements="8" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
-        <line num="2" count="3" type="stmt"/>
-        <line num="4" count="3" type="stmt"/>
-        <line num="6" count="3" type="stmt"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="6" count="2" type="stmt"/>
         <line num="7" count="2" type="stmt"/>
         <line num="21" count="2" type="stmt"/>
         <line num="22" count="2" type="stmt"/>

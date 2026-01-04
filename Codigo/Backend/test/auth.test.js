@@ -6,10 +6,17 @@ const Usuario = require('../models/usuario.model');
 const Grupo = require('../models/grupo.model');
 const jwt = require('jsonwebtoken');
 
-// Mocking the models and libraries
+jest.mock('../controllers/email.controller', () => ({
+  sendEmail: jest.fn()
+}));
+
 jest.mock('../models/usuario.model');
 jest.mock('../models/grupo.model');
 jest.mock('jsonwebtoken');
+
+beforeAll(() => {
+  process.env.JWT_SECRET = 'test-secret';
+});
 
 const app = express();
 app.use(express.json());
@@ -102,10 +109,9 @@ describe('Auth API', () => {
 
     expect(response.status).toBe(200);
     expect(response.body).toEqual({ sessionData: decodedToken });
-
     expect(jwt.verify).toHaveBeenCalledWith(
-        'fake-token',
-        expect.any(String)
+    'fake-token',
+    expect.any(String)
     );
     });
     it('should return 401 if no token is provided', async () => {
