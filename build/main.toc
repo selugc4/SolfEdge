@@ -29,10 +29,11 @@
 \contentsline {chapter}{\numberline {6}Definición del problema a resolver}{17}{chapter.6}%
 \contentsline {section}{\numberline {6.1}Especificación formal de la solución}{17}{section.6.1}%
 \contentsline {section}{\numberline {6.2}Diagrama de casos de uso del sistema}{19}{section.6.2}%
-\contentsline {section}{\numberline {6.3}Tecnologías y arquitectura de la solución}{19}{section.6.3}%
+\contentsline {section}{\numberline {6.3}Descripción de los casos de uso}{19}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Tecnologías y arquitectura de la solución}{20}{section.6.4}%
 \contentsline {chapter}{\numberline {7}....}{21}{chapter.7}%
 \contentsline {chapter}{\numberline {8}Conclusiones y trabajo futuro}{22}{chapter.8}%
-\contentsline {section}{BIBLIOGRAFÍA}{22}{section*.15}%
+\contentsline {section}{BIBLIOGRAFÍA}{22}{section*.16}%
  \vspace {5mm} \hrule \par 
 \contentsline {chapter}{\numberline {A}Contenido de una entrada en .bib}{24}{appendix.Alph1}%
 \contentsline {chapter}{\numberline {B}Tipos de referencias}{26}{appendix.Alph2}%
