@@ -24,16 +24,20 @@
 \contentsline {subsubsection}{\numberline {5.2.3.2}Music Computer Technologies and Interactive Systems of Education in Digital Age School}{15}{subsubsection.5.2.3.2}%
 \contentsline {subsubsection}{\numberline {5.2.3.3}Aplicación informática para la introducción del lenguaje musical}{15}{subsubsection.5.2.3.3}%
 \contentsline {subsubsection}{\numberline {5.2.3.4}Online Gaming to Learn Music and English Language in Music and Ballet School Solfeggio Education}{15}{subsubsection.5.2.3.4}%
-\contentsline {subsubsection}{\numberline {5.2.3.5}Multimedia technologies as a tool for teaching supervision over the students' skills (within the course on “music theory training”)}{16}{subsubsection.5.2.3.5}%
+\contentsline {subsubsection}{\numberline {5.2.3.5}Multimedia technologies as a tool for teaching supervision over the students' skills (within the course on “music theory training”)}{15}{subsubsection.5.2.3.5}%
 \contentsline {subsection}{\numberline {5.2.4}Conclusiones}{16}{subsection.5.2.4}%
 \contentsline {chapter}{\numberline {6}Definición del problema a resolver}{17}{chapter.6}%
 \contentsline {section}{\numberline {6.1}Especificación formal de la solución}{17}{section.6.1}%
 \contentsline {section}{\numberline {6.2}Diagrama de casos de uso del sistema}{19}{section.6.2}%
-\contentsline {section}{\numberline {6.3}Descripción de los casos de uso}{19}{section.6.3}%
-\contentsline {section}{\numberline {6.4}Tecnologías y arquitectura de la solución}{20}{section.6.4}%
-\contentsline {chapter}{\numberline {7}....}{21}{chapter.7}%
-\contentsline {chapter}{\numberline {8}Conclusiones y trabajo futuro}{22}{chapter.8}%
-\contentsline {section}{BIBLIOGRAFÍA}{22}{section*.16}%
+\contentsline {section}{\numberline {6.3}Definición del diagrama de casos de uso}{19}{section.6.3}%
+\contentsline {subsection}{\numberline {6.3.1}Actores}{19}{subsection.6.3.1}%
+\contentsline {subsection}{\numberline {6.3.2}Casos de uso}{20}{subsection.6.3.2}%
+\contentsline {subsubsection}{\numberline {6.3.2.1}Definición general}{20}{subsubsection.6.3.2.1}%
+\contentsline {subsubsection}{\numberline {6.3.2.2}Requisitos funcionales}{21}{subsubsection.6.3.2.2}%
+\contentsline {section}{\numberline {6.4}Tecnologías y arquitectura de la solución}{22}{section.6.4}%
+\contentsline {chapter}{\numberline {7}....}{24}{chapter.7}%
+\contentsline {chapter}{\numberline {8}Conclusiones y trabajo futuro}{25}{chapter.8}%
+\contentsline {section}{BIBLIOGRAFÍA}{25}{section*.23}%
  \vspace {5mm} \hrule \par 
-\contentsline {chapter}{\numberline {A}Contenido de una entrada en .bib}{24}{appendix.Alph1}%
-\contentsline {chapter}{\numberline {B}Tipos de referencias}{26}{appendix.Alph2}%
+\contentsline {chapter}{\numberline {A}Contenido de una entrada en .bib}{27}{appendix.Alph1}%
+\contentsline {chapter}{\numberline {B}Tipos de referencias}{29}{appendix.Alph2}%

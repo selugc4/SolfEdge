@@ -7,10 +7,17 @@
 \addvspace {10\p@ }
 \contentsline {table}{\numberline {5.1}{\ignorespaces Documentación recogida}}{14}{table.caption.13}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {6.1}{\ignorespaces Caso de uso: Crear profesor}}{20}{table.caption.15}%
+\contentsline {table}{\numberline {6.1}{\ignorespaces Actor 1}}{20}{table.caption.15}%
+\contentsline {table}{\numberline {6.2}{\ignorespaces Actor 2}}{20}{table.caption.16}%
+\contentsline {table}{\numberline {6.3}{\ignorespaces Actor 3}}{20}{table.caption.17}%
+\contentsline {table}{\numberline {6.4}{\ignorespaces Actor 4}}{20}{table.caption.18}%
+\contentsline {table}{\numberline {6.5}{\ignorespaces Caso de uso: Iniciar sesión}}{20}{table.caption.19}%
+\contentsline {table}{\numberline {6.6}{\ignorespaces Caso de uso: Crear profesor}}{20}{table.caption.20}%
+\contentsline {table}{\numberline {6.7}{\ignorespaces Requisito funcional: RF-01 Iniciar sesión}}{21}{table.caption.21}%
+\contentsline {table}{\numberline {6.8}{\ignorespaces Requisito funcional: RF-02 Recuperar contraseña}}{22}{table.caption.22}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {A.1}{\ignorespaces Campos de una entrada en archivo de bibliografía .bib}}{25}{table.caption.18}%
+\contentsline {table}{\numberline {A.1}{\ignorespaces Campos de una entrada en archivo de bibliografía .bib}}{28}{table.caption.25}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {B.1}{\ignorespaces Tipos posibles de elementos en bibligrafía con natbib}}{27}{table.caption.19}%
+\contentsline {table}{\numberline {B.1}{\ignorespaces Tipos posibles de elementos en bibligrafía con natbib}}{30}{table.caption.26}%

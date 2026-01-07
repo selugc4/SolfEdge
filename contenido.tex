@@ -272,21 +272,45 @@ A pesar de la baja cantidad de documentos a revisar, abrir los términos de bús
 Esta es la documentación obtenida (ordenada de por fecha de publicación descendente):
 
 \begin{table}[H]
-\begin{center}
-\begin{tabular}{| m{2cm} | m{4cm} | m{2cm} | m{7cm} |}
+\centering
+\begin{tabularx}{\textwidth}{|l|l|l|X|X|}
 \hline
-\textbf{Fecha} & \textbf{Sitio de publicación} & \textbf{Tipo} & \textbf{Título} \\ \hline
-2022 & UVAdoc & Trabajo técnico & El lenguaje musical a través de las TIC en educación primaria \\ \hline
-2018 & AtlantisPress & Artículo & Music Computer Technologies and Interactive Systems of Education in Digital Age School \\ \hline
-2017 & UVAdoc & Trabajo técnico & Aplicación informática para la introducción del lenguaje musical (Leemusica) en dispositivos móviles \\ \hline
-2015 & Hejmec Journal & Artículo & Online Gaming to Learn Music and English Language in Music and Ballet School Solfeggio Education \\ \hline
-2014 & Life Science Journal & Artículo & Multimedia technologies as a tool for teaching supervision over the students' skills (within the course on “music theory training”) \\ \hline
+\textbf{Fecha} 
+& \multicolumn{4}{c|}{\textbf{Documentación recogida}} \\ \hline
 
-\end{tabular}
+\textbf{Datos} 
+& \multicolumn{1}{|c|}{\textbf{Sitio de publicación}} & \multicolumn{1}{|c|}{\textbf{Tipo}} & \multicolumn{2}{>{\centering\arraybackslash}X|}{\textbf{Título}} \\ \hline
 
+\multicolumn{1}{|c|}{2022} 
+& \multicolumn{1}{c|}{UVAdoc} 
+& \multicolumn{1}{c|}{Trabajo técnico} 
+& \multicolumn{2}{>{\centering\arraybackslash}X|}{El lenguaje musical a través de las TIC en educación primaria} \\ \hline
+
+\multicolumn{1}{|c|}{2018} 
+& \multicolumn{1}{c|}{AtlantisPress} 
+& \multicolumn{1}{c|}{Artículo} 
+& \multicolumn{2}{>{\centering\arraybackslash}X|}{Music Computer Technologies and Interactive Systems of Education in Digital Age School} \\ \hline
+
+\multicolumn{1}{|c|}{2017} 
+& \multicolumn{1}{c|}{UVAdoc} 
+& \multicolumn{1}{c|}{Trabajo técnico} 
+& \multicolumn{2}{>{\centering\arraybackslash}X|}{Aplicación informática para la introducción del lenguaje musical (Leemusica) en dispositivos móviles} \\ \hline
+
+\multicolumn{1}{|c|}{2015} 
+& \multicolumn{1}{c|}{Hejmec Journal} 
+& \multicolumn{1}{c|}{Artículo} 
+& \multicolumn{2}{>{\centering\arraybackslash}X|}{Online Gaming to Learn Music and English Language in Music and Ballet School Solfeggio Education} \\ \hline
+
+\multicolumn{1}{|c|}{2014} 
+& \multicolumn{1}{c|}{Life Science Journal}  
+& \multicolumn{1}{c|}{Artículo} 
+& \multicolumn{2}{>{\centering\arraybackslash}X|}{Multimedia technologies as a tool for teaching supervision over the students' skills (within the course on “music theory training”)} \\ \hline
+
+\end{tabularx}
 \caption{Documentación recogida}
-\end{center}
 \end{table}
+
+
 
 \subsection{Resultados obtenidos}
 
@@ -357,7 +381,7 @@ Asimismo, los alumnos podrán acceder a los mismos cuatro apartados (Ritmo, Ento
 \begin{itemize}
 \item En la sección Libro del curso, los alumnos podrán visualizar el archivo PDF correspondiente y descargarlo, pero no modificarlo.
 
-\item En la sección Tareas a realizar, los alumnos podrán consultar la lista de tareas disponibles y realizar las entregas correspondientes. El profesor definirá los formatos de entrega permitidos, que podrán ser archivos en PDF, MP3 o MP4, o bien un comentario textual dentro de la propia aplicación. En el caso de cuestionarios, el alumno accederá a una ventana específica donde podrá completarlo. El cuestionario no se considerará entregado hasta que el alumno pulse expresamente el botón de envío.
+\item En la sección Tareas a realizar, los alumnos podrán consultar la lista de tareas disponibles y realizar las entregas correspondientes. Los formatos permitidos serán PDF, MP3 o MP4, y/o bien un comentario textual dentro de la propia aplicación. En el caso de cuestionarios, el alumno accederá a una ventana específica donde podrá completarlo. El cuestionario no se considerará entregado hasta que el alumno pulse expresamente el botón de envío.
 \end{itemize}
 \section {Diagrama de casos de uso del sistema}
 Una vez definida la solución mediante lenguaje natural, se da el siguiente paso hacia el modelado de casos de uso.
@@ -366,19 +390,161 @@ Una vez definida la solución mediante lenguaje natural, se da el siguiente paso
     \includegraphics[width=1\linewidth]{Figuras/DCU.png}
     \caption{Diagrama de casos de uso del sistema}
 \end{figure}
-\section {Descripción de los casos de uso}
-Una vez expuesto el diagrama de casos de uso, el sistema queda descrito de manera demasiado abstracta aún puesto que la visión tan genérica que da el diagrama no permite entender los detalles de cada funcionalidad. Por ello, como es habitual en los proyectos informáticos, se definirán los requisitos funcionales del sistema relacionándolos con cada uno de los casos de uso.
-\begin{table}[H]
-\begin{center}
-\begin{tabular}{| m{3cm} | m{2cm} | m{2cm} | m{2cm} | m{2cm} |}
+\section {Definición del diagrama de casos de uso}
+El diagrama de casos de uso aporta una visión muy genérica y poco detallada y, aunque es mucho más objetiva que el lenguaje natural, se encuentra en un nivel de abstracción muy alto, por lo tanto, es necesario entrar en más detalle para cada uno de los elementos del diagrama.
+\subsection {Actores}
+Se pueden observar cuatro actores principales, cada uno con su respectivo rol:
+\begin{table}[h!]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|
+}
 \hline
-\textbf{Nombre} & \multicolumn{4}{c|} {\textbf{Crear profesor}} \\ \hline
-\textbf{Descripción} & \multicolumn{4}{m{14cm}|}{Permitir al profesor administrador crear nuevos usuarios con rol de profesor en el sistema, proporcionando los datos necesarios y validando la información.} \\ \hline
-\textbf{Requisitos funcionales} & RF-01 & RF-02 & RF-03 & RF-04 \\ \hline
-\end{tabular}
-\caption{Caso de uso: Crear profesor}
-\end{center}
+\textbf{ID del actor} & \textbf{ACT-1} \\ \hline
+\textbf{Nombre del actor} & Usuario no autenticado \\ \hline
+\textbf{Rol} & Usuario que accede al sistema con el único objetivo de iniciar sesión. \\ \hline
+\end{tabularx}
+\caption{Actor 1}
 \end{table}
+\begin{table}[h!]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|    
+}
+\hline
+\textbf{ID del actor} & \textbf{ACT-2} \\ \hline
+\textbf{Nombre del actor} & Administrador \\ \hline
+\textbf{Rol} & Usuario autenticado con el objetivo de crear a los usuarios con rol de profesor en el sistema. \\ \hline
+\end{tabularx}
+\caption{Actor 2}
+\end{table}
+\begin{table}[h!]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|
+}
+\hline
+\textbf{ID del actor} & \textbf{ACT-3} \\ \hline
+\textbf{Nombre del actor} & Profesor \\ \hline
+\textbf{Rol} & Usuario autenticado con el objetivo de crear usuarios con el rol alumno y gestionar el contenido académico dirigido a los mismos en el sistema. \\ \hline
+\end{tabularx}
+\caption{Actor 3}
+\end{table}
+\begin{table}[h!]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|
+}
+\hline
+\textbf{ID del actor} & \textbf{ACT-4} \\ \hline
+\textbf{Nombre del actor} & Alumno \\ \hline
+\textbf{Rol} & Usuario autenticado con el objetivo de acceder al contenido e interactuar con el mismo a través del sistema. \\ \hline
+\end{tabularx}
+\caption{Actor 4}
+\end{table}
+\subsection {Casos de uso}
+Para definir los casos de uso del sistema la mejor forma de hacerlo es, como en cualquier otro proyecto de desarrollo de software, mediante los requisitos funcionales que lo conforman.
+\subsubsection {Definición general}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{Nombre} & {\textbf{Iniciar sesión}} \\ \hline
+
+\textbf{Descripción} & Permitir al usuario no autenticado iniciar sesión en el sistema proporcionando sus credenciales y, en caso de éxito, tendrá acceso a las funcionalidades del actor que tenga asignado en el sistema. \\ \hline
+\textbf{Actor} & ACT-1 \\ \hline
+\textbf{Requisitos funcionales} & RF-01 \\ \hline
+\end{tabularx}
+\caption{Caso de uso: Iniciar sesión}
+\end{table}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{Nombre} & {\textbf{Crear profesor}} \\ \hline
+
+\textbf{Descripción} & Permitir al profesor administrador crear nuevos usuarios con rol de profesor en el sistema, proporcionando los datos necesarios y validando la información. \\ \hline
+
+\textbf{Requisitos funcionales} & RF-01 \\ \hline
+\end{tabularx}
+\caption{Caso de uso: Crear profesor}
+\end{table}
+\subsubsection {Requisitos funcionales}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+
+\textbf{RF-01} & Iniciar sesión \\ \hline
+
+\textbf{Descripción} & Permitir al usuario no autenticado iniciar sesión en el sistema proporcionando sus credenciales y, en caso de éxito, tendrá acceso a las funcionalidades del actor que tenga asignado en el sistema. \\ \hline
+
+\textbf{Precondición} & El usuario no debe estar autenticado en el sistema. \\ \hline
+
+\textbf{Secuencia de pasos} & 
+\begin{enumerate}
+  \item El usuario accede a la pantalla de inicio de sesión.
+  \item El usuario introduce su nombre de usuario y contraseña.
+  \item El sistema valida las credenciales introducidas.
+  \item Si las credenciales son correctas, el sistema autentica al usuario.
+  \item El sistema asigna al usuario el rol correspondiente y concede acceso a las funcionalidades habilitadas.
+  \item El usuario es redirigido a la página principal o panel correspondiente a su rol.
+\end{enumerate} \\ \hline
+
+\textbf{Postcondición} & El usuario queda autenticado en el sistema con acceso a las funcionalidades correspondientes a su rol. \\ \hline
+
+\textbf{Excepciones} & 
+\begin{itemize}
+  \item El usuario introduce credenciales incorrectas.
+  \item El sistema no puede conectarse a la base de datos para validar credenciales.
+\end{itemize} \\ \hline
+\end{tabularx}
+\caption{Requisito funcional: RF-01 Iniciar sesión}
+\end{table}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+
+\textbf{RF-02} & Recuperar contraseña \\ \hline
+
+\textbf{Descripción} & Permitir al usuario recuperar el acceso a su cuenta mediante la verificación de su identidad y la creación de una nueva contraseña. \\ \hline
+
+\textbf{Precondición} & El usuario debe tener acceso al correo electrónico asociado a su cuenta y no estar autenticado en el sistema. \\ \hline
+
+\textbf{Secuencia de pasos} & 
+\begin{enumerate}
+  \item El usuario accede a la opción "Recuperar contraseña" desde la pantalla de inicio de sesión.
+  \item El usuario introduce su dirección de correo electrónico registrada.
+  \item El sistema verifica que el correo electrónico existe en la base de datos.
+  \item El sistema envía la contraseña por correo.
+\end{enumerate} \\ \hline
+
+\textbf{Postcondición} & El usuario puede iniciar sesión con la nueva contraseña establecida. \\ \hline
+
+\textbf{Excepciones} & 
+\begin{itemize}
+  \item El correo electrónico proporcionado no está registrado en el sistema.
+  \item El usuario no recibe el correo de recuperación.
+  \item El enlace o código de recuperación ha expirado o es inválido.
+  \item El sistema no puede conectarse a la base de datos o servicio de correo.
+\end{itemize} \\ \hline
+\end{tabularx}
+\caption{Requisito funcional: RF-02 Recuperar contraseña}
+\end{table}
+
 
 \section {Tecnologías y arquitectura de la solución}
 La solución lleva a tomar las siguientes decisiones tecnológicas:

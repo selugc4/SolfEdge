@@ -9,6 +9,7 @@
     "multer": "^2.0.2",
     "node-fetch": "^2.7.0",
     "nodemailer": "^7.0.9",
+    "sib-api-v3-sdk": "^8.5.0",
     "swagger-jsdoc": "^3.7.0",
     "swagger-ui-express": "^5.0.1"
   },

@@ -96,7 +96,7 @@ exports.enviarCredencialesOlvidadas = async (email) => {
         usuario.password = passwordResult.password;
         await usuario.save();
 
-        const emailResult = await emailController.enviarEmailCredenciales(email, usuario.username, passwordResult.password);
+        const emailResult = await emailController.enviarEmailCredencialesOlvidadas(email, usuario.username, passwordResult.password);
         if (emailResult.message === 'Correo enviado correctamente.') {
             return { status: 200, body: { message: `Credenciales enviadas a ${email}` } };
         } else {
