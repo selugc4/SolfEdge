@@ -27,7 +27,7 @@ export const enviarEmailCredenciales = async (destinatario, username, password) 
       `,
     });
 
-    await transactionalEmailApi.sendTransacEmail(email);
+    await apiInstance.sendTransacEmail(email);
 
     return { message: 'Correo enviado correctamente.' };
   } catch (err) {
@@ -57,7 +57,7 @@ export const enviarEmailCredencialesOlvidadas = async (destinatario, username, p
       `,
     });
 
-    await transactionalEmailApi.sendTransacEmail(email);
+    await apiInstance.sendTransacEmail(email);
 
     return { message: 'Correo enviado correctamente.' };
   } catch (err) {
