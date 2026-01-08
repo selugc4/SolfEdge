@@ -469,13 +469,209 @@ Para definir los casos de uso del sistema la mejor forma de hacerlo es, como en 
   |>{\centering\arraybackslash}l
   |>{\centering\arraybackslash}X|}
 \hline
+\textbf{Nombre} & {\textbf{Recuperar contraseña}} \\ \hline
+
+\textbf{Descripción} & Permitir al usuario recuperar el acceso a su cuenta mediante la verificación de su dirección de correo. \\ \hline
+\textbf{Actor} & ACT-1 \\ \hline
+\textbf{Requisitos funcionales} & RF-02 \\ \hline
+\end{tabularx}
+\caption{Caso de uso: Recuperar contraseña}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
 \textbf{Nombre} & {\textbf{Crear profesor}} \\ \hline
 
-\textbf{Descripción} & Permitir al profesor administrador crear nuevos usuarios con rol de profesor en el sistema, proporcionando los datos necesarios y validando la información. \\ \hline
-
-\textbf{Requisitos funcionales} & RF-01 \\ \hline
+\textbf{Descripción} & Permitir al administrador crear nuevos usuarios con rol de profesor en el sistema, proporcionando los datos necesarios y validando la información. \\ \hline
+\textbf{Actor} & ACT-2 \\ \hline
+\textbf{Requisitos funcionales} & RF-03 \\ \hline
 \end{tabularx}
 \caption{Caso de uso: Crear profesor}
+\end{table}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{Nombre} & {\textbf{Crear alumno}} \\ \hline
+
+\textbf{Descripción} & Permitir al profesor crear nuevos usuarios con rol de alumno en el sistema, proporcionando los datos necesarios y validando la información. \\ \hline
+\textbf{Actor} & ACT-3 \\ \hline
+\textbf{Requisitos funcionales} & RF-05 RF-04 \\ \hline
+\end{tabularx}
+\caption{Caso de uso: Crear alumno}
+\end{table}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{Nombre} & {\textbf{Gestionar grupos}} \\ \hline
+\textbf{Descripción} & Permitir al profesor crear nuevos grupos, revisar los que ha creado y elegir un grupo para trabajar con él. \\ \hline
+\textbf{Actor} & ACT-3\\ \hline
+\textbf{Requisitos funcionales} & RF-06 RF-07 RF-08 \\ \hline
+\end{tabularx}
+\caption{Caso de uso: Gestionar grupos}
+\end{table}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{Nombre} & {\textbf{Enviar mensaje}} \\ \hline
+
+\textbf{Descripción} & Permitir al profesor enviar mensajes a los alumnos de un grupo seleccionado. \\ \hline
+\textbf{Actor} & ACT-3\\ \hline
+\textbf{Requisitos funcionales} & RF-09 \\ \hline
+\end{tabularx}
+\caption{Caso de uso: Enviar mensaje}
+\end{table}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{Nombre} & {\textbf{Gestionar material de cada rama}} \\ \hline
+
+\textbf{Descripción} & Permitir al profesor gestionar el material de cada rama de la asignatura. \\ \hline
+\textbf{Actor} & ACT-3\\ \hline
+\textbf{Requisitos funcionales} & RF-10 RF-11 RF-12 \\ \hline
+\end{tabularx}
+\caption{Caso de uso: Gestionar material de cada rama}
+\end{table}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{Nombre} & {\textbf{Gestionar tareas}} \\ \hline
+
+\textbf{Descripción} & Permitir al profesor gestionar las tareas de cada rama de la asignatura. \\ \hline
+\textbf{Actor} & ACT-3\\ \hline
+\textbf{Requisitos funcionales} & RF-13 RF-14 RF-15 RF-16 RF-17 \\ \hline
+\end{tabularx}
+\caption{Caso de uso: Gestionar tareas}
+\end{table}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{Nombre} & {\textbf{Gestionar cuestionarios}} \\ \hline
+
+\textbf{Descripción} & Permitir al profesor gestionar los cuestionarios de la rama de teoría de la asignatura. \\ \hline
+\textbf{Actor} & ACT-3\\ \hline
+\textbf{Requisitos funcionales} & RF-18 RF-19 RF-20 RF-21 RF-22 \\ \hline
+\end{tabularx}
+\caption{Caso de uso: Gestionar entregas}
+\end{table}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{Nombre} & {\textbf{Gestionar entregas}} \\ \hline
+
+\textbf{Descripción} & Permitir al profesor gestionar las entregas de las tareas de los alumnos. \\ \hline
+\textbf{Actor} & ACT-3\\ \hline
+\textbf{Requisitos funcionales} & RF-23 RF-24 RF-25\\ \hline
+\end{tabularx}
+\caption{Caso de uso: Gestionar entregas}
+\end{table}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{Nombre} & {\textbf{Gestionar calificaciones del alumnado}} \\ \hline
+
+\textbf{Descripción} & Permitir al profesor gestionar las calificaciones generales del curso de los alumnos. \\ \hline
+\textbf{Actor} & ACT-3\\ \hline
+\textbf{Requisitos funcionales} & RF-26 RF-27\\ \hline
+\end{tabularx}
+\caption{Caso de uso: Gestionar calificaciones del alumnado}
+\end{table}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{Nombre} & {\textbf{Ver mensajes}} \\ \hline
+
+\textbf{Descripción} & Permitir al alumno y al profesor ver los mensajes. \\ \hline
+\textbf{Actor} & ACT-3 ACT-4\\ \hline
+\textbf{Requisitos funcionales} & RF-28\\ \hline
+\end{tabularx}
+\caption{Caso de uso: Ver mensajes}
+\end{table}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{Nombre} & {\textbf{Interactuar con el material de cada rama}} \\ \hline
+
+\textbf{Descripción} & Permitir al alumno interactuar con el material de cada rama. \\ \hline
+\textbf{Actor} & ACT-4\\ \hline
+\textbf{Requisitos funcionales} & RF-10\\ \hline
+\end{tabularx}
+\caption{Caso de uso: Interactuar con el material de cada rama}
+\end{table}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{Nombre} & {\textbf{Revisar calificaciones}} \\ \hline
+
+\textbf{Descripción} & Permitir al alumno revisar las calificaciones. \\ \hline
+\textbf{Actor} & ACT-4\\ \hline
+\textbf{Requisitos funcionales} & RF-25\\ \hline
+\end{tabularx}
+\caption{Caso de uso: Revisar calificaciones}
+\end{table}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{Nombre} & {\textbf{Interactuar con tareas}} \\ \hline
+
+\textbf{Descripción} & Permitir al alumno interactuar con las tareas. \\ \hline
+\textbf{Actor} & ACT-4\\ \hline
+\textbf{Requisitos funcionales} & RF-13 RF-29\\ \hline
+\end{tabularx}
+\caption{Caso de uso: Interactuar con tareas}
+\end{table}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{Nombre} & {\textbf{Interactuar con cuestionarios}} \\ \hline
+
+\textbf{Descripción} & Permitir al alumno interactuar con los cuestionarios. \\ \hline
+\textbf{Actor} & ACT-4\\ \hline
+\textbf{Requisitos funcionales} & RF-18 RF-30\\ \hline
+\end{tabularx}
+\caption{Caso de uso: Interactuar con cuestionarios}
 \end{table}
 \subsubsection {Requisitos funcionales}
 \begin{table}[H]
@@ -485,7 +681,7 @@ Para definir los casos de uso del sistema la mejor forma de hacerlo es, como en 
   |>{\centering\arraybackslash}X|}
 \hline
 
-\textbf{RF-01} & Iniciar sesión \\ \hline
+\textbf{RF-01} & \textbf{Iniciar sesión} \\ \hline
 
 \textbf{Descripción} & Permitir al usuario no autenticado iniciar sesión en el sistema proporcionando sus credenciales y, en caso de éxito, tendrá acceso a las funcionalidades del actor que tenga asignado en el sistema. \\ \hline
 
@@ -506,7 +702,7 @@ Para definir los casos de uso del sistema la mejor forma de hacerlo es, como en 
 \textbf{Excepciones} & 
 \begin{itemize}
   \item El usuario introduce credenciales incorrectas.
-  \item El sistema no puede conectarse a la base de datos para validar credenciales.
+  \item Problemas de conexión con la base de datos.
 \end{itemize} \\ \hline
 \end{tabularx}
 \caption{Requisito funcional: RF-01 Iniciar sesión}
@@ -518,9 +714,9 @@ Para definir los casos de uso del sistema la mejor forma de hacerlo es, como en 
   |>{\centering\arraybackslash}X|}
 \hline
 
-\textbf{RF-02} & Recuperar contraseña \\ \hline
+\textbf{RF-02} & \textbf{Recuperar contraseña} \\ \hline
 
-\textbf{Descripción} & Permitir al usuario recuperar el acceso a su cuenta mediante la verificación de su identidad y la creación de una nueva contraseña. \\ \hline
+\textbf{Descripción} & Permitir al usuario recuperar el acceso a su cuenta mediante la verificación de su dirección de correo. \\ \hline
 
 \textbf{Precondición} & El usuario debe tener acceso al correo electrónico asociado a su cuenta y no estar autenticado en el sistema. \\ \hline
 
@@ -529,7 +725,8 @@ Para definir los casos de uso del sistema la mejor forma de hacerlo es, como en 
   \item El usuario accede a la opción "Recuperar contraseña" desde la pantalla de inicio de sesión.
   \item El usuario introduce su dirección de correo electrónico registrada.
   \item El sistema verifica que el correo electrónico existe en la base de datos.
-  \item El sistema envía la contraseña por correo.
+  \item El sistema actualiza la contraseña.
+  \item El sistema envía la contraseña por correo y notifica al usuario del éxito.
 \end{enumerate} \\ \hline
 
 \textbf{Postcondición} & El usuario puede iniciar sesión con la nueva contraseña establecida. \\ \hline
@@ -537,14 +734,965 @@ Para definir los casos de uso del sistema la mejor forma de hacerlo es, como en 
 \textbf{Excepciones} & 
 \begin{itemize}
   \item El correo electrónico proporcionado no está registrado en el sistema.
-  \item El usuario no recibe el correo de recuperación.
-  \item El enlace o código de recuperación ha expirado o es inválido.
   \item El sistema no puede conectarse a la base de datos o servicio de correo.
 \end{itemize} \\ \hline
 \end{tabularx}
 \caption{Requisito funcional: RF-02 Recuperar contraseña}
 \end{table}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{RF-03} & \textbf{Crear profesor} \\ \hline
 
+\textbf{Descripción} & Permitir al administrador crear nuevos usuarios con rol de profesor en el sistema, proporcionando los datos necesarios. \\ \hline
+
+\textbf{Precondición} & El administrador debe estar autenticado en el sistema. \\ \hline
+
+\textbf{Secuencia de pasos} & 
+\begin{enumerate}
+  \item El administrador introduce los datos requeridos del profesor (nombre, apellidos y correo).
+  \item El sistema valida los datos mediante RF-04.
+  \item El sistema guarda el nuevo profesor.
+  \item El sistema notifica al administrador que el profesor ha sido creado correctamente.
+\end{enumerate} \\ \hline
+
+\textbf{Postcondición} & El nuevo profesor queda registrado en el sistema y puede iniciar sesión con las credenciales asignadas. \\ \hline
+
+\textbf{Excepciones} & 
+\begin{itemize}
+  \item Datos incompletos o inválidos introducidos por el administrador.
+  \item Problemas de conexión con la base de datos.
+\end{itemize} \\ \hline
+\end{tabularx}
+\caption{Requisito funcional: RF-03 Crear profesor}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{RF-04} & \textbf{Validación y generación automática de credenciales} \\ \hline
+
+\textbf{Descripción} & Validar la información de creación de un nuevo usuario comprobando la unicidad del correo, formatos específicos para nombre, apellidos y correo, y generar automáticamente el username y la contraseña. \\ \hline
+
+\textbf{Precondición} & Se reciben datos completos del profesor para validar y generar credenciales. \\ \hline
+
+\textbf{Secuencia de pasos} & 
+\begin{enumerate}
+  \item El sistema comprueba que el correo no está registrado.
+  \item El sistema valida que el correo tenga formato tipo ejemplo@ejemplo.com.
+  \item El sistema valida que el nombre y apellidos solo contengan letras sin espacios ni caracteres inválidos.
+  \item El sistema genera el username a partir de las siglas de nombre y apellidos.
+  \item Si el username generado ya existe, se añade un identificador numérico para diferenciarlo.
+  \item El sistema solicita a una API externa la generación de una contraseña segura.
+  \item El sistema asocia el username y contraseña generados a la cuenta del profesor.
+\end{enumerate} \\ \hline
+
+\textbf{Postcondición} & Se dispone de credenciales únicas y válidas para el nuevo profesor, listas para su uso en el sistema. \\ \hline
+
+\textbf{Excepciones} & 
+\begin{itemize}
+  \item El correo proporcionado ya está registrado.
+  \item Los datos no cumplen con el formato requerido.
+  \item Fallo en la comunicación con la API externa para generación de contraseña.
+  \item Problemas técnicos al generar o asignar las credenciales.
+\end{itemize} \\ \hline
+\end{tabularx}
+\caption{Requisito funcional: RF-04 Validación y generación automática de credenciales}
+\end{table}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{RF-05} & \textbf{Crear alumno} \\ \hline
+
+\textbf{Descripción} & Permitir al profesor crear nuevos usuarios con rol de alumno en el sistema, proporcionando los datos necesarios. \\ \hline
+
+\textbf{Precondición} & El profesor debe estar autenticado en el sistema. \\ \hline
+
+\textbf{Secuencia de pasos} & 
+\begin{enumerate}
+  \item El profesor introduce los datos requeridos del alumno (nombre, apellidos y correo).
+  \item El sistema valida los datos mediante RF-04.
+  \item El sistema guarda el nuevo alumno.
+  \item El sistema notifica al profesor que el alumno ha sido creado correctamente.
+\end{enumerate} \\ \hline
+
+\textbf{Postcondición} & El nuevo alumno queda registrado en el sistema y puede iniciar sesión con las credenciales asignadas. \\ \hline
+
+\textbf{Excepciones} & 
+\begin{itemize}
+  \item Datos incompletos o inválidos introducidos por el profesor.
+  \item Problemas de conexión con la base de datos.
+\end{itemize} \\ \hline
+\end{tabularx}
+\caption{Requisito funcional: RF-05 Crear alumno}
+\end{table}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{RF-06} & \textbf{Crear grupo} \\ \hline
+
+\textbf{Descripción} & Permitir al profesor crear nuevos grupos proporcionando la información necesaria (nombre del grupo y alumnos). \\ \hline
+
+\textbf{Precondición} & El profesor debe estar autenticado en el sistema y tener usuarios creados \\ \hline
+
+\textbf{Secuencia de pasos} & 
+\begin{enumerate}
+  \item El profesor accede a la sección de administración.
+  \item El profesor introduce los datos requeridos para el grupo.
+  \item El sistema valida la información introducida.
+  \item El sistema guarda el nuevo grupo.
+  \item El sistema crea las ramas de la asignatura vacías (sin ningún material aún) y las guarda.
+  \item El sistema notifica al profesor que el grupo ha sido creado correctamente.
+\end{enumerate} \\ \hline
+
+\textbf{Postcondición} & El grupo queda registrado en el sistema asociado al profesor y los alumnos incluidos. \\ \hline
+
+\textbf{Excepciones} & 
+\begin{itemize}
+  \item Datos inválidos introducidos por el profesor.
+  \item Problemas de conexión con la base de datos.
+\end{itemize} \\ \hline
+\end{tabularx}
+\caption{Requisito funcional: RF-06 Crear grupo}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{RF-07} & \textbf{Revisar grupos} \\ \hline
+
+\textbf{Descripción} & Permitir al profesor visualizar la lista de grupos que ha creado previamente. \\ \hline
+
+\textbf{Precondición} & El profesor debe estar autenticado en el sistema y tener grupos creados. \\ \hline
+
+\textbf{Secuencia de pasos} & 
+\begin{enumerate}
+  \item El profesor accede a la sección de grupos.
+  \item El sistema recupera y muestra la lista de grupos asociados al profesor.
+  \item El profesor revisa los grupos mostrados.
+\end{enumerate} \\ \hline
+
+\textbf{Postcondición} & El profesor puede ver y seleccionar cualquier grupo de su lista para gestionar. \\ \hline
+
+\textbf{Excepciones} & 
+\begin{itemize}
+  \item No existen grupos creados por el profesor.
+  \item Problemas de conexión con la base de datos.
+\end{itemize} \\ \hline
+\end{tabularx}
+\caption{Requisito funcional: RF-07 Listar grupos}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{RF-08} & \textbf{Seleccionar grupo} \\ \hline
+
+\textbf{Descripción} & Permitir al profesor seleccionar un grupo creado para realizar acciones específicas o trabajar con su contenido. \\ \hline
+
+\textbf{Precondición} & El profesor debe estar autenticado y haber creado al menos un grupo. \\ \hline
+
+\textbf{Secuencia de pasos} & 
+\begin{enumerate}
+  \item El profesor visualiza la lista de grupos creados mediante RF-06.
+  \item El profesor selecciona un grupo de la lista.
+  \item El sistema carga los datos y funcionalidades correspondientes al grupo seleccionado.
+  \item El profesor puede comenzar a trabajar con el grupo.
+\end{enumerate} \\ \hline
+
+\textbf{Postcondición} & El sistema queda configurado para trabajar con el grupo seleccionado. \\ \hline
+
+\textbf{Excepciones} & 
+\begin{itemize}
+  \item El grupo seleccionado no existe.
+  \item Problemas de carga o acceso a los datos del grupo.
+\end{itemize} \\ \hline
+\end{tabularx}
+\caption{Requisito funcional: RF-08 Seleccionar grupo}
+\end{table}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{RF-09} & \textbf{Enviar mensaje} \\ \hline
+
+\textbf{Descripción} & Permitir al profesor enviar mensajes a los alumnos de un grupo seleccionado. \\ \hline
+
+\textbf{Precondición} & El profesor debe estar autenticado y tener un grupo seleccionado. \\ \hline
+
+\textbf{Secuencia de pasos} & 
+\begin{enumerate}
+  \item El profesor accede a administración o a perfil y entra en la herramienta de creación de mensajes.
+  \item El profesor redacta el mensaje, el asunto y selecciona los alumnos del grupo seleccionado como destinatarios.
+  \item El profesor envía el mensaje.
+  \item El sistema valida los datos.
+  \item El sistema guarda el mensaje y confirma el envío exitoso del mensaje al profesor.
+\end{enumerate} \\ \hline
+
+\textbf{Postcondición} & Los alumnos del grupo y el profesor reciben el mensaje en su bandeja de entrada dentro de la plataforma. \\ \hline
+
+\textbf{Excepciones} & 
+\begin{itemize}
+  \item No se han seleccionado alumnos y/o el mensaje y/o el asunto no son válidos.
+  \item Problemas de conexión a la base de datos.
+\end{itemize} \\ \hline
+\end{tabularx}
+\caption{Requisito funcional: RF-09 Enviar mensaje}
+\end{table}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{RF-10} & \textbf{Ver libro del curso} \\ \hline
+
+\textbf{Descripción} & Permitir al profesor y al alumno visualizar el libro asociado a una rama específica de la asignatura. \\ \hline
+
+\textbf{Precondición} & El profesor o el alumno deben estar autenticados, tener un grupo elegido y existir un libro asociado a la rama seleccionada. \\ \hline
+
+\textbf{Secuencia de pasos} & 
+\begin{enumerate}
+  \item El usuario selecciona la rama de la asignatura.
+  \item El sistema muestra el libro actual asociado a dicha rama.
+  \item El usuario revisa el contenido del libro.
+\end{enumerate} \\ \hline
+
+\textbf{Postcondición} & El usuario visualiza correctamente el libro asociado a la rama seleccionada pudiendo revisarlo desde el propio sistema o descargarlo. \\ \hline
+
+\textbf{Excepciones} & 
+\begin{itemize}
+  \item No existe libro asociado a la rama seleccionada.
+  \item No se ha elegido ningún grupo
+  \item Problemas de conexión a la base de datos.
+\end{itemize} \\ \hline
+\end{tabularx}
+\caption{Requisito funcional: RF-10 Ver libro del curso}
+\end{table}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{RF-11} & \textbf{Subir o reemplazar libro del curso} \\ \hline
+
+\textbf{Descripción} & Permitir al profesor subir un nuevo libro o reemplazar el libro existente asociado a una rama de la asignatura. \\ \hline
+
+\textbf{Precondición} & El profesor debe estar autenticado y tener un grupo seleccionado. \\ \hline
+
+\textbf{Secuencia de pasos} & 
+\begin{enumerate}
+  \item El profesor selecciona la rama de la asignatura.
+  \item El sistema muestra el libro actual asociado, si existe.
+  \item El profesor selecciona un archivo local para subir o reemplazar el libro.
+  \item El sistema valida el formato y tamaño del archivo.
+  \item El sistema actualiza el libro asociado a la rama con el nuevo archivo.
+  \item El sistema informa de la actualización exitosa.
+\end{enumerate} \\ \hline
+
+\textbf{Postcondición} & El libro asociado a la rama queda actualizado con el nuevo archivo. \\ \hline
+
+\textbf{Excepciones} & 
+\begin{itemize}
+  \item Archivo no válido (formato o tamaño).
+  \item No se ha elegido ningún grupo.
+  \item Problemas de conexión a la base de datos.
+\end{itemize} \\ \hline
+\end{tabularx}
+\caption{Requisito funcional: RF-11 Subir o reemplazar libro del curso}
+\end{table}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{RF-12} & \textbf{Eliminar libro del curso} \\ \hline
+
+\textbf{Descripción} & Permitir al profesor eliminar el libro asociado a una rama de la asignatura. \\ \hline
+
+\textbf{Precondición} & El profesor debe estar autenticado, tener un grupo seleccionado y existir un libro asociado a la rama seleccionada. \\ \hline
+
+\textbf{Secuencia de pasos} & 
+\begin{enumerate}
+  \item El profesor selecciona la rama de la asignatura.
+  \item El sistema muestra el libro actual asociado a la rama.
+  \item El profesor solicita eliminar el libro.
+  \item El sistema solicita confirmación de la acción.
+  \item El profesor confirma la eliminación.
+  \item El sistema elimina el libro asociado a la rama.
+  \item El sistema informa de la eliminación exitosa.
+\end{enumerate} \\ \hline
+
+\textbf{Postcondición} & El libro asociado a la rama es eliminado y ya no está disponible para consulta. \\ \hline
+
+\textbf{Excepciones} & 
+\begin{itemize}
+  \item No se ha elegido ningún grupo.
+  \item No existe libro para eliminar en la rama seleccionada.
+  \item Problemas de conexión a la base de datos.
+\end{itemize} \\ \hline
+\end{tabularx}
+\caption{Requisito funcional: RF-12 Eliminar libro del curso}
+\end{table}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{RF-13} & \textbf{Revisar tareas} \\ \hline
+
+\textbf{Descripción} & Permitir al profesor y al alumno revisar la lista de tareas creadas para una rama específica de la asignatura. \\ \hline
+
+\textbf{Precondición} & El profesor o el alumno deben estar autenticados, tener un grupo seleccionado y existir al menos una tarea creada en la rama seleccionada. \\ \hline
+
+\textbf{Secuencia de pasos} & 
+\begin{enumerate}
+  \item El profesor selecciona la rama de la asignatura.
+  \item El sistema muestra la lista de tareas disponibles.
+  \item El profesor puede seleccionar una tarea para ver sus detalles.
+\end{enumerate} \\ \hline
+
+\textbf{Postcondición} & El profesor visualiza correctamente la información de las tareas existentes. \\ \hline
+
+\textbf{Excepciones} & 
+\begin{itemize}
+  \item No se ha elegido ningún grupo.
+  \item No existen tareas en la rama seleccionada.
+  \item Problemas de conexión a la base de datos.
+\end{itemize} \\ \hline
+\end{tabularx}
+\caption{Requisito funcional: RF-13 Revisar tareas}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{RF-14} & \textbf{Crear tarea} \\ \hline
+
+\textbf{Descripción} & Permitir al profesor crear nuevas tareas para una rama específica de la asignatura. \\ \hline
+
+\textbf{Precondición} & El profesor debe estar autenticado y tener un grupo seleccionado. \\ \hline
+
+\textbf{Secuencia de pasos} & 
+\begin{enumerate}
+  \item El profesor selecciona la rama de la asignatura.
+  \item El profesor accede al formulario para crear una tarea.
+  \item El profesor introduce los detalles de la tarea (título, descripción, fecha límite, alumnos dentro del grupo a los que se dirige la tarea y un archivo de apoyo opcional).
+  \item El profesor confirma la creación de la tarea.
+  \item El sistema valida los datos introducidos, el archivo de apoyo si lo hubiera (formato correcto) y que haya alumnos seleccionados.
+  \item El sistema guarda la tarea, envía un mensaje del sistema a los alumnos e informa al profesor de la creación exitosa.
+\end{enumerate} \\ \hline
+
+\textbf{Postcondición} & La nueva tarea queda registrada y disponible en la lista de tareas de la rama y el alumno queda avisado de ello en los mensajes (RFT-1). \\ \hline
+
+\textbf{Excepciones} & 
+\begin{itemize}
+  \item No se ha elegido ningún grupo.
+  \item Datos incompletos o inválidos en el formulario.
+  \item Problemas de conexión a la base de datos.
+\end{itemize} \\ \hline
+\end{tabularx}
+\caption{Requisito funcional: RF-14 Crear tarea}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{RF-15} & \textbf{Modificar tarea} \\ \hline
+
+\textbf{Descripción} & Permitir al profesor modificar las tareas existentes en una rama específica de la asignatura. \\ \hline
+
+\textbf{Precondición} & El profesor debe estar autenticado, tener un grupo seleccionado y existir la tarea que desea modificar. \\ \hline
+
+\textbf{Secuencia de pasos} & 
+\begin{enumerate}
+  \item El profesor selecciona la rama de la asignatura.
+  \item El profesor selecciona la tarea a modificar.
+  \item El sistema muestra los datos actuales de la tarea.
+  \item El profesor edita los detalles necesarios.
+  \item El profesor confirma la modificación.
+  \item El sistema valida los datos introducidos, el archivo de apoyo si lo hubiera (formato correcto) y que haya alumnos seleccionados.
+  \item El sistema actualiza la tarea, envía un mensaje del sistema a los alumnos e informa al profesor de la modificación exitosa.
+\end{enumerate} \\ \hline
+
+\textbf{Postcondición} & La tarea queda actualizada con los nuevos datos proporcionados y el alumno queda avisado de ello en los mensajes (RFT-1). \\ \hline
+
+\textbf{Excepciones} & 
+\begin{itemize}
+  \item No se ha elegido ningún grupo.
+  \item Datos incompletos o inválidos en el formulario.
+  \item Problemas de conexión a la base de datos.
+\end{itemize} \\ \hline
+\end{tabularx}
+\caption{Requisito funcional: RF-15 Modificar tarea}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{RF-16} & \textbf{Cerrar tarea} \\ \hline
+
+\textbf{Descripción} & Permitir al profesor cerrar una tarea, impidiendo que los alumnos sigan entregándola. \\ \hline
+
+\textbf{Precondición} & El profesor debe estar autenticado, tener un grupo seleccionado y la tarea debe existir y estar activa (fecha de cierre no cumplida o ya cerrada antes). \\ \hline
+
+\textbf{Secuencia de pasos} & 
+\begin{enumerate}
+  \item El profesor selecciona la rama de la asignatura.
+  \item El profesor selecciona la tarea que desea cerrar.
+  \item El sistema muestra la información de la tarea.
+  \item El profesor solicita cerrar la tarea.
+  \item El sistema cierra la tarea e informa de la acción exitosa.
+\end{enumerate} \\ \hline
+
+\textbf{Postcondición} & La tarea queda cerrada y no acepta nuevas entregas de los alumnos. \\ \hline
+
+\textbf{Excepciones} & 
+\begin{itemize}
+  \item No se ha elegido ningún grupo.
+  \item Problemas de conexión a la base de datos.
+\end{itemize} \\ \hline
+\end{tabularx}
+\caption{Requisito funcional: RF-16 Cerrar tarea}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{RF-17} & \textbf{Eliminar tarea} \\ \hline
+
+\textbf{Descripción} & Permitir al profesor eliminar tareas existentes de una rama de la asignatura. \\ \hline
+
+\textbf{Precondición} & El profesor debe estar autenticado tener un grupo seleccionado y la tarea debe existir. \\ \hline
+
+\textbf{Secuencia de pasos} & 
+\begin{enumerate}
+  \item El profesor selecciona la rama de la asignatura.
+  \item El profesor selecciona la tarea que desea eliminar.
+  \item El sistema solicita confirmación para eliminar la tarea.
+  \item El profesor confirma la eliminación.
+  \item El sistema elimina la tarea e informa de la acción exitosa.
+\end{enumerate} \\ \hline
+
+\textbf{Postcondición} & La tarea queda eliminada y ya no está disponible para los usuarios. \\ \hline
+
+\textbf{Excepciones} & 
+\begin{itemize}
+  \item No se ha elegido ningún grupo.
+  \item Problemas de conexión a la base de datos.
+\end{itemize} \\ \hline
+\end{tabularx}
+\caption{Requisito funcional: RF-17 Eliminar tarea}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{RF-18} & \textbf{Revisar cuestionarios} \\ \hline
+
+\textbf{Descripción} & Permitir al profesor y al alumno revisar la lista de cuestionarios de la rama de teoría de la asignatura. \\ \hline
+
+\textbf{Precondición} & El profesor o el alumno deben de estar autenticados, tener un grupo seleccionado y existir al menos un cuestionario creado en la rama de teoría. \\ \hline
+
+\textbf{Secuencia de pasos} & 
+\begin{enumerate}
+  \item El usuario selecciona la rama de teoría de la asignatura.
+  \item El usuario accede a la sección de cuestionarios.
+  \item El sistema muestra la lista de cuestionarios disponibles.
+  \item El profesor puede seleccionar un cuestionario para ver sus detalles.
+\end{enumerate} \\ \hline
+
+\textbf{Postcondición} & El profesor visualiza correctamente la información de los cuestionarios existentes. \\ \hline
+
+\textbf{Excepciones} & 
+\begin{itemize}
+  \item No existen cuestionarios en la rama seleccionada.
+  \item No se ha elegido ningún grupo.
+  \item Problemas de conexión a la base de datos.
+\end{itemize} \\ \hline
+\end{tabularx}
+\caption{Requisito funcional: RF-18 Revisar cuestionarios}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{RF-19} & \textbf{Crear cuestionario} \\ \hline
+
+\textbf{Descripción} & Permitir al profesor crear nuevos cuestionarios para la rama de teoría de la asignatura. \\ \hline
+
+\textbf{Precondición} & El profesor debe estar autenticado y tener un grupo seleccionado. \\ \hline
+
+\textbf{Secuencia de pasos} & 
+\begin{enumerate}
+  \item El profesor selecciona la rama de teoría de la asignatura.
+  \item El usuario accede a la sección de cuestionarios.
+  \item El profesor accede al formulario para crear un cuestionario.
+  \item El profesor introduce los detalles del cuestionario (título, alumnos, fecha de cierra y preguntas tipo test, a su vez, cada pregunta podrá tener un material de apoyo opcional.).
+  \item El profesor confirma la creación del cuestionario.
+  \item El sistema valida los datos introducidos, las preguntas y sus correspondientes materiales de apoyo (si lo hubiese).
+  \item El sistema guarda el cuestionario, envía un mensaje del sistema a los alumnos e informa al profesor de la creación exitosa.
+\end{enumerate} \\ \hline
+
+\textbf{Postcondición} & El nuevo cuestionario queda registrado y disponible en la lista de cuestionarios de la rama y el alumno queda avisado de ello en los mensajes (RFT-1). \\ \hline
+
+\textbf{Excepciones} & 
+\begin{itemize}
+  \item Datos incompletos o inválidos en el formulario.
+  \item Problemas de conexión a la base de datos.
+\end{itemize} \\ \hline
+\end{tabularx}
+\caption{Requisito funcional: RF-19 Crear cuestionario}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{RF-20} & \textbf{Modificar cuestionario} \\ \hline
+
+\textbf{Descripción} & Permitir al profesor modificar los cuestionarios existentes en la rama de teoría de la asignatura. \\ \hline
+
+\textbf{Precondición} & El profesor debe estar autenticado, debe de haber un grupo seleccionado y existir el cuestionario que se desea modificar. \\ \hline
+
+\textbf{Secuencia de pasos} & 
+\begin{enumerate}
+  \item El profesor selecciona la rama de teoría de la asignatura.
+  \item El usuario accede a la sección de cuestionarios.
+  \item El profesor selecciona el cuestionario a modificar.
+  \item El sistema muestra los datos actuales del cuestionario.
+  \item El profesor edita los detalles necesarios.
+  \item El profesor confirma la modificación.
+  \item El sistema valida los datos introducidos, las preguntas y sus correspondientes materiales de apoyo (si lo hubiese).
+  \item El sistema actualiza el cuestionario, envía un mensaje del sistema a los alumnos e informa al profesor de la modificación exitosa.
+\end{enumerate} \\ \hline
+
+\textbf{Postcondición} & El cuestionario queda actualizado con los nuevos datos proporcionados y el alumno queda avisado de ello en los mensajes (RFT-1). \\ \hline
+
+\textbf{Excepciones} & 
+\begin{itemize}
+  \item No se ha elegido ningún grupo.
+  \item Datos inválidos o incompletos durante la modificación.
+  \item Problemas de conexión a la base de datos.
+\end{itemize} \\ \hline
+\end{tabularx}
+\caption{Requisito funcional: RF-20 Modificar cuestionario}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{RF-21} & \textbf{Cerrar cuestionario} \\ \hline
+
+\textbf{Descripción} & Permitir al profesor cerrar un cuestionario, impidiendo que los alumnos sigan respondiéndolo. \\ \hline
+
+\textbf{Precondición} & El profesor debe estar autenticado, debe de haber un grupo seleccionado y el cuestionario debe existir y estar activo. \\ \hline
+
+\textbf{Secuencia de pasos} & 
+\begin{enumerate}
+  \item El profesor selecciona la rama de teoría de la asignatura.
+  \item El profesor selecciona el cuestionario que desea cerrar.
+  \item El sistema solicita confirmación para cerrar el cuestionario.
+  \item El profesor confirma el cierre.
+  \item El sistema cierra el cuestionario e informa de la acción exitosa.
+\end{enumerate} \\ \hline
+
+\textbf{Postcondición} & El cuestionario queda cerrado y no acepta nuevas respuestas de los alumnos. \\ \hline
+
+\textbf{Excepciones} & 
+\begin{itemize}
+  \item No se ha elegido ningún grupo.
+  \item Problemas de conexión a la base de datos.
+\end{itemize} \\ \hline
+\end{tabularx}
+\caption{Requisito funcional: RF-21 Cerrar cuestionario}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{RF-22} & \textbf{Eliminar cuestionario} \\ \hline
+
+\textbf{Descripción} & Permitir al profesor eliminar cuestionarios existentes en la rama de teoría de la asignatura. \\ \hline
+
+\textbf{Precondición} & El profesor debe estar autenticado, debe de haber un grupo seleccionado y el cuestionario debe existir. \\ \hline
+
+\textbf{Secuencia de pasos} & 
+\begin{enumerate}
+  \item El profesor selecciona la rama de teoría de la asignatura.
+  \item El profesor selecciona el cuestionario que desea eliminar.
+  \item El sistema solicita confirmación para eliminar el cuestionario.
+  \item El profesor confirma la eliminación.
+  \item El sistema elimina el cuestionario y confirma la acción exitosa.
+\end{enumerate} \\ \hline
+
+\textbf{Postcondición} & El cuestionario queda eliminado y ya no está disponible para los usuarios. \\ \hline
+
+\textbf{Excepciones} & 
+\begin{itemize}
+  \item No se ha elegido ningún grupo.
+  \item Problemas de conexión a la base de datos.
+\end{itemize} \\ \hline
+\end{tabularx}
+\caption{Requisito funcional: RF-22 Eliminar cuestionario}
+\end{table}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{RF-23} & \textbf{Revisar entregas} \\ \hline
+
+\textbf{Descripción} & Permitir al profesor revisar las entregas realizadas por los alumnos para una tarea específica. \\ \hline
+
+\textbf{Precondición} & El profesor debe estar autenticado, tener un grupo seleccionado,existir una tarea creada y haber al menos una entrega realizada por los alumnos. \\ \hline
+
+\textbf{Secuencia de pasos} &
+\begin{enumerate}
+  \item El profesor selecciona la rama de la asignatura.
+  \item El profesor selecciona una tarea existente.
+  \item El sistema muestra la lista de entregas realizadas por los alumnos.
+  \item El profesor selecciona una entrega para visualizar su contenido.
+\end{enumerate} \\ \hline
+
+\textbf{Postcondición} & El profesor visualiza correctamente las entregas asociadas a la tarea seleccionada. \\ \hline
+
+\textbf{Excepciones} &
+\begin{itemize}
+  \item No existen entregas para la tarea seleccionada.
+  \item No se ha elegido ningún grupo.
+  \item Problemas de conexión a la base de datos.
+\end{itemize} \\ \hline
+\end{tabularx}
+\caption{Requisito funcional: RF-23 Revisar entregas}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{RF-24} & \textbf{Calificar entrega} \\ \hline
+
+\textbf{Descripción} & Permitir al profesor calificar una entrega realizada por un alumno para una tarea específica. \\ \hline
+
+\textbf{Precondición} & El profesor debe estar autenticado, debe de haber un grupo seleccionado y existir una entrega asociada a la tarea seleccionada. \\ \hline
+
+\textbf{Secuencia de pasos} &
+\begin{enumerate}
+  \item El profesor selecciona la rama de la asignatura.
+  \item El profesor selecciona una tarea.
+  \item El profesor selecciona una entrega concreta.
+  \item El sistema muestra el contenido de la entrega.
+  \item El profesor introduce la calificación.
+  \item El profesor confirma la calificación.
+  \item El sistema valida la calificación introducida (Número real del 1 al 10).
+  \item El sistema guarda la calificación asignada, envía un mensaje del sistema a los alumnos e informa al profesor del éxito en calificar.
+\end{enumerate} \\ \hline
+
+\textbf{Postcondición} & La entrega queda calificada, la calificación se almacena en el sistema y el alumno queda avisado de ello en los mensajes (RFT-1). \\ \hline
+
+\textbf{Excepciones} &
+\begin{itemize}
+  \item No existen entregas para la tarea seleccionada.
+  \item No se ha elegido ningún grupo.
+  \item Problemas de conexión a la base de datos.
+\end{itemize} \\ \hline
+\end{tabularx}
+\caption{Requisito funcional: RF-24 Calificar entrega}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{RF-25} & \textbf{Revisar calificaciones de entregas} \\ \hline
+
+\textbf{Descripción} & Permitir al profesor revisar las calificaciones asignadas a las entregas de una tarea específica. \\ \hline
+
+\textbf{Precondición} & El profesor debe estar autenticado, debe de haber un grupo seleccionado y existir una entrega asociada a la tarea seleccionada. \\ \hline
+
+\textbf{Secuencia de pasos} &
+\begin{enumerate}
+  \item El profesor selecciona la rama de la asignatura.
+  \item El profesor selecciona una tarea.
+  \item El sistema muestra la lista de entregas calificadas junto con sus calificaciones.
+\end{enumerate} \\ \hline
+
+\textbf{Postcondición} & El profesor visualiza correctamente las calificaciones asociadas a las entregas. \\ \hline
+
+\textbf{Excepciones} &
+\begin{itemize}
+  \item No existen entregas calificadas para la tarea seleccionada.
+  \item No se ha elegido ningún grupo.
+  \item Problemas de conexión a la base de datos.
+\end{itemize} \\ \hline
+\end{tabularx}
+\caption{Requisito funcional: RF-25 Revisar calificaciones de entregas}
+\end{table}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{RF-26} & \textbf{Revisar calificaciones generales del alumno} \\ \hline
+
+\textbf{Descripción} & Permitir al profesor o al alumno revisar las calificaciones generales obtenidas previamente por un alumno en el curso. \\ \hline
+
+\textbf{Precondición} & El profesor o el alumno deben de estar autenticados, tener un grupo seleccionado y que dicho alumno tenga calificaciones generales registradas en el sistema. \\ \hline
+
+\textbf{Secuencia de pasos} &
+\begin{enumerate}
+  \item El usuario acccede a perfil o a administración (esta última solo si es profesor).
+  \item Si el usuario es alumno, el sistema identifica automáticamente al alumno autenticado.
+  \item Si el usuario es profesor, el sistema requiere de la selección del alumno desde la herramienta de calificaciones generales.
+  \item El sistema muestra las calificaciones generales registradas para el alumno.
+  \item El usuario revisa el historial de calificaciones.
+\end{enumerate} \\ \hline
+
+\textbf{Postcondición} & El usuario visualiza correctamente las calificaciones generales del alumno. \\ \hline
+
+\textbf{Excepciones} &
+\begin{itemize}
+  \item El alumno no tiene calificaciones registradas.
+  \item No se ha elegido ningún grupo.
+  \item Problemas de conexión a la base de datos.
+\end{itemize} \\ \hline
+\end{tabularx}
+\caption{Requisito funcional: RF-26 Revisar calificaciones generales del alumno}
+\end{table}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{RF-27} & \textbf{Asignar calificación general al alumno} \\ \hline
+
+\textbf{Descripción} & Permitir al profesor asignar o actualizar la calificación general de un alumno en el curso. \\ \hline
+
+\textbf{Precondición} & El profesor debe estar autenticado y tener un grupo seleccionado. \\ \hline
+
+\textbf{Secuencia de pasos} &
+\begin{enumerate}
+  \item El profesor selecciona el perfil o administración.
+  \item El profesor accede a la herramienta de calificaciones generales
+  \item El profesor selecciona un alumno del listado.
+  \item El sistema muestra las calificaciones generales actuales, si existen.
+  \item El profesor introduce o modifica la calificación general (que podrá ser Q1, Q2, Q3, Ordinaria o extraordinaria, esta última, solo se activará en caso de tener una calificación inferior a 5 en la ordinaria).
+  \item El profesor confirma la asignación de la calificación.
+  \item El sistema valida la calificación introducida (Número entero del 1 al 10).
+  \item El sistema guarda la calificación general del alumno, envía un mensaje del sistema a los alumnos e informa al profesorde la operación exitosa.
+\end{enumerate} \\ \hline
+
+\textbf{Postcondición} & La calificación general del alumno queda registrada o actualizada en el sistema y el alumno queda avisado de ello en los mensajes (RFT-1). \\ \hline
+
+\textbf{Excepciones} &
+\begin{itemize}
+  \item La calificación introducida no es válida.
+  \item No se ha elegido ningún grupo.
+  \item Problemas de conexión a la base de datos.
+\end{itemize} \\ \hline
+\end{tabularx}
+\caption{Requisito funcional: RF-27 Asignar calificación general al alumno}
+\end{table}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{RF-28} & \textbf{Ver mensajes} \\ \hline
+
+\textbf{Descripción} & Permitir al alumno y al profesor visualizar los mensajes recibidos en la plataforma y marcarlos como leídos si así lo desea el usuario. \\ \hline
+
+\textbf{Precondición} & El profesor o alumno deben de estar autenticado y tener al menos un mensaje recibido. \\ \hline
+
+\textbf{Secuencia de pasos} &
+\begin{enumerate}
+  \item El usuario accede a la sección de mensajes.
+  \item El sistema muestra la lista de mensajes recibidos.
+  \item De forma opcional y si el mensaje no estaba ya leído, el usuario marca el mensaje como leído.
+  \item El sistema actualiza el estado del mensaje.
+\end{enumerate} \\ \hline
+
+\textbf{Postcondición} & El usuario puede ver sus mensajes y marcados como leídos en caso de que el usuario lo haya indicado. \\ \hline
+
+\textbf{Excepciones} &
+\begin{itemize}
+  \item No existen mensajes para el usuario.
+  \item Problemas de conexión a la base de datos.
+\end{itemize} \\ \hline
+\end{tabularx}
+\caption{Requisito funcional: RF-28 Ver mensajes}
+\end{table}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{RF-29} & \textbf{Entregar tarea} \\ \hline
+
+\textbf{Descripción} & Permitir al alumno realizar la entrega de una tarea asignada por el profesor. \\ \hline
+
+\textbf{Precondición} & El alumno debe estar autenticado, tener un grupo seleccionado, existir una tarea activa y encontrarse dentro del plazo de entrega. \\ \hline
+
+\textbf{Secuencia de pasos} &
+\begin{enumerate}
+  \item El alumno selecciona la rama de la asignatura.
+  \item El alumno selecciona una tarea disponible.
+  \item El sistema muestra los detalles de la tarea.
+  \item El alumno adjunta el comentario y/o archivo requerido.
+  \item El alumno confirma la entrega de la tarea.
+  \item El sistema valida que el comentario sea válido y que el archivo adjunto (si lo hubiera) sea válido.
+  \item El sistema registra la entrega realizada, envía un mensaje del sistema al profesor e informa al alumno de que la entrega fue exitosa.
+\end{enumerate} \\ \hline
+
+\textbf{Postcondición} & La tarea queda entregada y disponible para su posterior revisión y calificación por parte del profesor y el alumno profesor avisado de ello en los mensajes (RFT-1). \\ \hline
+
+\textbf{Excepciones} &
+\begin{itemize}
+  \item No se ha elegido ningún grupo.
+  \item El archivo o el comentario adjunto/s no es válido.
+  \item Problemas de conexión a la base de datos.
+\end{itemize} \\ \hline
+\end{tabularx}
+\caption{Requisito funcional: RF-29 Entregar tarea}
+\end{table}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{RF-30} & \textbf{Rellenar y entregar cuestionario} \\ \hline
+
+\textbf{Descripción} & Permitir al alumno rellenar un cuestionario y entregarlo para su autocorrección inmediata por el sistema. \\ \hline
+
+\textbf{Precondición} & El alumno debe estar autenticado, tener un grupo seleccionado, existir un cuestionario activo y encontrarse dentro del plazo de entrega. \\ \hline
+
+\textbf{Secuencia de pasos} &
+\begin{enumerate}
+  \item El alumno selecciona la rama de teoría de la asignatura.
+  \item El alumno selecciona un cuestionario disponible.
+  \item El sistema muestra las preguntas del cuestionario.
+  \item El alumno responde a las preguntas.
+  \item El alumno confirma la entrega del cuestionario.
+  \item El sistema valida que todas las preguntas han sido respondidas.
+  \item El sistema realiza la autocorrección del cuestionario.
+  \item El sistema registra la entrega y la calificación obtenida.
+\end{enumerate} \\ \hline
+
+\textbf{Postcondición} & El cuestionario queda entregado y autocorregido, quedando registrada la calificación obtenida por el alumno. \\ \hline
+
+\textbf{Excepciones} &
+\begin{itemize}
+  \item No se ha elegido ningún grupo.
+  \item No se han respondido todas las preguntas Y/o las respuestas no son válidas.
+  \item Problemas de conexión a la base de datos.
+\end{itemize} \\ \hline
+\end{tabularx}
+\caption{Requisito funcional: RF-30 Rellenar y entregar cuestionario}
+\end{table}
+Por último, es importante añadir un requisito transversal que se dispara en varios requisitos funcionales del sistema.
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+
+\textbf{RFT-1} & \textbf{Envío de notificaciones del sistema} \\ \hline
+
+\textbf{Descripción} & Permitir al sistema enviar notificaciones automáticas a los usuarios cuando se produzcan determinadas acciones relevantes dentro de la plataforma. \\ \hline
+
+\textbf{Precondición} & Debe producirse una acción del sistema que tenga asociada una notificación automática. \\ \hline
+
+\textbf{Secuencia de pasos} &
+\begin{enumerate}
+  \item El sistema detecta la ejecución de una acción relevante.
+  \item El sistema identifica a los usuarios destinatarios de la notificación.
+  \item El sistema genera el contenido de la notificación.
+  \item El sistema envía la notificación al usuario correspondiente.
+\end{enumerate} \\ \hline
+
+\textbf{Postcondición} & El usuario destinatario recibe una notificación asociada a la acción realizada. \\ \hline
+
+\textbf{Excepciones} &
+\begin{itemize}
+  \item No se puede identificar al usuario destinatario.
+  \item La acción anterior falla.
+  \item Problemas de conexión a la base de datos.
+\end{itemize} \\ \hline
+\end{tabularx}
+\caption{Requisito funcional transversal: RFT-1 Envío de notificaciones del sistema}
+\end{table}
 
 \section {Tecnologías y arquitectura de la solución}
 La solución lleva a tomar las siguientes decisiones tecnológicas:

@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex build/main"] 1767804431.23165 "build/main.aux" "build/main.bbl" "build/main" 1767804500.80909 0
+["bibtex build/main"] 1767832515.83309 "build/main.aux" "build/main.bbl" "build/main" 1767832522.11835 0
   "./referencias.bib" 1714653225 3840 b49cf890b9a37afff70b589cd3013060 ""
   "C:/Users/jl444/AppData/Local/Programs/MiKTeX/bibtex/bst/ieeetran/IEEEtran.bst" 1440622569 57748 7c8250ecf02814ce6ddc0cdbb63df1dd ""
-  "build/main.aux" 1767804499 11050 5d14ef0945f7bf07c52ebb7f62eb5759 "pdflatex"
+  "build/main.aux" 1767832521 18727 e26d7ead7f48f293b71dc3baf6d3f70c "pdflatex"
   (generated)
   "build/main.bbl"
   "build/main.blg"
   (rewritten before read)
-["pdflatex"] 1767804496.18421 "c:/Users/jl444/OneDrive/Escritorio/TFG/main.tex" "build/main.pdf" "main" 1767804500.80969 0
+["pdflatex"] 1767832516.22653 "c:/Users/jl444/OneDrive/Escritorio/TFG/main.tex" "build/main.pdf" "main" 1767832522.11903 0
   "C:/Users/jl444/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1767804125 82705 9cc9f144eacd499bc23a611703921467 ""
   "C:/Users/jl444/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1727437875 11948238 b6ce6b25c84fe590f9e001dfe8e4c19e ""
   "C:/Users/jl444/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc" 1458473887 4993 80dc9bab7f31fb78a000ccfed0e27cab ""
@@ -250,7 +250,7 @@
   "C:/Users/jl444/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "C:/Users/jl444/AppData/Local/Programs/MiKTeX/tex/latex/wrapfig/wrapfig.sty" 1044403200 26220 3701aebf80ccdef248c0c20dd062fea9 ""
   "C:/Users/jl444/AppData/Local/Programs/MiKTeX/tex/latex/xcolor/xcolor.sty" 1700127522 55487 80a65caedd3722f4c20a14a69e785d8f ""
-  "Figuras/DCU.png" 1767791954 55399 d281647c46a4c5f9634147205790f9cf ""
+  "Figuras/DCU.png" 1767817127 56132 d2fc82992266218defae8c90db612759 ""
   "Figuras/encuestaA.png" 1714653225 122156 aff4e89c0ec0ed56c4ca1f75810562a2 ""
   "Figuras/entrevistaC.png" 1714653225 65364 aca0f093a7e280e1193099b1da2d6e74 ""
   "Figuras/entrevistaE.png" 1714653225 155002 d8331d7e21947586acdca8a6f6274445 ""
@@ -265,16 +265,16 @@
   "Figuras/logos/logo_peque_R.png" 1714653225 194281 1f8347e72b67d782bf6293b6a218655c ""
   "UAL.sty" 1767801254 11174 6dc851311fc03402687a0e89ef3fae0b ""
   "apendices.tex" 1714653225 3429 0ac1a4fc136bcc36ce44eaef0ee7116c ""
-  "build/main.aux" 1767804499 11050 5d14ef0945f7bf07c52ebb7f62eb5759 "pdflatex"
-  "build/main.bbl" 1767804431 1125 7f5702b9f2cfaa29bcbff22b783117c4 "bibtex build/main"
-  "build/main.lof" 1767804499 1016 71175eaca599700fa3fa96b327087975 "pdflatex"
-  "build/main.lol" 1767804498 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "build/main.lot" 1767804499 1444 142e9e85587416691d4821bbc12cb2bc "pdflatex"
-  "build/main.out" 1767804499 8861 f7358a3bdb35086a87ed06b3beb8cad9 "pdflatex"
-  "build/main.toc" 1767804499 3893 184efb1beb1123d7cc8a01b6ef402026 "pdflatex"
+  "build/main.aux" 1767832521 18727 e26d7ead7f48f293b71dc3baf6d3f70c "pdflatex"
+  "build/main.bbl" 1767832516 1125 7f5702b9f2cfaa29bcbff22b783117c4 "bibtex build/main"
+  "build/main.lof" 1767832521 1016 71175eaca599700fa3fa96b327087975 "pdflatex"
+  "build/main.lol" 1767832518 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "build/main.lot" 1767832521 6832 351c7e5740ba978e4f763a64b85d6f01 "pdflatex"
+  "build/main.out" 1767832521 8861 7ad462ef98954e363680d88c6f69643f "pdflatex"
+  "build/main.toc" 1767832521 3891 ce2ae78ba9403e01da128d7ed605adc3 "pdflatex"
   "c:/Users/jl444/OneDrive/Escritorio/TFG/main.tex" 1767804325 3861 b8ec0b0a2eb5fcb73a2a311522d00866 ""
   "codigo.sty" 1714653225 5598 b84ac9747489d86fc617488abd4340b9 ""
-  "contenido.tex" 1767804495 43776 75b9df53ad7438ec25b1f817da10ee59 ""
+  "contenido.tex" 1767832508 89842 04c87a341e345a75c34f8bb54b4913cc ""
   "contra.tex" 1714653225 650 ffc5474f24fa3b499cf9762950580ca2 ""
   "dedicatoria.tex" 1714653225 1204 fadb92af45c54939f03015d5c3e02e7b ""
   "indicesyrefe.tex" 1714653225 1231 9ff37925cb26e39073af7f80e7d3da89 ""
