@@ -7,20 +7,19 @@ Para esto, se ha realizado una investigación en el marco musical con la premisa
 
 Tras ello, se continuará la investigación mediante un estudio bibliográfico, en el cual, se obtendrá más información vital para la solución requerida, de esta forma, se tendrán dos grandes bloques de información, los cuales, serán comparados mediante la percepción propia como antiguo alumno de la asignatura. 
 
-Gracias a todo este trabajo se podrán definir una serie de mejores soluciones en base a la información recogida y se elegirá una de ellas para desarrollarla hasta obtener una solución completa.
+Gracias a todo este trabajo se podrán definir una solución informática que cubra las necesidades detectadas y, que posteriormente, será desarrollada.
 
 \chapter {Objetivos}
 
 El objetivo principal sería, por tanto, \textbf {resolver la problemática en relación a la falta de recursos informáticos enfocados a la enseñanza del lenguaje musical}. Para alcanzar dicho objetivo, se deben cumplir, a su vez, los siguientes subobjetivos:
+\begin{itemize}
 
-\textbf {- Entender las necesidades de profesores y alumnos de lenguaje musical.}
-
-\textbf {- Aprender sobre la relación existente entre la informática y el lenguaje musical.}
-
-\textbf {- Definir una serie de posibles soluciones que puedan resolver la problemática planteada.}
-
-\textbf {- Diseñar y desarrollar una de las soluciones.}
-
+\item \textbf {Entender las necesidades de profesores y alumnos de lenguaje musical.}
+\item \textbf {Aprender sobre la relación existente entre la informática y el lenguaje musical.}
+\item \textbf {Definir una solución informática que cubra las necesidades detectadas.}
+\item \textbf {Diseñar y desarrollar una de las soluciones.}
+\item \textbf {Llevar a cabo el proceso de desarrollo con tecnologías totalmente.}
+\end{itemize}
 \chapter {Marco teórico}
 \label{sec:marco}
 \section {Contexto}
@@ -350,9 +349,9 @@ Tras analizar los diferentes documentos se sacan las siguientes conclusiones:
 
 \chapter {Definición del problema a resolver}
 La investigación y el estudio bibliográfico han dejado definidas una serie de necesidades que deben ser cubiertas por la solución a desarrollar pero con un nivel de abstracción muy alto, por tanto, se debe transformar la información a un nivel más objetivo.
-Para ello, se creará, en primer lugar, una especificación formal donde se redactarán todos los aspectos de la aplicación de una forma mucho más metódica, combinando así el lenguaje natural en el que se encuentra la información obtenida previamente con la objetividad a la que se desea llegar en el siguiente paso.
-Posteriormente, esta información se plasmará en un diagrama de casos de uso del sistema que permita entender de una forma más visual y esquemática el funcionamiento de la aplicación así como los requisitos de cada actor.
-Por último, se definirán las tecnologías a utilizar y la arquitectura de la solución para tener una visión global de la solución a desarrollar antes de comenzar con el diseño y desarrollo de la misma.
+Para ello, se creará, en primer lugar, una especificación formal donde se redactarán todos los aspectos de la aplicación de una forma mucho más metódica y se establecerán unos objetivos funcionales resumidos, combinando así el lenguaje natural en el que se encuentra la información obtenida previamente con la objetividad a la que se desea llegar en el siguiente paso.
+Posteriormente, esta información se plasmará en un diagrama de casos de uso del sistema que permita entender de una forma más visual y esquemática el funcionamiento de la aplicación y se describirán en detalle cada uno de los actores y casos de uso, junto con sus requisitos funcionales asociados, incluyendo la secuencia de pasos que garantizan su correcto cumplimiento, además se abordarán los requisitos no funcionales que condicionan la calidad y comportamiento esperado del sistema.
+Por último, se definirán las tecnologías a utilizar y la arquitectura de la solución para tener una visión global de la solución a desarrollar antes de comenzar con el desarrollo de la misma.
 \section{Especificación formal de la solución}
 
 El sistema permitirá el acceso mediante un mecanismo de inicio de sesión en el que podrán autenticarse tres tipos de usuarios: administrador, profesor y alumno. Cada usuario tendrá acceso únicamente a las funcionalidades correspondientes a su rol, sin posibilidad de utilizar las funciones asignadas a otros.
@@ -383,12 +382,28 @@ Asimismo, los alumnos podrán acceder a los mismos cuatro apartados (Ritmo, Ento
 
 \item En la sección Tareas a realizar, los alumnos podrán consultar la lista de tareas disponibles y realizar las entregas correspondientes. Los formatos permitidos serán PDF, MP3 o MP4, y/o bien un comentario textual dentro de la propia aplicación. En el caso de cuestionarios, el alumno accederá a una ventana específica donde podrá completarlo. El cuestionario no se considerará entregado hasta que el alumno pulse expresamente el botón de envío.
 \end{itemize}
-\section {Diagrama de casos de uso del sistema}
+\section{Objetivos funcionales del sistema}
+El objetivo principal del sistema es facilitar y mejorar la enseñanza del lenguaje musical mediante una plataforma que proporcione funcionalidades específicas tanto para profesores como para alumnos. Estos objetivos funcionales guían el desarrollo del sistema y aseguran que las necesidades pedagógicas y administrativas se cubran de forma eficiente y adaptada a las diferentes ramas del aprendizaje musical.
+Los objetivos funcionales que se persiguen son los siguientes:
+
+\begin{itemize}
+  \item Permitir al profesorado crear, gestionar y visualizar grupos de alumnos, facilitando la organización y seguimiento académico.
+  \item Gestionar el contenido educativo estructurado según las ramas del lenguaje musical: teoría, entonación, ritmo y audición.
+  \item Proporcionar herramientas para que el profesor pueda crear, modificar, cerrar y eliminar tareas y cuestionarios específicos para cada rama.
+  \item Facilitar la interacción del alumnado con las tareas y cuestionarios, incluyendo la entrega de trabajos y la realización de pruebas con autocorrección cuando corresponda.
+  \item Permitir al profesorado revisar, calificar y gestionar las entregas y calificaciones de los alumnos de forma clara y accesible.
+  \item Implementar un sistema de mensajería interna que facilite la comunicación entre profesores y alumnos, con notificaciones automáticas vinculadas a eventos relevantes.
+  \item Permitir la gestión del material didáctico asociado a cada rama del aprendizaje musical, con capacidad de adaptación y personalización según las necesidades específicas de cada grupo de alumnos.
+\end{itemize}
+
+Estos objetivos funcionales proporcionan un marco claro para la posterior definición de los casos de uso y requisitos funcionales, asegurando que el sistema responda adecuadamente a las necesidades del entorno educativo para el que está diseñado.
+
+\section {Diagrama UML de casos de uso del sistema}
 Una vez definida la solución mediante lenguaje natural, se da el siguiente paso hacia el modelado de casos de uso.
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=1\linewidth]{Figuras/DCU.png}
-    \caption{Diagrama de casos de uso del sistema}
+    \caption{Diagrama UML de casos de uso del sistema}
 \end{figure}
 \section {Definición del diagrama de casos de uso}
 El diagrama de casos de uso aporta una visión muy genérica y poco detallada y, aunque es mucho más objetiva que el lenguaje natural, se encuentra en un nivel de abstracción muy alto, por lo tanto, es necesario entrar en más detalle para cada uno de los elementos del diagrama.
@@ -1693,35 +1708,629 @@ Por último, es importante añadir un requisito transversal que se dispara en va
 \end{tabularx}
 \caption{Requisito funcional transversal: RFT-1 Envío de notificaciones del sistema}
 \end{table}
+\section{Requisitos no funcionales}
+Tras definir todas las funcionalidades del sistema, así como los requisitos que las conforman (primero, saber qué debe hacer el sistema), las investigaciones y análisis previos han llevado a definir los siguientes requisitos no funcionales que debe cumplir la solución (después, saber cómo lo debe hacer):
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{RNF-01} & \textbf{Escalabilidad y mantenibilidad} \\ \hline
+\textbf{Descripción} & El sistema deberá diseñarse de forma que permita su evolución y mantenimiento a lo largo del tiempo, facilitando la incorporación de nuevas funcionalidades, la modificación de las existentes y la corrección de errores sin afectar negativamente al conjunto de la aplicación. \\ \hline
+\textbf{Justificación} & Proyectos de esta índole siempre van a dejar aspectos pendientes de considerar, por lo tanto, tanto en su desarrollo como en posibles fases posteriores deberá poder ser aprovechada para proyectos mayores. \\ \hline
+\textbf{Criterio de cumplimiento} & El sistema presenta una arquitectura modular, con separación clara de responsabilidades y una organización del código que facilita su extensión y mantenimiento. \\ \hline
+\end{tabularx}
+\caption{Requisito no funcional: RNF-01 Escalabilidad y mantenibilidad}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{RNF-02} & \textbf{Usabilidad y accesibilidad} \\ \hline
+\textbf{Descripción} & El sistema deberá ser usable y accesible, permitiendo a profesores y alumnos interactuar con la aplicación de forma intuitiva, independientemente de su nivel de competencia digital, y teniendo en cuenta criterios básicos de accesibilidad. \\ \hline
+\textbf{Justificación} & Los usuarios finales no tienen por qué poseer un alto nivel de conocimientos informáticos y pueden existir alumnos con dificultades cognitivas o visuales, como el daltonismo, por lo que es necesario facilitar el acceso y comprensión de la interfaz. \\ \hline
+\textbf{Criterio de cumplimiento} & La interfaz utiliza elementos visuales claros, navegación sencilla, contrastes adecuados y evita sobrecargar las pantallas con información innecesaria. \\ \hline
+\end{tabularx}
+\caption{Requisito no funcional: RNF-02 Usabilidad y accesibilidad}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{RNF-03} & \textbf{Diseño visual atractivo y motivador} \\ \hline
+\textbf{Descripción} & El sistema deberá contar con un diseño visual atractivo, coherente y consistente, que favorezca la motivación del alumnado y mejore la experiencia de usuario durante el proceso de aprendizaje. \\ \hline
+\textbf{Justificación} & El estudio y las investigaciones previas realizadas indican que un diseño visual cuidado y llamativo incrementa la motivación del alumnado, especialmente en entornos educativos digitales. \\ \hline
+\textbf{Criterio de cumplimiento} & La aplicación mantiene una estética uniforme, uso adecuado del color, iconografía clara y una disposición visual que facilita la comprensión del contenido. \\ \hline
+\end{tabularx}
+\caption{Requisito no funcional: RNF-03 Diseño visual atractivo y motivador}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{RNF-04} & \textbf{Portabilidad} \\ \hline
+\textbf{Descripción} & El sistema deberá ser portable, permitiendo su uso en distintos dispositivos y entornos, especialmente en navegadores web modernos y dispositivos móviles. \\ \hline
+\textbf{Justificación} & La portabilidad favorece la escalabilidad del sistema y permite su uso en distintos contextos educativos. \\ \hline
+\textbf{Criterio de cumplimiento} & La aplicación se desarrolla utilizando tecnologías multiplataforma y es accesible desde distintos dispositivos sin necesidad de configuraciones específicas. \\ \hline
+\end{tabularx}
+\caption{Requisito no funcional: RNF-04 Portabilidad}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{RNF-05} & \textbf{Seguridad} \\ \hline
+\textbf{Descripción} & El sistema deberá garantizar la seguridad de los datos personales y académicos de los usuarios, controlando el acceso a la información y protegiendo la integridad de los datos almacenados. \\ \hline
+\textbf{Justificación} & La aplicación está orientada a entornos educativos públicos y privados, como conservatorios y escuelas de música, que requieren un tratamiento seguro de la información del alumnado y profesorado. \\ \hline
+\textbf{Criterio de cumplimiento} & El sistema implementa mecanismos de autenticación, control de roles y restricciones de acceso a las funcionalidades y datos según el tipo de usuario. \\ \hline
+\end{tabularx}
+\caption{Requisito no funcional: RNF-05 Seguridad}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{RNF-06} & \textbf{Consistencia pedagógica} \\ \hline
+\textbf{Descripción} & El sistema deberá mantener una coherencia pedagógica alineada con las necesidades de aprendizaje del alumnado de lenguaje musical, reflejada en la organización de contenidos, navegación y funcionalidades. \\ \hline
+\textbf{Justificación} & La aplicación se estructura en ramas de aprendizaje que corresponden a las distintas áreas del lenguaje musical, separando claramente las funcionalidades educativas de las de gestión, lo que facilita un flujo de aprendizaje claro y comprensible. Asimismo, determinadas funcionalidades se limitan a aquellas ramas en las que tienen sentido desde el punto de vista académico. En concreto, la creación de cuestionarios se restringe a la rama de teoría, ya que en las ramas de entonación, ritmo y audición este tipo de evaluación no resulta adecuada pedagógicamente.\\ \hline
+\textbf{Criterio de cumplimiento} & La navegación y estructura del sistema siguen una lógica pedagógica uniforme, con contenidos, tareas, cuestionarios y calificaciones organizados por ramas y grupos. Las funcionalidades disponibles en cada rama se corresponden con métodos de evaluación y aprendizaje adecuados a su naturaleza académica, evitando ofrecer opciones que no tengan sentido pedagógico.\\ \hline
+\end{tabularx}
+\caption{Requisito no funcional: RNF-06 Consistencia pedagógica}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{RNF-07} & \textbf{Adaptabilidad del contenido} \\ \hline
+\textbf{Descripción} & El sistema deberá permitir la adaptación del contenido educativo en función de las características de cada grupo, posibilitando que el profesor configure materiales, tareas y cuestionarios específicos según las necesidades del alumnado. \\ \hline
+\textbf{Justificación} & Cada grupo puede presentar ritmos de aprendizaje y necesidades distintas, por lo que es necesario ofrecer flexibilidad al profesorado para ajustar el contenido educativo sin afectar al resto de grupos. \\ \hline
+\textbf{Criterio de cumplimiento} & El sistema permite asociar contenidos y actividades de forma independiente a cada grupo, manteniendo una personalización coherente del aprendizaje. \\ \hline
+\end{tabularx}
+\caption{Requisito no funcional: RNF-07 Adaptabilidad del contenido}
+\end{table}
 
 \section {Tecnologías y arquitectura de la solución}
-La solución lleva a tomar las siguientes decisiones tecnológicas:
+\label{sec:plan}
+
+Tras la definición detallada de los requisitos funcionales y no funcionales, se ha decidido adoptar una arquitectura basada en un modelo cliente-servidor con una separación clara entre frontend y backend, apoyada en servicios REST. Esta decisión responde tanto a criterios técnicos como a condicionantes generales del proyecto, tales como la viabilidad en un contexto académico, el uso de tecnologías que sean gratuitas o al menos tengan planes para no invertir dinero en el desarrollo, y la necesidad de facilitar la mantenibilidad, escalabilidad y evolución futura del sistema.
+
+La arquitectura modular adoptada permite integrar servicios externos, desplegar la solución en entornos \emph{cloud} y automatizar su ciclo de vida, garantizando una experiencia de usuario accesible y consistente, así como una gestión eficiente de los recursos y los datos. Estas decisiones se alinean con los objetivos del proyecto y con los requisitos no funcionales previamente definidos, especialmente en lo relativo a mantenibilidad, seguridad, portabilidad y adaptabilidad.
+
+A continuación, se detallan las tecnologías seleccionadas para cada capa del sistema, junto con su justificación técnica y su relación con los objetivos, restricciones y requisitos establecidos.
+
+\subsection{Frontend}
+
+La interfaz de usuario se desarrolla como una aplicación web con el objetivo de maximizar la accesibilidad desde distintos dispositivos y plataformas, en consonancia con los requisitos de usabilidad y portabilidad. Asimismo, se adopta un enfoque híbrido que permite, como línea de trabajo futura, exportar la solución a aplicaciones móviles nativas sin necesidad de rediseñar el sistema.
+
+Para ello, se ha seleccionado el framework \textbf{Ionic} junto con \textbf{Angular}. Ionic facilita el desarrollo multiplataforma y la reutilización de código, mientras que Angular aporta una arquitectura robusta y modular. En particular, Angular sigue el patrón Modelo-Vista-Controlador (MVC), lo que favorece la separación de responsabilidades, la mantenibilidad del código y la escalabilidad del sistema, aspectos directamente relacionados con los requisitos no funcionales definidos.
+
+Además, este enfoque arquitectónico facilita la aplicación de buenas prácticas de desarrollo y la incorporación de estándares de accesibilidad (como WCAG), al permitir una estructuración clara de las vistas, la lógica de negocio y la gestión de estados.
+
+Para garantizar la calidad del frontend, se emplean herramientas de testing como \textbf{Jasmine} y \textbf{Karma}, que permiten realizar pruebas unitarias y de integración, contribuyendo a la fiabilidad del sistema ante futuras modificaciones.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[height=1.5cm]{Figuras/ionic_logo.png}\hspace{1cm}
+    \includegraphics[height=1.5cm]{Figuras/angular_logo.png}\hspace{1cm}
+    \includegraphics[height=1.5cm]{Figuras/jasmine_logo.png}\hspace{1cm}
+    \includegraphics[height=1.5cm]{Figuras/karma_logo.png}
+    \caption{Tecnologías frontend: Ionic, Angular, Jasmine y Karma}
+\end{figure}
+
+La elección de estas tecnologías se justifica por su madurez, amplia documentación y comunidad activa, lo que refuerza la viabilidad técnica del proyecto dentro de un entorno académico y facilita su evolución futura.
+
+\subsection{Backend}
+
+El backend se implementa siguiendo una arquitectura RESTful, lo que permite una comunicación desacoplada con el frontend y facilita la integración con servicios externos. Esta decisión responde tanto a criterios técnicos como a la necesidad de mantener una arquitectura clara, extensible y fácilmente mantenible.
+
+La tecnología base escogida es \textbf{Node.js} junto con \textbf{Express.js}. Node.js proporciona un entorno eficiente basado en JavaScript, coherente con el stack del frontend, mientras que Express.js ofrece la flexibilidad necesaria para construir APIs ligeras y escalables.
+
+En materia de seguridad, se integra \textbf{JSON Web Tokens (JWT)} para la autenticación y autorización de usuarios. Este mecanismo garantiza la identidad de los usuarios mediante tokens firmados, evitando accesos no autorizados y alineándose con buenas prácticas de seguridad ampliamente aceptadas.
+
+Para mejorar la mantenibilidad y facilitar la comprensión del sistema, se utiliza \textbf{Swagger} como herramienta de documentación de la API. Swagger permite generar documentación interactiva de forma automática, lo que resulta especialmente útil en contextos académicos y en futuras ampliaciones del sistema.
+
+La calidad del backend se refuerza mediante el uso de herramientas de testing como \textbf{Jest} y \textbf{Supertest}. Jest permite realizar pruebas unitarias de la lógica de negocio, mientras que Supertest facilita la validación de los endpoints HTTP, contribuyendo a la fiabilidad y robustez del sistema.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[height=1.5cm]{Figuras/nodejs_logo.png}\hspace{0.8cm}
+    \includegraphics[height=1.5cm]{Figuras/express_logo.png}\hspace{0.8cm}
+    \includegraphics[height=1.5cm]{Figuras/jwt_logo.png}\hspace{0.8cm}
+    \includegraphics[height=1.5cm]{Figuras/swagger_logo.png}\hspace{0.8cm}
+    \includegraphics[height=1.5cm]{Figuras/jest_logo.png}\hspace{0.8cm}
+    \includegraphics[height=1.5cm]{Figuras/supertest_logo.png}
+    \caption{Tecnologías backend: Node.js, Express.js, JWT, Swagger, Jest y Supertest}
+\end{figure}
+
+\subsection{Base de datos}
+
+Se opta por una base de datos documental, concretamente \textbf{MongoDB}, debido a su flexibilidad en la gestión de datos y su capacidad de escalar horizontalmente. Esta elección permite adaptarse a posibles cambios en el modelo de datos sin necesidad de rediseños complejos.
+
+MongoDB se integra de forma nativa con Node.js, facilitando el desarrollo y la gestión de la información relativa a usuarios, grupos, tareas y demás entidades del sistema.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[height=1.5cm]{Figuras/mongodb_logo.png}
+    \caption{MongoDB}
+\end{figure}
+
+Durante el desarrollo se utiliza \textbf{MongoDB Compass} como herramienta gráfica de apoyo para la gestión y validación de los datos.
+
+\subsection{Servicios externos}
+
+Con el objetivo de optimizar el desarrollo y mejorar la seguridad del sistema, se integran servicios externos que permiten reutilizar soluciones especializadas:
+
 \begin{itemize}
-\item \textbf{Frontend:} Se creará una aplicación web puesto que es el entorno más accesible para los usuarios, según los estudios previos, pero para abrir líneas de trabajo futuro, recibirá un enfoque híbrido que permita exportar la solución a sistemas móviles. El framework especialmente adecuado para ello y por tanto, el elegido, es Ionic junto con angular.
-\item \textbf{Backend:} Se creará un backend REST puesto que la separación de los roles y responsabilidades queda mucho más clara y tiene una integración sencilla con el Frontend y otros servicios externos. Para ello, la tecnología elegida es Node.js con Express.js por la flexibilidad que ofrece en relación con su arquitectura.
-\item \textbf{Base de datos:} Se usará una base de datos documental para poder almacenar datos de una forma más flexible y escalable para tener nuevas líneas de trabajo futuro. La base de datos elegida es MongoDB por su facilidad de integración con Node.js.
-\item \textbf{Servicios externos:} Se le dará uso a servicios externos para la gestión de los correos electrónicos y la generación de contraseñas seguras para no desarrollar dichas funcionalidades desde cero.
-\item \textbf{Integración y despliegue continuo:} Se usará GitHub Actions para concentrar todo el ciclo de vida del desarrollo en un solo sitio y facilitar la gestión del proyecto.
+    \item \textbf{Mailjet} para la gestión del envío de correos electrónicos y notificaciones automáticas.
+    \item \textbf{API de generación de contraseñas} (\texttt{https://api.genratr.com}) para asegurar la creación de credenciales robustas sin desarrollar esta funcionalidad desde cero.
 \end{itemize}
-Como se puede observar se ha optado por una arquitectura MEAN (MongoDB, Express.js, Angular e Ionic y Node.js) puesto que se basa en la flexibilidad, escalabilidad y que permite la construcción de una lógica de negocio muy esquemática y clara, además e estar preparadas para integrarse entre sí.
-Esto se debe a que se busca un enfoque ágil de desarrollo que permita iterar y adaptarse a la solución dando así prioridad al producto, para ello, también se hará uso de las Issues con las que se puede dejar registro de las tareas completadas y por completar.
-\label{sec:plan} 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[height=1.5cm]{Figuras/mailjet_logo.png}\hspace{1cm}
+    \includegraphics[height=1.5cm]{Figuras/api_logo.png}
+    \caption{Servicios externos}
+\end{figure}
+
+\subsection{Integración y despliegue continuo}
+
+El ciclo de vida del desarrollo se apoya en un flujo de integración y despliegue continuo mediante \textbf{GitHub Actions}, que automatiza la ejecución de pruebas y el despliegue del sistema tras cada cambio relevante en el repositorio.
+
+El despliegue se realiza en la plataforma \textbf{Render}, integrada directamente con GitHub, lo que permite una actualización automática del entorno de producción. Esta decisión responde a criterios de viabilidad y gratuidad, adecuados al contexto académico del proyecto.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[height=1.5cm]{Figuras/github_logo.png}\hspace{1cm}
+    \includegraphics[height=1.5cm]{Figuras/render_logo.png}
+    \caption{Tecnologías de integración y despliegue continuo}
+\end{figure}
+
+\subsection{Arquitectura global de la aplicación}
+
+La arquitectura global sigue un enfoque modular y desacoplado, facilitando la escalabilidad, mantenibilidad y adaptación futura del sistema.
+
+\tikzstyle{block} = [rectangle, draw, node distance=4.5cm,
+    text width=6em, text centered, rounded corners, minimum height=3em, fill=blue!10]
+\tikzstyle{line} = [draw, -latex']
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+    \node [block] (Frontend) {Frontend \\ (Ionic + Angular)};
+    \node [block, below of=Frontend, node distance=5cm] (Backend) {Backend REST \\ (Node.js + Express)};
+    \node [block, below of=Backend, node distance=5cm] (DB) {Base de datos \\ (MongoDB)};
+    \node [block, left of=Backend, node distance=7.2cm] (External) {Servicios externos};
+    \node [block, right of=Backend, node distance=6.3cm] (CI) {CI/CD \\ (GitHub Actions + Render)};
+    \path [line] ([xshift=-1.5mm]Frontend.south) -- node[left] {Solicitudes API} ([xshift=-1.5mm]Backend.north);
+    \path [line] ([xshift=1.5mm]Backend.north) -- node[right] {Respuestas API} ([xshift=1.5mm]Frontend.south);
+    \path [line] ([xshift=-1.5mm]Backend.south) -- ([xshift=-1.5mm]DB.north);
+    \path [line] ([xshift=1.5mm]DB.north) -- ([xshift=1.5mm]Backend.south);
+    \path [line] (Backend.west) -- (External.east);
+    \path [line] (CI) -- (Backend);
+    \path [line] (CI) to[bend right=20] (Frontend);
+\end{tikzpicture}
+\caption{Arquitectura global de la aplicación}
+\end{figure}
+
+Con esta arquitectura y selección tecnológica, el sistema satisface los requisitos funcionales y no funcionales definidos, garantizando su viabilidad técnica en un contexto académico y dejando abiertas futuras líneas de evolución hacia entornos de producción más exigentes.
+
+\chapter{Planificación}
+
+La planificación del proyecto se ha realizado con el objetivo de establecer una hoja de ruta clara y realista que permita organizar las tareas de forma secuencial y coordinada, facilitando así un seguimiento adecuado del progreso y la gestión del tiempo.
+
+Se ha optado por un enfoque pragmático que prioriza la flexibilidad y adaptación a las circunstancias, sin ceñirse a una metodología de gestión específica. Esto permite ajustar las tareas y los plazos según las necesidades reales que vayan surgiendo durante el desarrollo, manteniendo un equilibrio entre el avance técnico y la calidad del resultado.
+
+El cronograma elaborado refleja las fases principales del proyecto, divididiéndose en tareas y sub-tareas de manera que cada etapa se pueda abordar con foco y control, garantizando la coherencia y la continuidad del trabajo.
+
+En resumen, la planificación establece un marco de referencia que orienta la ejecución del proyecto, pero deja espacio para la flexibilidad necesaria en un contexto académico y de investigación, donde el aprendizaje y la evolución del trabajo son parte fundamental del proceso.
+\clearpage
+\thispagestyle{fancy}
+\begin{sidewaysfigure}
+    \centering
+    \includegraphics[width=\textwidth]{Figuras/cronograma.png}
+    \caption{Cronograma del proyecto}
+    \label{fig:cronograma}
+\end{sidewaysfigure}
+\clearpage
+
+\chapter{Desarrollo de la aplicación backend}
+\label{chap:backend}
+
+En este capítulo se describe el proceso de desarrollo de la aplicación backend del sistema, que actúa como núcleo funcional encargado de gestionar la lógica de negocio, la persistencia de los datos y la comunicación con el frontend y con servicios externos. El backend proporciona una interfaz de acceso uniforme y segura a los recursos del sistema mediante una API REST, permitiendo una interacción desacoplada y escalable entre los distintos componentes de la aplicación.
+
+Se presentan las decisiones de diseño adoptadas, la arquitectura y organización interna del backend, así como los mecanismos implementados para garantizar la seguridad, la calidad y la mantenibilidad del sistema.
+
+\section{Arquitectura y visión general del backend}
+
+La aplicación backend se ha diseñado siguiendo una arquitectura cliente-servidor basada en servicios REST, donde el servidor expone un conjunto de endpoints que permiten al frontend interactuar con los distintos recursos del sistema. Las comunicaciones se realizan mediante peticiones HTTP y respuestas en formato JSON, lo que facilita la interoperabilidad y la integración con otros posibles clientes o servicios externos.
+
+Desde el punto de vista estructural, el backend adopta una separación de responsabilidades inspirada en el patrón Modelo-Vista-Controlador (MVC), adaptado al contexto de una API REST. Aunque no existe una capa de vista tradicional, el sistema diferencia claramente entre:
+\begin{itemize}
+    \item \textbf{Modelos}, responsables de definir la estructura de los datos, sus validaciones y la interacción con la base de datos.
+    \item \textbf{Controladores}, que encapsulan la lógica de negocio y coordinan las operaciones sobre los modelos en respuesta a las peticiones recibidas.
+    \item \textbf{Rutas}, que actúan como capa de exposición de la API, definiendo los endpoints disponibles y delegando el procesamiento de las peticiones en los controladores correspondientes.
+\end{itemize}
+
+Esta organización favorece un diseño modular y desacoplado, en el que cada componente cumple una función claramente definida. Como resultado, se facilita la mantenibilidad del código, la incorporación de nuevas funcionalidades y la realización de pruebas de forma aislada.
+
+A nivel de proyecto, el backend se estructura en distintos módulos y directorios que reflejan esta separación, incluyendo carpetas específicas para modelos, controladores, rutas y middlewares. Esta disposición contribuye a una mayor claridad del código y a una gestión más eficiente del desarrollo, especialmente en proyectos de crecimiento progresivo.
+
+La persistencia de los datos del sistema se gestiona mediante una base de datos documental, integrada directamente con el backend. Esta capa de persistencia permite almacenar y recuperar de forma eficiente la información relacionada con los distintos elementos del sistema, asegurando la coherencia de los datos y proporcionando una base sólida sobre la que se apoya la lógica de negocio de la aplicación. Los detalles concretos de la modelización y el acceso a los datos se abordan en los apartados posteriores dedicados a la implementación.
+\section{Modelado de datos}
+
+Con el objetivo de proporcionar una visión global de la estructura de la información manejada por el sistema, se ha elaborado un modelo conceptual de datos que identifica las principales entidades del dominio y las relaciones existentes entre ellas. Este modelo permite comprender de forma clara cómo se organiza la información dentro de la aplicación y sirve como referencia para la posterior implementación de la persistencia de datos en el backend.
+
+Es importante destacar que el diagrama presentado no corresponde a un diagrama Entidad-Relación (ER) en sentido estricto. Dado que el sistema utiliza una base de datos documental (MongoDB), no resulta adecuado aplicar un modelado relacional tradicional ni imponer las restricciones propias de este tipo de bases de datos. En su lugar, se adopta un enfoque conceptual que refleja la estructura lógica de los datos y sus relaciones semánticas, independientemente de su implementación física.
+
+El modelo se centra, por tanto, en representar las entidades principales del sistema y las asociaciones existentes entre ellas, como relaciones uno a muchos o muchos a muchos, sin detallar atributos específicos ni operaciones. Esta abstracción resulta especialmente adecuada en entornos NoSQL, donde la flexibilidad del esquema permite distintas estrategias de persistencia que se definen a nivel de implementación.
+
+La Figura~\ref{fig:modelo_conceptual} muestra el modelo conceptual de datos del sistema, proporcionando una visión estructural que complementa la definición funcional y arquitectónica presentada en los apartados anteriores.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Figuras/modelo_Conceptual.png}
+    \caption{Modelo conceptual de datos del sistema}
+    \label{fig:modelo_conceptual}
+\end{figure}
+\section{Implementación de la lógica de negocio e integración}
+
+En este apartado se describe la implementación de la lógica de negocio del backend, la integración con servicios externos y los mecanismos de seguridad y documentación que permiten garantizar la calidad, mantenibilidad y escalabilidad del sistema.
+
+\subsection{Lógica de negocio: creación y actualización de calificaciones generales}
+
+Un ejemplo representativo de la lógica de negocio es el método encargado de crear o actualizar calificaciones generales para los alumnos. Este método valida los datos de entrada, controla reglas específicas del dominio (como restricciones para calificaciones extraordinarias), maneja errores específicos y, además, genera un mensaje automático del sistema para notificar al alumno sobre la calificación.
+
+\begin{verbatim}
+exports.crearOActualizarCalificacionGeneral = async (alumnoId, grupoId, tipo, nota, profesorId) => {
+    try {
+        const validTypes = ['Q1', 'Q2', 'Q3', 'Ordinaria', 'Extraordinaria'];
+        if (!tipo || !validTypes.includes(tipo)) {
+            return { status: 400, body: { error: 'El tipo de calificación proporcionado no es válido.' } };
+        }
+
+        if (!validateNota(nota)) {
+            return { status: 400, body: { error: 'La nota debe ser un número entero entre 1 y 10.' } };
+        }
+
+        const alumno = await Usuario.findById(alumnoId);
+        if (!alumno || alumno.role !== 'alumno') {
+            return { status: 400, body: { error: 'El ID de alumno proporcionado no es válido o el usuario no es un alumno.' } };
+        }
+
+        const grupo = await Grupo.findById(grupoId);
+        if (!grupo) {
+            return { status: 400, body: { error: 'El ID de grupo proporcionado no es válido.' } };
+        }
+
+        if (profesorId) {
+            const profesor = await Usuario.findById(profesorId);
+            if (!profesor || profesor.role !== 'profesor') {
+                return { status: 400, body: { error: 'El ID de profesor proporcionado no es válido o el usuario no es un profesor.' } };
+            }
+        }
+
+        if (tipo === 'Extraordinaria') {
+            const ordinaria = await CalificacionGeneral.findOne({ alumno: alumnoId, grupo: grupoId, tipo: 'Ordinaria' });
+            if (!ordinaria) {
+                return { status: 400, body: { error: 'No se puede establecer una calificación Extraordinaria sin una calificación Ordinaria previa.' } };
+            }
+            if (ordinaria.nota >= 5) {
+                return { status: 400, body: { error: 'Solo se puede establecer una calificación Extraordinaria si la calificación Ordinaria es menor de 5.' } };
+            }
+        }
+
+        const calificacion = await CalificacionGeneral.findOneAndUpdate(
+            { alumno: alumnoId, grupo: grupoId, tipo: tipo },
+            { tipo: tipo, nota: nota, profesor: profesorId },
+            { upsert: true, new: true, runValidators: true }
+        );
+
+        const sistemaUser = await Usuario.findOne({ username: 'sistema' });
+        if (sistemaUser) {
+            const asunto = `Calificación general de (${tipo})`;
+            const texto = `La calificación obtenida en ${tipo} es ${nota}`;
+            await mensajeController.crearMensaje(sistemaUser._id, asunto, texto, [alumnoId]);
+        }
+
+        return { status: 200, body: calificacion };
+
+    } catch (error) {
+        if (error.code === 11000) {
+            return { status: 409, body: { error: `Ya existe una calificación de tipo '${tipo}' para este alumno en este grupo.` } };
+        }
+        if (error.name === 'ValidationError') {
+            return { status: 400, body: { error: error.message } };
+        }
+        return { status: 500, body: { error: `Error al crear/actualizar la calificación: ${error.message}` } };
+    }
+};
+\end{verbatim}
+
+Este ejemplo muestra el manejo detallado de la lógica y validaciones propias del dominio, la interacción con la base de datos y la generación de mensajes del sistema para mantener informado al usuario.
+
+\subsection{Integración con servicios externos}
+
+Para funcionalidades específicas, como el envío de correos electrónicos, se integran servicios externos que simplifican el desarrollo y aseguran fiabilidad.
+
+Por ejemplo, el siguiente método utiliza la API de Mailjet para enviar credenciales a un usuario nuevo:
+
+\begin{verbatim}
+export const enviarEmailCredenciales = async (destinatario, username, password) => {
+  try {
+    const request = mailjetClient.post('send', { version: 'v3.1' }).request({
+      Messages: [
+        {
+          From: {
+            Email: process.env.EMAIL_FROM,
+            Name: process.env.EMAIL_FROM_NAME,
+          },
+          To: [
+            {
+              Email: destinatario,
+              Name: username,
+            },
+          ],
+          Subject: 'Tus credenciales para SolfEdge',
+          HTMLPart: `
+            <h1>¡Bienvenido a SolfEdge!</h1>
+            <p>Hola ${username},</p>
+            <p>Se ha creado una cuenta para ti en SolfEdge. A continuación encontrarás tus credenciales de acceso:</p>
+            <ul>
+              <li><strong>Usuario:</strong> ${username}</li>
+              <li><strong>Contraseña:</strong> ${password}</li>
+            </ul>
+          `,
+        },
+      ],
+    });
+
+    await request;
+
+    return { message: 'Correo enviado correctamente.' };
+  } catch (err) {
+    return {
+      message: 'Error al enviar el correo.',
+      error: err.statusCode ? `${err.statusCode} - ${err.message}` : err.message || JSON.stringify(err),
+    };
+  }
+};
+\end{verbatim}
+
+Esta integración permite externalizar tareas complejas, aumentando la robustez y fiabilidad de la aplicación.
+
+\subsection{Seguridad: autenticación mediante JWT}
+
+La seguridad en el acceso a la API se implementa mediante tokens JWT, que se verifican con un middleware que protege las rutas del backend.
+
+\begin{verbatim}
+exports.verifyToken = (req, res, next) => {
+    if (req.method === 'OPTIONS') {
+        return next();
+    }
+
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+
+    if (!token) {
+        return res.status(401).json({ error: 'Acceso denegado. No se proporcionó token.' });
+    }
+    const result = authController.verifySession(token);
+
+    if (result.status === 200) {
+        req.user = result.body.sessionData;
+        next();
+    } else {
+        return res.status(result.status).json(result.body);
+    }
+};
+\end{verbatim}
+
+De esta forma, todas las rutas relevantes quedan protegidas, permitiendo solo el acceso a usuarios autenticados, salvo aquellas destinadas a usuarios no autenticados y la documentación de la API:
+
+\begin{verbatim}
+app.use('/api/auth', authRoutes);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+app.use('/api/usuarios', authMiddleware.verifyToken, usuarioRoutes);
+app.use('/api/grupos', authMiddleware.verifyToken, grupoRoutes);
+app.use('/api/mensajes', authMiddleware.verifyToken, mensajeRoutes);
+app.use('/api/ramas', authMiddleware.verifyToken, ramaRoutes);
+app.use('/api/tareas', authMiddleware.verifyToken, tareaRoutes);
+app.use('/api/cuestionarios', authMiddleware.verifyToken, cuestionarioRoutes);
+app.use('/api/calificaciones-generales', authMiddleware.verifyToken, calificacionGeneralRoutes);
+app.use('/api/calificaciones', authMiddleware.verifyToken, calificacionRoutes);
+\end{verbatim}
+
+\subsection{Documentación de la API con Swagger}
+
+Para facilitar la colaboración, mantenimiento y pruebas, la API está documentada con \textbf{Swagger}, que genera automáticamente una interfaz web interactiva accesible en la ruta \texttt{/api-docs}.
+
+Esta documentación permite explorar los endpoints disponibles, con detalles sobre métodos, parámetros y respuestas, manteniendo la información siempre actualizada gracias a la sincronización con el código fuente.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{Figuras/swagger_demo.png}
+    \caption{Interfaz de la documentación generada por Swagger}
+    \label{fig:swagger}
+\end{figure}
+
+Este enfoque mejora la mantenibilidad del sistema y simplifica la integración de nuevos desarrolladores o testers durante el ciclo de vida del proyecto.
+
+
+Con esta estructura, la implementación del backend cubre desde la lógica de negocio hasta la seguridad y la documentación, garantizando un sistema robusto, seguro y fácil de mantener.
+\section{Testing}
+
+Para asegurar la calidad y fiabilidad del backend, se ha implementado un conjunto de pruebas automatizadas que abarcan diferentes niveles, con el objetivo de detectar errores tempranamente y facilitar el mantenimiento del código.
+
+\subsection{Estrategia de pruebas}
+
+El proceso de testing se basa en dos tipos principales de pruebas:
+
+\begin{itemize}
+    \item \textbf{Pruebas unitarias:} Se validan individualmente las funciones y métodos que componen la lógica de negocio y el acceso a datos, comprobando que cada unidad cumpla con el comportamiento esperado ante diversas situaciones.
+    \item \textbf{Pruebas de integración:} Se verifican las interacciones entre distintos módulos y componentes del backend, incluyendo la comunicación con la base de datos y la integración con servicios externos, asegurando que el sistema funcione correctamente como conjunto.
+\end{itemize}
+
+\subsection{Herramientas utilizadas}
+
+Se han utilizado herramientas especializadas que permiten automatizar y gestionar de forma eficiente las pruebas:
+
+\begin{itemize}
+    \item \textbf{Jest:} Framework para pruebas unitarias en JavaScript, que proporciona funcionalidades para mocks, aserciones y cobertura de código.
+    \item \textbf{Supertest:} Herramienta para realizar pruebas sobre endpoints HTTP, facilitando la simulación de peticiones y validación de respuestas en la API REST.
+\end{itemize}
+
+\subsection{Ejemplo de prueba}
+
+A modo ilustrativo, se presenta un ejemplo de prueba unitaria sobre la función que crea o actualiza una calificación general, comprobando tanto el resultado esperado como el manejo de errores:
+
+\begin{verbatim}
+    describe('POST /calificaciones-generales', () => {
+        it('should create or update a general qualification', async () => {
+            const mockCalificacion = {
+                _id: 'calG1',
+                alumno: 'alumno1',
+                grupo: 'grupo1',
+                tipo: 'Ordinaria',
+                nota: 8,
+                toObject: () => ({
+                    _id: 'calG1',
+                    alumno: 'alumno1',
+                    grupo: 'grupo1',
+                    tipo: 'Ordinaria',
+                    nota: 8
+                })
+            };
+
+            Usuario.findById
+                .mockResolvedValueOnce({ _id: 'alumno1', role: 'alumno' })     // alumno
+                .mockResolvedValueOnce({ _id: 'profesor1', role: 'profesor' }); // profesor
+
+            Grupo.findById.mockResolvedValue({ _id: 'grupo1' });
+            CalificacionGeneral.findOneAndUpdate.mockResolvedValue(mockCalificacion);
+            Usuario.findOne.mockResolvedValue({ _id: 'sistema-user' });
+            mensajeController.crearMensaje.mockResolvedValue({});
+
+            const response = await request(app)
+                .post('/calificaciones-generales')
+                .send({
+                    alumnoId: 'alumno1',
+                    grupoId: 'grupo1',
+                    tipo: 'Ordinaria',
+                    nota: 8,
+                    profesorId: 'profesor1'
+                });
+
+            expect(response.status).toBe(200);
+            expect(response.body).toEqual(mockCalificacion.toObject());
+        });
+        it('should return 400 for invalid nota', async () => {
+            const response = await request(app)
+                .post('/calificaciones-generales')
+                .send({ alumnoId: 'alumno1', grupoId: 'grupo1', tipo: 'Ordinaria', nota: 11, profesorId: 'profesor1' });
+
+            expect(response.status).toBe(400);
+            expect(response.body).toEqual({ error: 'La nota debe ser un número entero entre 1 y 10.' });
+        });
+        it('should return 400 if Extraordinaria is set without prior Ordinaria', async () => {
+            Usuario.findById
+                .mockResolvedValueOnce({ _id: 'alumno1', role: 'alumno' })
+                .mockResolvedValueOnce({ _id: 'profesor1', role: 'profesor' });
+
+            Grupo.findById.mockResolvedValue({ _id: 'grupo1' });
+            CalificacionGeneral.findOne.mockResolvedValue(null);
+
+            const response = await request(app)
+                .post('/calificaciones-generales')
+                .send({
+                    alumnoId: 'alumno1',
+                    grupoId: 'grupo1',
+                    tipo: 'Extraordinaria',
+                    nota: 6,
+                    profesorId: 'profesor1'
+                });
+
+            expect(response.status).toBe(400);
+            expect(response.body).toEqual({
+                error: 'No se puede establecer una calificación Extraordinaria sin una calificación Ordinaria previa.'
+            });
+        });
+        it('should return 400 if Extraordinaria is set with Ordinaria >= 5', async () => {
+            Usuario.findById
+                .mockResolvedValueOnce({ _id: 'alumno1', role: 'alumno' })
+                .mockResolvedValueOnce({ _id: 'profesor1', role: 'profesor' });
+
+            Grupo.findById.mockResolvedValue({ _id: 'grupo1' });
+            CalificacionGeneral.findOne.mockResolvedValue({ nota: 5 });
+
+            const response = await request(app)
+                .post('/calificaciones-generales')
+                .send({
+                    alumnoId: 'alumno1',
+                    grupoId: 'grupo1',
+                    tipo: 'Extraordinaria',
+                    nota: 6,
+                    profesorId: 'profesor1'
+                });
+
+            expect(response.status).toBe(400);
+            expect(response.body).toEqual({
+                error: 'Solo se puede establecer una calificación Extraordinaria si la calificación Ordinaria es menor de 5.'
+            });
+        });
+    });
+\end{verbatim}
+\section{Despliegue del backend}
+
+El despliegue de la aplicación backend se ha realizado mediante un flujo automatizado de integración y despliegue continuo (CI/CD), configurado para garantizar la calidad, estabilidad y rapidez en las entregas.
+
+Se utiliza \textbf{GitHub Actions} como herramienta principal para orquestar este pipeline, el cual incluye los siguientes pasos:
+
+\begin{itemize}
+    \item \textbf{Compilación:} Se verifica que el código fuente compile correctamente y cumpla con las configuraciones definidas.
+    \item \textbf{Ejecución de pruebas:} Se ejecutan las pruebas unitarias e de integración desarrolladas con \textbf{Jest} y \textbf{Supertest}, validando la funcionalidad y fiabilidad del backend. Este paso es crucial para detectar fallos tempranos antes de proceder al despliegue.
+    \item \textbf{Despliegue automático:} Una vez superadas las pruebas, el sistema se despliega automáticamente en el entorno de producción alojado en \textbf{Render}, asegurando que la última versión estable esté disponible para su uso.
+\end{itemize}
+
+Este proceso continuo aporta varios beneficios, entre ellos:
+
+\begin{itemize}
+    \item \textbf{Calidad constante:} Al ejecutar las pruebas en cada commit, se garantiza que el código desplegado cumple con los requisitos funcionales y no introduce regresiones.
+    \item \textbf{Agilidad en las entregas:} La automatización reduce tiempos y riesgos asociados a despliegues manuales, facilitando iteraciones rápidas y confiables.
+    \item \textbf{Transparencia y trazabilidad:} Cada paso del pipeline queda registrado y es accesible para revisión, lo que facilita la detección y solución de posibles incidencias.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{Figuras/ci_cd_backend.png}
+    \caption{Captura del pipeline de integración y despliegue continuo mostrando la ejecución exitosa de las pruebas unitarias e integración}
+    \label{fig:ci_cd_backend}
+\end{figure}
+
+Este enfoque permite mantener un backend robusto y actualizado, alineado con las buenas prácticas actuales de desarrollo y despliegue de software.
+
 
 %\chapter {Herramientas y entornos}
 %\label{sec:herrra}
-
-
-
-
-
-
-
-
-
-\chapter {....}
-\label{sec:}
-
-
 
 \chapter {Conclusiones y trabajo futuro}
 \label{sec:conclu}

@@ -8,59 +8,67 @@
 \contentsline {table}{\numberline {5.1}{\ignorespaces Documentación recogida}}{14}{table.caption.13}%
 \addvspace {10\p@ }
 \contentsline {table}{\numberline {6.1}{\ignorespaces Actor 1}}{20}{table.caption.15}%
-\contentsline {table}{\numberline {6.2}{\ignorespaces Actor 2}}{20}{table.caption.16}%
-\contentsline {table}{\numberline {6.3}{\ignorespaces Actor 3}}{20}{table.caption.17}%
-\contentsline {table}{\numberline {6.4}{\ignorespaces Actor 4}}{20}{table.caption.18}%
-\contentsline {table}{\numberline {6.5}{\ignorespaces Caso de uso: Iniciar sesión}}{20}{table.caption.19}%
-\contentsline {table}{\numberline {6.6}{\ignorespaces Caso de uso: Recuperar contraseña}}{20}{table.caption.20}%
-\contentsline {table}{\numberline {6.7}{\ignorespaces Caso de uso: Crear profesor}}{21}{table.caption.21}%
-\contentsline {table}{\numberline {6.8}{\ignorespaces Caso de uso: Crear alumno}}{21}{table.caption.22}%
-\contentsline {table}{\numberline {6.9}{\ignorespaces Caso de uso: Gestionar grupos}}{21}{table.caption.23}%
-\contentsline {table}{\numberline {6.10}{\ignorespaces Caso de uso: Enviar mensaje}}{21}{table.caption.24}%
-\contentsline {table}{\numberline {6.11}{\ignorespaces Caso de uso: Gestionar material de cada rama}}{21}{table.caption.25}%
-\contentsline {table}{\numberline {6.12}{\ignorespaces Caso de uso: Gestionar tareas}}{21}{table.caption.26}%
-\contentsline {table}{\numberline {6.13}{\ignorespaces Caso de uso: Gestionar entregas}}{22}{table.caption.27}%
-\contentsline {table}{\numberline {6.14}{\ignorespaces Caso de uso: Gestionar entregas}}{22}{table.caption.28}%
-\contentsline {table}{\numberline {6.15}{\ignorespaces Caso de uso: Gestionar calificaciones del alumnado}}{22}{table.caption.29}%
-\contentsline {table}{\numberline {6.16}{\ignorespaces Caso de uso: Ver mensajes}}{22}{table.caption.30}%
-\contentsline {table}{\numberline {6.17}{\ignorespaces Caso de uso: Interactuar con el material de cada rama}}{22}{table.caption.31}%
-\contentsline {table}{\numberline {6.18}{\ignorespaces Caso de uso: Revisar calificaciones}}{22}{table.caption.32}%
-\contentsline {table}{\numberline {6.19}{\ignorespaces Caso de uso: Interactuar con tareas}}{23}{table.caption.33}%
-\contentsline {table}{\numberline {6.20}{\ignorespaces Caso de uso: Interactuar con cuestionarios}}{23}{table.caption.34}%
-\contentsline {table}{\numberline {6.21}{\ignorespaces Requisito funcional: RF-01 Iniciar sesión}}{23}{table.caption.35}%
-\contentsline {table}{\numberline {6.22}{\ignorespaces Requisito funcional: RF-02 Recuperar contraseña}}{24}{table.caption.36}%
-\contentsline {table}{\numberline {6.23}{\ignorespaces Requisito funcional: RF-03 Crear profesor}}{24}{table.caption.37}%
-\contentsline {table}{\numberline {6.24}{\ignorespaces Requisito funcional: RF-04 Validación y generación automática de credenciales}}{25}{table.caption.38}%
-\contentsline {table}{\numberline {6.25}{\ignorespaces Requisito funcional: RF-05 Crear alumno}}{26}{table.caption.39}%
-\contentsline {table}{\numberline {6.26}{\ignorespaces Requisito funcional: RF-06 Crear grupo}}{26}{table.caption.40}%
-\contentsline {table}{\numberline {6.27}{\ignorespaces Requisito funcional: RF-07 Listar grupos}}{27}{table.caption.41}%
-\contentsline {table}{\numberline {6.28}{\ignorespaces Requisito funcional: RF-08 Seleccionar grupo}}{27}{table.caption.42}%
-\contentsline {table}{\numberline {6.29}{\ignorespaces Requisito funcional: RF-09 Enviar mensaje}}{28}{table.caption.43}%
-\contentsline {table}{\numberline {6.30}{\ignorespaces Requisito funcional: RF-10 Ver libro del curso}}{28}{table.caption.44}%
-\contentsline {table}{\numberline {6.31}{\ignorespaces Requisito funcional: RF-11 Subir o reemplazar libro del curso}}{29}{table.caption.45}%
-\contentsline {table}{\numberline {6.32}{\ignorespaces Requisito funcional: RF-12 Eliminar libro del curso}}{30}{table.caption.46}%
-\contentsline {table}{\numberline {6.33}{\ignorespaces Requisito funcional: RF-13 Revisar tareas}}{30}{table.caption.47}%
-\contentsline {table}{\numberline {6.34}{\ignorespaces Requisito funcional: RF-14 Crear tarea}}{31}{table.caption.48}%
-\contentsline {table}{\numberline {6.35}{\ignorespaces Requisito funcional: RF-15 Modificar tarea}}{32}{table.caption.49}%
-\contentsline {table}{\numberline {6.36}{\ignorespaces Requisito funcional: RF-16 Cerrar tarea}}{33}{table.caption.50}%
-\contentsline {table}{\numberline {6.37}{\ignorespaces Requisito funcional: RF-17 Eliminar tarea}}{33}{table.caption.51}%
-\contentsline {table}{\numberline {6.38}{\ignorespaces Requisito funcional: RF-18 Revisar cuestionarios}}{34}{table.caption.52}%
-\contentsline {table}{\numberline {6.39}{\ignorespaces Requisito funcional: RF-19 Crear cuestionario}}{35}{table.caption.53}%
-\contentsline {table}{\numberline {6.40}{\ignorespaces Requisito funcional: RF-20 Modificar cuestionario}}{36}{table.caption.54}%
-\contentsline {table}{\numberline {6.41}{\ignorespaces Requisito funcional: RF-21 Cerrar cuestionario}}{37}{table.caption.55}%
-\contentsline {table}{\numberline {6.42}{\ignorespaces Requisito funcional: RF-22 Eliminar cuestionario}}{37}{table.caption.56}%
-\contentsline {table}{\numberline {6.43}{\ignorespaces Requisito funcional: RF-23 Revisar entregas}}{38}{table.caption.57}%
-\contentsline {table}{\numberline {6.44}{\ignorespaces Requisito funcional: RF-24 Calificar entrega}}{39}{table.caption.58}%
-\contentsline {table}{\numberline {6.45}{\ignorespaces Requisito funcional: RF-25 Revisar calificaciones de entregas}}{40}{table.caption.59}%
-\contentsline {table}{\numberline {6.46}{\ignorespaces Requisito funcional: RF-26 Revisar calificaciones generales del alumno}}{41}{table.caption.60}%
-\contentsline {table}{\numberline {6.47}{\ignorespaces Requisito funcional: RF-27 Asignar calificación general al alumno}}{42}{table.caption.61}%
-\contentsline {table}{\numberline {6.48}{\ignorespaces Requisito funcional: RF-28 Ver mensajes}}{43}{table.caption.62}%
-\contentsline {table}{\numberline {6.49}{\ignorespaces Requisito funcional: RF-29 Entregar tarea}}{44}{table.caption.63}%
-\contentsline {table}{\numberline {6.50}{\ignorespaces Requisito funcional: RF-30 Rellenar y entregar cuestionario}}{45}{table.caption.64}%
-\contentsline {table}{\numberline {6.51}{\ignorespaces Requisito funcional transversal: RFT-1 Envío de notificaciones del sistema}}{46}{table.caption.65}%
+\contentsline {table}{\numberline {6.2}{\ignorespaces Actor 2}}{21}{table.caption.16}%
+\contentsline {table}{\numberline {6.3}{\ignorespaces Actor 3}}{21}{table.caption.17}%
+\contentsline {table}{\numberline {6.4}{\ignorespaces Actor 4}}{21}{table.caption.18}%
+\contentsline {table}{\numberline {6.5}{\ignorespaces Caso de uso: Iniciar sesión}}{21}{table.caption.19}%
+\contentsline {table}{\numberline {6.6}{\ignorespaces Caso de uso: Recuperar contraseña}}{21}{table.caption.20}%
+\contentsline {table}{\numberline {6.7}{\ignorespaces Caso de uso: Crear profesor}}{22}{table.caption.21}%
+\contentsline {table}{\numberline {6.8}{\ignorespaces Caso de uso: Crear alumno}}{22}{table.caption.22}%
+\contentsline {table}{\numberline {6.9}{\ignorespaces Caso de uso: Gestionar grupos}}{22}{table.caption.23}%
+\contentsline {table}{\numberline {6.10}{\ignorespaces Caso de uso: Enviar mensaje}}{22}{table.caption.24}%
+\contentsline {table}{\numberline {6.11}{\ignorespaces Caso de uso: Gestionar material de cada rama}}{22}{table.caption.25}%
+\contentsline {table}{\numberline {6.12}{\ignorespaces Caso de uso: Gestionar tareas}}{22}{table.caption.26}%
+\contentsline {table}{\numberline {6.13}{\ignorespaces Caso de uso: Gestionar entregas}}{23}{table.caption.27}%
+\contentsline {table}{\numberline {6.14}{\ignorespaces Caso de uso: Gestionar entregas}}{23}{table.caption.28}%
+\contentsline {table}{\numberline {6.15}{\ignorespaces Caso de uso: Gestionar calificaciones del alumnado}}{23}{table.caption.29}%
+\contentsline {table}{\numberline {6.16}{\ignorespaces Caso de uso: Ver mensajes}}{23}{table.caption.30}%
+\contentsline {table}{\numberline {6.17}{\ignorespaces Caso de uso: Interactuar con el material de cada rama}}{23}{table.caption.31}%
+\contentsline {table}{\numberline {6.18}{\ignorespaces Caso de uso: Revisar calificaciones}}{23}{table.caption.32}%
+\contentsline {table}{\numberline {6.19}{\ignorespaces Caso de uso: Interactuar con tareas}}{24}{table.caption.33}%
+\contentsline {table}{\numberline {6.20}{\ignorespaces Caso de uso: Interactuar con cuestionarios}}{24}{table.caption.34}%
+\contentsline {table}{\numberline {6.21}{\ignorespaces Requisito funcional: RF-01 Iniciar sesión}}{24}{table.caption.35}%
+\contentsline {table}{\numberline {6.22}{\ignorespaces Requisito funcional: RF-02 Recuperar contraseña}}{25}{table.caption.36}%
+\contentsline {table}{\numberline {6.23}{\ignorespaces Requisito funcional: RF-03 Crear profesor}}{25}{table.caption.37}%
+\contentsline {table}{\numberline {6.24}{\ignorespaces Requisito funcional: RF-04 Validación y generación automática de credenciales}}{26}{table.caption.38}%
+\contentsline {table}{\numberline {6.25}{\ignorespaces Requisito funcional: RF-05 Crear alumno}}{27}{table.caption.39}%
+\contentsline {table}{\numberline {6.26}{\ignorespaces Requisito funcional: RF-06 Crear grupo}}{27}{table.caption.40}%
+\contentsline {table}{\numberline {6.27}{\ignorespaces Requisito funcional: RF-07 Listar grupos}}{28}{table.caption.41}%
+\contentsline {table}{\numberline {6.28}{\ignorespaces Requisito funcional: RF-08 Seleccionar grupo}}{28}{table.caption.42}%
+\contentsline {table}{\numberline {6.29}{\ignorespaces Requisito funcional: RF-09 Enviar mensaje}}{29}{table.caption.43}%
+\contentsline {table}{\numberline {6.30}{\ignorespaces Requisito funcional: RF-10 Ver libro del curso}}{29}{table.caption.44}%
+\contentsline {table}{\numberline {6.31}{\ignorespaces Requisito funcional: RF-11 Subir o reemplazar libro del curso}}{30}{table.caption.45}%
+\contentsline {table}{\numberline {6.32}{\ignorespaces Requisito funcional: RF-12 Eliminar libro del curso}}{31}{table.caption.46}%
+\contentsline {table}{\numberline {6.33}{\ignorespaces Requisito funcional: RF-13 Revisar tareas}}{31}{table.caption.47}%
+\contentsline {table}{\numberline {6.34}{\ignorespaces Requisito funcional: RF-14 Crear tarea}}{32}{table.caption.48}%
+\contentsline {table}{\numberline {6.35}{\ignorespaces Requisito funcional: RF-15 Modificar tarea}}{33}{table.caption.49}%
+\contentsline {table}{\numberline {6.36}{\ignorespaces Requisito funcional: RF-16 Cerrar tarea}}{34}{table.caption.50}%
+\contentsline {table}{\numberline {6.37}{\ignorespaces Requisito funcional: RF-17 Eliminar tarea}}{34}{table.caption.51}%
+\contentsline {table}{\numberline {6.38}{\ignorespaces Requisito funcional: RF-18 Revisar cuestionarios}}{35}{table.caption.52}%
+\contentsline {table}{\numberline {6.39}{\ignorespaces Requisito funcional: RF-19 Crear cuestionario}}{36}{table.caption.53}%
+\contentsline {table}{\numberline {6.40}{\ignorespaces Requisito funcional: RF-20 Modificar cuestionario}}{37}{table.caption.54}%
+\contentsline {table}{\numberline {6.41}{\ignorespaces Requisito funcional: RF-21 Cerrar cuestionario}}{38}{table.caption.55}%
+\contentsline {table}{\numberline {6.42}{\ignorespaces Requisito funcional: RF-22 Eliminar cuestionario}}{38}{table.caption.56}%
+\contentsline {table}{\numberline {6.43}{\ignorespaces Requisito funcional: RF-23 Revisar entregas}}{39}{table.caption.57}%
+\contentsline {table}{\numberline {6.44}{\ignorespaces Requisito funcional: RF-24 Calificar entrega}}{40}{table.caption.58}%
+\contentsline {table}{\numberline {6.45}{\ignorespaces Requisito funcional: RF-25 Revisar calificaciones de entregas}}{41}{table.caption.59}%
+\contentsline {table}{\numberline {6.46}{\ignorespaces Requisito funcional: RF-26 Revisar calificaciones generales del alumno}}{42}{table.caption.60}%
+\contentsline {table}{\numberline {6.47}{\ignorespaces Requisito funcional: RF-27 Asignar calificación general al alumno}}{43}{table.caption.61}%
+\contentsline {table}{\numberline {6.48}{\ignorespaces Requisito funcional: RF-28 Ver mensajes}}{44}{table.caption.62}%
+\contentsline {table}{\numberline {6.49}{\ignorespaces Requisito funcional: RF-29 Entregar tarea}}{45}{table.caption.63}%
+\contentsline {table}{\numberline {6.50}{\ignorespaces Requisito funcional: RF-30 Rellenar y entregar cuestionario}}{46}{table.caption.64}%
+\contentsline {table}{\numberline {6.51}{\ignorespaces Requisito funcional transversal: RFT-1 Envío de notificaciones del sistema}}{47}{table.caption.65}%
+\contentsline {table}{\numberline {6.52}{\ignorespaces Requisito no funcional: RNF-01 Escalabilidad y mantenibilidad}}{47}{table.caption.66}%
+\contentsline {table}{\numberline {6.53}{\ignorespaces Requisito no funcional: RNF-02 Usabilidad y accesibilidad}}{48}{table.caption.67}%
+\contentsline {table}{\numberline {6.54}{\ignorespaces Requisito no funcional: RNF-03 Diseño visual atractivo y motivador}}{48}{table.caption.68}%
+\contentsline {table}{\numberline {6.55}{\ignorespaces Requisito no funcional: RNF-04 Portabilidad}}{48}{table.caption.69}%
+\contentsline {table}{\numberline {6.56}{\ignorespaces Requisito no funcional: RNF-05 Seguridad}}{49}{table.caption.70}%
+\contentsline {table}{\numberline {6.57}{\ignorespaces Requisito no funcional: RNF-06 Consistencia pedagógica}}{49}{table.caption.71}%
+\contentsline {table}{\numberline {6.58}{\ignorespaces Requisito no funcional: RNF-07 Adaptabilidad del contenido}}{50}{table.caption.72}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {A.1}{\ignorespaces Campos de una entrada en archivo de bibliografía .bib}}{52}{table.caption.68}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {B.1}{\ignorespaces Tipos posibles de elementos en bibligrafía con natbib}}{54}{table.caption.69}%
+\contentsline {table}{\numberline {A.1}{\ignorespaces Campos de una entrada en archivo de bibliografía .bib}}{72}{table.caption.84}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {B.1}{\ignorespaces Tipos posibles de elementos en bibligrafía con natbib}}{74}{table.caption.85}%

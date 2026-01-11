@@ -12,8 +12,18 @@
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {5.1}{\ignorespaces Flujograma de la Mapping Review}}{13}{figure.caption.12}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {6.1}{\ignorespaces Diagrama de casos de uso del sistema}}{19}{figure.caption.14}%
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Diagrama UML de casos de uso del sistema}}{20}{figure.caption.14}%
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Tecnologías frontend: Ionic, Angular, Jasmine y Karma}}{51}{figure.caption.73}%
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Tecnologías backend: Node.js, Express.js, JWT, Swagger, Jest y Supertest}}{52}{figure.caption.74}%
+\contentsline {figure}{\numberline {6.4}{\ignorespaces MongoDB}}{52}{figure.caption.75}%
+\contentsline {figure}{\numberline {6.5}{\ignorespaces Servicios externos}}{52}{figure.caption.76}%
+\contentsline {figure}{\numberline {6.6}{\ignorespaces Tecnologías de integración y despliegue continuo}}{53}{figure.caption.77}%
+\contentsline {figure}{\numberline {6.7}{\ignorespaces Arquitectura global de la aplicación}}{53}{figure.caption.78}%
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {7.1}{\ignorespaces Cronograma del proyecto}}{56}{figure.caption.79}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {8.1}{\ignorespaces Modelo conceptual de datos del sistema}}{59}{figure.caption.80}%
+\contentsline {figure}{\numberline {8.2}{\ignorespaces Interfaz de la documentación generada por Swagger}}{64}{figure.caption.81}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

@@ -71,11 +71,11 @@ describe('CalificacionGeneral API', () => {
         });
         it('should return 400 if Extraordinaria is set without prior Ordinaria', async () => {
             Usuario.findById
-                .mockResolvedValueOnce({ _id: 'alumno1', role: 'alumno' })     // alumno
-                .mockResolvedValueOnce({ _id: 'profesor1', role: 'profesor' }); // profesor
+                .mockResolvedValueOnce({ _id: 'alumno1', role: 'alumno' })
+                .mockResolvedValueOnce({ _id: 'profesor1', role: 'profesor' });
 
             Grupo.findById.mockResolvedValue({ _id: 'grupo1' });
-            CalificacionGeneral.findOne.mockResolvedValue(null); // no Ordinaria
+            CalificacionGeneral.findOne.mockResolvedValue(null);
 
             const response = await request(app)
                 .post('/calificaciones-generales')
@@ -94,8 +94,8 @@ describe('CalificacionGeneral API', () => {
         });
         it('should return 400 if Extraordinaria is set with Ordinaria >= 5', async () => {
             Usuario.findById
-                .mockResolvedValueOnce({ _id: 'alumno1', role: 'alumno' })     // alumno
-                .mockResolvedValueOnce({ _id: 'profesor1', role: 'profesor' }); // profesor
+                .mockResolvedValueOnce({ _id: 'alumno1', role: 'alumno' })
+                .mockResolvedValueOnce({ _id: 'profesor1', role: 'profesor' });
 
             Grupo.findById.mockResolvedValue({ _id: 'grupo1' });
             CalificacionGeneral.findOne.mockResolvedValue({ nota: 5 });
@@ -126,8 +126,6 @@ describe('CalificacionGeneral API', () => {
 
             const response = await request(app).get('/calificaciones-generales/alumno/alumno1/grupo/grupo1');
 
-            // This is a workaround for the fact that the populate chain is not working as expected in the mock
-            // We are calling the controller directly to test the logic
             const result = await calificacionGeneralController.getCalificacionesByAlumnoAndGrupo('alumno1', 'grupo1');
 
 

@@ -13,7 +13,6 @@ const validateNota = (nota) => {
 
 exports.crearOActualizarCalificacionGeneral = async (alumnoId, grupoId, tipo, nota, profesorId) => {
     try {
-        // Explicit validation for 'tipo' before findOneAndUpdate
         const validTypes = ['Q1', 'Q2', 'Q3', 'Ordinaria', 'Extraordinaria'];
         if (!tipo || !validTypes.includes(tipo)) {
             return { status: 400, body: { error: 'El tipo de calificación proporcionado no es válido.' } };
@@ -40,7 +39,6 @@ exports.crearOActualizarCalificacionGeneral = async (alumnoId, grupoId, tipo, no
             }
         }
 
-        // Specific validation for 'Extraordinaria' type
         if (tipo === 'Extraordinaria') {
             const ordinaria = await CalificacionGeneral.findOne({ alumno: alumnoId, grupo: grupoId, tipo: 'Ordinaria' });
             if (!ordinaria) {
@@ -53,8 +51,8 @@ exports.crearOActualizarCalificacionGeneral = async (alumnoId, grupoId, tipo, no
 
         const calificacion = await CalificacionGeneral.findOneAndUpdate(
             { alumno: alumnoId, grupo: grupoId, tipo: tipo },
-            { tipo: tipo, nota: nota, profesor: profesorId }, // Explicitly include 'tipo' in $set
-            { upsert: true, new: true, runValidators: true } // upsert creates if not found, new returns updated doc
+            { tipo: tipo, nota: nota, profesor: profesorId },
+            { upsert: true, new: true, runValidators: true }
         );
 
         const sistemaUser = await Usuario.findOne({ username: 'sistema' });
@@ -67,7 +65,7 @@ exports.crearOActualizarCalificacionGeneral = async (alumnoId, grupoId, tipo, no
         return { status: 200, body: calificacion };
 
     } catch (error) {
-        if (error.code === 11000) { // Duplicate key error from unique index
+        if (error.code === 11000) {
             return { status: 409, body: { error: `Ya existe una calificación de tipo '${tipo}' para este alumno en este grupo.` } };
         }
         if (error.name === 'ValidationError') {

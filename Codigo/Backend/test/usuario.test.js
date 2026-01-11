@@ -1,8 +1,12 @@
-// 🔒 MOCK GLOBAL DE SENDGRID (MUY IMPORTANTE: ANTES DE TODO)
-jest.mock('@sendgrid/mail', () => ({
-  setApiKey: jest.fn(),
-  send: jest.fn(),
+
+jest.mock('node-mailjet', () => ({
+  apiConnect: jest.fn(() => ({
+    post: jest.fn(() => ({
+      request: jest.fn().mockResolvedValue({}),
+    })),
+  })),
 }));
+
 
 const request = require('supertest');
 const express = require('express');
@@ -15,7 +19,6 @@ const authMiddleware = require('../middleware/authMiddleware');
 
 jest.mock('../models/usuario.model');
 jest.mock('node-fetch', () => jest.fn());
-jest.mock('../controllers/email.controller');
 jest.mock('../middleware/authMiddleware');
 
 const app = express();
@@ -50,10 +53,6 @@ describe('Usuario API', () => {
         json: async () => ({ password: 'test-password' }),
       });
 
-      emailController.enviarEmailCredenciales.mockResolvedValue({
-        message: 'Correo enviado correctamente.',
-      });
-
       Usuario.insertMany.mockResolvedValue([
         {
           _id: 'user1',
@@ -73,7 +72,6 @@ describe('Usuario API', () => {
       expect(Usuario.find).toHaveBeenCalled();
       expect(Usuario.countDocuments).toHaveBeenCalled();
       expect(fetch).toHaveBeenCalled();
-      expect(emailController.enviarEmailCredenciales).toHaveBeenCalled();
       expect(Usuario.insertMany).toHaveBeenCalled();
     });
 
@@ -147,10 +145,6 @@ describe('Usuario API', () => {
         json: async () => ({ password: 'new-password' }),
       });
 
-      emailController.enviarEmailCredenciales.mockResolvedValue({
-        message: 'Correo enviado correctamente.',
-      });
-
       const result = await usuarioController.enviarCredencialesOlvidadas(
         'test@test.com'
       );
@@ -162,11 +156,6 @@ describe('Usuario API', () => {
 
       expect(mockUser.password).toBe('new-password');
       expect(mockUser.save).toHaveBeenCalled();
-      expect(emailController.enviarEmailCredenciales).toHaveBeenCalledWith(
-        'test@test.com',
-        'testuser',
-        'new-password'
-      );
     });
   });
 });

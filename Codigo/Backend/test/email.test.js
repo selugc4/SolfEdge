@@ -1,10 +1,20 @@
-import sgMail from '@sendgrid/mail';
-import { enviarEmailCredenciales } from '../controllers/email.controller';
+jest.mock('node-mailjet', () => {
+  const requestMock = jest.fn();
 
-jest.mock('@sendgrid/mail', () => ({
-  setApiKey: jest.fn(),
-  send: jest.fn(),
-}));
+  return {
+    apiConnect: jest.fn(() => ({
+      post: jest.fn(() => ({
+        request: requestMock,
+      })),
+    })),
+    __mock: {
+      requestMock,
+    },
+  };
+});
+
+const mailjet = require('node-mailjet');
+const { enviarEmailCredenciales } = require('../controllers/email.controller');
 
 describe('Email Controller', () => {
   afterEach(() => {
@@ -13,23 +23,31 @@ describe('Email Controller', () => {
 
   describe('enviarEmailCredenciales', () => {
     it('should send an email with credentials', async () => {
-      sgMail.send.mockResolvedValue({});
+      mailjet.__mock.requestMock.mockResolvedValue({});
 
-      const result = await enviarEmailCredenciales('test@example.com', 'testuser', 'password');
+      const result = await enviarEmailCredenciales(
+        'test@example.com',
+        'testuser',
+        'password'
+      );
 
-      expect(sgMail.setApiKey).toHaveBeenCalled();
-      expect(sgMail.send).toHaveBeenCalled();
+      expect(mailjet.__mock.requestMock).toHaveBeenCalled();
       expect(result.message).toBe('Correo enviado correctamente.');
     });
 
     it('should return an error message if email sending fails', async () => {
-      const error = new Error('Email failed');
-      sgMail.send.mockRejectedValue(error);
+      const error = new Error('Mailjet error');
+      mailjet.__mock.requestMock.mockRejectedValue(error);
 
-      const result = await enviarEmailCredenciales('test@example.com', 'testuser', 'password');
+      const result = await enviarEmailCredenciales(
+        'test@example.com',
+        'testuser',
+        'password'
+      );
 
+      expect(mailjet.__mock.requestMock).toHaveBeenCalled();
       expect(result.message).toBe('Error al enviar el correo.');
-      expect(result.error).toBe(error.message);
+      expect(result.error).toContain('Mailjet error');
     });
   });
 });
