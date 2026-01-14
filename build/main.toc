@@ -2,7 +2,6 @@
 \babel@toc {spanish}{}\relax 
 ~\hfill \small {Página}\par 
 \vspace {2pt} \hrule \vspace {5mm} \par 
-\contentsline {chapter}{Resumen y Abstract}{\es@scroman {xi}}{chapter*.5}%
 \contentsline {chapter}{\numberline {1}Introducción}{1}{chapter.1}%
 \contentsline {chapter}{\numberline {2}Objetivos}{2}{chapter.2}%
 \contentsline {chapter}{\numberline {3}Marco teórico}{3}{chapter.3}%
@@ -24,12 +23,12 @@
 \contentsline {subsubsection}{\numberline {5.2.3.2}Music Computer Technologies and Interactive Systems of Education in Digital Age School}{15}{subsubsection.5.2.3.2}%
 \contentsline {subsubsection}{\numberline {5.2.3.3}Aplicación informática para la introducción del lenguaje musical}{15}{subsubsection.5.2.3.3}%
 \contentsline {subsubsection}{\numberline {5.2.3.4}Online Gaming to Learn Music and English Language in Music and Ballet School Solfeggio Education}{15}{subsubsection.5.2.3.4}%
-\contentsline {subsubsection}{\numberline {5.2.3.5}Multimedia technologies as a tool for teaching supervision over the students' skills (within the course on “music theory training”)}{15}{subsubsection.5.2.3.5}%
+\contentsline {subsubsection}{\numberline {5.2.3.5}Multimedia technologies as a tool for teaching supervision over the students' skills (within the course on “music theory training”)}{16}{subsubsection.5.2.3.5}%
 \contentsline {subsection}{\numberline {5.2.4}Conclusiones}{16}{subsection.5.2.4}%
-\contentsline {chapter}{\numberline {6}Definición del problema a resolver}{17}{chapter.6}%
+\contentsline {chapter}{\numberline {6}Definición de la solución}{17}{chapter.6}%
 \contentsline {section}{\numberline {6.1}Especificación formal de la solución}{17}{section.6.1}%
 \contentsline {section}{\numberline {6.2}Objetivos funcionales del sistema}{19}{section.6.2}%
-\contentsline {section}{\numberline {6.3}Diagrama UML de casos de uso del sistema}{19}{section.6.3}%
+\contentsline {section}{\numberline {6.3}Diagrama UML de casos de uso del sistema}{20}{section.6.3}%
 \contentsline {section}{\numberline {6.4}Definición del diagrama de casos de uso}{20}{section.6.4}%
 \contentsline {subsection}{\numberline {6.4.1}Actores}{20}{subsection.6.4.1}%
 \contentsline {subsection}{\numberline {6.4.2}Casos de uso}{21}{subsection.6.4.2}%
@@ -44,21 +43,59 @@
 \contentsline {subsection}{\numberline {6.6.5}Integración y despliegue continuo}{53}{subsection.6.6.5}%
 \contentsline {subsection}{\numberline {6.6.6}Arquitectura global de la aplicación}{53}{subsection.6.6.6}%
 \contentsline {chapter}{\numberline {7}Planificación}{55}{chapter.7}%
-\contentsline {chapter}{\numberline {8}Desarrollo de la aplicación backend}{57}{chapter.8}%
-\contentsline {section}{\numberline {8.1}Arquitectura y visión general del backend}{57}{section.8.1}%
-\contentsline {section}{\numberline {8.2}Modelado de datos}{58}{section.8.2}%
-\contentsline {section}{\numberline {8.3}Implementación de la lógica de negocio e integración}{59}{section.8.3}%
-\contentsline {subsection}{\numberline {8.3.1}Lógica de negocio: creación y actualización de calificaciones generales}{60}{subsection.8.3.1}%
-\contentsline {subsection}{\numberline {8.3.2}Integración con servicios externos}{61}{subsection.8.3.2}%
-\contentsline {subsection}{\numberline {8.3.3}Seguridad: autenticación mediante JWT}{63}{subsection.8.3.3}%
-\contentsline {subsection}{\numberline {8.3.4}Documentación de la API con Swagger}{64}{subsection.8.3.4}%
-\contentsline {section}{\numberline {8.4}Testing}{64}{section.8.4}%
-\contentsline {subsection}{\numberline {8.4.1}Estrategia de pruebas}{64}{subsection.8.4.1}%
-\contentsline {subsection}{\numberline {8.4.2}Herramientas utilizadas}{65}{subsection.8.4.2}%
-\contentsline {subsection}{\numberline {8.4.3}Ejemplo de prueba}{65}{subsection.8.4.3}%
-\contentsline {section}{\numberline {8.5}Despliegue del backend}{67}{section.8.5}%
-\contentsline {chapter}{\numberline {9}Conclusiones y trabajo futuro}{69}{chapter.9}%
-\contentsline {section}{BIBLIOGRAFÍA}{69}{section*.82}%
- \vspace {5mm} \hrule \par 
-\contentsline {chapter}{\numberline {A}Contenido de una entrada en .bib}{71}{appendix.Alph1}%
-\contentsline {chapter}{\numberline {B}Tipos de referencias}{73}{appendix.Alph2}%
+\contentsline {chapter}{\numberline {8}Desarrollo de la aplicación backend}{58}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Arquitectura y visión general del backend}{58}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Modelado de datos}{59}{section.8.2}%
+\contentsline {section}{\numberline {8.3}Implementación de la lógica de negocio e integración}{60}{section.8.3}%
+\contentsline {subsection}{\numberline {8.3.1}Lógica de negocio: creación y actualización de calificaciones generales}{61}{subsection.8.3.1}%
+\contentsline {subsection}{\numberline {8.3.2}Integración con servicios externos}{63}{subsection.8.3.2}%
+\contentsline {subsection}{\numberline {8.3.3}Seguridad: autenticación mediante JWT}{64}{subsection.8.3.3}%
+\contentsline {subsection}{\numberline {8.3.4}Documentación de la API con Swagger}{66}{subsection.8.3.4}%
+\contentsline {section}{\numberline {8.4}Testing}{67}{section.8.4}%
+\contentsline {subsection}{\numberline {8.4.1}Estrategia de pruebas}{67}{subsection.8.4.1}%
+\contentsline {subsection}{\numberline {8.4.2}Herramientas utilizadas}{67}{subsection.8.4.2}%
+\contentsline {subsection}{\numberline {8.4.3}Ejemplo de prueba}{68}{subsection.8.4.3}%
+\contentsline {section}{\numberline {8.5}Despliegue del backend}{70}{section.8.5}%
+\contentsline {chapter}{\numberline {9}Desarrollo de la aplicación frontend}{72}{chapter.9}%
+\contentsline {section}{\numberline {9.1}Arquitectura y visión general del frontend}{72}{section.9.1}%
+\contentsline {section}{\numberline {9.2}Implementación}{73}{section.9.2}%
+\contentsline {subsection}{\numberline {9.2.1}Estructura del proyecto}{73}{subsection.9.2.1}%
+\contentsline {subsection}{\numberline {9.2.2}Páginas, componentes y controladores}{74}{subsection.9.2.2}%
+\contentsline {paragraph}{Aspectos de la implementación:}{78}{subsection.9.2.2}%
+\contentsline {subsection}{\numberline {9.2.3}Manejo de rutas y navegación}{78}{subsection.9.2.3}%
+\contentsline {subsection}{\numberline {9.2.4}Gestión del estado}{79}{subsection.9.2.4}%
+\contentsline {subsection}{\numberline {9.2.5}Integración con el backend}{81}{subsection.9.2.5}%
+\contentsline {section}{\numberline {9.3}Diseño y experiencia de usuario (UX/UI)}{82}{section.9.3}%
+\contentsline {subsection}{\numberline {9.3.1}Componentes Ionic y su papel en el diseño}{82}{subsection.9.3.1}%
+\contentsline {subsection}{\numberline {9.3.2}Diseño responsive y adaptabilidad}{83}{subsection.9.3.2}%
+\contentsline {subsection}{\numberline {9.3.3}Usabilidad y experiencia de usuario}{83}{subsection.9.3.3}%
+\contentsline {subsection}{\numberline {9.3.4}Accesibilidad}{84}{subsection.9.3.4}%
+\contentsline {subsection}{\numberline {9.3.5}Ejemplos visuales de diseño y experiencia}{84}{subsection.9.3.5}%
+\contentsline {section}{\numberline {9.4}Testing}{86}{section.9.4}%
+\contentsline {subsection}{\numberline {9.4.1}Estrategia de pruebas}{86}{subsection.9.4.1}%
+\contentsline {subsection}{\numberline {9.4.2}Herramientas utilizadas}{86}{subsection.9.4.2}%
+\contentsline {subsection}{\numberline {9.4.3}Ejemplo de prueba}{86}{subsection.9.4.3}%
+\contentsline {section}{\numberline {9.5}Despliegue del frontend}{89}{section.9.5}%
+\contentsline {subsection}{\numberline {9.5.1}Proceso de build y optimización}{89}{subsection.9.5.1}%
+\contentsline {subsection}{\numberline {9.5.2}Hosting y distribución}{90}{subsection.9.5.2}%
+\contentsline {chapter}{\numberline {10}Integración y Despliegue Continuo}{91}{chapter.10}%
+\contentsline {section}{\numberline {10.1}Descripción general del pipeline}{91}{section.10.1}%
+\contentsline {section}{\numberline {10.2}Archivo de configuración del pipeline}{91}{section.10.2}%
+\contentsline {section}{\numberline {10.3}Ventajas del pipeline integrado}{93}{section.10.3}%
+\contentsline {chapter}{\numberline {11}Conclusiones y líneas de trabajo futuro}{95}{chapter.11}%
+\contentsline {section}{\numberline {11.1}Conclusiones}{95}{section.11.1}%
+\contentsline {section}{\numberline {11.2}Líneas de trabajo futuro}{96}{section.11.2}%
+\contentsline {subsection}{\numberline {11.2.1}Plan de implantación y despliegue en entornos reales}{96}{subsection.11.2.1}%
+\contentsline {subsection}{\numberline {11.2.2}Extensión de funcionalidades e innovación}{96}{subsection.11.2.2}%
+\contentsline {subsection}{\numberline {11.2.3}Acceso sin autenticación y apertura a usuarios externos}{97}{subsection.11.2.3}%
+\contentsline {subsection}{\numberline {11.2.4}Creación de la aplicación móvil}{97}{subsection.11.2.4}%
+\contentsline {chapter}{\numberline {12}Anexo}{98}{chapter.12}%
+\contentsline {section}{\numberline {12.1}Repositorio del proyecto}{98}{section.12.1}%
+\contentsline {section}{\numberline {12.2}Estructura del proyecto}{98}{section.12.2}%
+\contentsline {subsection}{\numberline {12.2.1}Estructura del backend}{99}{subsection.12.2.1}%
+\contentsline {subsection}{\numberline {12.2.2}Estructura del frontend}{99}{subsection.12.2.2}%
+\contentsline {section}{\numberline {12.3}Capturas adicionales de la aplicación}{99}{section.12.3}%
+\contentsline {section}{\numberline {12.4}Entornos y herramientas de desarrollo}{101}{section.12.4}%
+\contentsline {subsection}{\numberline {12.4.1}Entorno de desarrollo}{101}{subsection.12.4.1}%
+\contentsline {subsection}{\numberline {12.4.2}Gestión y visualización de la base de datos}{101}{subsection.12.4.2}%
+\contentsline {subsection}{\numberline {12.4.3}Herramientas de apoyo adicionales}{102}{subsection.12.4.3}%
