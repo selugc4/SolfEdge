@@ -116,14 +116,17 @@ describe('Tarea API', () => {
   });
 
   describe('DELETE /tareas/:id', () => {
-    it('should delete tarea', async () => {
+    it('should delete tarea and associated calificaciones', async () => {
       const mockTarea = { _id: 'tarea1', titulo: 'Test Tarea' };
       Tarea.findByIdAndDelete.mockResolvedValue(mockTarea);
+      Calificacion.deleteMany.mockResolvedValue({ deletedCount: 2 });
 
       const response = await request(app).delete('/tareas/tarea1');
 
       expect(response.status).toBe(200);
       expect(response.body).toEqual(mockTarea);
+      expect(Tarea.findByIdAndDelete).toHaveBeenCalledWith('tarea1');
+      expect(Calificacion.deleteMany).toHaveBeenCalledWith({ tarea: 'tarea1', cuestionario: null });
     });
 
     it('should return 404 if tarea not found on delete', async () => {

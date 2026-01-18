@@ -358,32 +358,32 @@ Por último, se han definido las tecnologías a utilizar y la arquitectura de la
 
 El sistema permitirá el acceso mediante un mecanismo de inicio de sesión en el que podrán autenticarse tres tipos de usuarios: administrador, profesor y alumno. Cada usuario tendrá acceso únicamente a las funcionalidades correspondientes a su rol, sin posibilidad de utilizar las funciones asignadas a otros.
 
-No existirá un proceso de registro automático. El administrador será creado de forma manual y, una vez dentro de la aplicación, tendrá la capacidad de crear las cuentas de los profesores. Para ello, deberá introducir los siguientes datos: nombre, primer apellido, segundo apellido y dirección de correo electrónico. Se realizará una comprobación de validez de los datos introducidos (formato correcto del nombre, de los apellidos y del correo electrónico) y una verificación de unicidad del correo electrónico en la base de datos.
+No existirá un proceso de registro. El administrador será creado de forma automática y, una vez dentro de la aplicación, tendrá la capacidad de crear las cuentas de los profesores manualmente. Para ello, deberá introducir los siguientes datos: nombre, primer apellido, segundo apellido y dirección de correo electrónico. Se realizará una comprobación de validez de los datos introducidos (formato correcto del nombre, de los apellidos y del correo electrónico) y una verificación de unicidad del correo electrónico en la base de datos.
 
 En el proceso de creación, el sistema generará automáticamente un nombre de usuario a partir de la primera letra del nombre y de los apellidos. Por ejemplo, para un usuario denominado José Luis Garrido Castro, el identificador generado será jgc. En caso de que existan coincidencias con identificadores ya presentes en la base de datos, se añadirá un número consecutivo equivalente al total de usuarios con la misma raíz más uno, de modo que si ya existen 40 usuarios con identificadores iniciados en jgc, el nuevo identificador será jgc41. La contraseña será generada automáticamente mediante el uso de un servicio externo de generación de contraseñas seguras. Una vez creadas las credenciales, estas serán enviadas por correo electrónico al profesor.
 
-El profesor, a su vez, tendrá la capacidad de crear cuentas de alumnos mediante un procedimiento equivalente al descrito para la creación de profesores.
+El profesor, a su vez, tendrá la capacidad de crear cuentas de alumnos manualmente mediante un procedimiento equivalente al descrito para la creación de profesores manual.
 
-Además, el profesor podrá crear grupos de clase, añadir alumnos a los mismos, eliminarlos o eliminar grupos completos. Un alumno podrá pertenecer a varios grupos de forma simultánea.
+Además, el profesor podrá crear grupos de clase y añadir alumnos a los mismos. Un alumno podrá pertenecer a varios grupos de forma simultánea.
 
-También podrá enviar mensajes a unos alumnos o cursos completos determinados y otra ventana donde podrá adjuntar las calificaciones generales del curso seleccionando a un alumno en concreto.
+También podrá enviar mensajes a unos alumnos o grupos completos determinados y podrá adjuntar las calificaciones generales del curso seleccionando a un alumno en concreto.
 
 El sistema dispondrá de un área denominada administración en la que estarán disponibles las operaciones mencionadas anteriormente.
 
 Fuera de esta sección, la aplicación contará con cuatro apartados denominados \textbf{Ritmo, Entonación, Audición y Teoría}. Cada apartado estará compuesto por dos secciones diferenciadas:
 \begin{enumerate}
-\item \textbf{Libro del curso}: permitirá al profesor subir un único archivo en formato PDF correspondiente al curso seleccionado. Si se sube un nuevo archivo, el anterior será sustituido. El profesor podrá eliminar o reemplazar el archivo en cualquier momento.
+\item \textbf{Libro del curso}: Permitirá al profesor subir un único archivo en formato PDF correspondiente al curso seleccionado. Si se sube un nuevo archivo, el anterior será sustituido. El profesor podrá eliminar o reemplazar el archivo en cualquier momento.
 
-\item \textbf{Tareas a realizar}: permitirá al profesor crear tareas asociadas a un curso determinado. Cada tarea constará de una descripción y, opcionalmente, de un material de apoyo en formato PDF, MP3 o MP4. También se definirá una fecha límite de entrega. Las tareas podrán calificarse individualmente, modificarse y/o eliminarse en cualquier momento, pero no se eliminarán automáticamente al llegar la fecha de entrega; se mantendrán hasta la finalización del curso. En el apartado de Teoría, las tareas podrán sustituirse (o no) por un cuestionario tipo test. Dicho cuestionario permitirá la creación de preguntas con opciones de respuesta, y cada pregunta podrá ir acompañada de un archivo en formato MP3.
+\item \textbf{Tareas a realizar}: Permitirá al profesor crear tareas asociadas a un curso determinado. Cada tarea constará de una descripción y, opcionalmente, de un material de apoyo en formato PDF, MP3 o MP4. También se definirá una fecha límite de entrega. Las tareas podrán calificarse individualmente, modificarse y/o eliminarse en cualquier momento, pero no se eliminarán automáticamente al llegar la fecha de entrega; se mantendrán hasta la finalización del curso. En el apartado de Teoría, las tareas podrán sustituirse (o no) por un cuestionario tipo test. Dicho cuestionario permitirá la creación de preguntas con opciones de respuesta, y cada pregunta podrá ir acompañada de un archivo en formato MP3.
 \end{enumerate}
-Los alumnos dispondrán de un área específica de notificaciones. En ella recibirán avisos cuando sean añadidos o eliminados de un curso o grupo, cuando se cree una nueva tarea, cuando se suba un libro del curso, cuando reciban una calificación (notificaciones del sistema) o un mensaje (notificaciones del profesor). Las notificaciones serán interactivas, permitiendo acceder directamente al recurso correspondiente.
 
 Asimismo, los alumnos podrán acceder a los mismos cuatro apartados (Ritmo, Entonación, Audición y Teoría). En cada apartado se mostrarán las mismas dos secciones:
 \begin{itemize}
 \item En la sección Libro del curso, los alumnos podrán visualizar el archivo PDF correspondiente y descargarlo, pero no modificarlo.
-
-\item En la sección Tareas a realizar, los alumnos podrán consultar la lista de tareas disponibles y realizar las entregas correspondientes. Los formatos permitidos serán PDF, MP3 o MP4, y/o bien un comentario textual dentro de la propia aplicación. En el caso de cuestionarios, el alumno accederá a una ventana específica donde podrá completarlo. El cuestionario no se considerará entregado hasta que el alumno pulse expresamente el botón de envío.
+\item En la sección Tareas a realizar, los alumnos podrán consultar la lista de tareas disponibles y realizar las entregas correspondientes. Los formatos permitidos serán PDF, MP3 o MP4, y/o bien un comentario textual dentro de la propia aplicación. En el caso de los cuestionarios, el alumno podrá acceder de forma específica a cada uno para completarlos. El cuestionario no se considerará entregado hasta que el alumno pulse expresamente el botón de envío.
 \end{itemize}
+
+Los alumnos y profesores dispondrán de un área específica de mensajes. En ella recibirán avisos cuando cuando se cree, se modifique, se califique (alumno) o se entregue (profesor) una tarea o cuestionario, cuando reciban una calificación general (mensajes del sistema) o un mensaje del profesor.
 \section{Objetivos funcionales del sistema}
 El objetivo principal del sistema es facilitar y mejorar la enseñanza del lenguaje musical mediante una plataforma que proporcione funcionalidades específicas tanto para profesores como para alumnos. Estos objetivos funcionales guían el desarrollo del sistema y aseguran que las necesidades pedagógicas y administrativas se cubran de forma eficiente y adaptada a las diferentes ramas del aprendizaje musical.
 Los objetivos funcionales que se persiguen son los siguientes:
@@ -1869,7 +1869,7 @@ Se opta por una base de datos documental, concretamente \textbf{MongoDB} \cite{M
 
 MongoDB se integra de forma nativa con Node.js, facilitando el desarrollo y la gestión de la información relativa a usuarios, grupos, tareas y demás entidades del sistema.
 
-\begin{figure}[H]
+\begin{figure}[H] 
     \centering
     \includegraphics[height=1.5cm]{Figuras/mongodb_logo.png}
     \caption{MongoDB}
@@ -1979,7 +1979,7 @@ Desde el punto de vista estructural, el backend adopta una separación de respon
 \end{itemize}
 
 Esta organización favorece un diseño modular y desacoplado, en el que cada componente cumple una función claramente definida. Como resultado, se facilita la mantenibilidad del código, la incorporación de nuevas funcionalidades y la realización de pruebas de forma aislada.
-
+\newpage
 A nivel de proyecto, el backend se estructura en distintos módulos y directorios que reflejan esta separación, incluyendo carpetas específicas para modelos, controladores, rutas y middlewares. La disposición mencionada contribuye a una mayor claridad del código y a una gestión más eficiente del desarrollo, especialmente en proyectos de crecimiento progresivo.
 
 Desde el punto de vista tecnológico, el backend se ha desarrollado utilizando \textbf{Node.js} como entorno de ejecución y \textbf{Express} como framework principal para la construcción de la API REST. La persistencia de los datos del sistema se gestiona mediante una base de datos documental \textbf{MongoDB}, integrada directamente con el backend. Esta capa de persistencia permite almacenar y recuperar de forma eficiente la información relacionada con los distintos elementos del sistema, asegurando la coherencia de los datos y proporcionando una base sólida sobre la que se apoya la lógica de negocio de la aplicación. Los detalles concretos de la modelización y el acceso a los datos se abordan en los apartados posteriores dedicados a la implementación.
@@ -2007,38 +2007,40 @@ La Figura~\ref{fig:modelo_conceptual} muestra el modelo conceptual de datos del 
 En este apartado se describe la implementación de la lógica de negocio del backend, la integración con servicios externos y los mecanismos de seguridad y documentación que permiten garantizar la calidad, mantenibilidad y escalabilidad del sistema.
 
 \subsection{Lógica de negocio: creación y actualización de calificaciones generales}
-
+\label{subsec:logic}
 Un ejemplo representativo de la lógica de negocio es el método encargado de crear o actualizar calificaciones generales para los alumnos. Este método valida los datos de entrada, controla reglas específicas del dominio (como restricciones para calificaciones extraordinarias), maneja errores específicos y, además, genera un mensaje automático del sistema para notificar al alumno sobre la calificación.
 
 \begin{Verbatim}[frame=single, fontsize=\small, xleftmargin=10pt, xrightmargin=10pt]
 exports.crearOActualizarCalificacionGeneral = 
 async (alumnoId, grupoId, tipo, nota, profesorId) => {
     try {
+        //Validaciones
+          //Tipo
         const validTypes = ['Q1', 'Q2', 'Q3', 'Ordinaria', 
-        'Extraordinaria'];
+        'Extraordinaria']; //Debe coincidir con cualquiera de estos
         if (!tipo || !validTypes.includes(tipo)) {
             return { status: 400, body: { error: 
             'El tipo de calificación proporcionado no es válido.' } };
         }
-
+          //Nota
         if (!validateNota(nota)) {
             return { status: 400, body: { error: 
             'La nota debe ser un número entero entre 1 y 10.' } };
         }
-
+          //Existencia del alumno
         const alumno = await Usuario.findById(alumnoId);
         if (!alumno || alumno.role !== 'alumno') {
             return { status: 400, body: { error: 
             'El ID de alumno proporcionado no es válido 
             o el usuario no es un alumno.' } };
         }
-
+          //Existencia del grupo        
         const grupo = await Grupo.findById(grupoId);
         if (!grupo) {
             return { status: 400, body: { error: 
             'El ID de grupo proporcionado no es válido.' } };
         }
-
+          //Existencia del profesor y relación con alumno
         if (profesorId) {
             const profesor = await Usuario.findById(profesorId);
             if (!profesor || profesor.role !== 'profesor') {
@@ -2047,7 +2049,8 @@ async (alumnoId, grupoId, tipo, nota, profesorId) => {
                 o el usuario no es un profesor.' } };
             }
         }
-
+          //Tipo extraordinaria exclusivo a cuando ya hay
+          //una calificación ordinaria en la combinación usuario/grupo
         if (tipo === 'Extraordinaria') {
             const ordinaria = await CalificacionGeneral.findOne
             ({ alumno: alumnoId, grupo: grupoId, tipo: 'Ordinaria' });
@@ -2064,13 +2067,13 @@ async (alumnoId, grupoId, tipo, nota, profesorId) => {
                 Ordinaria es menor de 5.' } };
             }
         }
-
+        //Inserción o actualización del registro si todo está bien
         const calificacion = await CalificacionGeneral.findOneAndUpdate(
             { alumno: alumnoId, grupo: grupoId, tipo: tipo },
             { tipo: tipo, nota: nota, profesor: profesorId },
             { upsert: true, new: true, runValidators: true }
         );
-
+        //Creación del mensaje del sistema para avisar al alumno
         const sistemaUser = 
         await Usuario.findOne({ username: 'sistema' });
         if (sistemaUser) {
@@ -2084,14 +2087,10 @@ async (alumnoId, grupoId, tipo, nota, profesorId) => {
         return { status: 200, body: calificacion };
 
     } catch (error) {
-        if (error.code === 11000) {
-            return { status: 409, body: { error: 
-            `Ya existe una calificación de tipo 
-            '${tipo}' para este alumno en este grupo.` } };
-        }
         if (error.name === 'ValidationError') {
             return { status: 400, body: { error: error.message } };
         }
+        //Error interno desconocido
         return { status: 500, body: { error: 
         `Error al crear/actualizar la calificación: 
         ${error.message}` } };
@@ -2114,16 +2113,19 @@ async (destinatario, username, password) => {
     .post('send', { version: 'v3.1' }).request({
       Messages: [
         {
+          //Claves de mailjet para envío de emails
           From: {
             Email: process.env.EMAIL_FROM,
             Name: process.env.EMAIL_FROM_NAME,
           },
+          //Destinatario
           To: [
             {
               Email: destinatario,
               Name: username,
             },
           ],
+          //Contenido del email
           Subject: 'Tus credenciales para SolfEdge',
           HTMLPart: `
             <h1>¡Bienvenido a SolfEdge!</h1>
@@ -2144,6 +2146,7 @@ async (destinatario, username, password) => {
     return { message: 'Correo enviado correctamente.' };
   } catch (err) {
     return {
+      //Error desconocido
       message: 'Error al enviar el correo.',
       error: err.statusCode ? `${err.statusCode} - 
       ${err.message}` : err.message || JSON.stringify(err),
@@ -2161,6 +2164,8 @@ La seguridad en el acceso a la API se implementa a través de JWT, mediante el c
 \begin{Verbatim}[frame=single, fontsize=\small, xleftmargin=10pt, xrightmargin=10pt]
 exports.login = async (username, password) => {
     try {
+        //Se debe validar que existan
+        //un usuario con el username y password introducidos
         const usuario = await Usuario.findOne({ username });
         if (!usuario) {
             return { status: 404, body: 
@@ -2179,7 +2184,9 @@ exports.login = async (username, password) => {
             role: usuario.role,
             email: usuario.email
         };
-
+        //Solo si es alumno
+        //Se obtiene el primer grupo que se encuentre
+        //en la base de datos en el que esté el usuario
         if (usuario.role === 'alumno') {
             const grupo = await mongoose.model('Grupo').
             findOne({ alumnos: usuario._id });
@@ -2187,9 +2194,9 @@ exports.login = async (username, password) => {
                 payload.grupoId = grupo._id;
             }
         }
-
+        //Envío del token si se cumplen las validaciones
         const token = jwt.sign(
-          payload, JWT_SECRET, { expiresIn: '1h' });
+        payload, JWT_SECRET, { expiresIn: '1h' });
         return { status: 200, 
         body: { message: 'Login correcto', token: token } };
 
@@ -2210,13 +2217,14 @@ exports.verifyToken = (req, res, next) => {
 
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
-
+    //Sino existe token no se autoriza el acceso a las operaciones
     if (!token) {
         return res.status(401).json({ error: 'Acceso denegado. 
         No se proporcionó token.' });
     }
+    //Si existe token se decodifica y se comprueba
     const result = authController.verifySession(token);
-
+    //Si es exitoso informa del éxito
     if (result.status === 200) {
         req.user = result.body.sessionData;
         next();
@@ -2225,7 +2233,6 @@ exports.verifyToken = (req, res, next) => {
     }
 };
 \end{Verbatim}
-\newpage
 De esta forma, todas las rutas relevantes quedan protegidas, permitiendo solo el acceso a usuarios autenticados, salvo aquellas destinadas a usuarios no autenticados y la documentación de la API:
 
 \begin{Verbatim}[frame=single, fontsize=\small, xleftmargin=10pt, xrightmargin=10pt]
@@ -2282,10 +2289,10 @@ Se han utilizado herramientas especializadas que permiten automatizar y gestiona
     \item \textbf{Jest:} Framework para pruebas unitarias en JavaScript, que proporciona funcionalidades para mocks, aserciones y cobertura de código.
     \item \textbf{Supertest:} Herramienta para realizar pruebas sobre endpoints HTTP, facilitando la simulación de peticiones y validación de respuestas en la API REST.
 \end{itemize}
-\newpage
+
 \subsection{Ejemplo de prueba}
 
-A modo ilustrativo, se presenta un ejemplo de prueba unitaria sobre la función que crea o actualiza una calificación general, comprobando tanto el resultado esperado como el manejo de errores:
+A modo ilustrativo, se presenta como ejemplo del sistema desarrollado un conjunto de pruebas que verifica el comportamiento del endpoint POST /calificaciones-generales, cuyas operaciones aparecen en el apartado~\ref{subsec:logic}, comprobando tanto el caso exitoso de creación o actualización de una calificación general como la correcta gestión de errores. Se valida que una calificación válida sea procesada correctamente y devuelta con estado 200, que la nota se encuentre dentro del rango permitido y que las reglas de negocio asociadas a las calificaciones extraordinarias se cumplan.
 
 \begin{Verbatim}[frame=single, fontsize=\small, xleftmargin=10pt, xrightmargin=10pt]
     describe('POST /calificaciones-generales', () => {
@@ -2305,7 +2312,6 @@ A modo ilustrativo, se presenta un ejemplo de prueba unitaria sobre la función 
                     nota: 8
                 })
             };
-
             Usuario.findById
                 .mockResolvedValueOnce({ _id: 'alumno1', 
                 role: 'alumno' })
@@ -2320,7 +2326,6 @@ A modo ilustrativo, se presenta un ejemplo de prueba unitaria sobre la función 
             ({ _id: 'sistema-user' });
             mensajeController.crearMensaje.
             mockResolvedValue({});
-
             const response = await request(app)
                 .post('/calificaciones-generales')
                 .send({
@@ -2357,7 +2362,6 @@ A modo ilustrativo, se presenta un ejemplo de prueba unitaria sobre la función 
 
             Grupo.findById.mockResolvedValue({ _id: 'grupo1' });
             CalificacionGeneral.findOne.mockResolvedValue(null);
-
             const response = await request(app)
                 .post('/calificaciones-generales')
                 .send({
@@ -2367,7 +2371,6 @@ A modo ilustrativo, se presenta un ejemplo de prueba unitaria sobre la función 
                     nota: 6,
                     profesorId: 'profesor1'
                 });
-
             expect(response.status).toBe(400);
             expect(response.body).toEqual({
                 error: 'No se puede establecer una 
@@ -2387,7 +2390,6 @@ A modo ilustrativo, se presenta un ejemplo de prueba unitaria sobre la función 
             ({ _id: 'grupo1' });
             CalificacionGeneral.findOne.mockResolvedValue
             ({ nota: 5 });
-
             const response = await request(app)
                 .post('/calificaciones-generales')
                 .send({
@@ -2397,7 +2399,6 @@ A modo ilustrativo, se presenta un ejemplo de prueba unitaria sobre la función 
                     nota: 6,
                     profesorId: 'profesor1'
                 });
-
             expect(response.status).toBe(400);
             expect(response.body).toEqual({
                 error: 'Solo se puede establecer una calificación 
@@ -2526,6 +2527,7 @@ import {
   IonSegmentButton, IonListHeader, IonNote, IonButton, IonIcon, 
   ToastController, ModalController
 } from '@ionic/angular/standalone';
+//Componentes híbridos de Ionic
 import { MensajeService } from '../services/mensaje.service';
 import { Mensaje } from '../models/mensaje.model';
 import { ribbonOutline, sendOutline } from 'ionicons/icons';
@@ -2538,7 +2540,7 @@ import { CalificacionGeneralModalComponent } from
 '../components/calificacion-general-modal
 /calificacion-general-modal.component';
 import { ActivatedRoute, Router } from '@angular/router';
-
+//Importaciones compatibles con standalone
 @Component({
   selector: 'app-tab5',
   templateUrl: 'tab5.page.html',
@@ -2554,7 +2556,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class Tab5Page implements OnInit {
   activatedRoute: ActivatedRoute = inject(ActivatedRoute);
-  router: Router = inject(Router);
+  router: Router = inject(Router); //Inyección de dependencias
   authService: AuthService = inject(AuthService);
   calificacionService: CalificacionService = 
   inject(CalificacionService);
@@ -2579,7 +2581,7 @@ export class Tab5Page implements OnInit {
       'send-outline': sendOutline
     });
   }
-
+  //Métodos de ciclo de vida
   ngOnInit() {
     this.authService.currentUser.subscribe(user => {
       this.currentUser = user;
@@ -2609,7 +2611,7 @@ export class Tab5Page implements OnInit {
       });
     });
   }
-
+  //Método de gestión de modal
   async presentCalificacionGeneralModal() {
     if (!this.selectedGrupo) {
       await this.presentToast('Por favor, 
@@ -2643,6 +2645,7 @@ export class Tab5Page implements OnInit {
       ).subscribe({
         next: async (calificacion) => {
           await this.presentToast
+          //Uso de observables para recuperación de datos
           (`Calificación '${calificacion.tipo}' 
           guardada para ${data.alumnoUsername}.`);
         },
@@ -2688,7 +2691,7 @@ Este ejemplo sintetiza cómo combinar de forma eficiente las capacidades de Angu
 
 La navegación entre vistas se gestiona mediante el sistema de enrutado de Angular integrado con Ionic. Las rutas permiten definir qué componente se carga en función de la URL y facilitan la protección de vistas que requieren autenticación.
 
-A modo de ejemplo, el siguiente fragmento muestra la protección de rutas mediante un \textit{guard} de autenticación que tiene como misión la gestión de rutas en función de los roles y la verificación del token JWT que, como se ha mencionado anteriormente, se almacena en el frontend tras el login y protege el acceso a la información desde la interfaz ya que se comprueban las validaciones que el backend realiza en cada petición:
+A modo de ejemplo del sistema desarrollado, el siguiente fragmento muestra la protección de rutas mediante un \textit{guard} de autenticación que tiene como misión la gestión de rutas en función de los roles y la verificación del token JWT que, como se ha mencionado anteriormente, se almacena en el frontend tras el login y protege el acceso a la información desde la interfaz ya que se comprueban las validaciones que el backend realiza en cada petición:
 
 \begin{Verbatim}[frame=single, fontsize=\small, xleftmargin=10pt, xrightmargin=10pt]
 export class AdminGuard implements CanActivate {
@@ -2698,7 +2701,9 @@ export class AdminGuard implements CanActivate {
 
   canActivate(): boolean {
     const currentUser = this.authService.currentUserValue;
+    //Validación de autenticación
     if (this.authService.isAuthenticated()) {
+      //Validación de roles
       if (currentUser && currentUser.role === 'administrador') {
         return true;
       } else {
@@ -2805,7 +2810,7 @@ Este servicio permite que distintos componentes y guards consulten el estado de 
 
 La comunicación con el backend se realiza mediante servicios que encapsulan las llamadas HTTP a la API REST. Este diseño desacopla la lógica de comunicación del resto de la aplicación y facilita su reutilización y mantenimiento.
 
-A continuación se muestra un fragmento simplificado de un servicio que realiza una petición autenticada al backend:
+A continuación se muestra un fragmento simplificado del sistema desarrollado de un servicio que realiza una petición autenticada a una ruta del backend cuyas operaciones aparecen en el apartado~\ref{subsec:logic}:
 
 \begin{Verbatim}[frame=single, fontsize=\small, xleftmargin=10pt, xrightmargin=10pt]
   crearOActualizarCalificacion(
@@ -2872,7 +2877,8 @@ El diseño prioriza la facilidad de uso, minimizando la curva de aprendizaje y f
     \item \textbf{Interacciones enriquecidas:} Se emplean modales, segmentos y notificaciones (toasts) para facilitar flujos de trabajo sin cambiar de pantalla o interrumpir tareas.
 \end{itemize}
 
-Un buen ejemplo de usabilidad se aprecia en la gestión de calificaciones donde, a través de un \texttt{IonModal} (ver Figura~\ref{fig:componentes_ion}), el usuario puede editar datos sin salir de la vista principal, manteniendo el contexto y agilizando la interacción. Otro buen ejemplo es el uso de distintos menús según el contexto (Figura~\ref{fig:navegacion_componentes}).
+Un buen ejemplo de usabilidad se aprecia en la gestión de calificaciones donde, a través de un \texttt{IonModal} (ver Figura~\ref{fig:componentes_ion}), el usuario puede editar datos sin salir de la vista principal, manteniendo el contexto y agilizando la interacción.
+Otro buen ejemplo es el uso de distintos menús según el contexto (Figura~\ref{fig:navegacion_componentes}) ya que separa la parte asociada al flujo académico natural de la aplicación (menú de pestañas), la cual está relacionada con los grupos (material, tareas, cuestionarios, calificaciones y envío de mensajes del profesor puesto que solo se podrán seleccionar como destinatarios a los alumnos del grupo seleccionado), de la parte referente a la gestión (menú lateral), esta última con un dominio genérico (elección de grupo, buzón de mensajes debido a que puede haber mensajes de cualquier contexto y administración de profesor/administrador). 
 
 \subsection{Accesibilidad}
 
@@ -2880,10 +2886,10 @@ Más allá de la simple apariencia, la aplicación se ha diseñado para ser acce
 
 \begin{itemize}
     \item \textbf{Soporte ARIA y roles semánticos:} Ionic incorpora atributos ARIA en sus componentes, mejorando la compatibilidad con lectores de pantalla y tecnologías asistivas.
-    \item \textbf{Contraste y legibilidad:} La paleta de colores se ha escogido para ofrecer un contraste adecuado entre texto, fondos y elementos interactivos, facilitando la lectura incluso en condiciones de baja iluminación o para personas con deficiencias visuales (Figura~\ref{fig:accesibilidad}).
+    \item \textbf{Contraste y legibilidad:} La paleta de colores se ha escogido para ofrecer un contraste adecuado entre texto, fondos y elementos interactivos, facilitando la lectura incluso en condiciones de baja iluminación o para personas con deficiencias visuales.
     \item \textbf{Etiquetado claro y descriptivo:} Los formularios, botones y controles cuentan con etiquetas y descripciones textuales que clarifican su función y estado.
 \end{itemize}
-
+Una vista representativa del sistema desarrollado para visualizar el diseño accesible es la Figura~\ref{fig:accesibilidad}, puesto que se diferencian todos los componentes semánticamente (ARIA y roles semánticos), se observa una gama de colores clara y contrastada y cada componente va acompañado de texto y/o iconos.
 El compromiso con la accesibilidad se refleja en la mejora de la experiencia global, haciendo que la aplicación sea usable por un público más amplio y cumpliendo con estándares internacionales.
 \subsection{Ejemplos visuales de diseño y experiencia}
 
@@ -2891,23 +2897,23 @@ Estas imágenes reflejan cómo la combinación de Ionic y Angular junto con buen
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.3\textwidth]{Figuras/frontend_login_mobile.png}
-    \includegraphics[width=0.6\textwidth]{Figuras/frontend_login_desktop.png}
+    \includegraphics[width=0.2\textwidth]{Figuras/frontend_login_mobile.png}
+    \includegraphics[width=0.7\textwidth]{Figuras/frontend_login_desktop.png}
     \caption{Vista de inicio de sesión en móvil y escritorio}
     \label{fig:login_responsive}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.3\textwidth]{Figuras/frontend_menu_lateral.png}
-    \includegraphics[width=0.6\textwidth]{Figuras/frontend_barra_pestañas.png}
+    \includegraphics[width=0.2\textwidth]{Figuras/frontend_menu_lateral.png}
+    \includegraphics[width=0.7\textwidth]{Figuras/frontend_barra_pestañas.png}
     \caption{Menú lateral y barra de pestañas.}
     \label{fig:navegacion_componentes}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{Figuras/frontend_calificaciones_ioncard.png}
+    \includegraphics[width=0.6\textwidth]{Figuras/frontend_calificaciones_ioncard.png}
     \caption{Uso de IonModal}
     \label{fig:componentes_ion}
 \end{figure}
@@ -2943,10 +2949,9 @@ El conjunto de pruebas se ha desarrollado usando las siguientes herramientas:
 \end{itemize}
 
 Estas herramientas se integran con Angular CLI, facilitando la ejecución continua y la generación de informes de cobertura.
-
 \subsection{Ejemplo de prueba}
 
-A continuación se muestra un ejemplo simplificado de prueba unitaria para el componente Angular "Tab5Page" mostrado previamente, donde se comprueba que se crea correctamente y que muestra un mensaje esperado:
+A continuación se muestra un ejemplo simplificado del sistema desarrollado de test para el componente Angular "Tab5Page" mostrado previamente, donde se comprueba que se crea correctamente y que muestra un mensaje esperado:
 
 \begin{Verbatim}[frame=single, fontsize=\small, xleftmargin=10pt, xrightmargin=10pt]
 import { ComponentFixture, TestBed } from '@angular/core/testing';
@@ -3076,7 +3081,6 @@ La aplicación se construye usando Angular CLI con el comando de producción, qu
 \end{itemize}
 
 El resultado es una carpeta \texttt{www} (o \texttt{dist}) lista para ser desplegada.
-\newpage
 \subsection{Hosting y distribución}
 
 Se ha optado por el hosting estático gratuito y sencillo mediante \textbf{GitHub Pages}, que permite publicar la aplicación directamente desde el repositorio.
@@ -3125,7 +3129,7 @@ El pipeline se configura para ejecutarse en cada \texttt{push} a la rama princip
     \item \textbf{Ejecución de pruebas automatizadas:} se ejecutan pruebas unitarias y de integración para validar la funcionalidad y estabilidad del sistema.
     \item \textbf{Despliegue automático:} una vez validados los builds, el backend se despliega en un entorno de producción gestionado (Render), mientras que el frontend se publica como sitio estático en GitHub Pages.
 \end{itemize}
-
+\newpage
 \section{Archivo de configuración del pipeline}
 
 A continuación se muestra el fichero YML que integra ambos procesos en GitHub Actions:
@@ -3213,7 +3217,7 @@ jobs:
           publish_branch: gh-pages
 
 \end{Verbatim}
-
+\newpage
 \section{Ventajas del pipeline integrado}
 
 Implementar un pipeline que cubre el ciclo completo de desarrollo y despliegue aporta varios beneficios clave:
@@ -3233,7 +3237,7 @@ En este capítulo se presentan las conclusiones finales del proyecto, evaluando 
 
 \section{Conclusiones}
 
-El objetivo principal de este proyecto consistía en resolver la problemática relacionada con la falta de recursos informáticos específicos orientados a la enseñanza del lenguaje musical. A lo largo del desarrollo de la aplicación se ha trabajado de forma progresiva para dar respuesta a esta necesidad, apoyándose en tecnologías actuales, gratuitas y ampliamente utilizadas, y poniendo el foco tanto en profesores como en alumnos.
+El objetivo principal de este proyecto consistía en \textbf{resolver la problemática relacionada con la falta de recursos informáticos específicos orientados a la enseñanza del lenguaje musical}. A lo largo del desarrollo de la aplicación se ha trabajado de forma progresiva para dar respuesta a esta necesidad, apoyándose en tecnologías actuales, gratuitas y ampliamente utilizadas, y poniendo el foco tanto en profesores como en alumnos.
 
 En relación con los subobjetivos definidos inicialmente, se pueden extraer las siguientes conclusiones:
 
@@ -3246,7 +3250,7 @@ En relación con los subobjetivos definidos inicialmente, se pueden extraer las 
 
     \item \textbf{Definir una solución informática que cubra las necesidades detectadas:}  
     Se ha definido y diseñado una solución coherente que integra backend y frontend, ofreciendo una plataforma funcional que centraliza la gestión académica y la interacción entre usuarios. La arquitectura adoptada permite escalar y extender la aplicación, lo que refuerza la validez de la solución propuesta.
-
+    \newpage
     \item \textbf{Desarrollar la solución:}  
     Este objetivo se ha cumplido mediante la implementación completa de la aplicación, abarcando el desarrollo del backend, el frontend híbrido y los procesos de testing y despliegue. La aplicación es funcional, estable y usable, cumpliendo los requisitos definidos durante las fases iniciales del proyecto.
 
@@ -3272,14 +3276,15 @@ Sería necesario estudiar aspectos como:
 \end{itemize}
 
 Este trabajo permitiría acercar la aplicación a un uso real en entornos educativos.
-
+\newpage
 \subsection{Extensión de funcionalidades e innovación}
 
-Otra línea clara de evolución es la ampliación de las funcionalidades actuales, tanto para mejorar la calidad del desarrollo como para ofrecer características innovadoras y atractivas para los usuarios.
+Otra línea clara de evolución es la ampliación de las funcionalidades actuales, tanto para mejorar la calidad del desarrollo como para ofrecer características innovadoras y atractivas para los usuarios, algunos ejemplos son:
 
 \begin{itemize}
     \item \textbf{Integración de inteligencia artificial:} Desarrollo de pistas o ayudas automáticas en cuestionarios y ejercicios, adaptadas al progreso del alumno mediante técnicas de IA, favoreciendo un aprendizaje más personalizado.
-    \item \textbf{Gestión masiva de usuarios mediante archivos:} Incorporación de funcionalidades que permitan dar de alta usuarios a partir de archivos con un formato definido (por ejemplo CSV), evitando la creación manual y agilizando la administración por parte del profesorado o los centros.
+    \item \textbf{Gestión masiva de usuarios y grupos mediante archivos:} Incorporación de funcionalidades que permitan dar de alta usuarios y a grupos a partir de archivos con un formato definido (por ejemplo CSV), evitando la creación manual y agilizando la administración por parte del profesorado o los centros.
+    \item \textbf{Borrado de usuarios y grupos:} Actualmente no se contempla la opción desde dentro de la aplicación para el borrado de datos por lo que sería necesaria asistencia técnica para ello, por lo tanto, es interesante permitir el borrado de usuarios y grupos y, con ellos, su material asociado (tareas, cuestionarios, grupos, calificaciones, mensajes...)
 \end{itemize}
 
 Estas mejoras reforzarían el carácter innovador de la aplicación y su adecuación a contextos educativos reales.
@@ -3368,18 +3373,19 @@ frontend/
 \end{verbatim}
 
 Esta estructura facilita la escalabilidad del proyecto y la reutilización de componentes, manteniendo una clara separación entre lógica de presentación, lógica de negocio y navegación.
+\newpage
 \section{Capturas adicionales de la aplicación}
 
 En este apartado se incluyen capturas adicionales de la aplicación en funcionamiento que complementan las mostradas en el capítulo de diseño y experiencia de usuario. Estas imágenes permiten apreciar otras vistas y flujos relevantes del sistema, reforzando la comprensión global de la aplicación desarrollada.
 \begin{figure}[H]
     \centering
-    \begin{subfigure}[b]{0.48\textwidth}
+    \begin{subfigure}[b]{0.9\textwidth}
         \centering
         \includegraphics[width=\textwidth]{Figuras/frontend_rama.png}
-        \caption{Vista de profesor de rama con libro y tareas}
+        \caption{Vista de profesor con libro y tareas}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[b]{0.48\textwidth}
+    \begin{subfigure}[b]{0.9\textwidth}
         \centering
         \includegraphics[width=\textwidth]{Figuras/frontend_rama_vacia.png}
         \caption{Vista de alumno sin libro y sin tareas}
@@ -3390,13 +3396,13 @@ En este apartado se incluyen capturas adicionales de la aplicación en funcionam
 
 \begin{figure}[H]
     \centering
-    \begin{subfigure}[b]{0.48\textwidth}
+    \begin{subfigure}[b]{0.85\textwidth}
         \centering
         \includegraphics[width=\textwidth]{Figuras/frontend_administracion.png}
         \caption{Administración de administrador}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[b]{0.48\textwidth}
+    \begin{subfigure}[b]{0.85\textwidth}
         \centering
         \includegraphics[width=\textwidth]{Figuras/frontend_administracion_profesor.png}
         \caption{Administración de profesor}
@@ -3407,14 +3413,14 @@ En este apartado se incluyen capturas adicionales de la aplicación en funcionam
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{Figuras/frontend_mensajes.png}
+    \includegraphics[width=0.85\textwidth]{Figuras/frontend_mensajes.png}
     \caption{Vista de mensajería}
     \label{fig:cuestionario}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{Figuras/frontend_formulario.png}
+    \includegraphics[width=0.85\textwidth]{Figuras/frontend_formulario.png}
     \caption{Vista de formulario para rellenar cuestionarios}
     \label{fig:modal_interaccion}
 \end{figure}
@@ -3448,7 +3454,7 @@ Para la gestión y exploración de la base de datos se ha utilizado \textbf{Mong
 \end{itemize}
 
 Cabe destacar que MongoDB Compass se ha empleado únicamente como herramienta de apoyo, sin formar parte del sistema en producción ni afectar a la lógica de la aplicación.
-
+\newpage
 \subsection{Herramientas de apoyo adicionales}
 
 Durante el desarrollo también se han utilizado otras herramientas auxiliares, entre ellas:

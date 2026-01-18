@@ -166,6 +166,7 @@ exports.deleteTarea = async (tareaId) => {
     try {
         const tarea = await Tarea.findByIdAndDelete(tareaId);
         if (!tarea) return { status: 404, body: { error: 'Tarea no encontrada.' } };
+        await Calificacion.deleteMany({ tarea: tareaId, cuestionario: null });
         return { status: 200, body: tarea };
     } catch (error) {
         return { status: 500, body: { error: error.message } };

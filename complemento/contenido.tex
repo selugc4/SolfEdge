@@ -1,1 +1,617 @@
-  
+\chapter{Contexto del proyecto y punto de partida}
+\label{chap:contexto}
+El presente proyecto se concibe como una extensión y evolución directa del Trabajo Fin de Grado desarrollado previamente, en el que se abordó el diseño, desarrollo y validación de una solución informática orientada a la enseñanza del lenguaje musical mediante una aplicación web con arquitectura cliente-servidor.
+\section{Marco teórico, investigación y estudio previo}
+En el proyecto original se estableció, en primer lugar, un marco teórico que permitió contextualizar el lenguaje musical como disciplina educativa, analizando su papel dentro de la formación musical y las dificultades habituales asociadas a su aprendizaje y enseñanza. Este marco teórico puso de manifiesto una serie de problemáticas recurrentes, tales como la falta de recursos digitales específicos, la escasa adaptación de las herramientas existentes a las dinámicas reales del aula y la dificultad para realizar un seguimiento individualizado del alumnado en este ámbito.
+
+A partir de esta base teórica, se llevó a cabo una investigación empírica apoyada en encuestas y entrevistas a profesores y alumnos de lenguaje musical, cuyo objetivo fue contrastar las problemáticas identificadas y detectar necesidades concretas desde la experiencia directa en entornos educativos reales. Paralelamente, se realizó un estudio basado en una revisión bibliográfica de trabajos previos y soluciones existentes, lo que permitió situar el proyecto dentro del estado del arte y analizar las limitaciones y oportunidades de las herramientas disponibles en la actualidad.
+
+La combinación de marco teórico, investigación empírica y revisión bibliográfica proporcionó una base sólida para la definición de los requisitos funcionales y no funcionales del sistema, así como para la formulación de los objetivos del proyecto. Como resultado de este proceso, se diseñó e implementó una plataforma informática compuesta por un backend basado en una API REST y un frontend híbrido accesible desde distintos dispositivos.
+\section{Resultados del proyecto base y líneas de evolución}
+La aplicación desarrollada en el TFG original permite gestionar usuarios, grupos, material de clase, calificaciones, cuestionarios, tareas y comunicaciones internas, incorporando además mecanismos de autenticación, pruebas automatizadas, documentación técnica y procesos de despliegue continuo. Esta primera versión del sistema fue validada funcionalmente, demostrando su viabilidad técnica y su adecuación inicial a las necesidades detectadas.
+
+No obstante, tanto las conclusiones del proyecto como la experiencia práctica derivada del uso de la aplicación evidenciaron que la solución implementada, aun siendo plenamente funcional, presenta margen de mejora y evolución. En particular, se identificaron oportunidades para refinar determinadas funcionalidades existentes, incorporar nuevas capacidades que amplíen el alcance de la aplicación y abordar de forma más profunda su implantación en entornos educativos reales. Estas líneas de evolución quedaron recogidas explícitamente como trabajo futuro en el TFG original.
+
+En este contexto, el presente proyecto no pretende repetir ni reformular el marco teórico ni los estudios ya realizados, sino apoyarse en ellos como base validada para dar un paso adicional. El foco se desplaza desde el desarrollo inicial de la solución hacia su extensión funcional y su preparación para una implantación realista y sostenible, considerando aspectos técnicos, organizativos y de seguridad que resultan fundamentales en un escenario de uso continuado.
+
+De este modo, este trabajo se plantea como una continuación natural y coherente del proyecto previo, orientada a consolidar la solución desarrollada y a sentar las bases necesarias para su evolución e implantación efectiva en centros educativos, manteniendo la alineación con la problemática detectada y con los principios pedagógicos que motivaron el proyecto original.
+
+\chapter{Objetivos del proyecto}
+\label{chap:objetivos}
+
+El objetivo general de este proyecto consiste en extender e implantar la solución informática desarrollada en el Trabajo Fin de Grado previo, llevándola a un nivel superior tanto en términos funcionales como de preparación para su uso en entornos educativos reales.
+
+A partir de este objetivo general, se definen los siguientes subobjetivos específicos:
+
+\begin{itemize}
+    \item \textbf{Mejorar y refinar funcionalidades ya existentes en la aplicación}, optimizando su usabilidad y adecuación a las necesidades detectadas en el contexto educativo.
+    \item \textbf{Diseñar e incorporar nuevas funcionalidades innovadoras} que amplíen el alcance de la aplicación y aporten un valor añadido respecto a la versión inicial.
+    \item \textbf{Aprovechar el diseño responsive y la arquitectura híbrida de la aplicación para facilitar su adaptación y despliegue en sistemas móviles}, permitiendo su ejecución en dispositivos Android y iOS sin necesidad de desarrollar una base de código independiente, y garantizando una experiencia de usuario coherente y optimizada en distintos tamaños de pantalla.    
+    \item \textbf{Definir un plan de implantación detallado} que contemple la adaptación tecnológica del sistema, la mejora de aspectos de seguridad, la gestión de archivos y datos, así como la viabilidad de su despliegue en centros educativos reales.
+\end{itemize}
+
+Estos objetivos se plantean manteniendo la coherencia con el proyecto original y aprovechando las conclusiones extraídas del proceso de investigación y desarrollo previo.
+
+\chapter{Definición de la solución extendida}
+\label{chap:solucion}
+
+Este complemento parte de la solución desarrollada en el proyecto base y se apoya en su definición previa. La aplicación original resolvía los procesos esenciales de gestión académica y comunicación asociados a la enseñanza del lenguaje musical, ofreciendo una plataforma con roles diferenciados (administrador, profesor y alumno), ramas de contenido, tareas y cuestionarios, sistema de mensajería y calificaciones.
+
+Sin embargo, el propio enfoque del TFG ---y especialmente sus conclusiones y líneas de trabajo futuro--- asumía que una primera versión funcional no agota el problema: al llevar la solución a un entorno real aparecen necesidades operativas y oportunidades de mejora que no siempre resultan evidentes durante un desarrollo estrictamente académico. En particular, el uso prolongado en contextos educativos reales tiende a revelar fricciones relacionadas con la administración masiva, la gestión completa del ciclo de vida de usuarios y grupos y la experiencia de uso del alumnado en actividades evaluables.
+
+En este punto, el objetivo de este complemento no es replantear la solución desde cero, sino evolucionarla de forma controlada. Se mantiene la arquitectura general, la filosofía de funcionamiento y la mayor parte de requisitos ya definidos en el documento principal, lo que se incorpora ahora se centra en:
+
+\begin{itemize}
+    \item \textbf{Operatividad y administración real:} reducir carga manual y facilitar tareas frecuentes en la práctica (altas masivas, etc.).
+    \item \textbf{Gestión completa del ciclo de vida:} incorporar operaciones de revisión y eliminación con comportamiento coherente y seguro.
+    \item \textbf{Mejora de la experiencia del alumno:} introducir mecanismos de apoyo durante el trabajo con cuestionarios para favorecer el aprendizaje sin romper la coherencia pedagógica.
+\end{itemize}
+
+Como en la definición del proyecto base, el proceso se plantea como un avance gradual desde un lenguaje natural todavía interpretativo hasta una definición progresivamente más objetiva. Primero se actualiza la especificación formal con las nuevas capacidades, después se refleja la ampliación en el diagrama de casos de uso, por último, se describen en detalle únicamente los casos de uso y requisitos afectados por los cambios (sin repetir lo ya definido en el TFG).
+
+\section{Análisis de la solución base y motivación de la extensión}
+\label{sec:analisis_base}
+
+La solución original cubría de forma adecuada la operativa cotidiana de aula: creación de usuarios, creación y selección de grupos, publicación de material y tareas, comunicación con el alumnado, cuestionarios en la rama de teoría y gestión de calificaciones. Este conjunto de funcionalidades constituye una base sólida y coherente con la estructura pedagógica del lenguaje musical.
+
+No obstante, al considerar una implantación real aparecen situaciones que requieren una respuesta más específica. Por ejemplo, la creación individual de usuarios funciona correctamente en grupos pequeños, pero se vuelve costosa cuando el número de alumnos aumenta o cuando se gestionan varios grupos simultáneos (escuelas con múltiples niveles, grupos por curso, etc.). De forma similar, en un entorno real es habitual que existan bajas, cambios de grupo, reorganizaciones o la necesidad de eliminar grupos completos cuando finaliza un curso o cuando se detectan altas erróneas, y estas operaciones deben dejar el sistema en un estado consistente.
+
+Por último, en relación con el aprendizaje, la realización de cuestionarios tipo test (especialmente en teoría) tiende a producir bloqueos cuando el alumno no recuerda un concepto puntual. En una sesión real, el profesor suele ofrecer una pista o guía mínima para reconducir el razonamiento sin revelar la respuesta. Replicar parte de esa asistencia dentro de la herramienta puede mejorar la experiencia del alumno y reducir frustración, siempre que se haga con límites y con una intención pedagógica clara.
+
+A partir de este análisis, se definen nuevas extensiones funcionales sobre la base ya existente.
+
+\section{Especificación formal de la solución extendida}
+\label{sec:especificacion_formal_extendida}
+
+En esta sección se conserva la especificación formal descrita en el TFG original, incorporando únicamente las ampliaciones necesarias para reflejar la evolución del sistema. El objetivo es mantener continuidad, evitar redundancias y, al mismo tiempo, dejar completamente claro qué aporta este complemento. Las partes incorporadas a la especificación en esta fase estarán destacadas en color rojo.
+
+El sistema permitirá el acceso mediante un mecanismo de inicio de sesión en el que podrán autenticarse tres tipos de usuarios: administrador, profesor y alumno. Cada usuario tendrá acceso únicamente a las funcionalidades correspondientes a su rol, sin posibilidad de utilizar las funciones asignadas a otros.
+
+No existirá un proceso de registro. El administrador será creado de forma automática y, una vez dentro de la aplicación, tendrá la capacidad de crear las cuentas de los profesores manualmente. Para ello, deberá introducir los siguientes datos: nombre, primer apellido, segundo apellido y dirección de correo electrónico. Se realizará una comprobación de validez de los datos introducidos (formato correcto del nombre, de los apellidos y del correo electrónico) y una verificación de unicidad del correo electrónico en la base de datos.
+
+En el proceso de creación, el sistema generará automáticamente un nombre de usuario a partir de la primera letra del nombre y de los apellidos. Por ejemplo, para un usuario denominado José Luis Garrido Castro, el identificador generado será jgc. En caso de que existan coincidencias con identificadores ya presentes en la base de datos, se añadirá un número consecutivo equivalente al total de usuarios con la misma raíz más uno, de modo que si ya existen 40 usuarios con identificadores iniciados en jgc, el nuevo identificador será jgc41. La contraseña será generada automáticamente mediante el uso de un servicio externo de generación de contraseñas seguras. Una vez creadas las credenciales, estas serán enviadas por correo electrónico al profesor.
+
+\nuevo{Del mismo modo, el administrador podrá revisar la lista de profesores creados y eliminarlos. La eliminación de un profesor implicará la eliminación coherente de toda la información asociada creada bajo su responsabilidad (material, tareas, cuestionarios, grupos y alumnado asociado a dichos grupos).}
+
+\nuevo{Además, el sistema permitirá al administrador realizar la creación de usuarios y grupos de manera automatizada. El fichero contendrá la información necesaria para dar de alta profesores y/o alumnos y para asociarlos a grupos, aplicando las mismas validaciones de datos y unicidad ya establecidas para la creación manual.}
+
+El profesor, a su vez, tendrá la capacidad de crear cuentas de alumnos mediante un procedimiento equivalente al descrito para la creación de profesores manual, \nuevo{revisar y eliminar a sus alumnos (eliminando así sus registros de entregas y calificaciones).}
+
+Además, el profesor podrá crear grupos de clase, añadir alumnos a los mismos \nuevo{y eliminar cualquiera de los grupos que haya creado borrando también de forma sistemática el material que tenga asociado}. Un alumno podrá pertenecer a varios grupos de forma simultánea.
+
+También podrá enviar mensajes a unos alumnos o grupos completos determinados y podrá adjuntar las calificaciones generales del curso seleccionando a un alumno en concreto.
+
+El sistema dispondrá de un área denominada administración en la que estarán disponibles las operaciones mencionadas anteriormente.
+
+Fuera de esta sección, la aplicación contará con cuatro apartados denominados \textbf{Ritmo, Entonación, Audición y Teoría}. Cada apartado estará compuesto por dos secciones diferenciadas:
+\begin{enumerate}
+\item \textbf{Libro del curso}: Permitirá al profesor subir un único archivo en formato PDF correspondiente al grupo seleccionado. Si se sube un nuevo archivo, el anterior será sustituido. El profesor podrá eliminar o reemplazar el archivo en cualquier momento.
+
+\item \textbf{Tareas a realizar}: Permitirá al profesor crear tareas asociadas a un grupo determinado. Cada tarea constará de una descripción y, opcionalmente, de un material de apoyo en formato PDF, MP3 o MP4. También se definirá una fecha límite de entrega. Las tareas podrán calificarse individualmente, modificarse y/o eliminarse en cualquier momento, pero no se eliminarán automáticamente al llegar la fecha de entrega. En el apartado de Teoría, las tareas podrán sustituirse (o no) por un cuestionario tipo test. Dicho cuestionario permitirá la creación de preguntas con opciones de respuesta, y cada pregunta podrá ir acompañada de un archivo en formato MP3.
+\end{enumerate}
+
+Asimismo, los alumnos podrán acceder a los mismos cuatro apartados (Ritmo, Entonación, Audición y Teoría). En cada apartado se mostrarán las mismas dos secciones:
+\begin{itemize}
+\item En la sección Libro del curso, los alumnos podrán visualizar el archivo PDF correspondiente y descargarlo, pero no modificarlo.
+
+\item En la sección Tareas a realizar, los alumnos podrán consultar la lista de tareas disponibles y realizar las entregas correspondientes. Los formatos permitidos serán PDF, MP3 o MP4, y/o bien un comentario textual dentro de la propia aplicación. En el caso de los cuestionarios, el alumno podrá acceder de forma específica a cada uno para completarlos \nuevo{apoyándose, si lo desea, en solo una pista por cada pregunta que responda}. El cuestionario no se considerará entregado hasta que el alumno pulse expresamente el botón de envío.
+\end{itemize}
+
+Los alumnos y profesores dispondrán de un área específica de mensajes. En ella recibirán avisos cuando cuando se cree, se modifique, se califique (alumno) o se entregue (profesor) una tarea o cuestionario, cuando reciban una calificación general (mensajes del sistema) o un mensaje del profesor.
+\section{Objetivos funcionales del sistema extendido}
+\label{sec:objetivos_funcionales_ext}
+
+Los objetivos funcionales descritos en el TFG original se mantienen, ya que la esencia del sistema no cambia: facilitar la enseñanza del lenguaje musical con herramientas específicas de gestión y aprendizaje. No obstante, este complemento añade objetivos de evolución funcional centrados en la operatividad real y en la mejora de la experiencia del alumno:
+
+\begin{itemize}
+  \item Permitir la administración masiva de usuarios y grupos mediante ficheros formateados, reduciendo la carga manual y los errores de alta.
+  \item Completar la gestión del ciclo de vida de los usuarios (alumnos y profesores) agregando la posibilidad de revisarlos y eliminarlos y la de los grupos permitiendo eliminarlos.
+  \item Incorporar mecanismos de apoyo al alumno durante la realización de cuestionarios para mejorar la experiencia de aprendizaje en actividades evaluables.
+\end{itemize}
+
+\section{Diagrama UML de casos de uso del sistema extendido}
+\label{sec:dcu_extendido}
+
+La ampliación funcional se refleja en el diagrama general de casos de uso del sistema. Para evitar confusión y mantener continuidad con el documento original, el diagrama se presentará con las nuevas incorporaciones destacadas visualmente mediante un código de color:
+\begin{itemize}
+    \item \nuevo{Rojo: Caso de uso totalmente nuevo.}
+    \item \cambiado{Azul: Caso de uso existente sustituido (cambio de nombre y/o alcance).}
+    \item Negro: Caso de uso existente sin cambios de nombre (aunque pueda incorporar nuevos requisitos).
+\end{itemize}
+
+ \begin{figure}[H]
+     \centering
+     \includegraphics[width=1\linewidth]{Figuras/DCU_extendido.png}
+     \caption{Diagrama UML de casos de uso del sistema extendido}
+     \label{fig:dcu_extendido}
+ \end{figure}
+
+\section{Definición del diagrama de casos de uso}
+\label{sec:def_dcu_ext}
+
+Como se detalló en el TFG, el diagrama ofrece una visión objetiva pero todavía abstracta del sistema. Para alcanzar un nivel operativo y verificable, se definen a continuación únicamente los casos de uso nuevos y aquellos existentes que se ven modificados por la incorporación de requisitos adicionales, manteniendo el resto de definiciones del proyecto base sin cambios. Cabe destacar que se ha mantenido el mismo código de color para el nombre del caso de uso y se ha usado el color rojo en el resto de campos de los casos de uso que no son totalmente nuevos para indicar en qué cambian.
+
+\subsection{Casos de uso nuevos o modificados}
+
+\subsubsection{Caso de uso: Importar usuarios y grupos desde archivo formateado}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{Nombre} & {\textbf{\nuevo{Importar usuarios y grupos desde archivo formateado}}} \\ \hline
+\textbf{Descripción} & Permitir al administrador crear usuarios y/o grupos mediante la carga de un fichero formateado, aplicando validaciones y creando relaciones de pertenencia según el contenido del archivo. \\ \hline
+\textbf{Actor} & ACT-2 \\ \hline
+\textbf{Requisitos funcionales} & RF-31 \\ \hline
+\end{tabularx}
+\caption{Caso de uso: Importar usuarios y grupos desde archivo formateado}
+\end{table}
+
+\subsubsection{Caso de uso que sustituye Crear profesor: Gestionar profesores}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{Nombre} & {\textbf{\cambiado{Gestionar profesores}}} \\ \hline
+\textbf{Descripción} & Permitir al administrador crear\nuevo{, revisar y eliminar} usuarios con el rol de profesor en el sistema, proporcionando los datos necesarios y validando la información. \\ \hline
+\textbf{Actor} & ACT-2 \\ \hline
+\textbf{Requisitos funcionales} & RF-03 RF-04 \nuevo{RF-32} \nuevo{RF-33} \\ \hline
+\end{tabularx}
+\caption{Caso de uso: Gestionar profesores}
+\end{table}
+
+\subsubsection{Caso de uso que sustituye Crear alumno: Gestionar alumnos}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{Nombre} & {\textbf{\cambiado{Gestionar alumnos}}} \\ \hline
+\textbf{Descripción} & Permitir al profesor crear\nuevo{, revisar y eliminar} usuarios con el rol de alumno en el sistema, proporcionando los datos necesarios y validando la información.\\ \hline
+\textbf{Actor} & ACT-3 \\ \hline
+\textbf{Requisitos funcionales} & RF-05 RF-04 \nuevo{RF-34} \nuevo{RF-35} \\ \hline
+\end{tabularx}
+\caption{Caso de uso: Gestionar alumnos}
+\end{table}
+
+\subsubsection{Caso de uso existente ampliado: Gestionar grupos}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{Nombre} & {\textbf{Gestionar grupos}} \\ \hline
+\textbf{Descripción} & Permitir al profesor crear nuevos grupos, revisar los que ha creado y elegir un grupo para trabajar con él \nuevo{o eliminarlo}. \\ \hline
+\textbf{Actor} & ACT-3 \\ \hline
+\textbf{Requisitos funcionales} & RF-06 RF-07 RF-08 \nuevo{RF-36} \\ \hline
+\end{tabularx}
+\caption{Caso de uso: Gestionar grupos}
+\end{table}
+\subsubsection{Caso de uso existente ampliado: Interactuar con cuestionarios}
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{Nombre} & {\textbf{Interactuar con cuestionarios}} \\ \hline
+\textbf{Descripción} & Permitir al alumno interactuar con los cuestionarios. \\ \hline
+\textbf{Actor} & ACT-4 \\ \hline
+\textbf{Requisitos funcionales} & RF-18 RF-30 \nuevo{RF-37} \\ \hline
+\end{tabularx}
+\caption{Caso de uso: Interactuar con cuestionarios}
+\end{table}
+
+\subsection{Requisitos funcionales nuevos}
+\label{sec:rf_extensiones}
+
+En coherencia con el documento original, los identificadores continúan a partir del último requisito definido. A continuación se describen únicamente los nuevos requisitos y las ampliaciones necesarias de los casos de uso afectados.
+
+% ------------------------------
+% RF-31 Importación masiva (NUEVO)
+% ------------------------------
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{RF-31} & \textbf{Importar usuarios y grupos desde archivo formateado} \\ \hline
+\textbf{Descripción} & Permitir al administrador crear usuarios y/o grupos mediante la carga de un fichero formateado, aplicando validaciones y creando relaciones de pertenencia según el contenido del archivo. \\ \hline
+\textbf{Precondición} & El administrador debe estar autenticado y disponer de un fichero válido según el formato establecido. \\ \hline
+\textbf{Secuencia de pasos} &
+\begin{enumerate}
+  \item El administrador accede a la opción de importación dentro del área de administración.
+  \item El administrador selecciona un fichero local para cargar.
+  \item El sistema valida el formato general del fichero (estructura, campos obligatorios y consistencia).
+  \item El sistema recorre los registros y valida datos (equivalente a RF-04 cuando aplique), incluyendo unicidad de correos y reglas de generación de credenciales.
+  \item El sistema crea los usuarios y grupos indicados si todos han sido validados.
+  \item El sistema informa del éxito.
+\end{enumerate} \\ \hline
+\textbf{Postcondición} & Los usuarios y grupos válidos quedan registrados y listos para su uso \\ \hline
+\textbf{Excepciones} &
+\begin{itemize}
+  \item El fichero no cumple el formato establecido o falta información obligatoria.
+  \item Existen registros con correos duplicados o datos inválidos.
+  \item Problemas de conexión con la base de datos.
+\end{itemize} \\ \hline
+\end{tabularx}
+\caption{{Requisito funcional: RF-31 Importar usuarios y grupos desde archivo formateado}}
+\end{table}
+% ------------------------------
+% RF-32 Revisar profesores (NUEVO dentro de gestionar profesores)
+% ------------------------------
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{RF-32} & \textbf{Revisar profesores} \\ \hline
+\textbf{Descripción} & Permitir al administrador visualizar la lista de profesores registrados en el sistema y acceder a su información básica para su gestión. \\ \hline
+\textbf{Precondición} & El administrador debe estar autenticado y tener profesores creados. \\ \hline
+\textbf{Secuencia de pasos} &
+\begin{enumerate}
+  \item El administrador accede al área de administración y entra en la sección de profesores.
+  \item El sistema recupera y muestra el listado de profesores registrados.
+\end{enumerate} \\ \hline
+\textbf{Postcondición} & El administrador puede identificar profesores gestionables y realizar acciones de creación o eliminación desde el mismo contexto. \\ \hline
+\textbf{Excepciones} &
+\begin{itemize}
+  \item No existen profesores registrados.
+  \item Problemas de conexión a la base de datos.
+\end{itemize} \\ \hline
+\end{tabularx}
+\caption{Requisito funcional: RF-32 Revisar profesores}
+\end{table}
+% ------------------------------
+% RF-33 Eliminar profesor (NUEVO dentro de gestionar profesores)
+% ------------------------------
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{RF-33} & \textbf{Eliminar profesor} \\ \hline
+\textbf{Descripción} & Permitir al administrador eliminar un profesor del sistema, eliminando de forma coherente todo su material asociado, sus grupos y los alumnos creados bajo su responsabilidad, evitando referencias huérfanas o inconsistencias. \\ \hline
+\textbf{Precondición} & El administrador debe estar autenticado y el profesor a eliminar debe existir. \\ \hline
+\textbf{Secuencia de pasos} &
+\begin{enumerate}
+  \item El administrador accede a la administración de profesores y visualiza el listado.
+  \item El administrador selecciona un profesor y solicita su eliminación.
+  \item El sistema muestra confirmación e informa del alcance (material, grupos y alumnado afectado).
+  \item El administrador confirma.
+  \item El sistema elimina al profesor y todos los datos relacionados con él.
+  \item El sistema informa del éxito.
+\end{enumerate} \\ \hline
+\textbf{Postcondición} & El profesor deja de existir en el sistema y sus recursos asociados quedan gestionados de forma consistente. \\ \hline
+\textbf{Excepciones} &
+\begin{itemize}
+  \item El profesor no existe.
+  \item Problemas de conexión a la base de datos.
+\end{itemize} \\ \hline
+\end{tabularx}
+\caption{Requisito funcional: RF-33 Eliminar profesor}
+\end{table}
+% ------------------------------
+% RF-34 Revisar alumnos (NUEVO dentro de gestionar alumnos)
+% ------------------------------
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{RF-34} & \textbf{Revisar alumnos} \\ \hline
+\textbf{Descripción} & Permitir al profesor visualizar la lista de alumnos creados por él y acceder a su información básica para su gestión. \\ \hline
+\textbf{Precondición} & El profesor debe estar autenticado y tener alumnos creados. \\ \hline
+\textbf{Secuencia de pasos} &
+\begin{enumerate}
+  \item El profesor accede al área de administración y entra en la sección de alumnos.
+  \item El sistema recupera y muestra el listado de alumnos del profesor.
+\end{enumerate} \\ \hline
+\textbf{Postcondición} & El profesor puede identificar a los alumnos gestionables y realizar acciones de creación o eliminación desde el mismo contexto. \\ \hline
+\textbf{Excepciones} &
+\begin{itemize}
+  \item No existen alumnos creados por el profesor.
+  \item Problemas de conexión a la base de datos.
+\end{itemize} \\ \hline
+\end{tabularx}
+\caption{Requisito funcional: RF-34 Revisar alumnos}
+\end{table}
+% ------------------------------
+% RF-35 Eliminar alumno (NUEVO dentro de gestionar alumnos)
+% ------------------------------
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{RF-35} & \textbf{Eliminar alumno} \\ \hline
+\textbf{Descripción} & Permitir al profesor eliminar un alumno creado por él, garantizando que el sistema gestiona de forma consistente la información asociada exclusivamente al alumno (calificaciones y entregas). \\ \hline
+\textbf{Precondición} & El profesor debe estar autenticado y el alumno a eliminar debe haber sido creado previamente por el profesor. \\ \hline
+\textbf{Secuencia de pasos} &
+\begin{enumerate}
+  \item El profesor accede al área de administración y visualiza el listado de alumnos gestionables.
+  \item El profesor selecciona un alumno y solicita su eliminación.
+  \item El sistema muestra un aviso de confirmación describiendo el alcance de la operación.
+  \item El profesor confirma la eliminación.
+  \item El sistema elimina el alumno, los datos exclusivos del alumno y las relaciones del alumno en el resto de registros que figure para mantener la consistencia.
+  \item El sistema informa del éxito.
+\end{enumerate} \\ \hline
+\textbf{Postcondición} & El alumno deja de existir en el sistema y no es accesible desde la interfaz, a su vez, los datos asociados quedan en un estado consistente. \\ \hline
+\textbf{Excepciones} &
+\begin{itemize}
+  \item {El alumno no existe o no ha sido creado por el profesor autenticado.}
+  \item {Problemas de conexión a la base de datos.}
+\end{itemize} \\ \hline
+\end{tabularx}
+\caption{Requisito funcional: RF-35 Eliminar alumno}
+\end{table}
+
+% ------------------------------
+% RF-36 Eliminar grupo (NUEVO requisito dentro de gestionar grupos)
+% ------------------------------
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{RF-36} & \textbf{Eliminar grupo} \\ \hline
+\textbf{Descripción} & Permitir al profesor eliminar un grupo creado por él, gestionando de forma consistente todo el material asociado (tareas, cuestionarios, ramas, entregas y calificaciones). \\ \hline
+\textbf{Precondición} & El profesor debe estar autenticado y el grupo a eliminar debe haber sido creado previamente por el profesor. \\ \hline
+\textbf{Secuencia de pasos} &
+\begin{enumerate}
+  \item El profesor visualiza su listado de grupos y selecciona el grupo a eliminar.
+  \item El profesor solicita la eliminación del grupo.
+  \item El sistema solicita confirmación, indicando que se trata de una eliminación irreversible.
+  \item El profesor confirma.
+  \item El sistema elimina el grupo y todos los datos relacionados con el grupo menos los usuarios, a los cuales les elimina la relación para mantener consistencia.
+  \item El sistema informa del éxito.
+\end{enumerate} \\ \hline
+\textbf{Postcondición} & El grupo deja de existir en el sistema y no puede seleccionarse, además, no quedan recursos asociados accesibles de forma inconsistente. \\ \hline
+\textbf{Excepciones} &
+\begin{itemize}
+  \item El grupo no existe o no ha sido creado por el profesor autenticado.
+  \item Problemas de conexión a la base de datos.
+\end{itemize} \\ \hline
+\end{tabularx}
+\caption{Requisito funcional: RF-36 Eliminar grupo}
+\end{table}
+
+% ------------------------------
+% RF-37 Pista en cuestionarios (NUEVO, asociado a RF-30)
+% ------------------------------
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{RF-37} & \textbf{Solicitar pista durante un cuestionario} \\ \hline
+\textbf{Descripción} & Permitir al alumno solicitar solo una pista asociada a una pregunta concreta durante la realización de un cuestionario, recibiendo una orientación limitada que facilite el razonamiento sin revelar la respuesta. \\ \hline
+\textbf{Precondición} & El alumno debe estar autenticado, haber accedido a un cuestionario activo y encontrarse en el proceso de respuesta. \\ \hline
+\textbf{Secuencia de pasos} &
+\begin{enumerate}
+  \item El sistema muestra las preguntas del cuestionario.
+  \item El alumno solicita una pista para la pregunta que tenga dudas.
+  \item El sistema presenta una pista contextual (orientación), sin mostrar directamente la opción correcta.
+  \item El alumno continúa respondiendo a la pregunta.
+  \item El sistema permite finalizar y entregar el cuestionario como en RF-30.
+\end{enumerate} \\ \hline
+\textbf{Postcondición} & El alumno recibe una pista y puede continuar la realización de la entrega bajo las reglas de RF-30. \\ \hline
+\textbf{Excepciones} &
+\begin{itemize}
+  \item El cuestionario no está activo o el alumno no tiene acceso al mismo.
+  \item El servicio de generación de pista no está disponible.
+  \item Problemas de conexión a la base de datos.
+\end{itemize} \\ \hline
+\end{tabularx}
+\caption{Requisito funcional: RF-37 Solicitar pista durante un cuestionario}
+\end{table}
+
+\section{Requisitos no funcionales nuevos}
+\label{sec:rnf_ext}
+
+El TFG original definía un requisito de portabilidad (RNF-04) orientado a asegurar que la aplicación pudiera utilizarse en distintos dispositivos y entornos. En este complemento, esa portabilidad se concreta en un objetivo más exigente y verificable: la exportación efectiva a un entorno móvil Android, aprovechando el diseño híbrido y responsive ya adoptado.
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{
+  |>{\centering\arraybackslash}l
+  |>{\centering\arraybackslash}X|}
+\hline
+\textbf{RNF-08} & \textbf{Portabilidad a Android} \\ \hline
+\textbf{Descripción} & El sistema deberá poder ejecutarse como aplicación instalada en dispositivos Android, manteniendo las funcionalidades esenciales y una experiencia de usuario consistente. \\ \hline
+\textbf{Justificación} & Se da continuidad a RNF-04 (Portabilidad) del proyecto base, materializando la ejecución en un entorno móvil real para reforzar accesibilidad y facilitar su implantación en contextos educativos. \\ \hline
+\textbf{Criterio de cumplimiento} & La aplicación se exporta y ejecuta en Android mediante herramientas de construcción móvil, pudiendo autenticarse, navegar por ramas, consultar materiales y realizar acciones principales sin degradación funcional significativa. \\ \hline
+\end{tabularx}
+\caption{Requisito no funcional: RNF-08 Portabilidad a Android}
+\end{table}
+
+\section{Tecnologías y arquitectura de la solución extendida}
+\label{sec:tecnologias_ext}
+
+La solución extendida mantiene la arquitectura global cliente-servidor basada en una API REST y basándose en el patrón MVC (Modelo-Vista-Controlador) idéntica en su planteamiento al proyecto base. Esta continuidad tecnológica no es accidental: la pila original proporciona un equilibrio adecuado entre modularidad, escalabilidad y facilidad de mantenimiento, lo que permite incorporar nuevas capacidades sin necesidad de reestructurar el sistema ni introducir deuda técnica.
+
+\subsection{Pila tecnológica heredada del proyecto base}
+
+El proyecto se apoya en un conjunto de tecnologías consolidadas que cubren de forma eficaz las necesidades de una aplicación educativa con múltiples roles, gestión de contenidos multimedia y comunicación bidireccional:
+
+\begin{itemize}
+    \item \textbf{Ionic + Angular (Frontend).}  
+    Se mantiene un frontend híbrido desarrollado con Ionic y Angular, que permite construir una interfaz responsive y reutilizable tanto en entorno web como móvil.  
+    Angular aporta una estructura basada en componentes, servicios y módulos que facilita la organización del código, la reutilización de lógica y la separación entre presentación y lógica de negocio, mientras que Ionic proporciona componentes visuales optimizados para dispositivos táctiles y móviles.
+
+    \item \textbf{Node.js + Express (Backend).}  
+    El backend continúa implementándose mediante un servidor Node.js con Express, exponiendo una API REST encargada de centralizar la lógica de negocio, la validación de datos y la aplicación de reglas de acceso.  
+    Esta combinación ofrece un entorno ligero y flexible, adecuado para aplicaciones con múltiples operaciones CRUD y consumo intensivo de recursos multimedia.
+
+    \item \textbf{MongoDB (Persistencia).}  
+    Se mantiene una base de datos documental MongoDB para almacenar los datos que requieren de persistencia.  
+    El modelo no relacional facilita la evolución del esquema de datos y permite representar relaciones entre entidades educativas sin penalizar la flexibilidad, algo especialmente relevante en un sistema que crece de forma incremental. También se hace uso de MongoDB Atlas, un servicio gestionado en la nube que ofrece una solución escalable y segura.
+
+    \item \textbf{JWT (Autenticación y autorización).}  
+    La autenticación se sigue gestionando mediante JSON Web Tokens, permitiendo un control claro de sesiones y permisos en función del rol del usuario.  
+    Este enfoque se adapta bien a una arquitectura REST y evita mantener estado de sesión en el servidor.
+
+    \item \textbf{Swagger / OpenAPI (Documentación).}  
+    La documentación de la API se mantiene mediante Swagger, proporcionando una especificación clara y verificable de los endpoints disponibles, útil tanto para pruebas como para mantenimiento futuro.
+
+    \item \textbf{Testing (Jest/Supertest y Jasmine/Karma).}  
+    Se conserva el uso de Jest y Supertest para pruebas del backend, y Jasmine/Karma para el frontend, permitiendo validar de forma automatizada el comportamiento del sistema y reducir regresiones durante la evolución del proyecto.
+    
+    \item \textbf{Integración y despliegue continuo (Render, GitHub Actions y Pages).}
+    Se continua ejecutando el flujo de integración y despliegue continuo en GitHub Actions para automatizar el testing y el despliegue, que será realizado en Render para el backend y GitHub Pages para el frontend.
+\end{itemize}
+
+\subsection{Tecnologías incorporadas en la solución extendida}
+
+La extensión del sistema introduce dos tecnologías nuevas que amplían las capacidades técnicas de la aplicación sin modificar su arquitectura base.
+
+\subsubsection{Servicio de inferencia externa mediante Groq}
+
+Se incorpora un servicio de inferencia externa utilizando Groq como proveedor, haciendo uso de su API pública para el envío de peticiones desde el backend del sistema. En este contexto, Groq actúa como un servicio externo capaz de procesar \textit{prompts} de inteligencia artificial y devolver respuestas generadas a partir de modelos de lenguaje, sin que dichos modelos formen parte de la infraestructura propia de la aplicación.
+
+Desde un punto de vista tecnológico, la utilización de la API de Groq implica la integración de un servicio HTTP externo que recibe solicitudes estructuradas, incluyendo el contenido del \textit{prompt}, y devuelve una respuesta generada en formato estándar (por ejemplo, JSON). Esta aproximación permite tratar el sistema de inferencia como un recurso remoto, consumido de forma similar a cualquier otro servicio web.
+
+El uso de una API de inferencia externa presenta varias implicaciones técnicas relevantes:
+\begin{itemize}
+    \item Permite externalizar el procesamiento asociado a modelos de lenguaje, evitando la necesidad de desplegar, mantener o escalar infraestructura específica para inferencia.
+    \item Facilita el control del flujo de peticiones, ya que las llamadas a la API pueden regularse, validarse y encapsularse desde el backend.
+    \item Aísla la lógica de generación de contenido del resto del sistema, permitiendo modificar el proveedor o el modelo utilizado sin afectar a la arquitectura interna.
+\end{itemize}
+
+Desde el punto de vista del diseño software, la integración mediante una API externa refuerza el desacoplamiento del sistema, ya que el servicio de inferencia se consume como una dependencia externa claramente delimitada, manteniendo la coherencia con la arquitectura por capas adoptada en el proyecto.
+
+\subsubsection{Android Studio y entorno de construcción móvil}
+
+La segunda tecnología incorporada es Android Studio, utilizado como entorno de construcción, empaquetado y validación de la aplicación en dispositivos Android. Su inclusión se apoya en el carácter híbrido del frontend, que permite reutilizar la misma base de código web para generar una aplicación instalable.
+
+Desde el punto de vista tecnológico, el uso de Android Studio implica:
+\begin{itemize}
+    \item La integración con la cadena de herramientas oficial de Android para compilación, firma y despliegue de aplicaciones.
+    \item La generación de un contenedor nativo que encapsula la aplicación híbrida, permitiendo su ejecución como aplicación instalada.
+    \item El acceso a herramientas de depuración, emulación y análisis propias del ecosistema Android.
+\end{itemize}
+
+Este enfoque no introduce una nueva base de código ni una bifurcación tecnológica, sino que extiende el alcance del sistema aprovechando el diseño responsive existente. De este modo, la portabilidad se aborda como una extensión técnica natural del frontend híbrido, sin duplicar lógica ni comprometer la consistencia del sistema.
+
+\begin{figure}[H]
+    \centering
+    % \includegraphics[height=2cm]{Figuras/logos/android_studio.png}
+    \caption{Entorno de desarrollo y construcción móvil utilizado para la exportación a Android (logo pendiente de incluir).}
+    \label{fig:logo_android_studio}
+\end{figure}
+
+En conjunto, las tecnologías incorporadas refuerzan la arquitectura existente, ampliando las capacidades del sistema desde un punto de vista estrictamente técnico y manteniendo los principios de modularidad, reutilización y separación de responsabilidades definidos en el proyecto base.
+
+A nivel conceptual, la arquitectura global permanece idéntica. Se incluye a continuación el diagrama original para facilitar la lectura del documento sin obligar a consultar constantemente el TFG.
+
+% ----------------------------------------------------------
+% DIAGRAMA ORIGINAL (copiar/pegar tal cual del TFG)
+% ----------------------------------------------------------
+\tikzstyle{block} = [rectangle, draw, node distance=4.5cm,
+    text width=6em, text centered, rounded corners, minimum height=3em, fill=blue!10]
+\tikzstyle{line} = [draw, -latex']
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+    \node [block] (Frontend) {Frontend \\ (Ionic + Angular)};
+    \node [block, below of=Frontend, node distance=5cm] (Backend) {Backend REST \\ (Node.js + Express)};
+    \node [block, below of=Backend, node distance=5cm] (DB) {Base de datos \\ (MongoDB)};
+    \node [block, left of=Backend, node distance=7.2cm] (External) {Servicios externos};
+    \node [block, right of=Backend, node distance=6.3cm] (CI) {CI/CD \\ (GitHub Actions + Render)};
+    \path [line] ([xshift=-1.5mm]Frontend.south) -- node[left] {Solicitudes API} ([xshift=-1.5mm]Backend.north);
+    \path [line] ([xshift=1.5mm]Backend.north) -- node[right] {Respuestas API} ([xshift=1.5mm]Frontend.south);
+    \path [line] ([xshift=-1.5mm]Backend.south) -- ([xshift=-1.5mm]DB.north);
+    \path [line] ([xshift=1.5mm]DB.north) -- ([xshift=1.5mm]Backend.south);
+    \path [line] (Backend.west) -- (External.east);
+    \path [line] (CI) -- (Backend);
+    \path [line] (CI) to[bend right=20] (Frontend);
+\end{tikzpicture}
+\caption{Arquitectura global de la aplicación (sin cambios respecto al proyecto base)}
+\label{fig:arquitectura_global_ext}
+\end{figure}
+
+Con esta definición, la solución extendida queda descrita con el mismo enfoque del proyecto base: continuidad en arquitectura y metodología, y ampliación funcional bien acotada, verificable y orientada a la implantación real.
+
+\chapter{Planificación del proyecto}
+\label{chap:planificacion}
+La planificación de este complemento se concibe como una extensión directa de la planificación definida en el proyecto original, manteniendo sus mismos criterios generales de organización, seguimiento y gestión del tiempo. Dado que la base del sistema ya se encuentra diseñada e implementada, no resulta necesario replantear la estructura global del cronograma, sino ampliarla de forma coherente para incorporar las nuevas tareas derivadas de la evolución funcional del proyecto.
+
+En este contexto, la planificación del complemento se centra en integrar las actividades adicionales asociadas a la mejora de funcionalidades, la incorporación de nuevas capacidades y la preparación del sistema para su implantación, respetando la secuencia lógica y la continuidad del trabajo previamente realizado. De este modo, se garantiza que la evolución del proyecto se produce de forma ordenada y alineada con los objetivos ya establecidos.
+
+El diagrama Gantt de planificación reutiliza la estructura del cronograma original, incorporando las nuevas tareas y sub-tareas de manera diferenciada mediante un código de color, lo que permite identificar claramente qué actividades pertenecen al proyecto base y cuáles corresponden específicamente a este complemento. Esta representación facilita la comprensión del alcance real de la extensión sin introducir redundancias en la documentación.
+
+En conjunto, la planificación del complemento actúa como un marco de referencia que guía la ejecución de esta fase de evolución del proyecto, manteniendo la flexibilidad propia del contexto académico y asegurando la coherencia con el trabajo previamente desarrollado.
+
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=\textwidth]{Figuras/planificacion_extendida.png}
+%     \caption{Planificación del proyecto con nuevas tareas destacadas}
+% \end{figure}
+Por último, también se añade la planificación de las tareas principales en horas.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Figuras/cronograma_horas.png}
+    \caption{Planificación de las tareas principales en horas}
+    \label{fig:planificacion_horas}
+\end{figure}
+
+\chapter{Desarrollo de la solución}
+\label{chap:desarrollo}
+
+El desarrollo de la solución extendida se centra principalmente en la incorporación de las nuevas funcionalidades definidas y en la mejora de ciertos aspectos del frontend y del backend.
+
+Dado que la arquitectura base ya fue detallada en el proyecto anterior, en este apartado se describen únicamente los cambios y extensiones relevantes introducidos, manteniendo una descripción más concisa del proceso de desarrollo.
+
+\section{Backend}
+
+Las modificaciones en el backend se orientan a soportar las nuevas funcionalidades y a preparar la aplicación para futuras mejoras en materia de seguridad y escalabilidad.
+
+\section{Frontend}
+
+En el frontend se introducen mejoras de usabilidad y nuevas vistas que permiten acceder a las funcionalidades añadidas, manteniendo la coherencia visual y funcional con la aplicación original.
+
+\chapter{Plan de implantación}
+\label{chap:implantacion}
+
+Este apartado constituye uno de los ejes principales del proyecto y describe el conjunto de acciones necesarias para implantar la solución en un entorno educativo real.
+
+\section{Adaptación tecnológica}
+
+Se identifican los cambios necesarios para migrar la solución hacia tecnologías más robustas y adecuadas para un entorno productivo, incluyendo mejoras en la gestión de archivos, el almacenamiento de datos y la escalabilidad del sistema.
+
+\section{Mejoras de seguridad}
+
+Aunque no todas las mejoras de seguridad propuestas se implementan directamente en esta fase, se detallan las modificaciones necesarias para cumplir con buenas prácticas, tales como la gestión segura de credenciales, el almacenamiento cifrado de contraseñas y la protección de datos sensibles.
+
+\section{Implantación en un centro educativo}
+
+Se describe el proceso de implantación de la aplicación en un centro educativo real, incluyendo la adaptación del flujo de trabajo del profesorado y del alumnado.
+
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=\textwidth]{Figuras/uso_real_escuela.png}
+%     \caption{Uso de la aplicación en un entorno educativo real}
+% \end{figure}
+
+
+\chapter{Conclusiones y líneas de trabajo futuro}
+\label{chap:conclusiones}
+
+El proyecto desarrollado demuestra la viabilidad de evolucionar una solución informática educativa desde una primera versión funcional hacia una plataforma más madura y preparada para su implantación real.
+
+Las mejoras introducidas y el plan de implantación definido sientan las bases para futuras ampliaciones, entre las que se incluyen la incorporación de funcionalidades más avanzadas, la mejora continua de la seguridad y la adaptación del sistema a distintos contextos educativos.
+
+Este trabajo refuerza el carácter práctico y aplicado del proyecto original, consolidando la solución desarrollada como una herramienta con potencial real en el ámbito de la enseñanza del lenguaje musical.
