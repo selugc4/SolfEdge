@@ -1,0 +1,2 @@
+tipo,ref,nombre,apellido1,apellido2,email,rol,profesor_ref,nombre_grupo,alumnos_ref
+usuario,,Ana,García,Ruiz,ana.garcia@escuela.com,profesor,,,

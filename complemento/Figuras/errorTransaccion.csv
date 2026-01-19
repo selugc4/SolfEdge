@@ -1,0 +1,3 @@
+tipo,ref,nombre,apellido1,apellido2,email,rol,profesor_ref,nombre_grupo,alumnos_ref
+usuario,ALU_X1,Lucia,Martín,Santos,lucia.martin@escuela.com,alumno,507f1f77bcf86cd799439011,,
+grupo,GRP_X1,,,,,,507f1f77bcf86cd799439011,Grupo X,ALU_X1

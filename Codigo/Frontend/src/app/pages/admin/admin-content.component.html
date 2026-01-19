@@ -9,71 +9,95 @@
 
 <ion-content class="ion-padding">
 
-  @if(isLoading){
+  <!-- Sección para Administradores -->
 
-    <div class="loading-container">
+  @if(userRole === 'administrador'){
 
-      <ion-spinner name="crescent"></ion-spinner>
+    <div>
 
+      <app-gestion-profesores></app-gestion-profesores>
+
+              <ion-card>
+                <ion-card-header>
+                  <ion-card-title>Importar Usuarios y Grupos (CSV)</ion-card-title>
+                </ion-card-header>
+                <ion-card-content>
+                  @if(isLoadingCsv){
+                    <div class="loading-container">
+                      <ion-spinner name="crescent"></ion-spinner>
+                    </div>
+                  }
+                  <ion-text color="medium" [attr.aria-disabled]="isLoadingCsv">
+                    <p>El archivo CSV debe contener las columnas: <code>tipo</code>, <code>ref</code>.
+                      Para usuarios: <code>nombre</code>, <code>apellido1</code>, <code>apellido2</code>, <code>email</code>, <code>rol</code> (alumno|profesor), <code>profesor_ref</code> (solo si es alumno).
+                      Para grupos: <code>nombre_grupo</code>, <code>profesor_ref</code>, <code>alumnos_ref</code> (refs separadas por |).</p>
+                  </ion-text>
+                  <div class="ion-margin-vertical">
+                    <input type="file" #fileInput (change)="fileSelected($event)" accept=".csv" style="display: none;">
+                    <ion-button expand="block" (click)="fileInput.click()" [disabled]="isLoadingCsv">
+                      <ion-icon slot="start" name="document-text-outline"></ion-icon>
+                      Seleccionar Archivo CSV
+                    </ion-button>
+                    @if (selectedFile) {
+                      <ion-item [attr.aria-disabled]="isLoadingCsv">
+                        <ion-label>{{ selectedFile.name }}</ion-label>
+                        <ion-button fill="clear" color="danger" (click)="clearFileSelection()" [disabled]="isLoadingCsv">
+                          <ion-icon name="close-circle"></ion-icon>
+                        </ion-button>
+                      </ion-item>
+                    }
+                  </div>
+                  <ion-button expand="block" (click)="uploadCsv()" [disabled]="!selectedFile || isLoadingCsv" class="ion-margin-top">
+                    <ion-icon slot="start" name="cloud-upload-outline"></ion-icon>
+                    Subir CSV
+                  </ion-button>
+                </ion-card-content>
+              </ion-card>
     </div>
 
-  } @else {
+  }
 
-    <!-- Sección para Administradores -->
+  <!-- Sección para Profesores -->
 
-    @if(userRole === 'administrador'){
+  @if(userRole === 'profesor'){
 
-      <div>
+    <div>
 
-        <app-gestion-profesores></app-gestion-profesores>
+      <app-gestion-alumnos></app-gestion-alumnos>
 
-      </div>
+      <app-gestion-grupos></app-gestion-grupos>
 
-    }
+      <ion-card>
 
-    <!-- Sección para Profesores -->
+        <ion-card-header>
 
-    @if(userRole === 'profesor'){
+          <ion-card-title>Comunicación</ion-card-title>
 
-      <div>
+        </ion-card-header>
 
-        <app-gestion-alumnos></app-gestion-alumnos>
+        <ion-card-content>
 
-        <app-gestion-grupos></app-gestion-grupos>
+          <ion-button expand="block" (click)="presentMensajeModal()">
 
-        <ion-card>
+            <ion-icon slot="start" name="send-outline"></ion-icon>
 
-          <ion-card-header>
+            Enviar Mensaje a Alumnos
 
-            <ion-card-title>Comunicación</ion-card-title>
+          </ion-button>
 
-          </ion-card-header>
+          <ion-button expand="block" (click)="presentCalificacionGeneralModal()" class="ion-margin-top">
 
-          <ion-card-content>
+            <ion-icon slot="start" name="ribbon-outline"></ion-icon>
 
-            <ion-button expand="block" (click)="presentMensajeModal()">
+            Adjuntar Calificación General
 
-              <ion-icon slot="start" name="send-outline"></ion-icon>
+          </ion-button>
 
-              Enviar Mensaje a Alumnos
+        </ion-card-content>
 
-            </ion-button>
+      </ion-card>
 
-            <ion-button expand="block" (click)="presentCalificacionGeneralModal()" class="ion-margin-top">
-
-              <ion-icon slot="start" name="ribbon-outline"></ion-icon>
-
-              Adjuntar Calificación General
-
-            </ion-button>
-
-          </ion-card-content>
-
-        </ion-card>
-
-      </div>
-
-    }
+    </div>
 
   }
 

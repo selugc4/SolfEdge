@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const fetch = require('node-fetch');
 const { parse } = require('csv-parse/sync');
 const emailController = require('./email.controller');
-const grupoController = require('./grupo.controller')
+const grupoController = require('./grupo.controller');
 const Mensaje = require('../models/mensaje.model');
 const Calificacion = require('../models/calificacion.model');
 const CalificacionGeneral = require('../models/calificacionGeneral.model');
@@ -11,25 +11,53 @@ const Grupo = require('../models/grupo.model');
 const Tarea = require('../models/tarea.model');
 const Cuestionario = require('../models/cuestionario.model');
 const RamaConfig = require('../models/ramaConfig.model');
+
 const checkEmailExists = async (emails) => {
-    const existingUsers = await Usuario.find({ email: { $in: emails } }).lean();
-    if (existingUsers.length > 0) {
-        const existingEmails = existingUsers.map(u => u.email);
-        return { error: `El/los email(s) ya existen: ${existingEmails.join(', ')}` };
-    }
-    return null;
+  const existingUsers = await Usuario.find({ email: { $in: emails } }).lean();
+  if (existingUsers.length > 0) {
+    const existingEmails = existingUsers.map((u) => u.email);
+    return { error: `El/los email(s) ya existen: ${existingEmails.join(', ')}` };
+  }
+  return null;
 };
 
 const generarUsername = async (baseUsername) => {
-    if (baseUsername.length !== 3) return { error: 'La base para el username debe ser de 3 letras.' };
-    const regex = new RegExp(`^${baseUsername}`);
-    const count = await Usuario.countDocuments({ username: regex });
-    return { username: count > 0 ? `${baseUsername}${count}` : baseUsername };
+  if (baseUsername.length !== 3) return { error: 'La base para el username debe ser de 3 letras.' };
+  const regex = new RegExp(`^${baseUsername}`);
+  const count = await Usuario.countDocuments({ username: regex });
+  return { username: count > 0 ? `${baseUsername}${count}` : baseUsername };
 };
 
-const deriveBaseUsername = ({ nombre, apellido1, email }) => {
-  const base = `${nombre}.${apellido1}`.toLowerCase().replace(/\s+/g, '');
-  return base || (email ? email.split('@')[0] : 'user');
+const normalize = (s) =>
+  (s || '')
+    .toString()
+    .trim()
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z]/g, '');
+
+const deriveBaseUsername3 = ({ nombre, apellido1, apellido2, email }) => {
+  const n = normalize(nombre);
+  const a1 = normalize(apellido1);
+  const a2 = normalize(apellido2);
+  const em = email ? normalize(email.split('@')[0]) : '';
+
+  let base = '';
+  if (n) base += n[0];
+  if (a1) base += a1[0];
+  if (a2) base += a2[0];
+
+  if (base.length < 3) {
+    const extra = a1.slice(1) + n.slice(1) + em;
+    for (const ch of extra) {
+      if (base.length >= 3) break;
+      if (ch) base += ch;
+    }
+  }
+
+  if (base.length < 3) base = (base + 'xxx').slice(0, 3);
+  return base.slice(0, 3);
 };
 
 const isLikelyObjectId = (v) => typeof v === 'string' && /^[a-fA-F0-9]{24}$/.test(v);
@@ -53,7 +81,6 @@ exports.importarDesdeCSV = async (fileBuffer) => {
   const errors = [];
   const usersRows = [];
   const groupsRows = [];
-
   const seenRefs = new Set();
   const seenEmails = new Set();
 
@@ -80,9 +107,7 @@ exports.importarDesdeCSV = async (fileBuffer) => {
         seenEmails.add(em);
       }
 
-      if (rol === 'alumno' && !r.profesor_ref) {
-        errors.push(`Fila ${rowNum}: alumno requiere 'profesor_ref'.`);
-      }
+      if (rol === 'alumno' && !r.profesor_ref) errors.push(`Fila ${rowNum}: alumno requiere 'profesor_ref'.`);
 
       usersRows.push({ ...r, rol });
     } else if (tipo === 'grupo') {
@@ -114,7 +139,7 @@ exports.importarDesdeCSV = async (fileBuffer) => {
     const profesorOk = profRefRows.has(pref) || isLikelyObjectId(pref);
     if (!profesorOk) errors.push(`Grupo ref='${g.ref}': profesor_ref '${pref}' no existe en CSV ni parece ObjectId.`);
 
-    const alumnoRefs = (g.alumnos_ref || '').split('|').map(s => s.trim()).filter(Boolean);
+    const alumnoRefs = (g.alumnos_ref || '').split('|').map((s) => s.trim()).filter(Boolean);
     if (alumnoRefs.length === 0) errors.push(`Grupo ref='${g.ref}': debe tener al menos un alumno en alumnos_ref.`);
 
     for (const ar of alumnoRefs) {
@@ -146,12 +171,12 @@ exports.importarDesdeCSV = async (fileBuffer) => {
     await session.startTransaction();
 
     const profesoresRows = [...profRefRows.values()];
-    const profesoresData = profesoresRows.map(p => ({
+    const profesoresData = profesoresRows.map((p) => ({
       nombre: p.nombre,
       apellido1: p.apellido1,
       apellido2: p.apellido2,
       email: p.email,
-      baseUsername: deriveBaseUsername(p)
+      baseUsername: deriveBaseUsername3(p)
     }));
 
     const createdProfesoresByRef = new Map();
@@ -177,7 +202,7 @@ exports.importarDesdeCSV = async (fileBuffer) => {
         apellido1: a.apellido1,
         apellido2: a.apellido2,
         email: a.email,
-        baseUsername: deriveBaseUsername(a),
+        baseUsername: deriveBaseUsername3(a),
         __csv_ref: aref
       };
 
@@ -188,7 +213,7 @@ exports.importarDesdeCSV = async (fileBuffer) => {
     const createdAlumnosByRef = new Map();
     for (const [profesorId, alumnosData] of alumnosPorProfesor.entries()) {
       const res = await exports.addUsuarios(
-        alumnosData.map(x => ({
+        alumnosData.map((x) => ({
           nombre: x.nombre,
           apellido1: x.apellido1,
           apellido2: x.apellido2,
@@ -214,8 +239,8 @@ exports.importarDesdeCSV = async (fileBuffer) => {
         ? g.profesor_ref
         : String(createdProfesoresByRef.get(g.profesor_ref)._id);
 
-      const alumnoRefs = (g.alumnos_ref || '').split('|').map(s => s.trim()).filter(Boolean);
-      const alumnoIds = alumnoRefs.map(ar => (isLikelyObjectId(ar) ? ar : String(createdAlumnosByRef.get(ar)._id)));
+      const alumnoRefs = (g.alumnos_ref || '').split('|').map((s) => s.trim()).filter(Boolean);
+      const alumnoIds = alumnoRefs.map((ar) => (isLikelyObjectId(ar) ? ar : String(createdAlumnosByRef.get(ar)._id)));
 
       const res = await grupoController.crearGrupo(g.nombre_grupo, profesorId, alumnoIds, session);
       if (res.status !== 201) throw new Error(res.body?.error || 'Error creando grupo');
@@ -247,21 +272,23 @@ exports.importarDesdeCSV = async (fileBuffer) => {
       await session.abortTransaction();
     } catch (_) {}
     session.endSession();
-
     return { status: 400, body: { error: 'La importación falló y se revirtió.', details: e.message } };
   }
 };
 
 const generarPassword = async () => {
-    try {
-        const response = await fetch('https://api.genratr.com/api/v1/password?length=10&symbols=true&numbers=true&uppercase=true&lowercase=true');
-        if (!response.ok) return { error: 'Fallo en la API de generación de contraseñas' };
-        const data = await response.json();
-        return { password: data.password };
-    } catch (error) {
-        return { error: `Error al generar contraseña: ${error.message}` };
-    }
+  try {
+    const response = await fetch(
+      'https://api.genratr.com/api/v1/password?length=10&symbols=true&numbers=true&uppercase=true&lowercase=true'
+    );
+    if (!response.ok) return { error: 'Fallo en la API de generación de contraseñas' };
+    const data = await response.json();
+    return { password: data.password };
+  } catch (error) {
+    return { error: `Error al generar contraseña: ${error.message}` };
+  }
 };
+
 exports.addUsuarios = async (usersData, role, creatorId, session = null, options = {}) => {
   try {
     const { sendEmails = true } = options;
@@ -270,14 +297,21 @@ exports.addUsuarios = async (usersData, role, creatorId, session = null, options
       return { status: 400, body: { error: "Rol no válido. Debe ser 'alumno' o 'profesor'." } };
     }
 
-    const emailError = await checkEmailExists(usersData.map(u => u.email));
+    const emailError = await checkEmailExists(usersData.map((u) => u.email));
     if (emailError) {
       return { status: 409, body: emailError };
     }
 
     const newUsers = [];
     for (const userData of usersData) {
-      const usernameResult = await generarUsername(userData.baseUsername);
+      let base = (userData.baseUsername || '').toString();
+      base = normalize(base);
+
+      if (base.length !== 3) {
+        base = deriveBaseUsername3(userData);
+      }
+
+      const usernameResult = await generarUsername(base);
       if (usernameResult.error) return { status: 400, body: usernameResult };
 
       const passwordResult = await generarPassword();
@@ -285,6 +319,7 @@ exports.addUsuarios = async (usersData, role, creatorId, session = null, options
 
       const newUser = {
         ...userData,
+        baseUsername: base,
         username: usernameResult.username,
         password: passwordResult.password,
         role
@@ -298,13 +333,10 @@ exports.addUsuarios = async (usersData, role, creatorId, session = null, options
     }
 
     const createdUsers = await Usuario.insertMany(newUsers, session ? { session } : undefined);
+
     if (sendEmails) {
       for (const user of createdUsers) {
-        const emailResult = await emailController.enviarEmailCredenciales(
-          user.email,
-          user.username,
-          user.password
-        );
+        const emailResult = await emailController.enviarEmailCredenciales(user.email, user.username, user.password);
         if (emailResult.message !== 'Correo enviado correctamente.') {
           console.error(`Error al enviar correo a ${user.email}: ${emailResult.error || emailResult.message}`);
         }
@@ -323,159 +355,128 @@ exports.addUsuarios = async (usersData, role, creatorId, session = null, options
 };
 
 exports.enviarCredencialesOlvidadas = async (email) => {
-    try {
-        const usuario = await Usuario.findOne({ email });
-        if (!usuario) {
-            return { status: 404, body: { error: `Usuario con email '${email}' no encontrado.` } };
-        }
-
-        const passwordResult = await generarPassword();
-        if (passwordResult.error) return { status: 500, body: passwordResult };
-
-        usuario.password = passwordResult.password;
-        await usuario.save();
-
-        const emailResult = await emailController.enviarEmailCredencialesOlvidadas(email, usuario.username, passwordResult.password);
-        if (emailResult.message === 'Correo enviado correctamente.') {
-            return { status: 200, body: { message: `Credenciales enviadas a ${email}` } };
-        } else {
-            let errorMessage = 'Error desconocido al enviar el correo.';
-            if (emailResult && emailResult.error) {
-                errorMessage = emailResult.error;
-            }
-            return { status: 500, body: { error: `Error al enviar el correo: ${errorMessage}` } };
-        }
-    } catch (error) {
-        return { status: 500, body: { error: `Error interno del servidor: ${error.message}` } };
+  try {
+    const usuario = await Usuario.findOne({ email });
+    if (!usuario) {
+      return { status: 404, body: { error: `Usuario con email '${email}' no encontrado.` } };
     }
+
+    const passwordResult = await generarPassword();
+    if (passwordResult.error) return { status: 500, body: passwordResult };
+
+    usuario.password = passwordResult.password;
+    await usuario.save();
+
+    const emailResult = await emailController.enviarEmailCredencialesOlvidadas(email, usuario.username, passwordResult.password);
+    if (emailResult.message === 'Correo enviado correctamente.') {
+      return { status: 200, body: { message: `Credenciales enviadas a ${email}` } };
+    } else {
+      let errorMessage = 'Error desconocido al enviar el correo.';
+      if (emailResult && emailResult.error) {
+        errorMessage = emailResult.error;
+      }
+      return { status: 500, body: { error: `Error al enviar el correo: ${errorMessage}` } };
+    }
+  } catch (error) {
+    return { status: 500, body: { error: `Error interno del servidor: ${error.message}` } };
+  }
 };
 
 exports.getUsuarioById = async (id) => {
-    try {
-        const usuario = await Usuario.findById(id);
-        if (!usuario) {
-            return { status: 404, body: { error: `Usuario con ID ${id} no encontrado.` } };
-        }
-        return { status: 200, body: usuario };
-    } catch (error) {
-        return { status: 500, body: { error: `Error interno del servidor: ${error.message}` } };
+  try {
+    const usuario = await Usuario.findById(id);
+    if (!usuario) {
+      return { status: 404, body: { error: `Usuario con ID ${id} no encontrado.` } };
     }
+    return { status: 200, body: usuario };
+  } catch (error) {
+    return { status: 500, body: { error: `Error interno del servidor: ${error.message}` } };
+  }
 };
 
 exports.getAllAlumnos = async (profesorId) => {
-    try {
-        const alumnos = await Usuario.find({ role: 'alumno', profesorId: profesorId });
-        return { status: 200, body: alumnos };
-    } catch (error) {
-        return { status: 500, body: { error: `Error interno del servidor: ${error.message}` } };
-    }
+  try {
+    const alumnos = await Usuario.find({ role: 'alumno', profesorId: profesorId });
+    return { status: 200, body: alumnos };
+  } catch (error) {
+    return { status: 500, body: { error: `Error interno del servidor: ${error.message}` } };
+  }
 };
 
 exports.getAllProfesores = async () => {
-    try {
-        const profesores = await Usuario.find({ role: 'profesor' });
-        return { status: 200, body: profesores };
-    } catch (error) {
-        return { status: 500, body: { error: `Error interno del servidor: ${error.message}` } };
-    }
+  try {
+    const profesores = await Usuario.find({ role: 'profesor' });
+    return { status: 200, body: profesores };
+  } catch (error) {
+    return { status: 500, body: { error: `Error interno del servidor: ${error.message}` } };
+  }
 };
 
 exports.getAlumnosByProfesor = async (req, res) => {
-    try {
-        const { profesorId } = req.params;
-        const result = await exports.getAllAlumnos(profesorId);
-        res.status(result.status).json(result.body);
-    } catch (error) {
-        res.status(500).json({ error: `Error interno del servidor: ${error.message}` });
-    }
+  try {
+    const { profesorId } = req.params;
+    const result = await exports.getAllAlumnos(profesorId);
+    res.status(result.status).json(result.body);
+  } catch (error) {
+    res.status(500).json({ error: `Error interno del servidor: ${error.message}` });
+  }
 };
 
 exports.deleteUsuario = async (id, userId) => {
-    try {
-        const usuarioAEliminar = await Usuario.findById(id);
-        if (!usuarioAEliminar) {
-            return { status: 404, body: { error: 'Usuario no encontrado.' } };
-        }
-
-        // Si el usuario autenticado no es administrador y no es el profesor que creó este alumno/profesor (si aplica)
-        const loggedInUser = await Usuario.findById(userId);
-        if (!loggedInUser || loggedInUser.role !== 'administrador') {
-            // Un profesor solo puede eliminar a sus propios alumnos
-            if (usuarioAEliminar.role === 'alumno' && usuarioAEliminar.profesorId && usuarioAEliminar.profesorId.toString() !== userId) {
-                return { status: 403, body: { error: 'No tienes permiso para eliminar este alumno.' } };
-            }
-            // Los profesores no pueden eliminar a otros profesores
-            if (usuarioAEliminar.role === 'profesor') {
-                return { status: 403, body: { error: 'No tienes permiso para eliminar profesores.' } };
-            }
-        }
-
-
-        if (usuarioAEliminar.role === 'profesor') {
-            // Eliminar tareas creadas por el profesor
-            const tareasProfesor = await Tarea.find({ profesor: id });
-            const tareaIdsProfesor = tareasProfesor.map(t => t._id);
-            await Calificacion.deleteMany({ tarea: { $in: tareaIdsProfesor } });
-            await Tarea.deleteMany({ profesor: id });
-
-            // Eliminar cuestionarios creados por el profesor
-            const cuestionariosProfesor = await Cuestionario.find({ profesor: id });
-            const cuestionarioIdsProfesor = cuestionariosProfesor.map(c => c._id);
-            await Calificacion.deleteMany({ cuestionario: { $in: cuestionarioIdsProfesor } });
-            await Cuestionario.deleteMany({ profesor: id });
-
-            // Eliminar grupos creados por el profesor y sus ramas
-            const gruposProfesor = await Grupo.find({ profesor: id });
-            const grupoIdsProfesor = gruposProfesor.map(g => g._id);
-            const ramasProfesor = await RamaConfig.find({ grupo: { $in: grupoIdsProfesor } });
-            const ramaIdsProfesor = ramasProfesor.map(r => r._id);
-            await RamaConfig.deleteMany({ grupo: { $in: grupoIdsProfesor } });
-            await Grupo.deleteMany({ profesor: id });
-
-            // Eliminar calificaciones generales creadas por el profesor
-            await CalificacionGeneral.deleteMany({ profesor: id });
-
-            // Reasignar alumnos creados por este profesor
-            await Usuario.deleteMany({ profesorId: id, role: 'alumno' });
-        }
-
-        // Eliminación de mensajes asociados al usuario (emisor o receptor)
-        await Mensaje.deleteMany({
-            $or: [
-                { emisor: id },
-                { receptores: id }
-            ]
-        });
-
-        // Si es un alumno, eliminar sus calificaciones continuas y generales
-        if (usuarioAEliminar.role === 'alumno') {
-            await Calificacion.deleteMany({ alumno: id });
-            await CalificacionGeneral.deleteMany({ alumno: id });
-
-            // Remover al alumno de los grupos, tareas y cuestionarios
-            await Grupo.updateMany(
-                { alumnos: id },
-                { $pull: { alumnos: id } }
-            );
-
-            await Tarea.updateMany(
-                { alumnos: id },
-                { $pull: { alumnos: id } }
-            );
-
-            await Cuestionario.updateMany(
-                { alumnos: id },
-                { $pull: { alumnos: id } }
-            );
-        }
-
-        // Finalmente, eliminar el usuario
-        await Usuario.findByIdAndDelete(id);
-
-        return { status: 200, body: { message: 'Usuario y todos sus datos asociados eliminados correctamente.' } };
-
-    } catch (error) {
-        console.error('Error al eliminar usuario y datos asociados:', error);
-        return { status: 500, body: { error: `Error interno del servidor: ${error.message}` } };
+  try {
+    const usuarioAEliminar = await Usuario.findById(id);
+    if (!usuarioAEliminar) {
+      return { status: 404, body: { error: 'Usuario no encontrado.' } };
     }
+
+    const loggedInUser = await Usuario.findById(userId);
+    if (!loggedInUser || loggedInUser.role !== 'administrador') {
+      if (usuarioAEliminar.role === 'alumno' && usuarioAEliminar.profesorId && usuarioAEliminar.profesorId.toString() !== userId) {
+        return { status: 403, body: { error: 'No tienes permiso para eliminar este alumno.' } };
+      }
+      if (usuarioAEliminar.role === 'profesor') {
+        return { status: 403, body: { error: 'No tienes permiso para eliminar profesores.' } };
+      }
+    }
+
+    if (usuarioAEliminar.role === 'profesor') {
+      const tareasProfesor = await Tarea.find({ profesor: id });
+      const tareaIdsProfesor = tareasProfesor.map((t) => t._id);
+      await Calificacion.deleteMany({ tarea: { $in: tareaIdsProfesor } });
+      await Tarea.deleteMany({ profesor: id });
+
+      const cuestionariosProfesor = await Cuestionario.find({ profesor: id });
+      const cuestionarioIdsProfesor = cuestionariosProfesor.map((c) => c._id);
+      await Calificacion.deleteMany({ cuestionario: { $in: cuestionarioIdsProfesor } });
+      await Cuestionario.deleteMany({ profesor: id });
+
+      const gruposProfesor = await Grupo.find({ profesor: id });
+      const grupoIdsProfesor = gruposProfesor.map((g) => g._id);
+      await RamaConfig.deleteMany({ grupo: { $in: grupoIdsProfesor } });
+      await Grupo.deleteMany({ profesor: id });
+
+      await CalificacionGeneral.deleteMany({ profesor: id });
+      await Usuario.deleteMany({ profesorId: id, role: 'alumno' });
+    }
+
+    await Mensaje.deleteMany({
+      $or: [{ emisor: id }, { receptores: id }]
+    });
+
+    if (usuarioAEliminar.role === 'alumno') {
+      await Calificacion.deleteMany({ alumno: id });
+      await CalificacionGeneral.deleteMany({ alumno: id });
+
+      await Grupo.updateMany({ alumnos: id }, { $pull: { alumnos: id } });
+      await Tarea.updateMany({ alumnos: id }, { $pull: { alumnos: id } });
+      await Cuestionario.updateMany({ alumnos: id }, { $pull: { alumnos: id } });
+    }
+
+    await Usuario.findByIdAndDelete(id);
+
+    return { status: 200, body: { message: 'Usuario y todos sus datos asociados eliminados correctamente.' } };
+  } catch (error) {
+    console.error('Error al eliminar usuario y datos asociados:', error);
+    return { status: 500, body: { error: `Error interno del servidor: ${error.message}` } };
+  }
 };

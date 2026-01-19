@@ -1,0 +1,2 @@
+tipo,ref,nombre,apellido1,apellido2,email,rol,profesor_ref,nombre_grupo,alumnos_ref
+grupo,GRP_X1,,,,,,PROF_NO,Grupo X,ALU_X

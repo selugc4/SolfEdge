@@ -57,4 +57,14 @@ export class UsuarioService {
   }
 
   // Aquí se podrían añadir más métodos para gestionar usuarios (obtener, eliminar, etc.)
+
+  /**
+   * Importa usuarios y grupos desde un archivo CSV.
+   * @param file El archivo CSV a subir.
+   */
+  importCsv(file: File): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('file', file, file.name);
+    return this.http.post(`${this.apiUrl}/import/csv`, formData);
+  }
 }
