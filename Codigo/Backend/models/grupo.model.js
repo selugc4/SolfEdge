@@ -5,6 +5,7 @@ const grupoSchema = new Schema({
   nombre: {
     type: String,
     required: true,
+    maxlength: [5, 'El nombre del grupo no puede tener más de 5 caracteres'],
     trim: true
   },
   profesor: {
