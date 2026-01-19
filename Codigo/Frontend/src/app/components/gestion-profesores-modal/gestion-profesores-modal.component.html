@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Gestionar Profesores</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Profesores</ion-label>
+    </ion-list-header>
+    @for(profesor of profesores; track profesor._id){
+      <ion-item>
+        <ion-label>{{ profesor.username }} ({{ profesor.email }})</ion-label>
+        <ion-button color="danger" (click)="deleteProfesor(profesor._id!)">
+          <ion-icon name="trash-outline"></ion-icon>
+        </ion-button>
+      </ion-item>
+    } @empty {
+      <ion-item>
+        <ion-label>No hay profesores en la aplicación.</ion-label>
+      </ion-item>
+    }
+  </ion-list>
+</ion-content>

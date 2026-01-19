@@ -279,6 +279,31 @@ router.get('/alumnos/all', authMiddleware.verifyToken, async (req, res) => {
  */
 router.get('/alumnos/profesor/:profesorId', authMiddleware.verifyToken, usuarioController.getAlumnosByProfesor);
 
+/**
+ * @swagger
+ * /usuarios/profesores/all:
+ *   get:
+ *     summary: Obtiene todos los usuarios con rol de profesor.
+ *     tags: [Usuarios]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Lista de profesores.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Usuario'
+ *       500:
+ *         description: Error interno del servidor.
+ */
+router.get('/profesores/all', authMiddleware.verifyToken, async (req, res) => {
+    const result = await usuarioController.getAllProfesores();
+    res.status(result.status).json(result.body);
+});
+
 
 // Definición del esquema de Usuario para reutilización
 /**

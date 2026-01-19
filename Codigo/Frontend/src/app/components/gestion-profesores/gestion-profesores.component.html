@@ -1,28 +1,34 @@
-<form [formGroup]="professorForm" (ngSubmit)="createProfessor()">
   <ion-card>
     <ion-card-header>
-      <ion-card-title>Añadir Nuevo Profesor</ion-card-title>
+      <ion-card-title>Gestionar profesores</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <ion-item>
-        <ion-label position="floating">Nombre</ion-label>
-        <ion-input formControlName="nombre" type="text" pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ]*$" (ionInput)="onNameInput($event, 'nombre')" required maxlength="20"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Primer Apellido</ion-label>
-        <ion-input formControlName="primerApellido" type="text" pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ]*$" (ionInput)="onNameInput($event, 'primerApellido')" required maxlength="20"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Segundo Apellido</ion-label>
-        <ion-input formControlName="segundoApellido" type="text" pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ]*$" (ionInput)="onNameInput($event, 'segundoApellido')" required maxlength="20"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Correo Electrónico</ion-label>
-        <ion-input formControlName="email" type="email" pattern="^\S*$" (ionInput)="onEmailInput($event)" required maxlength="40"></ion-input>
-      </ion-item>
-      <ion-button expand="block" type="submit" [disabled]="professorForm.invalid" class="ion-margin-top">
-        Crear Profesor
-      </ion-button>
+      <form [formGroup]="professorForm" (ngSubmit)="createProfessor()">
+        <ion-item>
+          <ion-label position="floating">Nombre</ion-label>
+          <ion-input formControlName="nombre" type="text" pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ]*$" (ionInput)="onNameInput($event, 'nombre')" required maxlength="20"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Primer Apellido</ion-label>
+          <ion-input formControlName="primerApellido" type="text" pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ]*$" (ionInput)="onNameInput($event, 'primerApellido')" required maxlength="20"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Segundo Apellido</ion-label>
+          <ion-input formControlName="segundoApellido" type="text" pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ]*$" (ionInput)="onNameInput($event, 'segundoApellido')" required maxlength="20"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Correo Electrónico</ion-label>
+          <ion-input formControlName="email" type="email" pattern="^\S*$" (ionInput)="onEmailInput($event)" required maxlength="40"></ion-input>
+        </ion-item>
+        <ion-button expand="block" type="submit" [disabled]="professorForm.invalid" class="ion-margin-top">
+          Crear Profesor
+        </ion-button>
+      </form>
+      <ion-button expand="block" (click)="presentGestionProfesoresModal()" class="ion-margin-top">
+        <ion-icon slot="start" name="person-circle-outline"></ion-icon>
+        Gestionar Profesores
+      </ion-button>      
     </ion-card-content>
   </ion-card>
-</form>
+
+

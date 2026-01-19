@@ -1,4 +1,3 @@
-
 jest.mock('node-mailjet', () => ({
   apiConnect: jest.fn(() => ({
     post: jest.fn(() => ({
@@ -19,6 +18,7 @@ const CalificacionGeneral = require('../models/calificacionGeneral.model');
 const Grupo = require('../models/grupo.model');
 const Tarea = require('../models/tarea.model');
 const Cuestionario = require('../models/cuestionario.model');
+const RamaConfig = require('../models/ramaConfig.model'); // Import RamaConfig
 const fetch = require('node-fetch');
 const authMiddleware = require('../middleware/authMiddleware');
 jest.mock('../models/usuario.model');
@@ -28,6 +28,7 @@ jest.mock('../models/calificacionGeneral.model');
 jest.mock('../models/grupo.model');
 jest.mock('../models/tarea.model');
 jest.mock('../models/cuestionario.model');
+jest.mock('../models/ramaConfig.model'); // Mock RamaConfig
 jest.mock('node-fetch', () => jest.fn());
 jest.mock('../middleware/authMiddleware');
 
@@ -173,6 +174,7 @@ describe('Usuario API', () => {
     const alumnoId = 'alumno123';
     const profesorId = 'profesor456';
     const adminId = 'admin789';
+    const otroProfesorId = 'otroProfesorId';
 
     beforeEach(() => {
         Mensaje.deleteMany.mockResolvedValue({});
@@ -182,6 +184,13 @@ describe('Usuario API', () => {
         Tarea.updateMany.mockResolvedValue({});
         Cuestionario.updateMany.mockResolvedValue({});
         Usuario.findByIdAndDelete.mockResolvedValue({});
+        // Mocks adicionales para la eliminación de profesor
+        Tarea.find.mockResolvedValue([]);
+        Cuestionario.find.mockResolvedValue([]);
+        Grupo.find.mockResolvedValue([]);
+        RamaConfig.find.mockResolvedValue([]); // Mock RamaConfig.find
+        RamaConfig.deleteMany.mockResolvedValue({}); // Mock para RamaConfig.deleteMany
+        Usuario.updateMany.mockResolvedValue({}); // Para reasignar alumnos
     });
 
     it('should delete a student and associated data successfully by creator', async () => {
@@ -232,31 +241,86 @@ describe('Usuario API', () => {
         expect(response.body.error).toBe('Usuario no encontrado.');
     });
 
-    it('should return 403 if trying to delete a professor', async () => {
-        authMiddleware.verifyToken.mockImplementationOnce((req, res, next) => {
-            req.user = { id: adminId };
-            next();
-        });
-        Usuario.findById.mockResolvedValueOnce({ _id: profesorId, role: 'profesor' });
-
-        const response = await request(app).delete(`/usuarios/${profesorId}`);
-
-        expect(response.status).toBe(403);
-        expect(response.body.error).toBe('No se permite eliminar usuarios con rol de profesor directamente.');
-    });
-
     it('should return 403 if non-creator professor tries to delete an student', async () => {
         authMiddleware.verifyToken.mockImplementationOnce((req, res, next) => {
-            req.user = { id: 'otherProfesorId' }; // Otro profesor
+            req.user = { id: otroProfesorId }; // Otro profesor
             next();
         });
         Usuario.findById.mockResolvedValueOnce({ _id: alumnoId, role: 'alumno', profesorId: profesorId }); // First call: find the student
-        Usuario.findById.mockResolvedValueOnce({ _id: 'otherProfesorId', role: 'profesor' }); // Second call: find the logged-in professor
+        Usuario.findById.mockResolvedValueOnce({ _id: otroProfesorId, role: 'profesor' }); // Second call: find the logged-in professor
 
         const response = await request(app).delete(`/usuarios/${alumnoId}`);
 
         expect(response.status).toBe(403);
         expect(response.body.error).toBe('No tienes permiso para eliminar este alumno.');
+    });
+
+    it('should delete a professor and all associated data successfully by admin', async () => {
+        authMiddleware.verifyToken.mockImplementationOnce((req, res, next) => {
+            req.user = { id: adminId };
+            next();
+        });
+        Usuario.findById.mockResolvedValueOnce({ _id: profesorId, role: 'profesor' }); // Profesor a eliminar
+        Usuario.findById.mockResolvedValueOnce({ _id: adminId, role: 'administrador' }); // Admin logeado
+
+        // Mocks para las operaciones de eliminación en cascada de profesor
+        Tarea.find.mockResolvedValueOnce([{ _id: 'tarea1', profesor: profesorId }]);
+        Cuestionario.find.mockResolvedValueOnce([{ _id: 'cuestionario1', profesor: profesorId }]);
+        Grupo.find.mockResolvedValueOnce([{ _id: 'grupo1', profesor: profesorId }]);
+        RamaConfig.find.mockResolvedValueOnce([{ _id: 'rama1', grupo: 'grupo1' }]); // Mock para ramas dentro del grupo
+        Usuario.updateMany.mockResolvedValueOnce({}); // Reasignar alumnos
+
+        const response = await request(app).delete(`/usuarios/${profesorId}`);
+
+        expect(response.status).toBe(200);
+        expect(response.body.message).toBe('Usuario y todos sus datos asociados eliminados correctamente.');
+        expect(Usuario.findById).toHaveBeenCalledWith(profesorId);
+        expect(Tarea.deleteMany).toHaveBeenCalledWith({ profesor: profesorId });
+        expect(Cuestionario.deleteMany).toHaveBeenCalledWith({ profesor: profesorId });
+        expect(Grupo.deleteMany).toHaveBeenCalledWith({ profesor: profesorId });
+        expect(RamaConfig.deleteMany).toHaveBeenCalledWith({ grupo: { $in: ['grupo1'] } }); // Verificar eliminación de ramas
+        expect(Calificacion.deleteMany).toHaveBeenCalledWith({ tarea: { $in: ['tarea1'] } }); // Y para cuestionarios
+        expect(Calificacion.deleteMany).toHaveBeenCalledWith({ cuestionario: { $in: ['cuestionario1'] } });
+        expect(CalificacionGeneral.deleteMany).toHaveBeenCalledWith({ profesor: profesorId });
+        expect(Mensaje.deleteMany).toHaveBeenCalledWith({ $or: [{ emisor: profesorId }, { receptores: profesorId }] });
+        expect(Usuario.updateMany).toHaveBeenCalledWith({ profesorId: profesorId }, { $set: { profesorId: null } });
+        expect(Usuario.findByIdAndDelete).toHaveBeenCalledWith(profesorId);
+    });
+
+    it('should return 403 if non-admin tries to delete a professor', async () => {
+        authMiddleware.verifyToken.mockImplementationOnce((req, res, next) => {
+            req.user = { id: otroProfesorId };
+            next();
+        });
+        Usuario.findById.mockResolvedValueOnce({ _id: profesorId, role: 'profesor' }); // Profesor a eliminar
+        Usuario.findById.mockResolvedValueOnce({ _id: otroProfesorId, role: 'profesor' }); // No admin logeado
+
+        const response = await request(app).delete(`/usuarios/${profesorId}`);
+
+        expect(response.status).toBe(403);
+        expect(response.body.error).toBe('No tienes permiso para eliminar profesores.');
+    });
+  });
+
+  describe('GET /usuarios/profesores/all', () => {
+    it('should get all professors', async () => {
+      const mockProfesores = [{ _id: 'profesor1', role: 'profesor' }, { _id: 'profesor2', role: 'profesor' }];
+      Usuario.find.mockResolvedValue(mockProfesores);
+
+      const response = await request(app).get('/usuarios/profesores/all');
+
+      expect(response.status).toBe(200);
+      expect(response.body).toEqual(mockProfesores);
+      expect(Usuario.find).toHaveBeenCalledWith({ role: 'profesor' });
+    });
+
+    it('should return 500 on internal server error', async () => {
+      Usuario.find.mockImplementation(() => { throw new Error('DB error'); });
+
+      const response = await request(app).get('/usuarios/profesores/all');
+
+      expect(response.status).toBe(500);
+      expect(response.body.error).toContain('DB error');
     });
   });
 });

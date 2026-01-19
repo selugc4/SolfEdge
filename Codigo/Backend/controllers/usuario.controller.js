@@ -7,7 +7,7 @@ const CalificacionGeneral = require('../models/calificacionGeneral.model');
 const Grupo = require('../models/grupo.model');
 const Tarea = require('../models/tarea.model');
 const Cuestionario = require('../models/cuestionario.model');
-
+const RamaConfig = require('../models/ramaConfig.model');
 const checkEmailExists = async (emails) => {
     const existingUsers = await Usuario.find({ email: { $in: emails } }).lean();
     if (existingUsers.length > 0) {
@@ -138,6 +138,15 @@ exports.getAllAlumnos = async (profesorId) => {
     }
 };
 
+exports.getAllProfesores = async () => {
+    try {
+        const profesores = await Usuario.find({ role: 'profesor' });
+        return { status: 200, body: profesores };
+    } catch (error) {
+        return { status: 500, body: { error: `Error interno del servidor: ${error.message}` } };
+    }
+};
+
 exports.getAlumnosByProfesor = async (req, res) => {
     try {
         const { profesorId } = req.params;
@@ -155,22 +164,52 @@ exports.deleteUsuario = async (id, userId) => {
             return { status: 404, body: { error: 'Usuario no encontrado.' } };
         }
 
-        // Si el usuario a eliminar es un profesor, se prohibirá la eliminación por el momento
-        if (usuarioAEliminar.role === 'profesor') {
-            return { status: 403, body: { error: 'No se permite eliminar usuarios con rol de profesor directamente.' } };
-        }
-
-        // Si el usuario autenticado no es administrador y no es el profesor que creó este alumno
-        if (usuarioAEliminar.profesorId && usuarioAEliminar.profesorId.toString() !== userId) {
-            // Se asume que el userId que llega es el ID del profesor loggeado
-            const loggedInUser = await Usuario.findById(userId);
-            if (!loggedInUser || loggedInUser.role !== 'administrador') {
-                 return { status: 403, body: { error: 'No tienes permiso para eliminar este alumno.' } };
+        // Si el usuario autenticado no es administrador y no es el profesor que creó este alumno/profesor (si aplica)
+        const loggedInUser = await Usuario.findById(userId);
+        if (!loggedInUser || loggedInUser.role !== 'administrador') {
+            // Un profesor solo puede eliminar a sus propios alumnos
+            if (usuarioAEliminar.role === 'alumno' && usuarioAEliminar.profesorId && usuarioAEliminar.profesorId.toString() !== userId) {
+                return { status: 403, body: { error: 'No tienes permiso para eliminar este alumno.' } };
+            }
+            // Los profesores no pueden eliminar a otros profesores
+            if (usuarioAEliminar.role === 'profesor') {
+                return { status: 403, body: { error: 'No tienes permiso para eliminar profesores.' } };
             }
         }
 
 
-        // Eliminación de mensajes asociados al usuario
+        if (usuarioAEliminar.role === 'profesor') {
+            // Eliminar tareas creadas por el profesor
+            const tareasProfesor = await Tarea.find({ profesor: id });
+            const tareaIdsProfesor = tareasProfesor.map(t => t._id);
+            await Calificacion.deleteMany({ tarea: { $in: tareaIdsProfesor } });
+            await Tarea.deleteMany({ profesor: id });
+
+            // Eliminar cuestionarios creados por el profesor
+            const cuestionariosProfesor = await Cuestionario.find({ profesor: id });
+            const cuestionarioIdsProfesor = cuestionariosProfesor.map(c => c._id);
+            await Calificacion.deleteMany({ cuestionario: { $in: cuestionarioIdsProfesor } });
+            await Cuestionario.deleteMany({ profesor: id });
+
+            // Eliminar grupos creados por el profesor y sus ramas
+            const gruposProfesor = await Grupo.find({ profesor: id });
+            const grupoIdsProfesor = gruposProfesor.map(g => g._id);
+            const ramasProfesor = await RamaConfig.find({ grupo: { $in: grupoIdsProfesor } });
+            const ramaIdsProfesor = ramasProfesor.map(r => r._id);
+            await RamaConfig.deleteMany({ grupo: { $in: grupoIdsProfesor } });
+            await Grupo.deleteMany({ profesor: id });
+
+            // Eliminar calificaciones generales creadas por el profesor
+            await CalificacionGeneral.deleteMany({ profesor: id });
+
+            // Reasignar alumnos creados por este profesor
+            await Usuario.updateMany(
+                { profesorId: id },
+                { $set: { profesorId: null } } // O reasignar a un administrador por defecto
+            );
+        }
+
+        // Eliminación de mensajes asociados al usuario (emisor o receptor)
         await Mensaje.deleteMany({
             $or: [
                 { emisor: id },
@@ -178,27 +217,27 @@ exports.deleteUsuario = async (id, userId) => {
             ]
         });
 
-        // Eliminación de calificaciones continuas
-        await Calificacion.deleteMany({ alumno: id });
+        // Si es un alumno, eliminar sus calificaciones continuas y generales
+        if (usuarioAEliminar.role === 'alumno') {
+            await Calificacion.deleteMany({ alumno: id });
+            await CalificacionGeneral.deleteMany({ alumno: id });
 
-        // Eliminación de calificaciones generales
-        await CalificacionGeneral.deleteMany({ alumno: id });
+            // Remover al alumno de los grupos, tareas y cuestionarios
+            await Grupo.updateMany(
+                { alumnos: id },
+                { $pull: { alumnos: id } }
+            );
 
-        // Remover al alumno de los grupos, tareas y cuestionarios
-        await Grupo.updateMany(
-            { alumnos: id },
-            { $pull: { alumnos: id } }
-        );
+            await Tarea.updateMany(
+                { alumnos: id },
+                { $pull: { alumnos: id } }
+            );
 
-        await Tarea.updateMany(
-            { alumnos: id },
-            { $pull: { alumnos: id } }
-        );
-
-        await Cuestionario.updateMany(
-            { alumnos: id },
-            { $pull: { alumnos: id } }
-        );
+            await Cuestionario.updateMany(
+                { alumnos: id },
+                { $pull: { alumnos: id } }
+            );
+        }
 
         // Finalmente, eliminar el usuario
         await Usuario.findByIdAndDelete(id);
