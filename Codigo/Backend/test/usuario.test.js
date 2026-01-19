@@ -13,11 +13,21 @@ const express = require('express');
 const usuarioRouter = require('../routes/usuario.routes');
 const usuarioController = require('../controllers/usuario.controller');
 const Usuario = require('../models/usuario.model');
+const Mensaje = require('../models/mensaje.model');
+const Calificacion = require('../models/calificacion.model');
+const CalificacionGeneral = require('../models/calificacionGeneral.model');
+const Grupo = require('../models/grupo.model');
+const Tarea = require('../models/tarea.model');
+const Cuestionario = require('../models/cuestionario.model');
 const fetch = require('node-fetch');
-const emailController = require('../controllers/email.controller');
 const authMiddleware = require('../middleware/authMiddleware');
-
 jest.mock('../models/usuario.model');
+jest.mock('../models/mensaje.model');
+jest.mock('../models/calificacion.model');
+jest.mock('../models/calificacionGeneral.model');
+jest.mock('../models/grupo.model');
+jest.mock('../models/tarea.model');
+jest.mock('../models/cuestionario.model');
 jest.mock('node-fetch', () => jest.fn());
 jest.mock('../middleware/authMiddleware');
 
@@ -156,6 +166,97 @@ describe('Usuario API', () => {
 
       expect(mockUser.password).toBe('new-password');
       expect(mockUser.save).toHaveBeenCalled();
+    });
+  });
+
+  describe('DELETE /usuarios/:id', () => {
+    const alumnoId = 'alumno123';
+    const profesorId = 'profesor456';
+    const adminId = 'admin789';
+
+    beforeEach(() => {
+        Mensaje.deleteMany.mockResolvedValue({});
+        Calificacion.deleteMany.mockResolvedValue({});
+        CalificacionGeneral.deleteMany.mockResolvedValue({});
+        Grupo.updateMany.mockResolvedValue({});
+        Tarea.updateMany.mockResolvedValue({});
+        Cuestionario.updateMany.mockResolvedValue({});
+        Usuario.findByIdAndDelete.mockResolvedValue({});
+    });
+
+    it('should delete a student and associated data successfully by creator', async () => {
+        authMiddleware.verifyToken.mockImplementationOnce((req, res, next) => {
+            req.user = { id: profesorId };
+            next();
+        });
+        Usuario.findById.mockResolvedValueOnce({ _id: alumnoId, role: 'alumno', profesorId: profesorId });
+
+        const response = await request(app).delete(`/usuarios/${alumnoId}`);
+
+        expect(response.status).toBe(200);
+        expect(response.body.message).toBe('Usuario y todos sus datos asociados eliminados correctamente.');
+        expect(Usuario.findById).toHaveBeenCalledWith(alumnoId);
+        expect(Mensaje.deleteMany).toHaveBeenCalledWith({ $or: [{ emisor: alumnoId }, { receptores: alumnoId }] });
+        expect(Calificacion.deleteMany).toHaveBeenCalledWith({ alumno: alumnoId });
+        expect(CalificacionGeneral.deleteMany).toHaveBeenCalledWith({ alumno: alumnoId });
+        expect(Grupo.updateMany).toHaveBeenCalledWith({ alumnos: alumnoId }, { $pull: { alumnos: alumnoId } });
+        expect(Tarea.updateMany).toHaveBeenCalledWith({ alumnos: alumnoId }, { $pull: { alumnos: alumnoId } });
+        expect(Cuestionario.updateMany).toHaveBeenCalledWith({ alumnos: alumnoId }, { $pull: { alumnos: alumnoId } });
+        expect(Usuario.findByIdAndDelete).toHaveBeenCalledWith(alumnoId);
+    });
+
+    it('should delete a student and associated data successfully by admin', async () => {
+        authMiddleware.verifyToken.mockImplementationOnce((req, res, next) => {
+            req.user = { id: adminId };
+            next();
+        });
+        Usuario.findById.mockResolvedValueOnce({ _id: alumnoId, role: 'alumno', profesorId: profesorId }); // First call: find the student
+        Usuario.findById.mockResolvedValueOnce({ _id: adminId, role: 'administrador' }); // Second call: find the logged-in admin
+
+        const response = await request(app).delete(`/usuarios/${alumnoId}`);
+
+        expect(response.status).toBe(200);
+        expect(response.body.message).toBe('Usuario y todos sus datos asociados eliminados correctamente.');
+    });
+
+    it('should return 404 if user to delete is not found', async () => {
+        authMiddleware.verifyToken.mockImplementationOnce((req, res, next) => {
+            req.user = { id: profesorId };
+            next();
+        });
+        Usuario.findById.mockResolvedValueOnce(null);
+
+        const response = await request(app).delete(`/usuarios/${alumnoId}`);
+
+        expect(response.status).toBe(404);
+        expect(response.body.error).toBe('Usuario no encontrado.');
+    });
+
+    it('should return 403 if trying to delete a professor', async () => {
+        authMiddleware.verifyToken.mockImplementationOnce((req, res, next) => {
+            req.user = { id: adminId };
+            next();
+        });
+        Usuario.findById.mockResolvedValueOnce({ _id: profesorId, role: 'profesor' });
+
+        const response = await request(app).delete(`/usuarios/${profesorId}`);
+
+        expect(response.status).toBe(403);
+        expect(response.body.error).toBe('No se permite eliminar usuarios con rol de profesor directamente.');
+    });
+
+    it('should return 403 if non-creator professor tries to delete an student', async () => {
+        authMiddleware.verifyToken.mockImplementationOnce((req, res, next) => {
+            req.user = { id: 'otherProfesorId' }; // Otro profesor
+            next();
+        });
+        Usuario.findById.mockResolvedValueOnce({ _id: alumnoId, role: 'alumno', profesorId: profesorId }); // First call: find the student
+        Usuario.findById.mockResolvedValueOnce({ _id: 'otherProfesorId', role: 'profesor' }); // Second call: find the logged-in professor
+
+        const response = await request(app).delete(`/usuarios/${alumnoId}`);
+
+        expect(response.status).toBe(403);
+        expect(response.body.error).toBe('No tienes permiso para eliminar este alumno.');
     });
   });
 });

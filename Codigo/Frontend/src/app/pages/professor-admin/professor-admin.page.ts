@@ -10,6 +10,7 @@ import { CalificacionGeneralService } from '../../services/calificacion-general.
 import { sendOutline, ribbonOutline } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-professor-admin-page',
   templateUrl: './professor-admin.page.html',

@@ -1,28 +1,34 @@
-<form [formGroup]="studentForm" (ngSubmit)="createStudent()">
   <ion-card>
     <ion-card-header>
-      <ion-card-title>Añadir Nuevo Alumno</ion-card-title>
+      <ion-card-title>Gestión de alumnos</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <ion-item>
-        <ion-label position="floating">Nombre</ion-label>
-        <ion-input formControlName="nombre" type="text" pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ]*$" (ionInput)="onNameInput($event, 'nombre')" required maxlength="20"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Primer Apellido</ion-label>
-        <ion-input formControlName="primerApellido" type="text" pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ]*$" (ionInput)="onNameInput($event, 'primerApellido')" required maxlength="20"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Segundo Apellido</ion-label>
-        <ion-input formControlName="segundoApellido" type="text" pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ]*$" (ionInput)="onNameInput($event, 'segundoApellido')" required maxlength="20"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Correo Electrónico</ion-label>
-        <ion-input formControlName="email" type="email" pattern="^\S*$" (ionInput)="onEmailInput($event)" required maxlength="40"></ion-input>
-      </ion-item>
-      <ion-button expand="block" type="submit" [disabled]="studentForm.invalid" class="ion-margin-top">
-        Crear Alumno
+      <form [formGroup]="studentForm" (ngSubmit)="createStudent()">
+        <ion-item>
+          <ion-label position="floating">Nombre</ion-label>
+          <ion-input formControlName="nombre" type="text" pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ]*$" (ionInput)="onNameInput($event, 'nombre')" required maxlength="20"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Primer Apellido</ion-label>
+          <ion-input formControlName="primerApellido" type="text" pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ]*$" (ionInput)="onNameInput($event, 'primerApellido')" required maxlength="20"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Segundo Apellido</ion-label>
+          <ion-input formControlName="segundoApellido" type="text" pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ]*$" (ionInput)="onNameInput($event, 'segundoApellido')" required maxlength="20"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Correo Electrónico</ion-label>
+          <ion-input formControlName="email" type="email" pattern="^\S*$" (ionInput)="onEmailInput($event)" required maxlength="40"></ion-input>
+        </ion-item>
+        <ion-button expand="block" type="submit" [disabled]="studentForm.invalid" class="ion-margin-top">
+          Crear Alumno
+        </ion-button>
+      </form>
+      <ion-button expand="block" (click)="presentGestionAlumnosModal()" class="ion-margin-top">
+        <ion-icon slot="start" name="person-circle-outline"></ion-icon>
+          Revisar alumnos
       </ion-button>
     </ion-card-content>
   </ion-card>
-</form>
+
+

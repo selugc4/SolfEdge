@@ -11,12 +11,13 @@ import { FormsModule } from '@angular/forms';
 import { IonButtons, IonMenuButton, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonItem, IonLabel, IonText, IonList, IonSpinner, IonSegment, IonSegmentButton, IonListHeader, IonNote, IonButton, IonIcon, ToastController, ModalController } from '@ionic/angular/standalone';
 import { MensajeService } from '../services/mensaje.service';
 import { Mensaje } from '../models/mensaje.model';
-import { ribbonOutline, sendOutline } from 'ionicons/icons';
+import { ribbonOutline, sendOutline, peopleOutline } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
 import { GrupoStateService } from '../services/grupo-state.service';
 import { Grupo } from '../models/grupo.model';
 import { MensajeModalComponent } from '../components/mensaje-modal/mensaje-modal.component';
 import { CalificacionGeneralModalComponent } from '../components/calificacion-general-modal/calificacion-general-modal.component';
+import { GestionGrupoModalComponent } from '../components/gestion-grupo-modal/gestion-grupo-modal.component';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -54,7 +55,8 @@ export class Tab5Page implements OnInit {
   constructor() {
     addIcons({
       'ribbon-outline': ribbonOutline,
-      'send-outline': sendOutline
+      'send-outline': sendOutline,
+      'people-outline': peopleOutline
     });
   }
   ngOnInit() {
@@ -109,6 +111,35 @@ export class Tab5Page implements OnInit {
       });
     }
   }
+
+  async presentGestionGrupoModal() {
+    if (!this.selectedGrupo) {
+      await this.presentToast('Por favor, selecciona un grupo primero.', 'warning');
+      return;
+    }
+
+    const modal = await this.modalController.create({
+      component: GestionGrupoModalComponent,
+      componentProps: {
+        selectedGrupo: this.selectedGrupo
+      }
+    });
+    modal.present();
+
+    const { role } = await modal.onWillDismiss();
+
+    if (role === 'confirm') {
+      this.grupoService.refreshGrupos();
+      this.grupoService.grupos$.subscribe(grupos => {
+        if (grupos.length > 0) {
+          this.grupoService.setSelectedGrupo(grupos[0]);
+        } else {
+          this.grupoService.setSelectedGrupo(null);
+        }
+      });
+    }
+  }
+
   loadAllGrades(alumnoId: string, grupoId: string) {
     forkJoin({
       continuas: this.calificacionService.getCalificacionesByAlumno(alumnoId, grupoId),

@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Gestionar Alumnos</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Alumnos Creados</ion-label>
+    </ion-list-header>
+    @for(alumno of alumnos; track alumno._id){
+      <ion-item>
+        <ion-label>{{ alumno.username }} ({{ alumno.email }})</ion-label>
+        <ion-button color="danger" (click)="deleteAlumno(alumno._id!)">
+          <ion-icon name="trash-outline"></ion-icon>
+        </ion-button>
+      </ion-item>
+    } @empty {
+      <ion-item>
+        <ion-label>No hay alumnos creados por este profesor.</ion-label>
+      </ion-item>
+    }
+  </ion-list>
+</ion-content>

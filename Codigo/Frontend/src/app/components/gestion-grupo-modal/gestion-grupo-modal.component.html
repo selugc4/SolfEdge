@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Gestionar Grupo</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Alumnos</ion-label>
+    </ion-list-header>
+    @for(alumno of selectedGrupo?.alumnos; track alumno._id){
+      <ion-item>
+        <ion-label>{{ alumno.username }}</ion-label>
+      </ion-item>
+    }
+  </ion-list>
+
+  <ion-button expand="block" color="danger" class="ion-margin-top" (click)="deleteGrupo()">
+    Eliminar Grupo
+  </ion-button>
+</ion-content>

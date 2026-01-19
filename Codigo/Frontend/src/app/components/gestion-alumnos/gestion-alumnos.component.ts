@@ -1,19 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
-import { AlertController, ToastController } from '@ionic/angular';
 import { UsuarioService } from '../../services/usuario.service';
-import { IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonItem, IonLabel, IonButton, IonInput} from "@ionic/angular/standalone";
+import { IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonItem, IonLabel, IonButton, IonInput, IonIcon, ModalController, ToastController, AlertController} from "@ionic/angular/standalone";
+import { GestionAlumnosModalComponent } from '../gestion-alumnos-modal/gestion-alumnos-modal.component';
+import { personCircleOutline } from 'ionicons/icons';
+import { addIcons } from 'ionicons';
 
 @Component({
   selector: 'app-gestion-alumnos',
   templateUrl: './gestion-alumnos.component.html',
   styleUrls: ['./gestion-alumnos.component.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonItem, IonLabel, IonButton, IonInput]
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonItem, IonLabel, IonButton, IonInput, IonIcon]
 })
 export class GestionAlumnosComponent implements OnInit {
   studentForm: FormGroup;
+  modalController: ModalController = inject(ModalController);
 
   constructor(
     private usuarioService: UsuarioService,
@@ -26,6 +29,7 @@ export class GestionAlumnosComponent implements OnInit {
       segundoApellido: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+$'), Validators.maxLength(20)]),
       email: new FormControl('', [Validators.required, Validators.email, Validators.pattern(/^\S*$/), Validators.maxLength(40)])
     });
+    addIcons({ personCircleOutline });
   }
 
   ngOnInit() {}
@@ -83,6 +87,13 @@ export class GestionAlumnosComponent implements OnInit {
         await alert.present();
       }
     });
+  }
+
+  async presentGestionAlumnosModal() {
+    const modal = await this.modalController.create({
+      component: GestionAlumnosModalComponent,
+    });
+    modal.present();
   }
 
   async presentToast(message: string) {

@@ -48,5 +48,9 @@ export class UsuarioService {
     return this.http.get<Usuario[]>(`${this.apiUrl}/alumnos/profesor/${profesorId}`);
   }
 
+  deleteUsuario(id: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
+
   // Aquí se podrían añadir más métodos para gestionar usuarios (obtener, eliminar, etc.)
 }

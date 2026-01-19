@@ -1,6 +1,12 @@
 const Usuario = require('../models/usuario.model');
 const fetch = require('node-fetch');
 const emailController = require('./email.controller');
+const Mensaje = require('../models/mensaje.model');
+const Calificacion = require('../models/calificacion.model');
+const CalificacionGeneral = require('../models/calificacionGeneral.model');
+const Grupo = require('../models/grupo.model');
+const Tarea = require('../models/tarea.model');
+const Cuestionario = require('../models/cuestionario.model');
 
 const checkEmailExists = async (emails) => {
     const existingUsers = await Usuario.find({ email: { $in: emails } }).lean();
@@ -139,5 +145,68 @@ exports.getAlumnosByProfesor = async (req, res) => {
         res.status(result.status).json(result.body);
     } catch (error) {
         res.status(500).json({ error: `Error interno del servidor: ${error.message}` });
+    }
+};
+
+exports.deleteUsuario = async (id, userId) => {
+    try {
+        const usuarioAEliminar = await Usuario.findById(id);
+        if (!usuarioAEliminar) {
+            return { status: 404, body: { error: 'Usuario no encontrado.' } };
+        }
+
+        // Si el usuario a eliminar es un profesor, se prohibirá la eliminación por el momento
+        if (usuarioAEliminar.role === 'profesor') {
+            return { status: 403, body: { error: 'No se permite eliminar usuarios con rol de profesor directamente.' } };
+        }
+
+        // Si el usuario autenticado no es administrador y no es el profesor que creó este alumno
+        if (usuarioAEliminar.profesorId && usuarioAEliminar.profesorId.toString() !== userId) {
+            // Se asume que el userId que llega es el ID del profesor loggeado
+            const loggedInUser = await Usuario.findById(userId);
+            if (!loggedInUser || loggedInUser.role !== 'administrador') {
+                 return { status: 403, body: { error: 'No tienes permiso para eliminar este alumno.' } };
+            }
+        }
+
+
+        // Eliminación de mensajes asociados al usuario
+        await Mensaje.deleteMany({
+            $or: [
+                { emisor: id },
+                { receptores: id }
+            ]
+        });
+
+        // Eliminación de calificaciones continuas
+        await Calificacion.deleteMany({ alumno: id });
+
+        // Eliminación de calificaciones generales
+        await CalificacionGeneral.deleteMany({ alumno: id });
+
+        // Remover al alumno de los grupos, tareas y cuestionarios
+        await Grupo.updateMany(
+            { alumnos: id },
+            { $pull: { alumnos: id } }
+        );
+
+        await Tarea.updateMany(
+            { alumnos: id },
+            { $pull: { alumnos: id } }
+        );
+
+        await Cuestionario.updateMany(
+            { alumnos: id },
+            { $pull: { alumnos: id } }
+        );
+
+        // Finalmente, eliminar el usuario
+        await Usuario.findByIdAndDelete(id);
+
+        return { status: 200, body: { message: 'Usuario y todos sus datos asociados eliminados correctamente.' } };
+
+    } catch (error) {
+        console.error('Error al eliminar usuario y datos asociados:', error);
+        return { status: 500, body: { error: `Error interno del servidor: ${error.message}` } };
     }
 };
