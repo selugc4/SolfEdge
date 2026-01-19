@@ -30,7 +30,7 @@
 \contentsline {table}{\numberline {6.21}{\ignorespaces Requisito funcional: RF-01 Iniciar sesión}}{24}{table.caption.33}%
 \contentsline {table}{\numberline {6.22}{\ignorespaces Requisito funcional: RF-02 Recuperar contraseña}}{25}{table.caption.34}%
 \contentsline {table}{\numberline {6.23}{\ignorespaces Requisito funcional: RF-03 Crear profesor}}{25}{table.caption.35}%
-\contentsline {table}{\numberline {6.24}{\ignorespaces Requisito funcional: RF-04 Validación y generación automática de credenciales}}{26}{table.caption.36}%
+\contentsline {table}{\numberline {6.24}{\ignorespaces Requisito funcional: RF-04 Validar y generar automáticamente las credenciales}}{26}{table.caption.36}%
 \contentsline {table}{\numberline {6.25}{\ignorespaces Requisito funcional: RF-05 Crear alumno}}{27}{table.caption.37}%
 \contentsline {table}{\numberline {6.26}{\ignorespaces Requisito funcional: RF-06 Crear grupo}}{27}{table.caption.38}%
 \contentsline {table}{\numberline {6.27}{\ignorespaces Requisito funcional: RF-07 Listar grupos}}{28}{table.caption.39}%
@@ -57,7 +57,7 @@
 \contentsline {table}{\numberline {6.48}{\ignorespaces Requisito funcional: RF-28 Ver mensajes}}{44}{table.caption.60}%
 \contentsline {table}{\numberline {6.49}{\ignorespaces Requisito funcional: RF-29 Entregar tarea}}{45}{table.caption.61}%
 \contentsline {table}{\numberline {6.50}{\ignorespaces Requisito funcional: RF-30 Rellenar y entregar cuestionario}}{46}{table.caption.62}%
-\contentsline {table}{\numberline {6.51}{\ignorespaces Requisito funcional transversal: RFT-1 Envío de notificaciones del sistema}}{47}{table.caption.63}%
+\contentsline {table}{\numberline {6.51}{\ignorespaces Requisito funcional transversal: RFT-1 Enviar notificaciones del sistema}}{47}{table.caption.63}%
 \contentsline {table}{\numberline {6.52}{\ignorespaces Requisito no funcional: RNF-01 Escalabilidad y mantenibilidad}}{47}{table.caption.64}%
 \contentsline {table}{\numberline {6.53}{\ignorespaces Requisito no funcional: RNF-02 Usabilidad y accesibilidad}}{48}{table.caption.65}%
 \contentsline {table}{\numberline {6.54}{\ignorespaces Requisito no funcional: RNF-03 Diseño visual atractivo y motivador}}{48}{table.caption.66}%

@@ -2,11 +2,129 @@ const express = require('express');
 const router = express.Router();
 const usuarioController = require('../controllers/usuario.controller');
 const authMiddleware = require('../middleware/authMiddleware');
+const multer = require('multer');
+const upload = multer({ storage: multer.memoryStorage() });
+
 /**
  * @swagger
  * tags:
  *   name: Usuarios
- *   description: Gestión de usuarios (alumnos y profesores)
+ *   description: Gestión de usuarios (alumnos, profesores y administración)
+ */
+
+/**
+ * @swagger
+ * components:
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
+ *   schemas:
+ *     Usuario:
+ *       type: object
+ *       properties:
+ *         _id:
+ *           type: string
+ *           description: ID único del usuario.
+ *           example: 60d5ec49f8c7a10015a4b5c6
+ *         username:
+ *           type: string
+ *           description: Nombre de usuario único.
+ *           example: jgc0
+ *         email:
+ *           type: string
+ *           format: email
+ *           example: jgc@example.com
+ *         role:
+ *           type: string
+ *           enum: [alumno, profesor, administrador]
+ *           description: Rol del usuario.
+ *           example: alumno
+ *         profesorId:
+ *           type: string
+ *           nullable: true
+ *           description: ID del profesor creador/dueño (solo alumnos).
+ *           example: 60d5ec49f8c7a10015a4b5c6
+ *         createdAt:
+ *           type: string
+ *           format: date-time
+ *           description: Fecha de creación del usuario.
+ *         updatedAt:
+ *           type: string
+ *           format: date-time
+ *           description: Fecha de última actualización del usuario.
+ *     UsuarioCreate:
+ *       type: object
+ *       required:
+ *         - email
+ *         - baseUsername
+ *       properties:
+ *         email:
+ *           type: string
+ *           format: email
+ *           example: alumno1@example.com
+ *         baseUsername:
+ *           type: string
+ *           minLength: 3
+ *           maxLength: 3
+ *           example: alu
+ *         nombre:
+ *           type: string
+ *           example: Lucía
+ *         apellido1:
+ *           type: string
+ *           example: Martín
+ *         apellido2:
+ *           type: string
+ *           example: Santos
+ *     UsuarioUpdate:
+ *       type: object
+ *       properties:
+ *         username:
+ *           type: string
+ *           example: nuevo_nombre_usuario
+ *         email:
+ *           type: string
+ *           format: email
+ *           example: nuevo_email@example.com
+ *         role:
+ *           type: string
+ *           enum: [alumno, profesor, administrador]
+ *           example: profesor
+ *     ImportCSVResult:
+ *       type: object
+ *       properties:
+ *         message:
+ *           type: string
+ *           example: Importación CSV completada.
+ *         created:
+ *           type: object
+ *           properties:
+ *             profesores:
+ *               type: integer
+ *               example: 2
+ *             alumnos:
+ *               type: integer
+ *               example: 10
+ *             grupos:
+ *               type: integer
+ *               example: 5
+ *     ErrorResponse:
+ *       type: object
+ *       properties:
+ *         error:
+ *           type: string
+ *           example: Error interno del servidor.
+ *         details:
+ *           type: string
+ *           nullable: true
+ *           example: Detalles adicionales del error.
+ *         errors:
+ *           type: array
+ *           items:
+ *             type: string
+ *           nullable: true
  */
 
 /**
@@ -24,20 +142,7 @@ const authMiddleware = require('../middleware/authMiddleware');
  *           schema:
  *             type: array
  *             items:
- *               type: object
- *               required:
- *                 - email
- *                 - baseUsername
- *               properties:
- *                 email:
- *                   type: string
- *                   format: email
- *                   example: alumno1@example.com
- *                 baseUsername:
- *                   type: string
- *                   minLength: 3
- *                   maxLength: 3
- *                   example: al1
+ *               $ref: '#/components/schemas/UsuarioCreate'
  *     responses:
  *       201:
  *         description: Alumnos creados exitosamente.
@@ -49,16 +154,30 @@ const authMiddleware = require('../middleware/authMiddleware');
  *                 $ref: '#/components/schemas/Usuario'
  *       400:
  *         description: Datos de entrada inválidos.
- *       409: 
- *         description: |
- *           Conflicto, el email o username ya existe. Ejemplo: El email 'test@test.com' ya existe.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *       401:
+ *         description: No autenticado.
+ *       409:
+ *         description: Conflicto, el email o username ya existe.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
  *       500:
  *         description: Error interno del servidor.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
 router.post('/alumnos', authMiddleware.verifyToken, async (req, res) => {
-    const result = await usuarioController.addUsuarios(req.body, 'alumno', req.user.id);
-    res.status(result.status).json(result.body);
+  const result = await usuarioController.addUsuarios(req.body, 'alumno', req.user.id);
+  res.status(result.status).json(result.body);
 });
+
 /**
  * @swagger
  * /usuarios/profesores:
@@ -74,20 +193,7 @@ router.post('/alumnos', authMiddleware.verifyToken, async (req, res) => {
  *           schema:
  *             type: array
  *             items:
- *               type: object
- *               required:
- *                 - email
- *                 - baseUsername
- *               properties:
- *                 email:
- *                   type: string
- *                   format: email
- *                   example: profesor1@example.com
- *                 baseUsername:
- *                   type: string
- *                   minLength: 3
- *                   maxLength: 3
- *                   example: pr1
+ *               $ref: '#/components/schemas/UsuarioCreate'
  *     responses:
  *       201:
  *         description: Profesores creados exitosamente.
@@ -99,15 +205,83 @@ router.post('/alumnos', authMiddleware.verifyToken, async (req, res) => {
  *                 $ref: '#/components/schemas/Usuario'
  *       400:
  *         description: Datos de entrada inválidos.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *       401:
+ *         description: No autenticado.
  *       409:
- *         description: |
- *           Conflicto, el email o username ya existe. Ejemplo: El email 'profesor1@example.com' ya existe.
+ *         description: Conflicto, el email o username ya existe.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
  *       500:
  *         description: Error interno del servidor.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
 router.post('/profesores', authMiddleware.verifyToken, async (req, res) => {
-    const result = await usuarioController.addUsuarios(req.body, 'profesor');
-    res.status(result.status).json(result.body);
+  const result = await usuarioController.addUsuarios(req.body, 'profesor');
+  res.status(result.status).json(result.body);
+});
+
+/**
+ * @swagger
+ * /usuarios/import/csv:
+ *   post:
+ *     summary: Importa usuarios (profesores y alumnos) y grupos desde un CSV (operación atómica).
+ *     description: |
+ *       Sube un CSV. Si hay un solo error de formato, validación o reglas de negocio, no se inserta nada.
+ *       Columnas esperadas:
+ *       - tipo (usuario|grupo)
+ *       - ref (identificador interno en el CSV)
+ *       - Para tipo=usuario: nombre,apellido1,apellido2,email,rol (alumno|profesor), profesor_ref (solo alumno)
+ *       - Para tipo=grupo: nombre_grupo, profesor_ref, alumnos_ref (refs separadas por |)
+ *       Regla de negocio: el profesor del grupo debe coincidir con el profesor dueño de los alumnos incluidos.
+ *     tags: [Usuarios]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             required: [file]
+ *             properties:
+ *               file:
+ *                 type: string
+ *                 format: binary
+ *     responses:
+ *       201:
+ *         description: Importación completada.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ImportCSVResult'
+ *       400:
+ *         description: CSV inválido o errores de validación / reglas de negocio.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *       401:
+ *         description: No autenticado.
+ *       500:
+ *         description: Error interno del servidor.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ */
+router.post('/import/csv', authMiddleware.verifyToken, upload.single('file'), async (req, res) => {
+  if (!req.file) return res.status(400).json({ error: "Debes subir un archivo en el campo 'file'." });
+  const result = await usuarioController.importarDesdeCSV(req.file.buffer);
+  res.status(result.status).json(result.body);
 });
 
 /**
@@ -132,10 +306,20 @@ router.post('/profesores', authMiddleware.verifyToken, async (req, res) => {
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Usuario'
+ *       401:
+ *         description: No autenticado.
  *       404:
  *         description: Usuario no encontrado.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
  *       500:
  *         description: Error interno del servidor.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
  *   delete:
  *     summary: Elimina un usuario por su ID.
  *     tags: [Usuarios]
@@ -154,13 +338,31 @@ router.post('/profesores', authMiddleware.verifyToken, async (req, res) => {
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Usuario'
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Usuario y todos sus datos asociados eliminados correctamente.
+ *       401:
+ *         description: No autenticado.
  *       403:
  *         description: No tienes permiso para eliminar este usuario.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
  *       404:
  *         description: Usuario no encontrado.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
  *       500:
  *         description: Error interno del servidor.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
  *   put:
  *     summary: Actualiza un usuario existente.
  *     tags: [Usuarios]
@@ -178,20 +380,7 @@ router.post('/profesores', authMiddleware.verifyToken, async (req, res) => {
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               username:
- *                 type: string
- *               email:
- *                 type: string
- *                 format: email
- *               role:
- *                 type: string
- *                 enum: [alumno, profesor, administrador]
- *             example:
- *               username: nuevo_nombre_usuario
- *               email: nuevo_email@example.com
- *               role: profesor
+ *             $ref: '#/components/schemas/UsuarioUpdate'
  *     responses:
  *       200:
  *         description: Usuario actualizado con éxito.
@@ -201,33 +390,51 @@ router.post('/profesores', authMiddleware.verifyToken, async (req, res) => {
  *               $ref: '#/components/schemas/Usuario'
  *       400:
  *         description: Solicitud inválida.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *       401:
+ *         description: No autenticado.
  *       403:
  *         description: No tienes permiso para modificar este usuario.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
  *       404:
  *         description: Usuario no encontrado.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
  *       500:
  *         description: Error interno del servidor.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
 router.get('/:id', async (req, res) => {
-    const result = await usuarioController.getUsuarioById(req.params.id);
-    res.status(result.status).json(result.body);
+  const result = await usuarioController.getUsuarioById(req.params.id);
+  res.status(result.status).json(result.body);
 });
 
 router.delete('/:id', authMiddleware.verifyToken, async (req, res) => {
-    const result = await usuarioController.deleteUsuario(req.params.id, req.user.id);
-    res.status(result.status).json(result.body);
+  const result = await usuarioController.deleteUsuario(req.params.id, req.user.id);
+  res.status(result.status).json(result.body);
 });
 
 router.put('/:id', authMiddleware.verifyToken, async (req, res) => {
-    const result = await usuarioController.updateUsuario(req.params.id, req.body, req.user.id);
-    res.status(result.status).json(result.body);
+  const result = await usuarioController.updateUsuario(req.params.id, req.body, req.user.id);
+  res.status(result.status).json(result.body);
 });
 
 /**
  * @swagger
  * /usuarios/alumnos/all:
  *   get:
- *     summary: Obtiene todos los usuarios con rol de alumno.
+ *     summary: Obtiene todos los alumnos del profesor autenticado.
  *     tags: [Usuarios]
  *     security:
  *       - bearerAuth: []
@@ -240,12 +447,18 @@ router.put('/:id', authMiddleware.verifyToken, async (req, res) => {
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Usuario'
+ *       401:
+ *         description: No autenticado.
  *       500:
  *         description: Error interno del servidor.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
 router.get('/alumnos/all', authMiddleware.verifyToken, async (req, res) => {
-    const result = await usuarioController.getAllAlumnos(req.user.id);
-    res.status(result.status).json(result.body);
+  const result = await usuarioController.getAllAlumnos(req.user.id);
+  res.status(result.status).json(result.body);
 });
 
 /**
@@ -272,10 +485,20 @@ router.get('/alumnos/all', authMiddleware.verifyToken, async (req, res) => {
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Usuario'
+ *       401:
+ *         description: No autenticado.
  *       403:
  *         description: No tienes permiso para ver los alumnos de este profesor.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
  *       500:
  *         description: Error interno del servidor.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
 router.get('/alumnos/profesor/:profesorId', authMiddleware.verifyToken, usuarioController.getAlumnosByProfesor);
 
@@ -283,7 +506,7 @@ router.get('/alumnos/profesor/:profesorId', authMiddleware.verifyToken, usuarioC
  * @swagger
  * /usuarios/profesores/all:
  *   get:
- *     summary: Obtiene todos los usuarios con rol de profesor.
+ *     summary: Obtiene todos los profesores.
  *     tags: [Usuarios]
  *     security:
  *       - bearerAuth: []
@@ -296,48 +519,18 @@ router.get('/alumnos/profesor/:profesorId', authMiddleware.verifyToken, usuarioC
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Usuario'
+ *       401:
+ *         description: No autenticado.
  *       500:
  *         description: Error interno del servidor.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
 router.get('/profesores/all', authMiddleware.verifyToken, async (req, res) => {
-    const result = await usuarioController.getAllProfesores();
-    res.status(result.status).json(result.body);
+  const result = await usuarioController.getAllProfesores();
+  res.status(result.status).json(result.body);
 });
-
-
-// Definición del esquema de Usuario para reutilización
-/**
- * @swagger
- * components:
- *   schemas:
- *     Usuario:
- *       type: object
- *       properties:
- *         _id:
- *           type: string
- *           description: ID único del usuario.
- *           example: 60d5ec49f8c7a10015a4b5c6
- *         username:
- *           type: string
- *           description: Nombre de usuario único.
- *           example: jgc0
- *         email:
- *           type: string
- *           format: email
- *           example: jgc@example.com
- *         role:
- *           type: string
- *           enum: [alumno, profesor, administrador]
- *           description: Rol del usuario.
- *           example: alumno
- *         createdAt:
- *           type: string
- *           format: date-time
- *           description: Fecha de creación del usuario.
- *         updatedAt:
- *           type: string
- *           format: date-time
- *           description: Fecha de última actualización del usuario.
- */
 
 module.exports = router;

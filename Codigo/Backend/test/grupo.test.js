@@ -44,8 +44,9 @@ describe('Grupo API', () => {
                 toObject: jest.fn(() => ({ _id: 'grupo1', nombre: 'Test Grupo', profesor: 'profesor1', alumnos: ['alumno1'], ramas: ['rama1', 'rama2', 'rama3', 'rama4'] }))
             };
 
-            Usuario.findById.mockResolvedValue(mockProfesor);
-
+            Usuario.findById.mockImplementation(() => ({
+                session: jest.fn().mockResolvedValue(mockProfesor),
+            }));
             // Mock the constructor to return a Mongoose-like object
             Grupo.mockImplementation((data) => ({
                 ...data,
@@ -65,8 +66,9 @@ describe('Grupo API', () => {
         });
 
         it('should return 400 if professor is not valid', async () => {
-            Usuario.findById.mockResolvedValue(null);
-
+            Usuario.findById.mockImplementation(() => ({
+                session: jest.fn().mockResolvedValue(null),
+            }));
             const response = await request(app)
                 .post('/grupos')
                 .send({ nombre: 'Test Grupo', profesorId: 'profesor1', alumnoIds: ['alumno1'] });

@@ -42,9 +42,9 @@ Sin embargo, el propio enfoque del TFG ---y especialmente sus conclusiones y lí
 En este punto, el objetivo de este complemento no es replantear la solución desde cero, sino evolucionarla de forma controlada. Se mantiene la arquitectura general, la filosofía de funcionamiento y la mayor parte de requisitos ya definidos en el documento principal, lo que se incorpora ahora se centra en:
 
 \begin{itemize}
-    \item \textbf{Operatividad y administración real:} reducir carga manual y facilitar tareas frecuentes en la práctica (altas masivas, etc.).
-    \item \textbf{Gestión completa del ciclo de vida:} incorporar operaciones de revisión y eliminación con comportamiento coherente y seguro.
-    \item \textbf{Mejora de la experiencia del alumno:} introducir mecanismos de apoyo durante el trabajo con cuestionarios para favorecer el aprendizaje sin romper la coherencia pedagógica.
+    \item \textbf{Operatividad y administración real:} Reducir carga manual y facilitar tareas frecuentes en la práctica (altas masivas, etc.).
+    \item \textbf{Gestión completa del ciclo de vida:} Incorporar operaciones de revisión y eliminación con comportamiento coherente y seguro.
+    \item \textbf{Mejora de la experiencia del alumno:} Introducir mecanismos de apoyo durante el trabajo con cuestionarios para favorecer el aprendizaje sin romper la coherencia pedagógica.
 \end{itemize}
 
 Como en la definición del proyecto base, el proceso se plantea como un avance gradual desde un lenguaje natural todavía interpretativo hasta una definición progresivamente más objetiva. Primero se actualiza la especificación formal con las nuevas capacidades, después se refleja la ampliación en el diagrama de casos de uso, por último, se describen en detalle únicamente los casos de uso y requisitos afectados por los cambios (sin repetir lo ya definido en el TFG).
@@ -257,7 +257,7 @@ En coherencia con el documento original, los identificadores continúan a partir
 \textbf{Precondición} & El administrador debe estar autenticado y tener profesores creados. \\ \hline
 \textbf{Secuencia de pasos} &
 \begin{enumerate}
-  \item El administrador accede al área de administración y entra en la sección de profesores.
+  \item El administrador entra en la sección de profesores.
   \item El sistema recupera y muestra el listado de profesores registrados.
 \end{enumerate} \\ \hline
 \textbf{Postcondición} & El administrador puede identificar profesores gestionables y realizar acciones de creación o eliminación desde el mismo contexto. \\ \hline
@@ -279,13 +279,14 @@ En coherencia con el documento original, los identificadores continúan a partir
   |>{\centering\arraybackslash}X|}
 \hline
 \textbf{RF-33} & \textbf{Eliminar profesor} \\ \hline
-\textbf{Descripción} & Permitir al administrador eliminar un profesor del sistema, eliminando de forma coherente todo su material asociado, sus grupos y los alumnos creados bajo su responsabilidad, evitando referencias huérfanas o inconsistencias. \\ \hline
+\textbf{Descripción} & Permitir al administrador eliminar un profesor del sistema, eliminando de forma coherente todo su material asociado (tareas, cuestionarios, ramas, entregas y
+calificaciones), sus grupos y los alumnos creados bajo su responsabilidad, evitando referencias huérfanas o inconsistencias. \\ \hline
 \textbf{Precondición} & El administrador debe estar autenticado y el profesor a eliminar debe existir. \\ \hline
 \textbf{Secuencia de pasos} &
 \begin{enumerate}
   \item El administrador accede a la administración de profesores y visualiza el listado.
   \item El administrador selecciona un profesor y solicita su eliminación.
-  \item El sistema muestra confirmación e informa del alcance (material, grupos y alumnado afectado).
+  \item El sistema muestra confirmación.
   \item El administrador confirma.
   \item El sistema elimina al profesor y todos los datos relacionados con él.
   \item El sistema informa del éxito.
@@ -489,9 +490,13 @@ El uso de una API de inferencia externa presenta varias implicaciones técnicas 
     \item Facilita el control del flujo de peticiones, ya que las llamadas a la API pueden regularse, validarse y encapsularse desde el backend.
     \item Aísla la lógica de generación de contenido del resto del sistema, permitiendo modificar el proveedor o el modelo utilizado sin afectar a la arquitectura interna.
 \end{itemize}
-
 Desde el punto de vista del diseño software, la integración mediante una API externa refuerza el desacoplamiento del sistema, ya que el servicio de inferencia se consume como una dependencia externa claramente delimitada, manteniendo la coherencia con la arquitectura por capas adoptada en el proyecto.
-
+\begin{figure}[H]
+    \centering
+    \includegraphics[height=2cm]{Figuras/logos/groq.png}
+    \caption{Tecnología de Inteligencia Artifical Groq.}
+    \label{fig:logo_groq}
+\end{figure}
 \subsubsection{Android Studio y entorno de construcción móvil}
 
 La segunda tecnología incorporada es Android Studio, utilizado como entorno de construcción, empaquetado y validación de la aplicación en dispositivos Android. Su inclusión se apoya en el carácter híbrido del frontend, que permite reutilizar la misma base de código web para generar una aplicación instalable.
@@ -502,13 +507,12 @@ Desde el punto de vista tecnológico, el uso de Android Studio implica:
     \item La generación de un contenedor nativo que encapsula la aplicación híbrida, permitiendo su ejecución como aplicación instalada.
     \item El acceso a herramientas de depuración, emulación y análisis propias del ecosistema Android.
 \end{itemize}
-
 Este enfoque no introduce una nueva base de código ni una bifurcación tecnológica, sino que extiende el alcance del sistema aprovechando el diseño responsive existente. De este modo, la portabilidad se aborda como una extensión técnica natural del frontend híbrido, sin duplicar lógica ni comprometer la consistencia del sistema.
 
 \begin{figure}[H]
     \centering
-    % \includegraphics[height=2cm]{Figuras/logos/android_studio.png}
-    \caption{Entorno de desarrollo y construcción móvil utilizado para la exportación a Android (logo pendiente de incluir).}
+    \includegraphics[height=2cm]{Figuras/logos/android_studio.png}
+    \caption{Entorno de desarrollo y construcción móvil utilizado para la exportación a Android.}
     \label{fig:logo_android_studio}
 \end{figure}
 

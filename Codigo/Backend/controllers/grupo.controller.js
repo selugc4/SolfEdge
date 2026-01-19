@@ -6,39 +6,39 @@ const Cuestionario = require('../models/cuestionario.model');
 const Calificacion = require('../models/calificacion.model');
 const CalificacionGeneral = require('../models/calificacionGeneral.model');
 
-exports.crearGrupo = async (nombre, profesorId, alumnoIds) => {
-    try {
-        const profesor = await Usuario.findById(profesorId);
-        if (!profesor || profesor.role !== 'profesor') {
-            return { status: 400, body: { error: 'El ID de profesor proporcionado no es válido.' } };
-        }
-
-        const grupo = new Grupo({ nombre, profesor: profesorId, alumnos: alumnoIds });
-
-        const ramas = ['Ritmo', 'Entonación', 'Audición', 'Teoria'].map(nombreRama => ({
-            nombre: nombreRama,
-            grupo: grupo._id
-        }));
-
-        const ramasCreadas = await RamaConfig.insertMany(ramas);
-        grupo.ramas = ramasCreadas.map(r => r._id);
-
-        await grupo.save();
-
-        return { status: 201, body: grupo };
-    } catch (error) {
-        if (error.name === 'ValidationError') {
-            if (error.errors.alumnos) {
-                return { status: 400, body: { error: 'El grupo debe tener al menos un alumno.' } };
-            }
-            return { status: 400, body: { error: error.message } };
-        } else if (error.code === 11000) {
-            // Duplicate key error (unique index violation)
-            return { status: 409, body: { error: 'Ya existe una rama con ese nombre para este grupo.' } };
-        }
-        return { status: 500, body: { error: `Error al crear el grupo: ${error.message}` } };
+exports.crearGrupo = async (nombre, profesorId, alumnoIds, session = null) => {
+  try {
+    const profesor = await Usuario.findById(profesorId).session(session || null);
+    if (!profesor || profesor.role !== 'profesor') {
+      return { status: 400, body: { error: 'El ID de profesor proporcionado no es válido.' } };
     }
+
+    const grupo = new Grupo({ nombre, profesor: profesorId, alumnos: alumnoIds });
+
+    const ramas = ['Ritmo', 'Entonación', 'Audición', 'Teoria'].map(nombreRama => ({
+      nombre: nombreRama,
+      grupo: grupo._id
+    }));
+
+    const ramasCreadas = await RamaConfig.insertMany(ramas, session ? { session } : undefined);
+    grupo.ramas = ramasCreadas.map(r => r._id);
+
+    await grupo.save(session ? { session } : undefined);
+
+    return { status: 201, body: grupo };
+  } catch (error) {
+    if (error.name === 'ValidationError') {
+      if (error.errors.alumnos) {
+        return { status: 400, body: { error: 'El grupo debe tener al menos un alumno.' } };
+      }
+      return { status: 400, body: { error: error.message } };
+    } else if (error.code === 11000) {
+      return { status: 409, body: { error: 'Ya existe una rama con ese nombre para este grupo.' } };
+    }
+    return { status: 500, body: { error: `Error al crear el grupo: ${error.message}` } };
+  }
 };
+
 
 exports.addAlumnosToGrupo = async (grupoId, alumnoIds) => {
     try {

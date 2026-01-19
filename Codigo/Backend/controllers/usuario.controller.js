@@ -1,6 +1,9 @@
 const Usuario = require('../models/usuario.model');
+const mongoose = require('mongoose');
 const fetch = require('node-fetch');
+const { parse } = require('csv-parse/sync');
 const emailController = require('./email.controller');
+const grupoController = require('./grupo.controller')
 const Mensaje = require('../models/mensaje.model');
 const Calificacion = require('../models/calificacion.model');
 const CalificacionGeneral = require('../models/calificacionGeneral.model');
@@ -24,6 +27,231 @@ const generarUsername = async (baseUsername) => {
     return { username: count > 0 ? `${baseUsername}${count}` : baseUsername };
 };
 
+const deriveBaseUsername = ({ nombre, apellido1, email }) => {
+  const base = `${nombre}.${apellido1}`.toLowerCase().replace(/\s+/g, '');
+  return base || (email ? email.split('@')[0] : 'user');
+};
+
+const isLikelyObjectId = (v) => typeof v === 'string' && /^[a-fA-F0-9]{24}$/.test(v);
+
+exports.importarDesdeCSV = async (fileBuffer) => {
+  let records;
+  try {
+    records = parse(fileBuffer, {
+      columns: true,
+      skip_empty_lines: true,
+      trim: true
+    });
+  } catch (e) {
+    return { status: 400, body: { error: 'CSV inválido o mal formateado.', details: e.message } };
+  }
+
+  if (!Array.isArray(records) || records.length === 0) {
+    return { status: 400, body: { error: 'El CSV está vacío.' } };
+  }
+
+  const errors = [];
+  const usersRows = [];
+  const groupsRows = [];
+
+  const seenRefs = new Set();
+  const seenEmails = new Set();
+
+  for (let i = 0; i < records.length; i++) {
+    const r = records[i];
+    const rowNum = i + 2;
+    const tipo = (r.tipo || '').toLowerCase();
+
+    if (!r.ref) errors.push(`Fila ${rowNum}: 'ref' es obligatorio.`);
+    if (r.ref && seenRefs.has(r.ref)) errors.push(`Fila ${rowNum}: ref duplicado '${r.ref}'.`);
+    if (r.ref) seenRefs.add(r.ref);
+
+    if (tipo === 'usuario') {
+      const rol = (r.rol || '').toLowerCase();
+      if (!['alumno', 'profesor'].includes(rol)) errors.push(`Fila ${rowNum}: rol inválido '${r.rol}'.`);
+
+      for (const f of ['nombre', 'apellido1', 'apellido2', 'email']) {
+        if (!r[f]) errors.push(`Fila ${rowNum}: '${f}' es obligatorio para usuario.`);
+      }
+
+      if (r.email) {
+        const em = r.email.toLowerCase();
+        if (seenEmails.has(em)) errors.push(`Fila ${rowNum}: email duplicado en el CSV '${r.email}'.`);
+        seenEmails.add(em);
+      }
+
+      if (rol === 'alumno' && !r.profesor_ref) {
+        errors.push(`Fila ${rowNum}: alumno requiere 'profesor_ref'.`);
+      }
+
+      usersRows.push({ ...r, rol });
+    } else if (tipo === 'grupo') {
+      for (const f of ['nombre_grupo', 'profesor_ref', 'alumnos_ref']) {
+        if (!r[f]) errors.push(`Fila ${rowNum}: '${f}' es obligatorio para grupo.`);
+      }
+      groupsRows.push(r);
+    } else {
+      errors.push(`Fila ${rowNum}: tipo inválido '${r.tipo}'. Use 'usuario' o 'grupo'.`);
+    }
+  }
+
+  const profRefRows = new Map();
+  const alumRefRows = new Map();
+
+  for (const u of usersRows) {
+    if (u.rol === 'profesor') profRefRows.set(u.ref, u);
+    if (u.rol === 'alumno') alumRefRows.set(u.ref, u);
+  }
+
+  for (const a of alumRefRows.values()) {
+    const pref = a.profesor_ref;
+    const ok = profRefRows.has(pref) || isLikelyObjectId(pref);
+    if (!ok) errors.push(`Alumno ref='${a.ref}': profesor_ref '${pref}' no existe en CSV ni parece ObjectId.`);
+  }
+
+  for (const g of groupsRows) {
+    const pref = g.profesor_ref;
+    const profesorOk = profRefRows.has(pref) || isLikelyObjectId(pref);
+    if (!profesorOk) errors.push(`Grupo ref='${g.ref}': profesor_ref '${pref}' no existe en CSV ni parece ObjectId.`);
+
+    const alumnoRefs = (g.alumnos_ref || '').split('|').map(s => s.trim()).filter(Boolean);
+    if (alumnoRefs.length === 0) errors.push(`Grupo ref='${g.ref}': debe tener al menos un alumno en alumnos_ref.`);
+
+    for (const ar of alumnoRefs) {
+      if (!alumRefRows.has(ar) && !isLikelyObjectId(ar)) {
+        errors.push(`Grupo ref='${g.ref}': alumno '${ar}' no existe en CSV ni parece ObjectId.`);
+      }
+    }
+
+    for (const ar of alumnoRefs) {
+      if (alumRefRows.has(ar)) {
+        const alumno = alumRefRows.get(ar);
+        if (alumno.profesor_ref && alumno.profesor_ref !== pref) {
+          errors.push(
+            `Regla negocio: Grupo ref='${g.ref}' (profesor_ref='${pref}') incluye alumno ref='${ar}' que pertenece a profesor_ref='${alumno.profesor_ref}'.`
+          );
+        }
+      }
+    }
+  }
+
+  if (errors.length > 0) {
+    return { status: 400, body: { error: 'Errores de validación en el CSV.', errors } };
+  }
+
+  const session = await mongoose.startSession();
+  const usersToEmail = [];
+
+  try {
+    await session.startTransaction();
+
+    const profesoresRows = [...profRefRows.values()];
+    const profesoresData = profesoresRows.map(p => ({
+      nombre: p.nombre,
+      apellido1: p.apellido1,
+      apellido2: p.apellido2,
+      email: p.email,
+      baseUsername: deriveBaseUsername(p)
+    }));
+
+    const createdProfesoresByRef = new Map();
+    if (profesoresData.length > 0) {
+      const res = await exports.addUsuarios(profesoresData, 'profesor', null, session, { sendEmails: false });
+      if (res.status !== 201) throw new Error(res.body?.error || 'Error creando profesores');
+
+      const created = res.body;
+      profesoresRows.forEach((row, idx) => {
+        createdProfesoresByRef.set(row.ref, created[idx]);
+        usersToEmail.push(created[idx]);
+      });
+    }
+
+    const alumnosPorProfesor = new Map();
+    for (const [aref, a] of alumRefRows.entries()) {
+      const profesorId = isLikelyObjectId(a.profesor_ref)
+        ? a.profesor_ref
+        : String(createdProfesoresByRef.get(a.profesor_ref)._id);
+
+      const data = {
+        nombre: a.nombre,
+        apellido1: a.apellido1,
+        apellido2: a.apellido2,
+        email: a.email,
+        baseUsername: deriveBaseUsername(a),
+        __csv_ref: aref
+      };
+
+      if (!alumnosPorProfesor.has(profesorId)) alumnosPorProfesor.set(profesorId, []);
+      alumnosPorProfesor.get(profesorId).push(data);
+    }
+
+    const createdAlumnosByRef = new Map();
+    for (const [profesorId, alumnosData] of alumnosPorProfesor.entries()) {
+      const res = await exports.addUsuarios(
+        alumnosData.map(x => ({
+          nombre: x.nombre,
+          apellido1: x.apellido1,
+          apellido2: x.apellido2,
+          email: x.email,
+          baseUsername: x.baseUsername
+        })),
+        'alumno',
+        profesorId,
+        session,
+        { sendEmails: false }
+      );
+      if (res.status !== 201) throw new Error(res.body?.error || 'Error creando alumnos');
+
+      const created = res.body;
+      alumnosData.forEach((a, idx) => {
+        createdAlumnosByRef.set(a.__csv_ref, created[idx]);
+        usersToEmail.push(created[idx]);
+      });
+    }
+
+    for (const g of groupsRows) {
+      const profesorId = isLikelyObjectId(g.profesor_ref)
+        ? g.profesor_ref
+        : String(createdProfesoresByRef.get(g.profesor_ref)._id);
+
+      const alumnoRefs = (g.alumnos_ref || '').split('|').map(s => s.trim()).filter(Boolean);
+      const alumnoIds = alumnoRefs.map(ar => (isLikelyObjectId(ar) ? ar : String(createdAlumnosByRef.get(ar)._id)));
+
+      const res = await grupoController.crearGrupo(g.nombre_grupo, profesorId, alumnoIds, session);
+      if (res.status !== 201) throw new Error(res.body?.error || 'Error creando grupo');
+    }
+
+    await session.commitTransaction();
+    session.endSession();
+
+    for (const user of usersToEmail) {
+      const emailResult = await emailController.enviarEmailCredenciales(user.email, user.username, user.password);
+      if (emailResult.message !== 'Correo enviado correctamente.') {
+        console.error(`Error al enviar correo a ${user.email}: ${emailResult.error || emailResult.message}`);
+      }
+    }
+
+    return {
+      status: 201,
+      body: {
+        message: 'Importación CSV completada.',
+        created: {
+          profesores: profRefRows.size,
+          alumnos: alumRefRows.size,
+          grupos: groupsRows.length
+        }
+      }
+    };
+  } catch (e) {
+    try {
+      await session.abortTransaction();
+    } catch (_) {}
+    session.endSession();
+
+    return { status: 400, body: { error: 'La importación falló y se revirtió.', details: e.message } };
+  }
+};
+
 const generarPassword = async () => {
     try {
         const response = await fetch('https://api.genratr.com/api/v1/password?length=10&symbols=true&numbers=true&uppercase=true&lowercase=true');
@@ -34,59 +262,64 @@ const generarPassword = async () => {
         return { error: `Error al generar contraseña: ${error.message}` };
     }
 };
+exports.addUsuarios = async (usersData, role, creatorId, session = null, options = {}) => {
+  try {
+    const { sendEmails = true } = options;
 
-exports.addUsuarios = async (usersData, role, creatorId) => {
-    try {
-        if (!['alumno', 'profesor'].includes(role)) {
-            return { status: 400, body: { error: 'Rol no válido. Debe ser \'alumno\' o \'profesor\'.' } };
-        }
-
-        const emailError = await checkEmailExists(usersData.map(u => u.email));
-        if (emailError) {
-            return { status: 409, body: emailError };
-        }
-
-        const newUsers = [];
-        for (const userData of usersData) {
-            const usernameResult = await generarUsername(userData.baseUsername);
-            if (usernameResult.error) return { status: 400, body: usernameResult };
-
-            const passwordResult = await generarPassword();
-            if (passwordResult.error) return { status: 500, body: passwordResult };
-            
-            const newUser = {
-                ...userData,
-                username: usernameResult.username,
-                password: passwordResult.password,
-                role
-            };
-
-            if (role === 'alumno' && creatorId) {
-                newUser.profesorId = creatorId;
-            }
-
-            newUsers.push(newUser);
-        }
-
-        const createdUsers = await Usuario.insertMany(newUsers);
-
-        for (const user of createdUsers) {
-            const emailResult = await emailController.enviarEmailCredenciales(user.email, user.username, user.password);
-            if (emailResult.message !== 'Correo enviado correctamente.') {
-                console.error(`Error al enviar correo a ${user.email}: ${emailResult.error || emailResult.message}`);
-            }
-        }
-
-        return { status: 201, body: createdUsers };
-
-    } catch (dbError) {
-        if (dbError.code === 11000) {
-            const field = Object.keys(dbError.keyValue)[0];
-            const value = dbError.keyValue[field];
-            return { status: 409, body: { error: `El ${field} '${value}' ya existe.` } };
-        }
-        return { status: 500, body: { error: `Error de base de datos: ${dbError.message}` } };
+    if (!['alumno', 'profesor'].includes(role)) {
+      return { status: 400, body: { error: "Rol no válido. Debe ser 'alumno' o 'profesor'." } };
     }
+
+    const emailError = await checkEmailExists(usersData.map(u => u.email));
+    if (emailError) {
+      return { status: 409, body: emailError };
+    }
+
+    const newUsers = [];
+    for (const userData of usersData) {
+      const usernameResult = await generarUsername(userData.baseUsername);
+      if (usernameResult.error) return { status: 400, body: usernameResult };
+
+      const passwordResult = await generarPassword();
+      if (passwordResult.error) return { status: 500, body: passwordResult };
+
+      const newUser = {
+        ...userData,
+        username: usernameResult.username,
+        password: passwordResult.password,
+        role
+      };
+
+      if (role === 'alumno' && creatorId) {
+        newUser.profesorId = creatorId;
+      }
+
+      newUsers.push(newUser);
+    }
+
+    const createdUsers = await Usuario.insertMany(newUsers, session ? { session } : undefined);
+    if (sendEmails) {
+      for (const user of createdUsers) {
+        const emailResult = await emailController.enviarEmailCredenciales(
+          user.email,
+          user.username,
+          user.password
+        );
+        if (emailResult.message !== 'Correo enviado correctamente.') {
+          console.error(`Error al enviar correo a ${user.email}: ${emailResult.error || emailResult.message}`);
+        }
+      }
+    }
+
+    return { status: 201, body: createdUsers };
+  } catch (dbError) {
+    if (dbError.code === 11000) {
+      const field = Object.keys(dbError.keyValue)[0];
+      const value = dbError.keyValue[field];
+      return { status: 409, body: { error: `El ${field} '${value}' ya existe.` } };
+    }
+    return { status: 500, body: { error: `Error de base de datos: ${dbError.message}` } };
+  }
 };
 
 exports.enviarCredencialesOlvidadas = async (email) => {

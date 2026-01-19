@@ -24,7 +24,7 @@
 \contentsline {subsection}{\numberline {3.7.1}Pila tecnológica heredada del proyecto base}{15}{subsection.3.7.1}%
 \contentsline {subsection}{\numberline {3.7.2}Tecnologías incorporadas en la solución extendida}{16}{subsection.3.7.2}%
 \contentsline {subsubsection}{\numberline {3.7.2.1}Servicio de inferencia externa mediante Groq}{16}{subsubsection.3.7.2.1}%
-\contentsline {subsubsection}{\numberline {3.7.2.2}Android Studio y entorno de construcción móvil}{16}{subsubsection.3.7.2.2}%
+\contentsline {subsubsection}{\numberline {3.7.2.2}Android Studio y entorno de construcción móvil}{17}{subsubsection.3.7.2.2}%
 \contentsline {chapter}{\numberline {4}Planificación del proyecto}{19}{chapter.4}%
 \contentsline {chapter}{\numberline {5}Desarrollo de la solución}{21}{chapter.5}%
 \contentsline {section}{\numberline {5.1}Backend}{21}{section.5.1}%
