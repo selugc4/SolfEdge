@@ -19,7 +19,6 @@ describe('GestionAlumnosModalComponent', () => {
   let toastPresentSpy: jasmine.Spy;
   let alertPresentSpy: jasmine.Spy;
 
-  // Para poder ejecutar el handler del botón "Eliminar"
   let lastAlertOpts: any;
 
   beforeEach(async () => {
@@ -44,13 +43,12 @@ describe('GestionAlumnosModalComponent', () => {
       Promise.resolve({ present: toastPresentSpy } as any)
     );
 
-    // ✅ Capturamos el config del alert para acceder a buttons[].handler
     alertControllerSpy.create.and.callFake((opts: any) => {
       lastAlertOpts = opts;
       return Promise.resolve({ present: alertPresentSpy } as any);
     });
 
-    // ✅ Retornos por defecto ANTES de detectChanges (ngOnInit -> loadAlumnos)
+    // Defaults para que ngOnInit (detectChanges) no reviente
     usuarioServiceSpy.getAlumnosByProfesor.and.returnValue(of([]));
     usuarioServiceSpy.deleteUsuario.and.returnValue(of(null));
 
@@ -99,13 +97,11 @@ describe('GestionAlumnosModalComponent', () => {
 
     component.deleteAlumno(alumnoId);
 
-    flushMicrotasks(); // resuelve await create + await present
+    flushMicrotasks();
     tick();
 
     expect(alertControllerSpy.create).toHaveBeenCalled();
     expect(alertPresentSpy).toHaveBeenCalled();
-
-    // (Opcional) comprobar que el alert tiene botones esperados
     expect(lastAlertOpts?.header).toBe('Confirmar Eliminación');
     expect((lastAlertOpts?.buttons ?? []).length).toBe(2);
   }));
@@ -128,28 +124,31 @@ describe('GestionAlumnosModalComponent', () => {
     expect(usuarioServiceSpy.deleteUsuario).not.toHaveBeenCalled();
   }));
 
-  it('should delete a student and reload students when "Eliminar" handler runs', fakeAsync(() => {
+  it('should delete a student, show success toast, and remove it from alumnos when "Eliminar" handler runs', fakeAsync(() => {
     const alumnoId = 'alumno123';
 
-    // Medimos solo lo provocado por esta acción
-    usuarioServiceSpy.getAlumnosByProfesor.calls.reset();
+    // Pre-cargamos alumnos para verificar el filter
+    component.alumnos = [
+      { _id: alumnoId, username: 'a1', email: 'a1@test.com', role: 'alumno' } as Usuario,
+      { _id: 'alumno999', username: 'a2', email: 'a2@test.com', role: 'alumno' } as Usuario,
+    ];
+
     usuarioServiceSpy.deleteUsuario.calls.reset();
     toastControllerSpy.create.calls.reset();
     toastPresentSpy.calls.reset();
 
     usuarioServiceSpy.deleteUsuario.and.returnValue(of(null));
-    usuarioServiceSpy.getAlumnosByProfesor.and.returnValue(of([])); // reload
 
-    // 1) Se muestra el alert
+    // 1) abrir alert
     component.deleteAlumno(alumnoId);
     flushMicrotasks();
     tick();
 
-    // 2) Ejecutamos el handler del botón "Eliminar"
+    // 2) ejecutar handler eliminar
     const deleteBtn = (lastAlertOpts?.buttons ?? []).find((b: any) => b?.text === 'Eliminar');
     expect(deleteBtn).toBeTruthy();
 
-    deleteBtn.handler(); // dispara deleteUsuario().subscribe(...)
+    deleteBtn.handler();
     flushMicrotasks();
     tick();
 
@@ -162,9 +161,8 @@ describe('GestionAlumnosModalComponent', () => {
     });
     expect(toastPresentSpy).toHaveBeenCalled();
 
-    // reload (loadAlumnos) -> getAlumnosByProfesor una vez
-    expect(usuarioServiceSpy.getAlumnosByProfesor).toHaveBeenCalledWith('profesor123');
-    expect(usuarioServiceSpy.getAlumnosByProfesor).toHaveBeenCalledTimes(1);
+    expect(component.alumnos.some(a => a._id === alumnoId)).toBeFalse();
+    expect(component.alumnos.some(a => a._id === 'alumno999')).toBeTrue();
   }));
 
   it('should show error toast if delete fails when "Eliminar" handler runs', fakeAsync(() => {
@@ -192,6 +190,7 @@ describe('GestionAlumnosModalComponent', () => {
     tick();
 
     expect(usuarioServiceSpy.deleteUsuario).toHaveBeenCalledWith(alumnoId);
+
     expect(toastControllerSpy.create).toHaveBeenCalledWith({
       message: 'Error al eliminar alumno: Error de eliminación',
       duration: 3000,
@@ -209,7 +208,7 @@ describe('GestionAlumnosModalComponent', () => {
     flushMicrotasks();
     tick();
 
-    // No ejecutamos handler de "Eliminar", por tanto no borra
+    // No ejecutamos handler de "Eliminar"
     expect(usuarioServiceSpy.deleteUsuario).not.toHaveBeenCalled();
   }));
 });

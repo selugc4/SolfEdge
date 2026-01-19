@@ -66,7 +66,7 @@ export class GestionProfesoresModalComponent implements OnInit {
             this.usuarioService.deleteUsuario(profesorId).subscribe({
               next: () => {
                 this.presentToast('Profesor eliminado correctamente.', 'success');
-                this.loadProfesores(); // Reload the list after deletion
+                this.profesores = this.profesores.filter(profesor => profesor._id !== profesorId);
               },
               error: (err) => {
                 this.presentToast(`Error al eliminar profesor: ${err.error.error || err.message}`, 'danger');
