@@ -1,6 +1,10 @@
 const Grupo = require('../models/grupo.model');
 const Usuario = require('../models/usuario.model');
 const RamaConfig = require('../models/ramaConfig.model');
+const Tarea = require('../models/tarea.model');
+const Cuestionario = require('../models/cuestionario.model');
+const Calificacion = require('../models/calificacion.model');
+const CalificacionGeneral = require('../models/calificacionGeneral.model');
 
 exports.crearGrupo = async (nombre, profesorId, alumnoIds) => {
     try {
@@ -38,7 +42,7 @@ exports.crearGrupo = async (nombre, profesorId, alumnoIds) => {
 
 exports.addAlumnosToGrupo = async (grupoId, alumnoIds) => {
     try {
-        const grupo = await Grupo.findByIdAndUpdate(grupoId, 
+        const grupo = await Grupo.findByIdAndUpdate(grupoId,
             { $addToSet: { alumnos: { $each: alumnoIds } } },
             { new: true, runValidators: true }
         );
@@ -48,7 +52,23 @@ exports.addAlumnosToGrupo = async (grupoId, alumnoIds) => {
         return { status: 500, body: { error: error.message } };
     }
 };
+exports.removeAlumnosFromGrupo = async (grupoId, alumnoIds) => {
+    try {
+        const grupo = await Grupo.findByIdAndUpdate(
+            grupoId,
+            { $pull: { alumnos: { $in: alumnoIds } } },
+            { new: true, runValidators: true }
+        );
 
+        if (!grupo) {
+            return { status: 404, body: { error: 'Grupo no encontrado.' } };
+        }
+
+        return { status: 200, body: grupo };
+    } catch (error) {
+        return { status: 500, body: { error: error.message } };
+    }
+};
 exports.removeAlumnosFromGrupo = async (grupoId, alumnoIds) => {
     try {
         const grupo = await Grupo.findById(grupoId);
@@ -81,9 +101,30 @@ exports.getGrupoById = async (id) => {
 
 exports.deleteGrupoById = async (id) => {
     try {
-        const grupo = await Grupo.findByIdAndDelete(id);
+        const grupo = await Grupo.findById(id);
         if (!grupo) return { status: 404, body: { error: 'Grupo no encontrado.' } };
-        return { status: 200, body: grupo };
+
+        const ramas = await RamaConfig.find({ grupo: id });
+        const ramaIds = ramas.map(r => r._id);
+
+        const tareas = await Tarea.find({ rama: { $in: ramaIds } });
+        const tareaIds = tareas.map(t => t._id);
+
+        const cuestionarios = await Cuestionario.find({ rama: { $in: ramaIds } });
+        const cuestionarioIds = cuestionarios.map(c => c._id);
+
+        await Calificacion.deleteMany({ $or: [{ tarea: { $in: tareaIds } }, { cuestionario: { $in: cuestionarioIds } }] });
+        
+        await CalificacionGeneral.deleteMany({ grupo: id });
+
+        await Tarea.deleteMany({ _id: { $in: tareaIds } });
+        await Cuestionario.deleteMany({ _id: { $in: cuestionarioIds } });
+
+        await RamaConfig.deleteMany({ grupo: id });
+
+        await Grupo.findByIdAndDelete(id);
+
+        return { status: 200, body: { message: 'Grupo y todos sus datos asociados eliminados correctamente.' } };
     } catch (error) {
         return { status: 500, body: { error: error.message } };
     }

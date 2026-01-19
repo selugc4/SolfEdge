@@ -5,10 +5,17 @@ const grupoController = require('../controllers/grupo.controller');
 const Grupo = require('../models/grupo.model');
 const Usuario = require('../models/usuario.model');
 const RamaConfig = require('../models/ramaConfig.model');
-
+const Tarea = require('../models/tarea.model');
+const Cuestionario = require('../models/cuestionario.model');
+const Calificacion = require('../models/calificacion.model');
+const CalificacionGeneral = require('../models/calificacionGeneral.model');
 jest.mock('../models/grupo.model');
 jest.mock('../models/usuario.model');
 jest.mock('../models/ramaConfig.model');
+jest.mock('../models/tarea.model');
+jest.mock('../models/cuestionario.model');
+jest.mock('../models/calificacion.model');
+jest.mock('../models/calificacionGeneral.model');
 
 const app = express();
 app.use(express.json());
@@ -91,14 +98,44 @@ describe('getGrupoById', () => {
 });
 
     describe('DELETE /grupos/:id', () => {
-        it('should delete a group by id', async () => {
+        it('should delete a group and all associated data', async () => {
             const mockGrupo = { _id: 'grupo1', nombre: 'Test Grupo' };
+            const mockRamas = [{ _id: 'rama1' }, { _id: 'rama2' }];
+            const mockTareas = [{ _id: 'tarea1' }];
+            const mockCuestionarios = [{ _id: 'cuestionario1' }];
+
+            Grupo.findById.mockResolvedValue(mockGrupo);
+            RamaConfig.find.mockResolvedValue(mockRamas);
+            Tarea.find.mockResolvedValue(mockTareas);
+            Cuestionario.find.mockResolvedValue(mockCuestionarios);
+            Calificacion.deleteMany.mockResolvedValue({ deletedCount: 5 });
+            CalificacionGeneral.deleteMany.mockResolvedValue({ deletedCount: 2 });
+            Tarea.deleteMany.mockResolvedValue({ deletedCount: 1 });
+            Cuestionario.deleteMany.mockResolvedValue({ deletedCount: 1 });
+            RamaConfig.deleteMany.mockResolvedValue({ deletedCount: 2 });
             Grupo.findByIdAndDelete.mockResolvedValue(mockGrupo);
 
             const response = await request(app).delete('/grupos/grupo1');
 
             expect(response.status).toBe(200);
-            expect(response.body).toEqual(mockGrupo);
+            expect(Grupo.findById).toHaveBeenCalledWith('grupo1');
+            expect(RamaConfig.find).toHaveBeenCalledWith({ grupo: 'grupo1' });
+            expect(Tarea.find).toHaveBeenCalledWith({ rama: { $in: ['rama1', 'rama2'] } });
+            expect(Cuestionario.find).toHaveBeenCalledWith({ rama: { $in: ['rama1', 'rama2'] } });
+            expect(Calificacion.deleteMany).toHaveBeenCalledWith({ $or: [{ tarea: { $in: ['tarea1'] } }, { cuestionario: { $in: ['cuestionario1'] } }] });
+            expect(CalificacionGeneral.deleteMany).toHaveBeenCalledWith({ grupo: 'grupo1' });
+            expect(Tarea.deleteMany).toHaveBeenCalledWith({ _id: { $in: ['tarea1'] } });
+            expect(Cuestionario.deleteMany).toHaveBeenCalledWith({ _id: { $in: ['cuestionario1'] } });
+            expect(RamaConfig.deleteMany).toHaveBeenCalledWith({ grupo: 'grupo1' });
+            expect(Grupo.findByIdAndDelete).toHaveBeenCalledWith('grupo1');
+        });
+
+        it('should return 404 if group not found', async () => {
+            Grupo.findById.mockResolvedValue(null);
+
+            const response = await request(app).delete('/grupos/grupo2');
+
+            expect(response.status).toBe(404);
         });
     });
 
@@ -117,6 +154,37 @@ describe('getGrupoById', () => {
     });
 
     describe('DELETE /grupos/:id/alumnos', () => {
+        it('should remove students from a group successfully', async () => {
+            const mockGrupo = { 
+                _id: 'grupo1', 
+                nombre: 'Test Grupo', 
+                alumnos: ['alumno1', 'alumno2', 'alumno3'], 
+                save: jest.fn().mockResolvedValue({ _id: 'grupo1', nombre: 'Test Grupo', alumnos: ['alumno1', 'alumno3'] }) 
+            };
+            Grupo.findById.mockResolvedValue(mockGrupo);
+
+            const result = await grupoController.removeAlumnosFromGrupo('grupo1', ['alumno2']);
+
+            expect(result.status).toBe(200);
+            expect(result.body.alumnos).toEqual(['alumno1', 'alumno3']);
+            expect(mockGrupo.save).toHaveBeenCalled();
+        });
+
+        it('should return 400 if removing students would leave the group empty', async () => {
+            const mockGrupo = { 
+                _id: 'grupo1', 
+                nombre: 'Test Grupo', 
+                alumnos: ['alumno1'], 
+                save: jest.fn() 
+            };
+            Grupo.findById.mockResolvedValue(mockGrupo);
+
+            const result = await grupoController.removeAlumnosFromGrupo('grupo1', ['alumno1']);
+
+            expect(result.status).toBe(400);
+            expect(result.body.error).toBe('La operación dejaría al grupo sin alumnos.');
+            expect(mockGrupo.save).not.toHaveBeenCalled();
+        });
         it('should remove alumnos from a group', async () => {
             const mockGrupo = { _id: 'grupo1', nombre: 'Test Grupo', alumnos: ['alumno1', 'alumno2'], save: jest.fn().mockResolvedValue({ _id: 'grupo1', nombre: 'Test Grupo', alumnos: ['alumno2'] }) };
             Grupo.findById.mockResolvedValue(mockGrupo);
