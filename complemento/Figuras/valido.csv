@@ -1,18 +1,18 @@
 tipo,ref,nombre,apellido1,apellido2,email,rol,profesor_ref,nombre_grupo,alumnos_ref
-usuario,PROF_A,Ana,García,Ruiz,ana.garcia@escuela.com,profesor,,,
-usuario,PROF_B,Carlos,Pérez,López,carlos.perez@escuela.com,profesor,,,
+usuario,PROF_A,Ana,García,Ruiz,ana.garcia+9f3a1c7d@x9q7kzv3p2-escuela.invalid,profesor,,,
+usuario,PROF_B,Carlos,Pérez,López,carlos.perez+71b8e2d4@x9q7kzv3p2-escuela.invalid,profesor,,,
 
-usuario,ALU_A1,Lucia,Martín,Santos,lucia.martin@escuela.com,alumno,PROF_A,,
-usuario,ALU_A2,Pedro,López,Díaz,pedro.lopez@escuela.com,alumno,PROF_A,,
-usuario,ALU_A3,Maria,Suarez,Blanco,maria.suarez@escuela.com,alumno,PROF_A,,
-usuario,ALU_A4,Jorge,Ramirez,Ortiz,jorge.ramirez@escuela.com,alumno,PROF_A,,
-usuario,ALU_A5,Elena,Navarro,Gil,elena.navarro@escuela.com,alumno,PROF_A,,
+usuario,ALU_A1,Lucia,Martín,Santos,lucia.martin+0c4e9a2b@x9q7kzv3p2-escuela.invalid,alumno,PROF_A,,
+usuario,ALU_A2,Pedro,López,Díaz,pedro.lopez+3a7d1f8c@x9q7kzv3p2-escuela.invalid,alumno,PROF_A,,
+usuario,ALU_A3,Maria,Suarez,Blanco,maria.suarez+8e2b6c0d@x9q7kzv3p2-escuela.invalid,alumno,PROF_A,,
+usuario,ALU_A4,Jorge,Ramirez,Ortiz,jorge.ramirez+5d9c1a3e@x9q7kzv3p2-escuela.invalid,alumno,PROF_A,,
+usuario,ALU_A5,Elena,Navarro,Gil,elena.navarro+2f6b0d8a@x9q7kzv3p2-escuela.invalid,alumno,PROF_A,,
 
-usuario,ALU_B1,David,Torres,Molina,david.torres@escuela.com,alumno,PROF_B,,
-usuario,ALU_B2,Paula,Romero,Iglesias,paula.romero@escuela.com,alumno,PROF_B,,
-usuario,ALU_B3,Adrian,Vega,Serrano,adrian.vega@escuela.com,alumno,PROF_B,,
-usuario,ALU_B4,Sofia,Cano,Rey,sofia.cano@escuela.com,alumno,PROF_B,,
-usuario,ALU_B5,Raul,Mendez,Fernandez,raul.mendez@escuela.com,alumno,PROF_B,,
+usuario,ALU_B1,David,Torres,Molina,david.torres+7c1e4b9d@x9q7kzv3p2-escuela.invalid,alumno,PROF_B,,
+usuario,ALU_B2,Paula,Romero,Iglesias,paula.romero+1a8d3c5f@x9q7kzv3p2-escuela.invalid,alumno,PROF_B,,
+usuario,ALU_B3,Adrian,Vega,Serrano,adrian.vega+4b0f7d2c@x9q7kzv3p2-escuela.invalid,alumno,PROF_B,,
+usuario,ALU_B4,Sofia,Cano,Rey,sofia.cano+6e2a9c1b@x9q7kzv3p2-escuela.invalid,alumno,PROF_B,,
+usuario,ALU_B5,Raul,Mendez,Fernandez,raul.mendez+9d5c2a7e@x9q7kzv3p2-escuela.invalid,alumno,PROF_B,,
 
 grupo,GRP_A1,,,,,,PROF_A,Iniciación A,ALU_A1|ALU_A2|ALU_A3|ALU_A4|ALU_A5
 grupo,GRP_A2,,,,,,PROF_A,Avanzado A,ALU_A1|ALU_A3|ALU_A5
