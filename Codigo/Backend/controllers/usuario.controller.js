@@ -203,10 +203,7 @@ exports.deleteUsuario = async (id, userId) => {
             await CalificacionGeneral.deleteMany({ profesor: id });
 
             // Reasignar alumnos creados por este profesor
-            await Usuario.updateMany(
-                { profesorId: id },
-                { $set: { profesorId: null } } // O reasignar a un administrador por defecto
-            );
+            await Usuario.deleteMany({ profesorId: id, role: 'alumno' });
         }
 
         // Eliminación de mensajes asociados al usuario (emisor o receptor)

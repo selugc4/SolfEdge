@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ModalController, ToastController, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent, IonList, IonListHeader, IonLabel, IonItem, IonIcon } from '@ionic/angular/standalone';
+import { ModalController, ToastController, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent, IonList, IonListHeader, IonLabel, IonItem, IonIcon, AlertController } from '@ionic/angular/standalone';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { Usuario } from 'src/app/models/usuario.model';
 import { trashOutline } from 'ionicons/icons';
@@ -19,6 +19,7 @@ export class GestionProfesoresModalComponent implements OnInit {
   modalController: ModalController = inject(ModalController);
   usuarioService: UsuarioService = inject(UsuarioService);
   toastController: ToastController = inject(ToastController);
+  alertController: AlertController = inject(AlertController); // Inject AlertController
 
   constructor() {
     addIcons({ trashOutline });
@@ -44,22 +45,40 @@ export class GestionProfesoresModalComponent implements OnInit {
     });
   }
 
-  deleteProfesor(profesorId: string) {
+  async deleteProfesor(profesorId: string) {
     if (!profesorId) {
       this.presentToast('ID de profesor no válido.', 'danger');
       return;
     }
 
-    this.usuarioService.deleteUsuario(profesorId).subscribe({
-      next: () => {
-        this.presentToast('Profesor eliminado correctamente.', 'success');
-        this.loadProfesores(); // Reload the list after deletion
-      },
-      error: (err) => {
-        this.presentToast(`Error al eliminar profesor: ${err.error.error || err.message}`, 'danger');
-        console.error('Error al eliminar profesor:', err);
-      }
+    const alert = await this.alertController.create({
+      header: 'Confirmar Eliminación',
+      message: '¿Estás seguro de que quieres eliminar a este profesor? Se eliminarán todos sus datos asociados.',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+        },
+        {
+          text: 'Eliminar',
+          handler: () => {
+            this.usuarioService.deleteUsuario(profesorId).subscribe({
+              next: () => {
+                this.presentToast('Profesor eliminado correctamente.', 'success');
+                this.loadProfesores(); // Reload the list after deletion
+              },
+              error: (err) => {
+                this.presentToast(`Error al eliminar profesor: ${err.error.error || err.message}`, 'danger');
+                console.error('Error al eliminar profesor:', err);
+              }
+            });
+          },
+        },
+      ],
     });
+
+    await alert.present();
   }
 
   async presentToast(message: string, color: string = 'success') {

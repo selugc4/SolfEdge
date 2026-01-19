@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ModalController, ToastController, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent, IonList, IonListHeader, IonLabel, IonItem, IonIcon } from '@ionic/angular/standalone';
+import { ModalController, ToastController, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent, IonList, IonListHeader, IonLabel, IonItem, IonIcon, AlertController } from '@ionic/angular/standalone';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Usuario } from 'src/app/models/usuario.model';
@@ -21,6 +21,7 @@ export class GestionAlumnosModalComponent implements OnInit {
   usuarioService: UsuarioService = inject(UsuarioService);
   authService: AuthService = inject(AuthService);
   toastController: ToastController = inject(ToastController);
+  alertController: AlertController = inject(AlertController); // Inject AlertController
 
   constructor() {
     addIcons({ trashOutline });
@@ -49,22 +50,40 @@ export class GestionAlumnosModalComponent implements OnInit {
     }
   }
 
-  deleteAlumno(alumnoId: string) {
+  async deleteAlumno(alumnoId: string) {
     if (!alumnoId) {
       this.presentToast('ID de alumno no válido.', 'danger');
       return;
     }
 
-    this.usuarioService.deleteUsuario(alumnoId).subscribe({
-      next: () => {
-        this.presentToast('Alumno eliminado correctamente.', 'success');
-        this.loadAlumnos(); // Reload the list after deletion
-      },
-      error: (err) => {
-        this.presentToast(`Error al eliminar alumno: ${err.error.error || err.message}`, 'danger');
-        console.error('Error al eliminar alumno:', err);
-      }
+    const alert = await this.alertController.create({
+      header: 'Confirmar Eliminación',
+      message: '¿Estás seguro de que quieres eliminar a este alumno? Se eliminarán todos sus datos asociados.',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+        },
+        {
+          text: 'Eliminar',
+          handler: () => {
+            this.usuarioService.deleteUsuario(alumnoId).subscribe({
+              next: () => {
+                this.presentToast('Alumno eliminado correctamente.', 'success');
+                this.loadAlumnos(); // Reload the list after deletion
+              },
+              error: (err) => {
+                this.presentToast(`Error al eliminar alumno: ${err.error.error || err.message}`, 'danger');
+                console.error('Error al eliminar alumno:', err);
+              }
+            });
+          },
+        },
+      ],
     });
+
+    await alert.present();
   }
 
   async presentToast(message: string, color: string = 'success') {
