@@ -1,25 +1,34 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, flushMicrotasks, tick } from '@angular/core/testing';
 import { GestionProfesoresModalComponent } from './gestion-profesores-modal.component';
 import { ModalController, ToastController } from '@ionic/angular/standalone';
 import { UsuarioService } from 'src/app/services/usuario.service';
-import { of, throwError } from 'rxjs'; // Import throwError for error handling
+import { of, throwError } from 'rxjs';
 import { Usuario } from 'src/app/models/usuario.model';
 
 describe('GestionProfesoresModalComponent', () => {
   let component: GestionProfesoresModalComponent;
   let fixture: ComponentFixture<GestionProfesoresModalComponent>;
-  let modalControllerSpy: any;
-  let toastControllerSpy: any;
-  let usuarioServiceSpy: any;
+
+  let modalControllerSpy: jasmine.SpyObj<ModalController>;
+  let toastControllerSpy: jasmine.SpyObj<ToastController>;
+  let usuarioServiceSpy: jasmine.SpyObj<UsuarioService>;
+
+  let toastPresentSpy: jasmine.Spy;
 
   beforeEach(async () => {
     modalControllerSpy = jasmine.createSpyObj('ModalController', ['dismiss']);
     toastControllerSpy = jasmine.createSpyObj('ToastController', ['create']);
     usuarioServiceSpy = jasmine.createSpyObj('UsuarioService', ['getAllProfesores', 'deleteUsuario']);
-    
-    toastControllerSpy.create.and.returnValue(Promise.resolve({
-      present: () => Promise.resolve(),
-    }));
+
+    toastPresentSpy = jasmine.createSpy('present').and.returnValue(Promise.resolve());
+
+    toastControllerSpy.create.and.returnValue(
+      Promise.resolve({ present: toastPresentSpy } as any)
+    );
+
+    // ✅ CLAVE: retorno por defecto ANTES de detectChanges (ngOnInit)
+    usuarioServiceSpy.getAllProfesores.and.returnValue(of([]));
+    usuarioServiceSpy.deleteUsuario.and.returnValue(of(null));
 
     await TestBed.configureTestingModule({
       imports: [GestionProfesoresModalComponent],
@@ -32,6 +41,8 @@ describe('GestionProfesoresModalComponent', () => {
 
     fixture = TestBed.createComponent(GestionProfesoresModalComponent);
     component = fixture.componentInstance;
+
+    // Esto llama ngOnInit -> loadProfesores (ya no rompe por el returnValue(of([])))
     fixture.detectChanges();
   });
 
@@ -40,9 +51,16 @@ describe('GestionProfesoresModalComponent', () => {
   });
 
   it('should load profesores on init', () => {
-    const mockProfesores: Usuario[] = [{ _id: 'profesor1', username: 'test_profesor', email: 'profesor@test.com', role: 'profesor' }];
+    const mockProfesores: Usuario[] = [
+      { _id: 'profesor1', username: 'test_profesor', email: 'profesor@test.com', role: 'profesor' } as Usuario,
+    ];
+
+    // Para que sea estable, controlamos nosotros la llamada
+    usuarioServiceSpy.getAllProfesores.calls.reset();
     usuarioServiceSpy.getAllProfesores.and.returnValue(of(mockProfesores));
+
     component.ngOnInit();
+
     expect(usuarioServiceSpy.getAllProfesores).toHaveBeenCalled();
     expect(component.profesores).toEqual(mockProfesores);
   });
@@ -52,48 +70,76 @@ describe('GestionProfesoresModalComponent', () => {
     expect(modalControllerSpy.dismiss).toHaveBeenCalled();
   });
 
-  it('should delete a profesor and reload profesores', () => {
+  it('should delete a profesor and reload profesores', fakeAsync(() => {
     const profesorId = 'profesor123';
+
+    // Medimos solo lo provocado por deleteProfesor
+    usuarioServiceSpy.getAllProfesores.calls.reset();
+    usuarioServiceSpy.deleteUsuario.calls.reset();
+    toastControllerSpy.create.calls.reset();
+    toastPresentSpy.calls.reset();
+
     usuarioServiceSpy.deleteUsuario.and.returnValue(of(null));
-    usuarioServiceSpy.getAllProfesores.and.returnValue(of([])); // For reload
-    
+    usuarioServiceSpy.getAllProfesores.and.returnValue(of([])); // reload
+
     component.deleteProfesor(profesorId);
 
+    flushMicrotasks();
+    tick();
+
     expect(usuarioServiceSpy.deleteUsuario).toHaveBeenCalledWith(profesorId);
+
     expect(toastControllerSpy.create).toHaveBeenCalledWith({
       message: 'Profesor eliminado correctamente.',
       duration: 3000,
       color: 'success',
     });
-    // Expect loadProfesores to be called again
-    expect(usuarioServiceSpy.getAllProfesores).toHaveBeenCalledTimes(2); // once on init, once after delete
-  });
+    expect(toastPresentSpy).toHaveBeenCalled();
 
-  it('should show error toast if delete fails', (done) => { // Use 'done' for async error handling
+    // loadProfesores se llama tras borrar -> 1 vez
+    expect(usuarioServiceSpy.getAllProfesores).toHaveBeenCalledTimes(1);
+  }));
+
+  it('should show error toast if delete fails', fakeAsync(() => {
     const profesorId = 'profesor123';
-    usuarioServiceSpy.deleteUsuario.and.returnValue(throwError(() => ({ error: { error: 'Error de eliminación' } }))); // Simulate error
-    
+
+    toastControllerSpy.create.calls.reset();
+    toastPresentSpy.calls.reset();
+
+    usuarioServiceSpy.deleteUsuario.and.returnValue(
+      throwError(() => ({ error: { error: 'Error de eliminación' } }))
+    );
+
     component.deleteProfesor(profesorId);
 
-    // Give some time for the async operations to complete
-    setTimeout(() => {
-      expect(usuarioServiceSpy.deleteUsuario).toHaveBeenCalledWith(profesorId);
-      expect(toastControllerSpy.create).toHaveBeenCalledWith({
-        message: 'Error al eliminar profesor: Error de eliminación',
-        duration: 3000,
-        color: 'danger',
-      });
-      done(); // Call done to signal completion of the async test
-    }, 0);
-  });
+    flushMicrotasks();
+    tick();
 
-  it('should show error toast if profesor ID is invalid', () => {
+    expect(usuarioServiceSpy.deleteUsuario).toHaveBeenCalledWith(profesorId);
+    expect(toastControllerSpy.create).toHaveBeenCalledWith({
+      message: 'Error al eliminar profesor: Error de eliminación',
+      duration: 3000,
+      color: 'danger',
+    });
+    expect(toastPresentSpy).toHaveBeenCalled();
+  }));
+
+  it('should show error toast if profesor ID is invalid', fakeAsync(() => {
+    usuarioServiceSpy.deleteUsuario.calls.reset();
+    toastControllerSpy.create.calls.reset();
+    toastPresentSpy.calls.reset();
+
     component.deleteProfesor('');
+
+    flushMicrotasks();
+    tick();
+
     expect(toastControllerSpy.create).toHaveBeenCalledWith({
       message: 'ID de profesor no válido.',
       duration: 3000,
       color: 'danger',
     });
+    expect(toastPresentSpy).toHaveBeenCalled();
     expect(usuarioServiceSpy.deleteUsuario).not.toHaveBeenCalled();
-  });
+  }));
 });
