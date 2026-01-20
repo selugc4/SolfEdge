@@ -14,6 +14,6 @@ usuario,ALU_B3,Adrian,Vega,Serrano,adrian.vega+4b0f7d2c@x9q7kzv3p2-escuela.inval
 usuario,ALU_B4,Sofia,Cano,Rey,sofia.cano+6e2a9c1b@x9q7kzv3p2-escuela.invalid,alumno,PROF_B,,
 usuario,ALU_B5,Raul,Mendez,Fernandez,raul.mendez+9d5c2a7e@x9q7kzv3p2-escuela.invalid,alumno,PROF_B,,
 
-grupo,GRP_A1,,,,,,PROF_A,Iniciación A,ALU_A1|ALU_A2|ALU_A3|ALU_A4|ALU_A5
-grupo,GRP_A2,,,,,,PROF_A,Avanzado A,ALU_A1|ALU_A3|ALU_A5
-grupo,GRP_B1,,,,,,PROF_B,Iniciación B,ALU_B1|ALU_B2|ALU_B3|ALU_B4|ALU_B5
+grupo,GRP_A1,,,,,,PROF_A,Ini A,ALU_A1|ALU_A2|ALU_A3|ALU_A4|ALU_A5
+grupo,GRP_A2,,,,,,PROF_A,Ava A,ALU_A1|ALU_A3|ALU_A5
+grupo,GRP_B1,,,,,,PROF_B,Ini B,ALU_B1|ALU_B2|ALU_B3|ALU_B4|ALU_B5

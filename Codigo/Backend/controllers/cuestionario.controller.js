@@ -3,6 +3,7 @@ const Usuario = require('../models/usuario.model');
 const Calificacion = require('../models/calificacion.model');
 const RamaConfig = require('../models/ramaConfig.model');
 const mensajeController = require('./mensaje.controller');
+const SuitePistas = require('../models/suitePistas');
 exports.crearCuestionario = async (cuestionarioData, profesorId) => {
     try {
         const ramaConfig = await RamaConfig.findById(cuestionarioData.rama);
@@ -21,6 +22,15 @@ exports.crearCuestionario = async (cuestionarioData, profesorId) => {
         }
         const cuestionario = new Cuestionario({ ...cuestionarioData, profesor: profesorId });
         await cuestionario.save();
+        const pistasIniciales = Array(cuestionarioData.preguntas.length).fill(null);
+        try {
+        await SuitePistas.create({
+            cuestionario: cuestionario._id,
+            pistas: pistasIniciales
+        });
+        } catch (e) {
+        if (e?.code !== 11000) throw e;
+        }
         await ramaConfig.populate({
             path: 'grupo',
             select: 'nombre'
@@ -36,51 +46,119 @@ exports.crearCuestionario = async (cuestionarioData, profesorId) => {
     }
 };
 
+function preguntaSignature(p) {
+  const texto = (p?.texto ?? '').trim();
+  const recurso = (p?.recursoAudicion ?? '').trim();
+
+  const respuestas = Array.isArray(p?.posiblesRespuestas)
+    ? p.posiblesRespuestas.map(r => ({
+        texto: (r?.texto ?? '').trim(),
+        esCorrecta: !!r?.esCorrecta
+      }))
+    : [];
+
+  return JSON.stringify({ texto, recurso, respuestas });
+}
+
 exports.updateCuestionario = async (cuestionarioId, cuestionarioData, profesorId) => {
-    try {
-        const cuestionario = await Cuestionario.findById(cuestionarioId);
-        if (!cuestionario) {
-            return { status: 404, body: { error: 'Cuestionario no encontrado.' } };
-        }
-
-        // Security check: ensure the professor updating the questionnaire is the one who created it.
-        if (cuestionario.profesor.toString() !== profesorId) {
-            return { status: 403, body: { error: 'No tienes permiso para modificar este cuestionario.' } };
-        }
-
-        const ramaConfig = await RamaConfig.findById(cuestionarioData.rama);
-        if (!ramaConfig || ramaConfig.nombre !== 'Teoria') {
-            return { status: 400, body: { error: 'Los cuestionarios solo pueden crearse en la rama \'Teoria\'.' } };
-        }
-        if (!cuestionarioData.preguntas || cuestionarioData.preguntas.length < 1 || cuestionarioData.preguntas.length > 20) {
-            return { status: 400, body: { error: 'El cuestionario debe tener entre 1 y 20 preguntas.' } };
-        }
-        if (!cuestionarioData.alumnos || cuestionarioData.alumnos.length === 0) {
-            return { status: 400, body: { error: 'El cuestionario debe tener al menos un alumno.' } };
-        }
-
-        // Handle fechaCierre
-        if (cuestionarioData.fechaCierre) {
-            const fecha = new Date(cuestionarioData.fechaCierre);
-            if (isNaN(fecha.getTime())) {
-                return { status: 400, body: { error: 'fechaCierre no es una fecha válida.' } };
-            }
-            cuestionarioData.fechaCierre = fecha;
-        }
-        const updatedCuestionario = await Cuestionario.findByIdAndUpdate(cuestionarioId, cuestionarioData, { new: true });
-        await ramaConfig.populate({
-            path: 'grupo',
-            select: 'nombre'
-        });
-        const sistemaUser = await Usuario.findOne({ username: 'sistema' });
-        const nombreGrupo = ramaConfig.grupo?.nombre ?? 'grupo desconocido';
-        const asunto = `Cuestionario "${updatedCuestionario.nombre}" actualizado`;
-        const texto = `El cuestionario "${updatedCuestionario.nombre}" de la rama "${ramaConfig.nombre}" del grupo "${nombreGrupo}" ha sido actualizado`;
-        await mensajeController.crearMensaje(sistemaUser._id, asunto, texto, updatedCuestionario.alumnos);
-        return { status: 200, body: updatedCuestionario };
-    } catch (error) {
-        return { status: 500, body: { error: error.message } };
+  try {
+    const cuestionario = await Cuestionario.findById(cuestionarioId);
+    if (!cuestionario) {
+      return { status: 404, body: { error: 'Cuestionario no encontrado.' } };
     }
+
+    if (cuestionario.profesor.toString() !== profesorId) {
+      return { status: 403, body: { error: 'No tienes permiso para modificar este cuestionario.' } };
+    }
+
+    const ramaConfig = await RamaConfig.findById(cuestionarioData.rama);
+    if (!ramaConfig || ramaConfig.nombre !== 'Teoria') {
+      return { status: 400, body: { error: 'Los cuestionarios solo pueden crearse en la rama \'Teoria\'.' } };
+    }
+
+    if (!cuestionarioData.preguntas || cuestionarioData.preguntas.length < 1 || cuestionarioData.preguntas.length > 20) {
+      return { status: 400, body: { error: 'El cuestionario debe tener entre 1 y 20 preguntas.' } };
+    }
+
+    if (!cuestionarioData.alumnos || cuestionarioData.alumnos.length === 0) {
+      return { status: 400, body: { error: 'El cuestionario debe tener al menos un alumno.' } };
+    }
+
+    if (cuestionarioData.fechaCierre) {
+      const fecha = new Date(cuestionarioData.fechaCierre);
+      if (isNaN(fecha.getTime())) {
+        return { status: 400, body: { error: 'fechaCierre no es una fecha válida.' } };
+      }
+      cuestionarioData.fechaCierre = fecha;
+    }
+
+    const preguntasAntiguas = Array.isArray(cuestionario.preguntas) ? cuestionario.preguntas : [];
+    const preguntasNuevas = Array.isArray(cuestionarioData.preguntas) ? cuestionarioData.preguntas : [];
+
+    const updatedCuestionario = await Cuestionario.findByIdAndUpdate(
+      cuestionarioId,
+      cuestionarioData,
+      { new: true, runValidators: true }
+    );
+
+    try {
+      let suite = await SuitePistas.findOne({ cuestionario: cuestionarioId });
+
+      if (!suite) {
+        const pistasIniciales = Array(preguntasNuevas.length).fill(null);
+
+        try {
+          suite = await SuitePistas.create({
+            cuestionario: cuestionarioId,
+            pistas: pistasIniciales
+          });
+        } catch (e) {
+
+          if (e?.code === 11000) {
+            suite = await SuitePistas.findOne({ cuestionario: cuestionarioId });
+          } else {
+            throw e;
+          }
+        }
+      }
+
+      if (suite) {
+        if (!Array.isArray(suite.pistas)) suite.pistas = [];
+
+        const oldLen = preguntasAntiguas.length;
+        const newLen = preguntasNuevas.length;
+
+        const commonLen = Math.min(oldLen, newLen);
+        for (let i = 0; i < commonLen; i++) {
+          const oldSig = preguntaSignature(preguntasAntiguas[i]);
+          const newSig = preguntaSignature(preguntasNuevas[i]);
+
+          if (oldSig !== newSig) {
+            while (suite.pistas.length <= i) suite.pistas.push(null);
+            suite.pistas[i] = null;
+          }
+        }
+
+        while (suite.pistas.length < newLen) suite.pistas.push(null);
+
+        await suite.save();
+      }
+    } catch (e) {
+      console.warn('No se pudo actualizar/crear SuitePistas del cuestionario', cuestionarioId, e);
+    }
+    await ramaConfig.populate({ path: 'grupo', select: 'nombre' });
+
+    const sistemaUser = await Usuario.findOne({ username: 'sistema' });
+    const nombreGrupo = ramaConfig.grupo?.nombre ?? 'grupo desconocido';
+    const asunto = `Cuestionario "${updatedCuestionario.nombre}" actualizado`;
+    const texto = `El cuestionario "${updatedCuestionario.nombre}" de la rama "${ramaConfig.nombre}" del grupo "${nombreGrupo}" ha sido actualizado`;
+
+    await mensajeController.crearMensaje(sistemaUser._id, asunto, texto, updatedCuestionario.alumnos);
+
+    return { status: 200, body: updatedCuestionario };
+  } catch (error) {
+    return { status: 500, body: { error: error.message } };
+  }
 };
 
 exports.getCuestionariosByUsuarioAndRama = async (usuarioId, ramaId) => {
