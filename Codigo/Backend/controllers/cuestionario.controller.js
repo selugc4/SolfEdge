@@ -4,6 +4,8 @@ const Calificacion = require('../models/calificacion.model');
 const RamaConfig = require('../models/ramaConfig.model');
 const mensajeController = require('./mensaje.controller');
 const SuitePistas = require('../models/suitePistas.model');
+const { generarPistaTeoria } = require('../services/pistaIA.service');
+
 exports.crearCuestionario = async (cuestionarioData, profesorId) => {
     try {
         const ramaConfig = await RamaConfig.findById(cuestionarioData.rama);
@@ -323,7 +325,7 @@ exports.clearQuestionAuditionResource = async (cuestionarioId, preguntaIndex) =>
             return { status: 400, body: { error: 'Índice de pregunta inválido.' } };
         }
 
-        cuestionario.preguntas[preguntaIndex].recursoAudicion = ''; // Set to empty string
+        cuestionario.preguntas[preguntaIndex].recursoAudicion = '';
         await cuestionario.save();
 
         return { status: 200, body: { message: 'Recurso de audición eliminado.' } };
@@ -332,3 +334,76 @@ exports.clearQuestionAuditionResource = async (cuestionarioId, preguntaIndex) =>
         return { status: 500, body: { error: `Error al eliminar recurso de audición: ${error.message}` } };
     }
 };
+
+exports.getPistaPregunta = async (cuestionarioId, preguntaIndex, userId) => {
+  try {
+    if (!cuestionarioId) {
+      return { status: 400, body: { error: 'cuestionarioId es requerido.' } };
+    }
+    if (!Number.isInteger(preguntaIndex) || preguntaIndex < 0) {
+      return { status: 400, body: { error: 'preguntaIndex no es válido.' } };
+    }
+
+    const cuestionario = await Cuestionario.findById(cuestionarioId);
+    if (!cuestionario) {
+      return { status: 404, body: { error: 'Cuestionario no encontrado.' } };
+    }
+    const esProfesorPropietario = cuestionario.profesor?.toString() === userId;
+    const esAlumnoAsignado = Array.isArray(cuestionario.alumnos) && cuestionario.alumnos.some(a => a.toString() === userId);
+
+    if (!esProfesorPropietario && !esAlumnoAsignado) {
+      return { status: 403, body: { error: 'No tienes permiso para ver las pistas de este cuestionario.' } };
+    }
+
+    if (preguntaIndex >= cuestionario.preguntas.length) {
+      return { status: 404, body: { error: 'Pregunta no encontrada.' } };
+    }
+    let suite = await SuitePistas.findOne({ cuestionario: cuestionarioId });
+
+    if (!suite) {
+      const pistasIniciales = Array(cuestionario.preguntas.length).fill(null);
+      try {
+        suite = await SuitePistas.create({
+          cuestionario: cuestionarioId,
+          pistas: pistasIniciales
+        });
+      } catch (e) {
+        if (e?.code === 11000) {
+          suite = await SuitePistas.findOne({ cuestionario: cuestionarioId });
+        } else {
+          console.warn('No se pudo crear SuitePistas', cuestionarioId, e);
+          return { status: 503, body: { error: 'Pistas en mantenimiento.' } };
+        }
+      }
+    }
+
+    if (!Array.isArray(suite.pistas)) suite.pistas = [];
+    while (suite.pistas.length < cuestionario.preguntas.length) suite.pistas.push(null);
+
+    const cachedHint = suite.pistas[preguntaIndex];
+    if (typeof cachedHint === 'string' && cachedHint.trim().length > 0) {
+      return { status: 200, body: { pista: cachedHint.trim(), cached: true } };
+    }
+    const pregunta = cuestionario.preguntas[preguntaIndex];
+
+    let nuevaPista;
+    try {
+      nuevaPista = await generarPistaTeoria({
+        preguntaTexto: pregunta.texto,
+        posiblesRespuestas: pregunta.posiblesRespuestas,
+        recursoAudicion: pregunta.recursoAudicion
+      });
+    } catch (e) {
+      console.warn('Error generando pista IA', cuestionarioId, preguntaIndex, e);
+      return { status: 503, body: { error: 'Pistas en mantenimiento.' } };
+    }
+    suite.pistas[preguntaIndex] = nuevaPista;
+    await suite.save();
+
+    return { status: 200, body: { pista: nuevaPista, cached: false } };
+  } catch (error) {
+    return { status: 500, body: { error: error.message } };
+  }
+};
+
+

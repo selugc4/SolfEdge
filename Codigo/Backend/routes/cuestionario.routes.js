@@ -543,6 +543,70 @@ router.post('/:id/entregar', authMiddleware.verifyToken, async (req, res) => { /
 });
 /**
  * @swagger
+ * /cuestionarios/{cuestionarioId}/preguntas/{preguntaIndex}/pista:
+ *   get:
+ *     summary: Obtiene la pista de IA para una pregunta. Si no existe, la genera y la guarda en cache.
+ *     tags: [Cuestionarios]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: cuestionarioId
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID del cuestionario.
+ *       - in: path
+ *         name: preguntaIndex
+ *         schema:
+ *           type: integer
+ *           minimum: 0
+ *         required: true
+ *         description: Índice de la pregunta dentro del array de preguntas del cuestionario.
+ *     responses:
+ *       200:
+ *         description: Pista obtenida (desde cache o recién generada).
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 pista:
+ *                   type: string
+ *                   description: Pista asociada a la pregunta.
+ *                   example: "Piensa en la nota que está justo debajo de la primera línea del pentagrama."
+ *                 cached:
+ *                   type: boolean
+ *                   description: Indica si la pista ya existía en cache (true) o se generó en esta llamada (false).
+ *                   example: true
+ *       400:
+ *         description: Parámetros inválidos (preguntaIndex no es válido, etc.).
+ *       403:
+ *         description: No autorizado.
+ *       404:
+ *         description: Cuestionario o pregunta no encontrada.
+ *       503:
+ *         description: Servicio de pistas no disponible temporalmente (mantenimiento / IA no disponible).
+ *       500:
+ *         description: Error interno del servidor.
+ */
+router.get(
+  '/:cuestionarioId/preguntas/:preguntaIndex/pista',
+  authMiddleware.verifyToken,
+  async (req, res) => {
+    const { cuestionarioId, preguntaIndex } = req.params;
+
+    const index = parseInt(preguntaIndex, 10);
+    if (Number.isNaN(index) || index < 0) {
+      return res.status(400).json({ error: 'preguntaIndex no es válido.' });
+    }
+
+    const result = await cuestionarioController.getPistaPregunta(cuestionarioId, index, req.user.id);
+    res.status(result.status).json(result.body);
+  }
+);
+/**
+ * @swagger
  * components:
  *   schemas:
  *     Pregunta:
