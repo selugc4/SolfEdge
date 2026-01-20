@@ -24,6 +24,7 @@ app.use(express.json());
 app.use(cors({
   origin: [
     "http://localhost:8100",
+    "http://localhost",
     "https://selugc4.github.io",
     "https://ritmoapp.onrender.com"
   ],

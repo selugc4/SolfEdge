@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex build/main"] 1768825344.85852 "build/main.aux" "build/main.bbl" "build/main" 1768825355.65481 0
+["bibtex build/main"] 1768825344.85852 "build/main.aux" "build/main.bbl" "build/main" 1768933367.79862 0
   "./referencias.bib" 1768341688 8575 a67fb25dbab791c0104ec88df754e269 ""
   "C:/Users/jl444/AppData/Local/Programs/MiKTeX/bibtex/bst/ieeetran/IEEEtran.bst" 1440622569 57748 7c8250ecf02814ce6ddc0cdbb63df1dd ""
-  "build/main.aux" 1768825354 11542 bb6a6f82b23fd5c35506a834b4ca4d1d "pdflatex"
+  "build/main.aux" 1768933366 11542 bb6a6f82b23fd5c35506a834b4ca4d1d "pdflatex"
   (generated)
   "build/main.bbl"
   "build/main.blg"
   (rewritten before read)
-["pdflatex"] 1768825350.89385 "c:/Users/jl444/OneDrive/Escritorio/TFG/complemento/main.tex" "build/main.pdf" "main" 1768825355.65547 0
+["pdflatex"] 1768933360.51467 "c:/Users/jl444/OneDrive/Escritorio/TFG/complemento/main.tex" "build/main.pdf" "main" 1768933367.79923 0
   "C:/Users/jl444/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1768187338 82705 9cc9f144eacd499bc23a611703921467 ""
   "C:/Users/jl444/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1727437875 11948238 b6ce6b25c84fe590f9e001dfe8e4c19e ""
   "C:/Users/jl444/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc" 1458473887 4993 80dc9bab7f31fb78a000ccfed0e27cab ""
@@ -256,15 +256,15 @@
   "Figuras/logos/logo_peque_R.png" 1714653225 194281 1f8347e72b67d782bf6293b6a218655c ""
   "Figuras/logos/portadaCTFG.png" 1768351912 266412 dbd2dbc45533dc96894091bbe08d3586 ""
   "UAL.sty" 1768351507 10561 3a45aad1f2fc4053884a141f42b69ea6 ""
-  "build/main.aux" 1768825354 11542 bb6a6f82b23fd5c35506a834b4ca4d1d "pdflatex"
+  "build/main.aux" 1768933366 11542 bb6a6f82b23fd5c35506a834b4ca4d1d "pdflatex"
   "build/main.bbl" 1768825345 901 628a2a8c68e066122d1514411e0b8455 "bibtex build/main"
-  "build/main.lof" 1768825354 913 e264aa527d590041550b928c2ed0aa5a "pdflatex"
-  "build/main.lot" 1768825354 1847 a56cea0fcf09b6ee3b8a992e74f2c565 "pdflatex"
-  "build/main.out" 1768825354 8592 fd2a6d6d31ed8198ea0b4ccda93c5e9b "pdflatex"
-  "build/main.toc" 1768825354 3495 10abe86198e6bda1b8dbea1b7fc819f3 "pdflatex"
+  "build/main.lof" 1768933366 913 e264aa527d590041550b928c2ed0aa5a "pdflatex"
+  "build/main.lot" 1768933366 1847 a56cea0fcf09b6ee3b8a992e74f2c565 "pdflatex"
+  "build/main.out" 1768933366 8592 fd2a6d6d31ed8198ea0b4ccda93c5e9b "pdflatex"
+  "build/main.toc" 1768933366 3495 10abe86198e6bda1b8dbea1b7fc819f3 "pdflatex"
   "c:/Users/jl444/OneDrive/Escritorio/TFG/complemento/main.tex" 1768439414 3885 74443aed07461de03f182b3c93c2a701 ""
   "codigo.sty" 1714653225 5598 b84ac9747489d86fc617488abd4340b9 ""
-  "contenido.tex" 1768825350 48945 1daec1fb30f15011c86766b1f0eb7474 ""
+  "contenido.tex" 1768933357 48925 a7f0f064f22936e0e02b3e079613be5c ""
   "contra.tex" 1768351586 618 2898aa529d311ebd0212fc8d935fafba ""
   "dedicatoria.tex" 1768333761 1538 e5053f55ac79541f6620cdc35a9286bf ""
   "indicesyrefe.tex" 1768275331 887 9dcf581b2c0195dced1d8f6c98438967 ""
