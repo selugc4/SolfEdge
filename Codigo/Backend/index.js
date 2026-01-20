@@ -22,22 +22,12 @@ const calificacionRoutes = require('./routes/calificacion.routes');
 const app = express();
 app.use(express.json());
 app.use(cors({
-  origin: (origin, cb) => {
-    if (!origin) return cb(null, true);
-
-    if (
-      origin === "http://localhost" ||
-      /^http:\/\/localhost:\d+$/.test(origin) ||
-      origin === "capacitor://localhost" ||
-      origin === "ionic://localhost" ||
-      origin === "https://selugc4.github.io" ||
-      origin === "https://ritmoapp.onrender.com"
-    ) {
-      return cb(null, true);
-    }
-
-    return cb(new Error(`CORS bloqueado: ${origin}`), false);
-  },
+  origin: [
+    "http://localhost:8100",
+    "https://selugc4.github.io",
+    "https://ritmoapp.onrender.com",
+    "https://localhost"
+  ],
   credentials: true
 }));
 
