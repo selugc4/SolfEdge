@@ -21,9 +21,44 @@
         <ion-card>
 
           <ion-card-header>
-            <ion-card-title>
-              Pregunta {{ i + 1 }}: {{ pregunta.texto }}
-            </ion-card-title>
+            <!-- Título + icono ayuda -->
+            <div style="display:flex; align-items:flex-start; justify-content:space-between; gap: 12px;">
+              <ion-card-title style="flex: 1;">
+                Pregunta {{ i + 1 }}: {{ pregunta.texto }}
+              </ion-card-title>
+
+              <ion-button
+                fill="clear"
+                size="small"
+                style="min-width: 32px; height: 32px; padding: 0;"
+                (click)="onHintClick(i); $event.preventDefault(); $event.stopPropagation()"
+                [disabled]="hintLoading[i]"
+                aria-label="Ver pista"
+              >
+                <ion-icon name="help-circle-outline" style="font-size: 18px;"></ion-icon>
+              </ion-button>
+            </div>
+
+            <!-- Mostrar estado/carga/error y pista -->
+            @if (hintLoading[i]) {
+              <ion-text color="medium">
+                <small>Cargando pista...</small>
+              </ion-text>
+            }
+
+            @if (hintErrors[i]) {
+              <ion-text color="danger">
+                <small>{{ hintErrors[i] }}</small>
+              </ion-text>
+            }
+
+            @if (pistas[i]) {
+              <div style="margin-top: 6px;">
+                <ion-text color="primary">
+                  <small><strong>Pista:</strong> {{ pistas[i] }}</small>
+                </ion-text>
+              </div>
+            }
           </ion-card-header>
 
           <ion-card-content>
@@ -37,31 +72,11 @@
                   </audio>
 
                 } @else if (isYouTubeUrl(pregunta.recursoAudicion)) {
-                  <div
-                    style="
-                      display: flex;
-                      justify-content: center;
-                      width: 100%;
-                    "
-                  >
-                    <div
-                      style="
-                        position: relative;
-                        width: 25%;
-                        padding-top: 14.0625%;
-                      "
-                    >
+                  <div style="display: flex; justify-content: center; width: 100%;">
+                    <div style="position: relative; width: 25%; padding-top: 14.0625%;">
                       <iframe
-                        style="
-                          position: absolute;
-                          top: 0;
-                          left: 0;
-                          width: 100%;
-                          height: 100%;
-                        "
-                        [src]="getYouTubeEmbedUrl(
-                          isYouTubeUrl(pregunta.recursoAudicion)!
-                        )"
+                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+                        [src]="getYouTubeEmbedUrl(isYouTubeUrl(pregunta.recursoAudicion)!)"
                         frameborder="0"
                         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                         allowfullscreen
@@ -70,28 +85,10 @@
                   </div>
 
                 } @else if (isSpotifyUrl(pregunta.recursoAudicion)) {
-                  <div
-                    style="
-                      display: flex;
-                      justify-content: center;
-                      width: 100%;
-                    "
-                  >
-                    <div
-                      style="
-                        position: relative;
-                        width: 25%;
-                        padding-top: 14.0625%;
-                      "
-                    >
+                  <div style="display: flex; justify-content: center; width: 100%;">
+                    <div style="position: relative; width: 25%; padding-top: 14.0625%;">
                       <iframe
-                        style="
-                          position: absolute;
-                          top: 0;
-                          left: 0;
-                          width: 100%;
-                          height: 100%;
-                        "
+                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
                         [src]="getSpotifyEmbedUrl(
                           isSpotifyUrl(pregunta.recursoAudicion)!.type,
                           isSpotifyUrl(pregunta.recursoAudicion)!.id

@@ -30,10 +30,16 @@ describe('CuestionarioService', () => {
   describe('crearCuestionario', () => {
     it('should send a POST request to create a questionnaire', () => {
       const mockCuestionario: Cuestionario = {
-        _id: 'c1', nombre: 'Test', preguntas: [], profesor: 'p1', rama: 'R1', cerrada: false,
+        _id: 'c1',
+        nombre: 'Test',
+        preguntas: [],
+        profesor: 'p1',
+        rama: 'R1',
+        cerrada: false,
         alumnos: [],
         fechaCierre: new Date()
       };
+
       service.crearCuestionario(mockCuestionario).subscribe(response => {
         expect(response).toEqual(mockCuestionario);
       });
@@ -49,6 +55,7 @@ describe('CuestionarioService', () => {
     it('should send a PUT request to update a questionnaire', () => {
       const mockCuestionario: Partial<Cuestionario> = { nombre: 'Updated Test' };
       const id = 'c1';
+
       service.updateCuestionario(id, mockCuestionario).subscribe(response => {
         expect(response.nombre).toBe('Updated Test');
       });
@@ -63,12 +70,19 @@ describe('CuestionarioService', () => {
   describe('getCuestionariosByUsuarioAndRama', () => {
     it('should send a GET request for questionnaires by user and branch', () => {
       const mockCuestionarios: Cuestionario[] = [{
-        _id: 'c1', nombre: 'Test', preguntas: [], profesor: 'p1', rama: 'R1', cerrada: false,
+        _id: 'c1',
+        nombre: 'Test',
+        preguntas: [],
+        profesor: 'p1',
+        rama: 'R1',
+        cerrada: false,
         alumnos: [],
         fechaCierre: new Date()
       }];
+
       const userId = 'u1';
       const rama = 'R1';
+
       service.getCuestionariosByUsuarioAndRama(userId, rama).subscribe(response => {
         expect(response).toEqual(mockCuestionarios);
       });
@@ -82,6 +96,7 @@ describe('CuestionarioService', () => {
   describe('deleteCuestionario', () => {
     it('should send a DELETE request to delete a questionnaire', () => {
       const id = 'c1';
+
       service.deleteCuestionario(id).subscribe(response => {
         expect(response).toBeTruthy();
       });
@@ -95,6 +110,7 @@ describe('CuestionarioService', () => {
   describe('closeCuestionario', () => {
     it('should send a PATCH request to close a questionnaire', () => {
       const id = 'c1';
+
       service.closeCuestionario(id).subscribe(response => {
         expect(response).toBeTruthy();
       });
@@ -109,11 +125,18 @@ describe('CuestionarioService', () => {
   describe('getCuestionarioById', () => {
     it('should send a GET request to get a questionnaire by ID', () => {
       const mockCuestionario: Cuestionario = {
-        _id: 'c1', nombre: 'Test', preguntas: [], profesor: 'p1', rama: 'R1', cerrada: false,
+        _id: 'c1',
+        nombre: 'Test',
+        preguntas: [],
+        profesor: 'p1',
+        rama: 'R1',
+        cerrada: false,
         alumnos: [],
         fechaCierre: new Date()
       };
+
       const id = 'c1';
+
       service.getCuestionarioById(id).subscribe(response => {
         expect(response).toEqual(mockCuestionario);
       });
@@ -127,11 +150,16 @@ describe('CuestionarioService', () => {
   describe('entregarCuestionario', () => {
     it('should send a POST request to submit a questionnaire', () => {
       const mockCalificacion: Calificacion = {
-        _id: 'cal1', alumno: { _id: 'a1' } as any, cuestionario: 'c1', nota: 7,
+        _id: 'cal1',
+        alumno: { _id: 'a1' } as any,
+        cuestionario: 'c1',
+        nota: 7,
         fechaEntrega: new Date().toISOString()
       };
+
       const cuestionarioId = 'c1';
       const respuestas = ['0', '1'];
+
       service.entregarCuestionario(cuestionarioId, respuestas).subscribe(response => {
         expect(response).toEqual(mockCalificacion);
       });
@@ -183,6 +211,7 @@ describe('CuestionarioService', () => {
     it('should send a PATCH request to clear an audio resource', () => {
       const cuestionarioId = 'c1';
       const preguntaIndex = 0;
+
       service.clearAudioRecurso(cuestionarioId, preguntaIndex).subscribe(response => {
         expect(response).toBeTruthy();
       });
@@ -191,6 +220,22 @@ describe('CuestionarioService', () => {
       expect(req.request.method).toBe('PATCH');
       expect(req.request.body).toEqual({});
       req.flush({});
+    });
+  });
+
+  describe('getPistaPregunta', () => {
+    it('should send a GET request to fetch a hint for a question', () => {
+      const cuestionarioId = 'c1';
+      const preguntaIndex = 0;
+      const mockResponse = { pista: 'PISTA', cached: true };
+
+      service.getPistaPregunta(cuestionarioId, preguntaIndex).subscribe(resp => {
+        expect(resp).toEqual(mockResponse);
+      });
+
+      const req = httpMock.expectOne(`${apiUrl}/${cuestionarioId}/preguntas/${preguntaIndex}/pista`);
+      expect(req.request.method).toBe('GET');
+      req.flush(mockResponse);
     });
   });
 });

@@ -3,6 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Cuestionario } from '../models/cuestionario.model';
+import { Calificacion } from '../models/calificacion.model';
+
+export interface PistaResponse {
+  pista: string;
+  cached: boolean;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -27,9 +33,11 @@ export class CuestionarioService {
   deleteCuestionario(id: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
+
   closeCuestionario(id: string): Observable<any> {
     return this.http.patch(`${this.apiUrl}/${id}/close`, {});
   }
+
   getCuestionarioById(id: string): Observable<Cuestionario> {
     return this.http.get<Cuestionario>(`${this.apiUrl}/${id}`);
   }
@@ -61,7 +69,9 @@ export class CuestionarioService {
       {}
     );
   }
-
-  // Otros métodos como calificar, cerrar, etc., se añadirán según se necesiten
+  getPistaPregunta(cuestionarioId: string, preguntaIndex: number): Observable<PistaResponse> {
+    return this.http.get<PistaResponse>(
+      `${this.apiUrl}/${cuestionarioId}/preguntas/${preguntaIndex}/pista`
+    );
+  }
 }
-import { Calificacion } from '../models/calificacion.model';

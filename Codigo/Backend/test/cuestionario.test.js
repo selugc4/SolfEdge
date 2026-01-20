@@ -4,15 +4,23 @@ const Usuario = require('../models/usuario.model');
 const Calificacion = require('../models/calificacion.model');
 const RamaConfig = require('../models/ramaConfig.model');
 const mensajeController = require('../controllers/mensaje.controller');
+const SuitePistas = require('../models/suitePistas.model');
+const pistaIAService = require('../services/pistaIA.service');
 
 const request = require('supertest');
 const express = require('express');
 const cuestionarioRouter = require('../routes/cuestionario.routes');
+
 jest.mock('../models/cuestionario.model');
 jest.mock('../models/usuario.model');
 jest.mock('../models/calificacion.model');
 jest.mock('../models/ramaConfig.model');
 jest.mock('../controllers/mensaje.controller');
+jest.mock('../models/suitePistas.model');
+
+jest.mock('../services/pistaIA.service', () => ({
+  generarPistaTeoria: jest.fn(),
+}));
 
 jest.mock('../middleware/authMiddleware', () => ({
   verifyToken: (req, res, next) => {
@@ -20,35 +28,90 @@ jest.mock('../middleware/authMiddleware', () => ({
     next();
   }
 }));
+
 const app = express();
 app.use(express.json());
 app.use('/cuestionarios', cuestionarioRouter);
+
 describe('Cuestionario Controller', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    jest.spyOn(console, 'warn').mockImplementation(() => {});
   });
+
+  afterEach(() => {
+    console.warn.mockRestore?.();
+  });
+
   describe('crearCuestionario', () => {
     const profesorId = 'profesor1';
     const baseCuestionarioData = {
       nombre: 'Cuestionario Test',
       rama: 'rama-teoria',
-      preguntas: [{ texto: 'p1', posiblesRespuestas: [{ texto: 'a', esCorrecta: true }] }],
+      preguntas: [{
+        texto: 'p1',
+        posiblesRespuestas: [
+          { texto: 'a', esCorrecta: true },
+          { texto: 'b', esCorrecta: false }
+        ]
+      }],
       alumnos: ['alumno1']
     };
 
-    it('crea un cuestionario correctamente', async () => {
+    it('crea un cuestionario correctamente (y crea SuitePistas)', async () => {
       RamaConfig.findById.mockResolvedValue({
         nombre: 'Teoria',
         grupo: { nombre: 'Grupo1' },
         populate: jest.fn().mockResolvedValue()
       });
+
       Usuario.findById.mockResolvedValue({ _id: profesorId, role: 'profesor' });
-      Cuestionario.prototype.save = jest.fn().mockResolvedValue(baseCuestionarioData);
+
+      Cuestionario.mockImplementation(() => ({
+        _id: 'c1',
+        ...baseCuestionarioData,
+        save: jest.fn().mockResolvedValue(true),
+      }));
+
+      SuitePistas.create.mockResolvedValue({
+        cuestionario: 'c1',
+        pistas: [null]
+      });
+
       Usuario.findOne.mockResolvedValue({ _id: 'sistemaUser' });
       mensajeController.crearMensaje.mockResolvedValue({});
 
       const res = await cuestionarioController.crearCuestionario(baseCuestionarioData, profesorId);
 
+      expect(res.status).toBe(201);
+      expect(SuitePistas.create).toHaveBeenCalledTimes(1);
+      expect(SuitePistas.create).toHaveBeenCalledWith({
+        cuestionario: 'c1',
+        pistas: [null]
+      });
+    });
+
+    it('no falla si SuitePistas.create lanza 11000 (carrera)', async () => {
+      RamaConfig.findById.mockResolvedValue({
+        nombre: 'Teoria',
+        grupo: { nombre: 'Grupo1' },
+        populate: jest.fn().mockResolvedValue()
+      });
+
+      Usuario.findById.mockResolvedValue({ _id: profesorId, role: 'profesor' });
+
+      Cuestionario.mockImplementation(() => ({
+        _id: 'c1',
+        ...baseCuestionarioData,
+        save: jest.fn().mockResolvedValue(true),
+      }));
+
+      SuitePistas.create.mockRejectedValue({ code: 11000 });
+
+      Usuario.findOne.mockResolvedValue({ _id: 'sistemaUser' });
+      mensajeController.crearMensaje.mockResolvedValue({});
+
+      const res = await cuestionarioController.crearCuestionario(baseCuestionarioData, profesorId);
       expect(res.status).toBe(201);
     });
 
@@ -57,10 +120,12 @@ describe('Cuestionario Controller', () => {
       const res = await cuestionarioController.crearCuestionario(baseCuestionarioData, profesorId);
       expect(res.status).toBe(400);
     });
+
     it('rechaza si preguntas están vacías o > 20', async () => {
       let data = { ...baseCuestionarioData, preguntas: [] };
       let res = await cuestionarioController.crearCuestionario(data, profesorId);
       expect(res.status).toBe(400);
+
       data = { ...baseCuestionarioData, preguntas: new Array(21).fill({ texto: 'p', posiblesRespuestas: [] }) };
       res = await cuestionarioController.crearCuestionario(data, profesorId);
       expect(res.status).toBe(400);
@@ -74,9 +139,11 @@ describe('Cuestionario Controller', () => {
 
     it('rechaza si profesor no existe o no tiene rol profesor', async () => {
       RamaConfig.findById.mockResolvedValue({ nombre: 'Teoria' });
+
       Usuario.findById.mockResolvedValue(null);
       let res = await cuestionarioController.crearCuestionario(baseCuestionarioData, profesorId);
       expect(res.status).toBe(400);
+
       Usuario.findById.mockResolvedValue({ role: 'alumno' });
       res = await cuestionarioController.crearCuestionario(baseCuestionarioData, profesorId);
       expect(res.status).toBe(400);
@@ -96,22 +163,79 @@ describe('Cuestionario Controller', () => {
     const baseData = {
       nombre: 'Updated',
       rama: 'rama-teoria',
-      preguntas: [{ texto: 'p1', posiblesRespuestas: [{ texto: 'a', esCorrecta: true }] }],
+      preguntas: [{
+        texto: 'p1',
+        posiblesRespuestas: [
+          { texto: 'a', esCorrecta: true },
+          { texto: 'b', esCorrecta: false }
+        ]
+      }],
       alumnos: ['alumno1']
     };
 
-    it('actualiza correctamente', async () => {
-      const mockCuestionario = { profesor: profesorId };
+    it('actualiza correctamente (y crea SuitePistas si no existe)', async () => {
+      const mockCuestionario = {
+        profesor: profesorId,
+        preguntas: baseData.preguntas
+      };
+
       Cuestionario.findById.mockResolvedValue(mockCuestionario);
-      RamaConfig.findById.mockResolvedValue({ nombre: 'Teoria', grupo: { nombre: 'Grupo1' }, populate: jest.fn().mockResolvedValue() });
+
+      RamaConfig.findById.mockResolvedValue({
+        nombre: 'Teoria',
+        grupo: { nombre: 'Grupo1' },
+        populate: jest.fn().mockResolvedValue()
+      });
+
       Cuestionario.findByIdAndUpdate.mockResolvedValue(baseData);
+
       Usuario.findOne.mockResolvedValue({ _id: 'sistemaUser' });
       mensajeController.crearMensaje.mockResolvedValue({});
+
+      SuitePistas.findOne.mockResolvedValueOnce(null);
+      SuitePistas.create.mockResolvedValue({
+        cuestionario: cuestionarioId,
+        pistas: [null],
+        save: jest.fn().mockResolvedValue(true)
+      });
 
       const res = await cuestionarioController.updateCuestionario(cuestionarioId, baseData, profesorId);
 
       expect(res.status).toBe(200);
       expect(res.body).toEqual(baseData);
+      expect(SuitePistas.create).toHaveBeenCalledTimes(1);
+    });
+
+    it('actualiza correctamente (y actualiza SuitePistas existente)', async () => {
+      const mockCuestionario = {
+        profesor: profesorId,
+        preguntas: baseData.preguntas
+      };
+
+      Cuestionario.findById.mockResolvedValue(mockCuestionario);
+
+      RamaConfig.findById.mockResolvedValue({
+        nombre: 'Teoria',
+        grupo: { nombre: 'Grupo1' },
+        populate: jest.fn().mockResolvedValue()
+      });
+
+      Cuestionario.findByIdAndUpdate.mockResolvedValue(baseData);
+
+      Usuario.findOne.mockResolvedValue({ _id: 'sistemaUser' });
+      mensajeController.crearMensaje.mockResolvedValue({});
+
+      const suiteMock = {
+        pistas: ['algo'],
+        save: jest.fn().mockResolvedValue(true)
+      };
+
+      SuitePistas.findOne.mockResolvedValueOnce(suiteMock);
+
+      const res = await cuestionarioController.updateCuestionario(cuestionarioId, baseData, profesorId);
+
+      expect(res.status).toBe(200);
+      expect(suiteMock.save).toHaveBeenCalledTimes(1);
     });
 
     it('rechaza si cuestionario no existe', async () => {
@@ -136,10 +260,13 @@ describe('Cuestionario Controller', () => {
     it('rechaza si preguntas inválidas o alumnos vacíos', async () => {
       Cuestionario.findById.mockResolvedValue({ profesor: profesorId });
       RamaConfig.findById.mockResolvedValue({ nombre: 'Teoria' });
+
       let res = await cuestionarioController.updateCuestionario(cuestionarioId, { ...baseData, preguntas: [] }, profesorId);
       expect(res.status).toBe(400);
+
       res = await cuestionarioController.updateCuestionario(cuestionarioId, { ...baseData, preguntas: new Array(21).fill({}) }, profesorId);
       expect(res.status).toBe(400);
+
       res = await cuestionarioController.updateCuestionario(cuestionarioId, { ...baseData, alumnos: [] }, profesorId);
       expect(res.status).toBe(400);
     });
@@ -156,6 +283,119 @@ describe('Cuestionario Controller', () => {
       Cuestionario.findById.mockImplementation(() => { throw new Error('error interno'); });
       const res = await cuestionarioController.updateCuestionario(cuestionarioId, baseData, profesorId);
       expect(res.status).toBe(500);
+    });
+  });
+
+  describe('getPistaPregunta (controller)', () => {
+    const cuestionarioId = 'c1';
+    const profesorId = 'profesor1';
+
+    const cuestionarioMock = {
+      _id: cuestionarioId,
+      profesor: profesorId,
+      alumnos: ['alumno1'],
+      preguntas: [{
+        texto: '¿Qué notas crean un acorde disminuido?',
+        recursoAudicion: '',
+        posiblesRespuestas: [
+          { texto: 'Si, Re y Fa', esCorrecta: true },
+          { texto: 'Do, Mi y Sol', esCorrecta: false }
+        ]
+      }]
+    };
+
+    it('devuelve pista cacheada si existe', async () => {
+      Cuestionario.findById.mockResolvedValue(cuestionarioMock);
+
+      SuitePistas.findOne.mockResolvedValue({
+        pistas: ['PISTA CACHEADA']
+      });
+
+      const res = await cuestionarioController.getPistaPregunta(cuestionarioId, 0, profesorId);
+
+      expect(res.status).toBe(200);
+      expect(res.body.pista).toBe('PISTA CACHEADA');
+      expect(res.body.cached).toBe(true);
+      expect(pistaIAService.generarPistaTeoria).not.toHaveBeenCalled();
+    });
+
+    it('si no hay cache: genera pista con IA, la guarda y devuelve cached=false', async () => {
+      Cuestionario.findById.mockResolvedValue(cuestionarioMock);
+
+      const suiteMock = {
+        pistas: [null],
+        save: jest.fn().mockResolvedValue(true)
+      };
+      SuitePistas.findOne.mockResolvedValue(suiteMock);
+
+      pistaIAService.generarPistaTeoria.mockResolvedValue('PISTA NUEVA');
+
+      const res = await cuestionarioController.getPistaPregunta(cuestionarioId, 0, profesorId);
+
+      expect(res.status).toBe(200);
+      expect(res.body.pista).toBe('PISTA NUEVA');
+      expect(res.body.cached).toBe(false);
+      expect(suiteMock.pistas[0]).toBe('PISTA NUEVA');
+      expect(suiteMock.save).toHaveBeenCalledTimes(1);
+    });
+
+    it('si SuitePistas no existe, la crea (lazy init) y luego genera', async () => {
+      Cuestionario.findById.mockResolvedValue(cuestionarioMock);
+
+      SuitePistas.findOne.mockResolvedValueOnce(null);
+
+      const suiteCreada = {
+        pistas: [null],
+        save: jest.fn().mockResolvedValue(true)
+      };
+
+      SuitePistas.create.mockResolvedValue(suiteCreada);
+
+      pistaIAService.generarPistaTeoria.mockResolvedValue('PISTA NUEVA');
+
+      const res = await cuestionarioController.getPistaPregunta(cuestionarioId, 0, profesorId);
+
+      expect(res.status).toBe(200);
+      expect(SuitePistas.create).toHaveBeenCalledTimes(1);
+      expect(res.body.pista).toBe('PISTA NUEVA');
+    });
+
+    it('403 si usuario no es profesor propietario ni alumno asignado', async () => {
+      Cuestionario.findById.mockResolvedValue(cuestionarioMock);
+
+      const res = await cuestionarioController.getPistaPregunta(cuestionarioId, 0, 'otroUsuario');
+
+      expect(res.status).toBe(403);
+    });
+
+    it('400 si preguntaIndex es inválido', async () => {
+      const res = await cuestionarioController.getPistaPregunta(cuestionarioId, -1, profesorId);
+      expect(res.status).toBe(400);
+    });
+
+    it('404 si pregunta no existe', async () => {
+      Cuestionario.findById.mockResolvedValue(cuestionarioMock);
+
+      const res = await cuestionarioController.getPistaPregunta(cuestionarioId, 5, profesorId);
+
+      expect(res.status).toBe(404);
+    });
+
+    it('503 si falla IA', async () => {
+      Cuestionario.findById.mockResolvedValue(cuestionarioMock);
+
+      const suiteMock = {
+        pistas: [null],
+        save: jest.fn()
+      };
+      SuitePistas.findOne.mockResolvedValue(suiteMock);
+
+      pistaIAService.generarPistaTeoria.mockRejectedValue(new Error('IA down'));
+
+      const res = await cuestionarioController.getPistaPregunta(cuestionarioId, 0, profesorId);
+
+      expect(res.status).toBe(503);
+      expect(res.body.error).toMatch(/mantenimiento/i);
     });
   });
 
@@ -285,11 +525,11 @@ describe('Cuestionario Controller', () => {
     });
 
     it('actualiza calificación existente', async () => {
-      const calificacionMock = { 
-        nota: 5, 
-        respuestasCuestionario: [], 
-        fechaEntrega: null, 
-        save: jest.fn().mockResolvedValue(true) 
+      const calificacionMock = {
+        nota: 5,
+        respuestasCuestionario: [],
+        fechaEntrega: null,
+        save: jest.fn().mockResolvedValue(true)
       };
       Cuestionario.findById.mockResolvedValue(mockCuestionario);
       Calificacion.findOne.mockResolvedValue(calificacionMock);
@@ -438,10 +678,12 @@ describe('Cuestionario Controller', () => {
     });
   });
 });
+
 describe('Cuestionario API (Routes)', () => {
   afterEach(() => {
     jest.restoreAllMocks();
   });
+
   describe('POST /cuestionarios', () => {
     it('201 - crea cuestionario', async () => {
       jest.spyOn(cuestionarioController, 'crearCuestionario')
@@ -472,6 +714,43 @@ describe('Cuestionario API (Routes)', () => {
       expect(res.status).toBe(500);
     });
   });
+
+  describe('GET /cuestionarios/:id/preguntas/:index/pista', () => {
+    it('200 - devuelve pista', async () => {
+      jest.spyOn(cuestionarioController, 'getPistaPregunta')
+        .mockResolvedValue({
+          status: 200,
+          body: { pista: 'PISTA', cached: true }
+        });
+
+      const res = await request(app)
+        .get('/cuestionarios/c1/preguntas/0/pista');
+
+      expect(res.status).toBe(200);
+      expect(res.body.pista).toBe('PISTA');
+    });
+
+    it('400 - preguntaIndex inválido', async () => {
+      const res = await request(app)
+        .get('/cuestionarios/c1/preguntas/abc/pista');
+
+      expect(res.status).toBe(400);
+    });
+
+    it('503 - mantenimiento', async () => {
+      jest.spyOn(cuestionarioController, 'getPistaPregunta')
+        .mockResolvedValue({
+          status: 503,
+          body: { error: 'Pistas en mantenimiento.' }
+        });
+
+      const res = await request(app)
+        .get('/cuestionarios/c1/preguntas/0/pista');
+
+      expect(res.status).toBe(503);
+    });
+  });
+
   describe('PATCH /preguntas/:index/audicion-upload', () => {
     it('200 - sube audio correctamente', async () => {
       jest.spyOn(cuestionarioController, 'uploadAndSetAudioRecurso')
@@ -509,6 +788,7 @@ describe('Cuestionario API (Routes)', () => {
       expect(res.status).toBe(500);
     });
   });
+
   describe('PATCH /preguntas/:index/audicion-url', () => {
     it('200 - setea URL', async () => {
       jest.spyOn(cuestionarioController, 'updateQuestionAuditionUrl')
@@ -547,6 +827,7 @@ describe('Cuestionario API (Routes)', () => {
       expect(res.status).toBe(500);
     });
   });
+
   describe('PATCH /preguntas/:index/audicion-clear', () => {
     it('200 - limpia recurso', async () => {
       jest.spyOn(cuestionarioController, 'clearQuestionAuditionResource')
@@ -574,6 +855,7 @@ describe('Cuestionario API (Routes)', () => {
       expect(res.status).toBe(500);
     });
   });
+
   describe('POST /cuestionarios/:id/entregar', () => {
     it('400 - respuestas no enviadas', async () => {
       const res = await request(app)
@@ -598,6 +880,7 @@ describe('Cuestionario API (Routes)', () => {
       expect(res.body.nota).toBe(8);
     });
   });
+
   describe('GET /usuario/:usuarioId/rama/:rama', () => {
     it('200 - retorna cuestionarios', async () => {
       jest.spyOn(cuestionarioController, 'getCuestionariosByUsuarioAndRama')
