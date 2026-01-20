@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <!-- FONDO DEL SPLASH -->
+  <item android:drawable="@color/ic_launcher_background"/>
+
+  <!-- LOGO CENTRADO -->
+  <item>
+    <bitmap
+      android:src="@drawable/new_logo"
+      android:gravity="center"
+      android:filter="true" />
+  </item>
+
+</layer-list>

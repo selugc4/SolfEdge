@@ -71,7 +71,7 @@ No existirá un proceso de registro. El administrador será creado de forma auto
 
 En el proceso de creación, el sistema generará automáticamente un nombre de usuario a partir de la primera letra del nombre y de los apellidos. Por ejemplo, para un usuario denominado José Luis Garrido Castro, el identificador generado será jgc. En caso de que existan coincidencias con identificadores ya presentes en la base de datos, se añadirá un número consecutivo equivalente al total de usuarios con la misma raíz más uno, de modo que si ya existen 40 usuarios con identificadores iniciados en jgc, el nuevo identificador será jgc41. La contraseña será generada automáticamente mediante el uso de un servicio externo de generación de contraseñas seguras. Una vez creadas las credenciales, estas serán enviadas por correo electrónico al profesor.
 
-\nuevo{Del mismo modo, el administrador podrá revisar la lista de profesores creados y eliminarlos. La eliminación de un profesor implicará la eliminación coherente de toda la información asociada creada bajo su responsabilidad (material, tareas, cuestionarios, grupos y alumnado asociado a dichos grupos).}
+\nuevo{Del mismo modo, el administrador podrá revisar la lista de profesores creados y eliminarlos. La eliminación de un profesor implicará la eliminación de toda la información asociada creada bajo su responsabilidad (material, tareas, cuestionarios, grupos y alumnado asociado a dichos grupos).}
 
 \nuevo{Además, el sistema permitirá al administrador realizar la creación de usuarios y grupos de manera automatizada. El fichero contendrá la información necesaria para dar de alta profesores y/o alumnos y para asociarlos a grupos, aplicando las mismas validaciones de datos y unicidad ya establecidas para la creación manual.}
 
@@ -279,7 +279,7 @@ En coherencia con el documento original, los identificadores continúan a partir
   |>{\centering\arraybackslash}X|}
 \hline
 \textbf{RF-33} & \textbf{Eliminar profesor} \\ \hline
-\textbf{Descripción} & Permitir al administrador eliminar un profesor del sistema, eliminando de forma coherente todo su material asociado (tareas, cuestionarios, ramas, entregas y
+\textbf{Descripción} & Permitir al administrador eliminar un profesor del sistema, eliminando de forma todo su material asociado (tareas, cuestionarios, ramas, entregas y
 calificaciones), sus grupos y los alumnos creados bajo su responsabilidad, evitando referencias huérfanas o inconsistencias. \\ \hline
 \textbf{Precondición} & El administrador debe estar autenticado y el profesor a eliminar debe existir. \\ \hline
 \textbf{Secuencia de pasos} &
