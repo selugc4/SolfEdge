@@ -3,7 +3,7 @@ const Usuario = require('../models/usuario.model');
 const Calificacion = require('../models/calificacion.model');
 const RamaConfig = require('../models/ramaConfig.model');
 const mensajeController = require('./mensaje.controller');
-const SuitePistas = require('../models/suitePistas');
+const SuitePistas = require('../models/suitePistas.model');
 exports.crearCuestionario = async (cuestionarioData, profesorId) => {
     try {
         const ramaConfig = await RamaConfig.findById(cuestionarioData.rama);
