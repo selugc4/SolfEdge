@@ -332,8 +332,10 @@ exports.addUsuarios = async (usersData, role, creatorId, session = null, options
       newUsers.push(newUser);
     }
 
-    const createdUsers = await Usuario.insertMany(newUsers, session ? { session } : undefined);
-
+    const createdUsers = await Usuario.insertMany(
+      newUsers,
+      session ? { session, ordered: true, runValidators: true } : { ordered: true, runValidators: true }
+    );
     if (sendEmails) {
       for (const user of createdUsers) {
         const emailResult = await emailController.enviarEmailCredenciales(user.email, user.username, user.password);

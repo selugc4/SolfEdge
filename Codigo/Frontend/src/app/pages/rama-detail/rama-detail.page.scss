@@ -52,7 +52,7 @@ ion-button {
 .empty-state {
   text-align: center;
   padding: 40px;
-  
+
   ion-icon {
     font-size: 5em;
     color: var(--ion-color-medium);
@@ -65,3 +65,25 @@ ion-button {
     margin-top: 16px;
   }
 }
+.professor-actions {
+  display: flex;
+  align-items: center;
+}
+.desktop-only {
+  display: flex;
+}
+
+.mobile-only {
+  display: none;
+}
+@media (max-width: 767px) {
+  .desktop-only {
+    display: none;
+  }
+
+  .mobile-only {
+    display: flex;
+  }
+}
+
+

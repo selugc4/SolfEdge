@@ -19,6 +19,7 @@ import { addCircleOutline, trashOutline, musicalNotesOutline, closeCircleOutline
 @Component({
   selector: 'app-cuestionario-edit',
   templateUrl: './cuestionario-edit.page.html',
+  styleUrls: ['./cuestionario-edit.page.scss'],
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonItem, IonLabel, IonSelect, IonSelectOption, IonListHeader, IonIcon, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonInput, IonTextarea, IonRadioGroup, IonRadio, IonText]
 })

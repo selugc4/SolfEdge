@@ -3,7 +3,7 @@ import { UsuarioService } from '../../services/usuario.service';
 import { Usuario } from '../../models/usuario.model';
 import { AuthService } from '../../services/auth.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { Component, inject, OnInit, LOCALE_ID } from '@angular/core';
+import { Component, inject, OnInit, LOCALE_ID, HostListener } from '@angular/core';
 import { CommonModule, DatePipe, Location } from '@angular/common';
 import { TareaStateService } from 'src/app/services/tarea-state.service';
 import { TareaService } from 'src/app/services/tarea.service';
@@ -11,7 +11,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ModalController, ToastController, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonCardHeader, IonCard, IonCardTitle, IonCardContent, IonButton, IonList, IonItem, IonLabel, IonBadge, IonListHeader } from '@ionic/angular/standalone';
 import { Calificacion } from 'src/app/models/calificacion.model';
 import { CalificarModalComponent } from 'src/app/components/calificar-modal/calificar-modal.component';
-
+import { Filesystem, Directory } from '@capacitor/filesystem';
+import { FileOpener } from '@capacitor-community/file-opener';
 @Component({
   selector: 'app-tarea-detalle',
   templateUrl: './tarea-detalle.page.html',
@@ -25,7 +26,7 @@ export class TareaDetallePage implements OnInit {
   pdfUrl: SafeResourceUrl | undefined;
   profesorNombre: string | undefined;
   isProfessor: boolean = false;
-
+  isMobile = false;
   private tareaService: TareaService = inject(TareaService);
   private usuarioService: UsuarioService = inject(UsuarioService);
   private authService: AuthService = inject(AuthService);
@@ -36,7 +37,7 @@ export class TareaDetallePage implements OnInit {
   private modalCtrl: ModalController = inject(ModalController);
   private tareaStateService: TareaStateService = inject(TareaStateService);
   private location: Location = inject(Location);
-
+  private nonSafeUrl: string = '';
   constructor() { }
 
   ngOnInit() {
@@ -45,18 +46,52 @@ export class TareaDetallePage implements OnInit {
         this.isProfessor = user.role === 'profesor';
       }
     });
-
+    this.checkIsMobile();
     this.route.paramMap.subscribe(params => {
       const tareaId = params.get('id');
       if (tareaId) {
         this.loadTareaDetalle(tareaId);
       } else {
         this.presentToast('ID de tarea no proporcionado.', 'danger');
-        this.router.navigate(['/Areas/Ritmo']); // Navigate back if no ID
+        this.router.navigate(['/Areas/Ritmo']);
       }
     });
   }
+  @HostListener('window:resize')
+  onResize() {
+    this.checkIsMobile();
+  }
 
+  private checkIsMobile(): void {
+    this.isMobile = window.matchMedia('(max-width: 1368px)').matches;
+  }
+  async openPdf(): Promise<void> {
+    try {
+      if (!this.tarea?.materialDeApoyo) return;
+      const base64 = this.tarea.materialDeApoyo.includes(',')
+        ? this.tarea.materialDeApoyo.split(',')[1]
+        : this.tarea.materialDeApoyo;
+
+      const fileName = `material-apoyo-${this.tarea._id || 'tarea'}.pdf`;
+
+      const result = await Filesystem.writeFile({
+        path: fileName,
+        data: base64,
+        directory: Directory.Cache,
+        recursive: true,
+      });
+
+      await FileOpener.open({
+        filePath: result.uri,
+        contentType: 'application/pdf',
+        openWithDefault: true,
+      });
+
+    } catch (e) {
+      console.error(e);
+      this.presentToast('No se pudo abrir el PDF en este dispositivo.', 'danger');
+    }
+  }
   loadTareaDetalle(tareaId: string) {
     this.tareaService.getTareaById(tareaId).subscribe({
       next: (tarea) => {
@@ -78,13 +113,13 @@ export class TareaDetallePage implements OnInit {
 
         if (this.tarea.materialDeApoyo) {
           const pdfBlob = this.b64toBlob(this.tarea.materialDeApoyo, 'application/pdf');
-          const url = URL.createObjectURL(pdfBlob);
-          this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+          this.nonSafeUrl = URL.createObjectURL(pdfBlob);
+          this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.nonSafeUrl);
         }
       },
       error: (err) => {
         this.presentToast(`Error al cargar la tarea: ${err.error.message || err.message}`, 'danger');
-        this.router.navigate(['/tabs/tab1']); // Navigate back on error
+        this.router.navigate(['/tabs/tab1']);
       }
     });
   }
@@ -112,7 +147,6 @@ export class TareaDetallePage implements OnInit {
     const { data, role } = await modal.onWillDismiss();
 
     if (role === 'confirm' && data) {
-      // Find the submission in the local array and update its grade
       const index = this.entregas.findIndex(e => e._id === entrega._id);
       if (index !== -1) {
         this.entregas[index].nota = data.nota;
@@ -125,7 +159,7 @@ export class TareaDetallePage implements OnInit {
     this.tareaService.closeTarea(this.tarea._id).subscribe({
       next: () => {
         this.presentToast('Tarea cerrada con éxito.');
-        if (this.tarea) this.tarea.cerrada = true; // Update UI
+        if (this.tarea) this.tarea.cerrada = true;
         this.tareaStateService.touch();
       },
       error: (err) => {

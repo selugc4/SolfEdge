@@ -26,11 +26,23 @@
 \contentsline {subsubsection}{\numberline {3.7.2.1}Servicio de inferencia externa mediante Groq}{16}{subsubsection.3.7.2.1}%
 \contentsline {subsubsection}{\numberline {3.7.2.2}Android Studio y entorno de construcción móvil}{17}{subsubsection.3.7.2.2}%
 \contentsline {chapter}{\numberline {4}Planificación del proyecto}{19}{chapter.4}%
-\contentsline {chapter}{\numberline {5}Desarrollo de la solución}{21}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Backend}{21}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Frontend}{21}{section.5.2}%
-\contentsline {chapter}{\numberline {6}Plan de implantación}{22}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Adaptación tecnológica}{22}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Mejoras de seguridad}{22}{section.6.2}%
-\contentsline {section}{\numberline {6.3}Implantación en un centro educativo}{22}{section.6.3}%
-\contentsline {chapter}{\numberline {7}Conclusiones y líneas de trabajo futuro}{23}{chapter.7}%
+\contentsline {chapter}{\numberline {5}Desarrollo de la aplicación backend}{21}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Implementación}{21}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Operaciones lógicas (revisión y eliminación)}{21}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.2}Importación masiva desde CSV (deformateo, validación y creación)}{22}{subsection.5.1.2}%
+\contentsline {subsection}{\numberline {5.1.3}Servicio de IA con Groq (integración por API y capa de servicios)}{36}{subsection.5.1.3}%
+\contentsline {section}{\numberline {5.2}Testing}{37}{section.5.2}%
+\contentsline {chapter}{\numberline {6}Desarrollo de la aplicación frontend}{39}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Implementación}{39}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}Exportación a Android con Capacitor}{39}{subsection.6.1.1}%
+\contentsline {subsubsection}{\numberline {6.1.1.1}Ajuste de barras del sistema (zona superior e inferior)}{39}{subsubsection.6.1.1.1}%
+\contentsline {subsubsection}{\numberline {6.1.1.2}Apertura de PDFs en Android (Filesystem + FileOpener)}{40}{subsubsection.6.1.1.2}%
+\contentsline {subsubsection}{\numberline {6.1.1.3}Estilos específicos para móvil}{41}{subsubsection.6.1.1.3}%
+\contentsline {subsubsection}{\numberline {6.1.1.4}Ajustes finales en Android Studio (iconos, splash, manifest)}{41}{subsubsection.6.1.1.4}%
+\contentsline {section}{\numberline {6.2}Diseño}{42}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Testing}{42}{section.6.3}%
+\contentsline {chapter}{\numberline {7}Plan de implantación}{43}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Adaptación tecnológica}{43}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Mejoras de seguridad}{43}{section.7.2}%
+\contentsline {section}{\numberline {7.3}Implantación en un centro educativo}{43}{section.7.3}%
+\contentsline {chapter}{\numberline {8}Conclusiones y líneas de trabajo futuro}{44}{chapter.8}%

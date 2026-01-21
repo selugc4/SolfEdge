@@ -18,6 +18,7 @@ import { helpCircleOutline } from 'ionicons/icons';
   selector: 'app-cuestionario-completar',
   templateUrl: './cuestionario-completar.page.html',
   standalone: true,
+  styleUrl: './cuestionario-completar.page.scss',
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule,
     IonHeader, IonToolbar, IonTitle, IonButton, IonButtons, IonContent,

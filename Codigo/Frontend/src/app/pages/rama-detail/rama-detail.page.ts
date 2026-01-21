@@ -1,11 +1,11 @@
-import { Component, inject, NgZone, OnDestroy } from '@angular/core';
+import { Component, HostListener, inject, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterModule, Router } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { AlertController, IonButtons, IonMenuButton, ModalController, ToastController, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonList, IonItem, IonLabel, IonIcon, IonToggle, IonSpinner, IonFab, IonFabButton } from '@ionic/angular/standalone'; // Added IonSpinner
+import { AlertController, IonButtons, IonMenuButton, ModalController, ToastController, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonList, IonItem, IonLabel, IonIcon, IonToggle, IonSpinner, IonFab, IonFabButton, ActionSheetController } from '@ionic/angular/standalone'; // Added IonSpinner
 import { addIcons } from 'ionicons';
-import { add, addCircleOutline, cloudUploadOutline, createOutline, documentTextOutline, ribbonOutline, trashOutline, checkmarkCircleOutline, closeCircleOutline } from 'ionicons/icons';
+import { add, addCircleOutline, cloudUploadOutline, createOutline, documentTextOutline, ribbonOutline, trashOutline, checkmarkCircleOutline, closeCircleOutline, ellipsisVertical } from 'ionicons/icons';
 
 import { RamaConfigService } from '../../services/rama-config.service';
 import { TareaService } from '../../services/tarea.service';
@@ -23,8 +23,10 @@ import { Grupo } from '../../models/grupo.model';
 
 import { TareaModalComponent } from '../../components/tarea-modal/tarea-modal.component';
 import { EntregarTareaModalComponent } from '../../components/entregar-tarea-modal/entregar-tarea-modal.component';
-import { forkJoin, of } from 'rxjs'; // Added forkJoin and of
-import { finalize, switchMap, tap } from 'rxjs/operators'; // Added tap
+import { forkJoin, of } from 'rxjs';
+import { finalize, switchMap, tap } from 'rxjs/operators';
+import { Filesystem, Directory } from '@capacitor/filesystem';
+import { FileOpener } from '@capacitor-community/file-opener';
 
 @Component({
   selector: 'app-rama-detail',
@@ -48,7 +50,7 @@ export class RamaDetailPage implements OnDestroy {
   hasLibroDeApoyo = false;
   useCuestionarios = false;
   isLoading: boolean = true; // Added isLoading
-
+  private libroBlob: Blob | null = null;
   private readonly route: ActivatedRoute = inject(ActivatedRoute);
   private readonly ramaConfigService: RamaConfigService = inject(RamaConfigService);
   private readonly tareaService: TareaService = inject(TareaService);
@@ -65,6 +67,9 @@ export class RamaDetailPage implements OnDestroy {
   private readonly tareaStateService: TareaStateService = inject(TareaStateService);
   private cuestionarioSubscription: Subscription | undefined; // Add cuestionarioSubscription
   private tareaSubscription: Subscription | undefined;
+  isMobile= false;
+  nonSafeUrl: string = '';
+  actionSheetCtrl: ActionSheetController = inject(ActionSheetController);
 
   constructor() {
     addIcons({
@@ -76,7 +81,8 @@ export class RamaDetailPage implements OnDestroy {
       ribbonOutline,
       trashOutline,
       checkmarkCircleOutline,
-      closeCircleOutline
+      closeCircleOutline,
+      ellipsisVertical
     });
 
     this.tareaSubscription = this.tareaStateService.tareaModified$.subscribe(() => {
@@ -84,18 +90,59 @@ export class RamaDetailPage implements OnDestroy {
     });
 
     this.cuestionarioSubscription = this.cuestionarioStateService.cuestionarioModified$.subscribe(() => {
-      this.loadCuestionarios().subscribe(); // Subscribe to questionnaire changes
+      this.loadCuestionarios().subscribe();
     });
   }
+  ngOnInit(){
 
+  }
   ngOnDestroy() {
     if (this.tareaSubscription) {
       this.tareaSubscription.unsubscribe();
     }
-    if (this.cuestionarioSubscription) { // Unsubscribe from questionnaire changes
+    if (this.cuestionarioSubscription) {
       this.cuestionarioSubscription.unsubscribe();
     }
+    if (this.nonSafeUrl) {
+      URL.revokeObjectURL(this.nonSafeUrl);
+    }
   }
+  @HostListener('window:resize')
+  onResize() {
+    this.checkIsMobile();
+  }
+
+  private checkIsMobile(): void {
+    this.isMobile = window.matchMedia('(max-width: 1368px)').matches;
+  }
+async openPdf(): Promise<void> {
+  try {
+    if (!this.libroBlob) {
+      await this.presentToast('No hay PDF disponible para abrir.', 'danger');
+      return;
+    }
+
+    const base64 = await this.blobToBase64(this.libroBlob);
+    const fileName = `libro-apoyo-${this.ramaConfig?._id || 'rama'}.pdf`;
+
+    const result = await Filesystem.writeFile({
+      path: fileName,
+      data: base64,
+      directory: Directory.Cache,
+      recursive: true,
+    });
+
+    await FileOpener.open({
+      filePath: result.uri,
+      contentType: 'application/pdf',
+      openWithDefault: true,
+    });
+  } catch (e) {
+    console.error(e);
+    await this.presentToast('No se pudo abrir el PDF en este dispositivo.', 'danger');
+  }
+}
+
 
   navigateToTask(taskId: string): void {
     this.router.navigate(['/Tarea-detalle', taskId]);
@@ -108,9 +155,86 @@ export class RamaDetailPage implements OnDestroy {
   trackByCuestionario(index: number, cuestionario: Cuestionario): string {
     return cuestionario._id;
   }
+  async openProfessorMenu(tarea: any) {
+    const buttons: any[] = [
+      {
+        text: 'Editar tarea',
+        icon: 'create-outline',
+        handler: () => this.presentTareaModal(tarea)
+      }
+    ];
 
+    if (!this.isTareaClosed(tarea)) {
+      buttons.push({
+        text: 'Cerrar tarea',
+        icon: 'close-circle-outline',
+        handler: () => this.closeTarea(tarea._id)
+      });
+    }
+
+    buttons.push(
+      {
+        text: 'Eliminar tarea',
+        role: 'destructive',
+        icon: 'trash-outline',
+        handler: () => this.deleteTarea(tarea._id)
+      },
+      {
+        text: 'Cancelar',
+        role: 'cancel'
+      }
+    );
+
+    const sheet = await this.actionSheetCtrl.create({ buttons });
+    await sheet.present();
+  }
+  private blobToBase64(blob: Blob): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onerror = () => reject(new Error('Error leyendo el PDF'));
+      reader.onload = () => {
+        const dataUrl = reader.result as string;
+        resolve(dataUrl.split(',')[1]);
+      };
+      reader.readAsDataURL(blob);
+    });
+  }
+
+  async openCuestionarioMenu(cuestionario: any) {
+    const buttons: any[] = [
+      {
+        text: 'Editar cuestionario',
+        icon: 'create-outline',
+        handler: () => this.presentCuestionarioModal(cuestionario)
+      }
+    ];
+
+    if (!this.isCuestionarioClosed(cuestionario)) {
+      buttons.push({
+        text: 'Cerrar cuestionario',
+        icon: 'close-circle-outline',
+        handler: () => this.closeCuestionario(cuestionario._id)
+      });
+    }
+
+    buttons.push(
+      {
+        text: 'Eliminar cuestionario',
+        role: 'destructive',
+        icon: 'trash-outline',
+        handler: () => this.deleteCuestionario(cuestionario._id)
+      },
+      {
+        text: 'Cancelar',
+        role: 'cancel'
+      }
+    );
+
+    const sheet = await this.actionSheetCtrl.create({ buttons });
+    await sheet.present();
+  }
   ionViewWillEnter() {
-    this.isLoading = true; // Set loading to true
+    this.isLoading = true;
     this.route.data.subscribe(data => {
       this.title = data['title'];
       this.ramaNombre = data['ramaNombre'];
@@ -134,7 +258,7 @@ export class RamaDetailPage implements OnDestroy {
                 ])
               ),
               finalize(() => {
-                this.isLoading = false; // Siempre se ejecuta
+                this.isLoading = false;
               })
             ).subscribe({
               error: (err) => {
@@ -150,9 +274,10 @@ export class RamaDetailPage implements OnDestroy {
             this.hasLibroDeApoyo = false;
             this.isLoading = false;
           }
+          this.checkIsMobile();
         });
       } else {
-        this.isLoading = false; // Set to false if no user
+        this.isLoading = false;
       }
     });
   }
@@ -163,8 +288,9 @@ export class RamaDetailPage implements OnDestroy {
         if (this.ramaConfig) {
           this.ramaConfigService.getRamaPdf(this.ramaConfig._id).subscribe({
             next: (pdfBlob) => {
-              const url = URL.createObjectURL(pdfBlob);
-              this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+              this.libroBlob = pdfBlob;
+              this.nonSafeUrl = URL.createObjectURL(pdfBlob);
+              this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.nonSafeUrl);
               this.hasLibroDeApoyo = true;
             },
             error: () => {

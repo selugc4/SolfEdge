@@ -63,7 +63,7 @@
 
           <ion-card-content>
             @if (pregunta.recursoAudicion) {
-              <div class="ion-padding-vertical">
+              <div>
 
                 @if (isBase64Audio(pregunta.recursoAudicion)) {
                   <audio
@@ -71,36 +71,33 @@
                     [src]="getSafeBase64Url(pregunta.recursoAudicion)">
                   </audio>
 
-                } @else if (isYouTubeUrl(pregunta.recursoAudicion)) {
-                  <div style="display: flex; justify-content: center; width: 100%;">
-                    <div style="position: relative; width: 25%; padding-top: 14.0625%;">
-                      <iframe
-                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
-                        [src]="getYouTubeEmbedUrl(isYouTubeUrl(pregunta.recursoAudicion)!)"
-                        frameborder="0"
-                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen
-                      ></iframe>
-                    </div>
+                }
+                @else if (isYouTubeUrl(pregunta.recursoAudicion)) {
+                  <div class="embed-wrap">
+                    <iframe
+                      class="embed-frame embed-frame--youtube"
+                      [src]="getYouTubeEmbedUrl(isYouTubeUrl(pregunta.recursoAudicion)!)"
+                      frameborder="0"
+                      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                      allowfullscreen
+                    ></iframe>
                   </div>
-
-                } @else if (isSpotifyUrl(pregunta.recursoAudicion)) {
-                  <div style="display: flex; justify-content: center; width: 100%;">
-                    <div style="position: relative; width: 25%; padding-top: 14.0625%;">
-                      <iframe
-                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
-                        [src]="getSpotifyEmbedUrl(
-                          isSpotifyUrl(pregunta.recursoAudicion)!.type,
-                          isSpotifyUrl(pregunta.recursoAudicion)!.id
-                        )"
-                        frameborder="0"
-                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen
-                      ></iframe>
-                    </div>
+                }
+                @else if (isSpotifyUrl(pregunta.recursoAudicion)) {
+                  <div class="embed-wrap">
+                    <iframe
+                      class="embed-frame embed-frame--spotify"
+                      [src]="getSpotifyEmbedUrl(
+                        isSpotifyUrl(pregunta.recursoAudicion)!.type,
+                        isSpotifyUrl(pregunta.recursoAudicion)!.id
+                      )"
+                      frameborder="0"
+                      allow="encrypted-media"
+                      allowfullscreen
+                    ></iframe>
                   </div>
-
-                } @else {
+                }
+                @else {
                   <ion-item lines="none">
                     <ion-label>
                       Recurso adjunto:
@@ -114,13 +111,11 @@
               </div>
             }
 
-            <!-- RESPUESTAS -->
             <ion-radio-group
               [formControlName]="i.toString()"
-              class="ion-margin-top"
             >
               @for (respuesta of pregunta.posiblesRespuestas; track j; let j = $index) {
-                <ion-item>
+                <ion-item [class.margin-top]="j === 0">
                   <ion-radio
                     [value]="j"
                     labelPlacement="end"

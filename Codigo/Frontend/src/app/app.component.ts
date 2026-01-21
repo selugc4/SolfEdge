@@ -1,7 +1,8 @@
 import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { IonApp, IonRouterOutlet, IonMenu, IonHeader, IonToolbar, IonTitle, IonContent, IonMenuToggle, IonItem, IonIcon, IonLabel, ModalController, IonSelect, IonSelectOption } from '@ionic/angular/standalone';
+import { StatusBar, Style } from '@capacitor/status-bar';
+import { IonApp, IonRouterOutlet, IonMenu, IonHeader, IonToolbar, IonTitle, IonContent, IonMenuToggle, IonItem, IonIcon, IonLabel, ModalController, IonSelect, IonSelectOption, Platform } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { briefcaseSharp, logOutSharp, notificationsSharp, peopleSharp, mailSharp } from 'ionicons/icons';
 import { AuthService } from './services/auth.service';
@@ -31,12 +32,17 @@ export class AppComponent implements OnInit {
   router: Router = inject(Router);
   modalController: ModalController = inject(ModalController);
   grupoStateService: GrupoStateService = inject(GrupoStateService);
-
+  private platform = inject(Platform);
   constructor() {
     addIcons({ briefcaseSharp, logOutSharp, notificationsSharp, peopleSharp, mailSharp });
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    await this.platform.ready();
+    if (this.platform.is('capacitor')) {
+      await StatusBar.setOverlaysWebView({ overlay: false });
+      await StatusBar.setStyle({ style: Style.Default });
+    }
     this.authService.currentUser.subscribe(user => {
       this.isAdminOrProfessor = user?.role === 'profesor' || user?.role === 'administrador';
       this.isAdministrator = user?.role === 'administrador';

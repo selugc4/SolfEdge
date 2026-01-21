@@ -1,0 +1,43 @@
+.embed-wrap {
+  width: 100%;
+}
+
+.embed-frame {
+  display: block;
+  margin: 0 auto;
+  border: 0;
+  max-width: 900px;
+  width: 65%;
+}
+@media (min-width: 1368px) {
+  .embed-frame {
+    width: 25%;
+  }
+}
+
+@media (max-width: 768px) {
+  .embed-frame {
+    width: 100%;
+  }
+}
+
+.embed-frame--youtube {
+  aspect-ratio: 16 / 9;
+  height: auto;
+}
+
+@supports not (aspect-ratio: 16 / 9) {
+  .embed-frame--youtube {
+    height: 360px;
+  }
+  @media (max-width: 768px) {
+    .embed-frame--youtube {
+      height: 220px;
+    }
+  }
+}
+
+.embed-frame--spotify {
+  height: 152px;
+  border-radius: 12px;
+}

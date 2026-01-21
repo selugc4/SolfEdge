@@ -571,21 +571,990 @@ Por último, también se añade la planificación de las tareas principales en h
     \caption{Planificación de las tareas principales en horas}
     \label{fig:planificacion_horas}
 \end{figure}
+% =========================================================
+%  CAPÍTULO: DESARROLLO BACKEND (COMPLEMENTO)
+% =========================================================
+\chapter{Desarrollo de la aplicación backend}
+\label{chap:desarrollo_backend}
 
-\chapter{Desarrollo de la solución}
-\label{chap:desarrollo}
+El backend de este complemento se apoya directamente en la base implementada en el TFG original, manteniendo la misma pila tecnológica: \textbf{Node.js} como entorno de ejecución y \textbf{Express} como framework para exponer una \textbf{API REST}. A nivel de organización interna, se conserva la separación de responsabilidades típica del proyecto base, con una estructura inspirada en \textbf{MVC adaptado a backend} (sin vistas): \textbf{modelos} para persistencia y esquema de datos, \textbf{controladores} para la lógica de operaciones y \textbf{rutas} como capa de entrada a los endpoints.
 
-El desarrollo de la solución extendida se centra principalmente en la incorporación de las nuevas funcionalidades definidas y en la mejora de ciertos aspectos del frontend y del backend.
+En esta fase del complemento, la mayor diferencia no está en “hacer un CRUD nuevo”, sino en reforzar operaciones de uso real (revisiones, eliminaciones y altas masivas) que requieren más validación, limpieza de relaciones y control de errores. Además, aparece una pieza nueva dentro del backend: \textbf{servicios}, usados para encapsular integraciones externas como la comunicación con la \textbf{API de Groq}.
 
-Dado que la arquitectura base ya fue detallada en el proyecto anterior, en este apartado se describen únicamente los cambios y extensiones relevantes introducidos, manteniendo una descripción más concisa del proceso de desarrollo.
+\section{Implementación}
+\label{sec:backend_impl}
 
-\section{Backend}
+\subsection{Operaciones lógicas (revisión y eliminación)}
 
-Las modificaciones en el backend se orientan a soportar las nuevas funcionalidades y a preparar la aplicación para futuras mejoras en materia de seguridad y escalabilidad.
+Las operaciones de revisión (listados y consultas) reutilizan el mismo patrón del proyecto base: filtrado por rol, respuesta en JSON y acceso a través de controladores. En cambio, las eliminaciones se han ampliado para contemplar el efecto real en otras colecciones (por ejemplo: al eliminar un grupo se eliminan/limpian tareas, cuestionarios, entregas y calificaciones asociadas, y se elimina la relación en los alumnos).
 
-\section{Frontend}
+Se incluye un ejemplo representativo (el resto de eliminaciones sigue una estructura muy similar):
 
-En el frontend se introducen mejoras de usabilidad y nuevas vistas que permiten acceder a las funcionalidades añadidas, manteniendo la coherencia visual y funcional con la aplicación original.
+\begin{Verbatim}[frame=single, fontsize=\small, xleftmargin=10pt, xrightmargin=10pt]
+
+// Ejemplo representativo: eliminar un grupo y limpiar datos asociados
+async function eliminarGrupo(groupId, profesorId) {
+
+  // 1) Verificar que el grupo existe y pertenece al profesor autenticado
+  const grupo = await Grupo.findOne({
+    _id: groupId,
+    profesor: profesorId
+  });
+
+  if (!grupo) {
+    throw new Error('Grupo no encontrado o sin permisos');
+  }
+
+  // 2) Eliminar contenido asociado al grupo
+  await Tarea.deleteMany({ grupo: groupId });
+  await Cuestionario.deleteMany({ grupo: groupId });
+
+  // 3) Eliminar entregas y calificaciones asociadas
+  await Entrega.deleteMany({ grupo: groupId });
+  await Calificacion.deleteMany({ grupo: groupId });
+
+  // 4) Eliminar la relación del grupo en alumnos
+  await Alumno.updateMany(
+    { grupos: groupId },
+    { $pull: { grupos: groupId } }
+  );
+
+  // 5) Eliminar el documento principal
+  await Grupo.deleteOne({ _id: groupId });
+
+  return { ok: true };
+}
+
+\end{Verbatim}
+
+\subsection{Importación masiva desde CSV (deformateo, validación y creación)}
+
+La importación desde CSV introduce un flujo distinto al alta individual: se trabaja con datos externos que pueden venir incompletos, repetidos o con referencias inconsistentes. Por eso, el proceso se estructura en dos fases:
+
+\begin{itemize}
+  \item \textbf{Validación previa completa:} se parsea el CSV y se recorren todas las filas acumulando errores. Si existe cualquier error, no se crea nada.
+  \item \textbf{Creación en transacción:} si el CSV es válido, se crea todo dentro de una transacción de Mongoose para evitar estados parciales.
+\end{itemize}
+
+Además, se aplica una regla del sistema clave en este complemento: \textbf{un alumno pertenece a un único profesor}. Esto se comprueba antes de crear los grupos: si un grupo de un profesor intenta incluir un alumno asignado a otro profesor, se detiene la importación.
+
+A continuación se incluye el fragmento completo solicitado. Está intencionadamente \textbf{muy comentado} y con \textbf{saltos de línea extra} para minimizar que se salga del margen en PDF.
+
+\begin{Verbatim}[frame=single, fontsize=\small, xleftmargin=10pt, xrightmargin=10pt]
+
+
+const generarUsername = async (baseUsername) => {
+
+  // ----------------------------------------------------------
+  //  Generación del username final a partir de una base de 3 letras
+  //  - Se busca cuántos usuarios existen ya con ese prefijo
+  //  - Si hay coincidencias, se añade un sufijo numérico
+  // ----------------------------------------------------------
+
+  if (baseUsername.length !== 3) {
+    return {
+      error: 'La base para el username debe ser de 3 letras.'
+    };
+  }
+
+  const regex = new RegExp(`^${baseUsername}`);
+
+  const count = await Usuario.countDocuments({
+    username: regex
+  });
+
+  return {
+    username: count > 0
+      ? `${baseUsername}${count}`
+      : baseUsername
+  };
+};
+
+
+const normalize = (s) =>
+  (s || '')
+    .toString()
+    .trim()
+    .toLowerCase()
+
+    // ----------------------------------------------------------
+    //  Normalización Unicode para eliminar acentos:
+    //  Ej.: "José" -> "Jose"
+    // ----------------------------------------------------------
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+
+    // ----------------------------------------------------------
+    //  Se eliminan caracteres que no sean letras (a-z)
+    //  Ej.: espacios, guiones, números, etc.
+    // ----------------------------------------------------------
+    .replace(/[^a-z]/g, '');
+
+
+const deriveBaseUsername3 = ({
+  nombre,
+  apellido1,
+  apellido2,
+  email
+}) => {
+
+  // ----------------------------------------------------------
+  //  A partir de nombre/apellidos/email, se deriva una base de
+  //  3 letras para username (antes de aplicar el sufijo numérico)
+  // ----------------------------------------------------------
+
+  const n  = normalize(nombre);
+  const a1 = normalize(apellido1);
+  const a2 = normalize(apellido2);
+
+  const em = email
+    ? normalize(email.split('@')[0])
+    : '';
+
+  let base = '';
+
+  // Iniciales típicas: nombre + apellidos
+  if (n)  base += n[0];
+  if (a1) base += a1[0];
+  if (a2) base += a2[0];
+
+  // Si no alcanza 3 caracteres, se rellena con letras extra
+  if (base.length < 3) {
+
+    const extra =
+      a1.slice(1)
+      + n.slice(1)
+      + em;
+
+    for (const ch of extra) {
+      if (base.length >= 3) break;
+      if (ch) base += ch;
+    }
+  }
+
+  // En último caso, se fuerza a 3 caracteres
+  if (base.length < 3) {
+    base = (base + 'xxx').slice(0, 3);
+  }
+
+  return base.slice(0, 3);
+};
+
+
+const isLikelyObjectId = (v) =>
+  typeof v === 'string'
+  && /^[a-fA-F0-9]{24}$/.test(v);
+
+
+exports.importarDesdeCSV = async (fileBuffer) => {
+
+  // ----------------------------------------------------------
+  //  1) Parseo del CSV
+  //  - columns: true -> usa la primera fila como cabecera
+  //  - trim: true -> elimina espacios
+  // ----------------------------------------------------------
+
+  let records;
+
+  try {
+    records = parse(fileBuffer, {
+      columns: true,
+      skip_empty_lines: true,
+      trim: true
+    });
+  } catch (e) {
+    return {
+      status: 400,
+      body: {
+        error: 'CSV inválido o mal formateado.',
+        details: e.message
+      }
+    };
+  }
+
+  if (!Array.isArray(records) || records.length === 0) {
+    return {
+      status: 400,
+      body: { error: 'El CSV está vacío.' }
+    };
+  }
+
+
+  // ----------------------------------------------------------
+  //  2) Preparación de estructuras
+  //  - errors: lista de errores por fila
+  //  - usersRows: filas tipo "usuario"
+  //  - groupsRows: filas tipo "grupo"
+  //  - seenRefs / seenEmails: evitar duplicados dentro del CSV
+  // ----------------------------------------------------------
+
+  const errors = [];
+
+  const usersRows = [];
+  const groupsRows = [];
+
+  const seenRefs = new Set();
+  const seenEmails = new Set();
+
+
+  // ----------------------------------------------------------
+  //  3) Validación fila a fila
+  //  - Se recorren todas las filas y se registran errores
+  //  - NO se crea nada todavía
+  // ----------------------------------------------------------
+
+  for (let i = 0; i < records.length; i++) {
+
+    const r = records[i];
+
+    // +2: porque la fila 1 es cabecera
+    // y queremos mostrar número humano (base 1)
+    const rowNum = i + 2;
+
+    const tipo = (r.tipo || '').toLowerCase();
+
+
+    // ----- Validación de "ref" -----
+    if (!r.ref) {
+      errors.push(`Fila ${rowNum}: 'ref' es obligatorio.`);
+    }
+
+    if (r.ref && seenRefs.has(r.ref)) {
+      errors.push(
+        `Fila ${rowNum}: ref duplicado '${r.ref}'.`
+      );
+    }
+
+    if (r.ref) seenRefs.add(r.ref);
+
+
+    // ----- Tipos permitidos -----
+    if (tipo === 'usuario') {
+
+      // Rol: alumno o profesor
+      const rol = (r.rol || '').toLowerCase();
+
+      if (!['alumno', 'profesor'].includes(rol)) {
+        errors.push(
+          `Fila ${rowNum}: rol inválido '${r.rol}'.`
+        );
+      }
+
+      // Campos obligatorios de usuario
+      for (const f of [
+        'nombre',
+        'apellido1',
+        'apellido2',
+        'email'
+      ]) {
+        if (!r[f]) {
+          errors.push(
+            `Fila ${rowNum}: '${f}' es obligatorio para usuario.`
+          );
+        }
+      }
+
+      // Email único dentro del CSV
+      if (r.email) {
+        const em = r.email.toLowerCase();
+
+        if (seenEmails.has(em)) {
+          errors.push(
+            `Fila ${rowNum}: email duplicado en el CSV '${r.email}'.`
+          );
+        }
+
+        seenEmails.add(em);
+      }
+
+      // Reglas específicas de alumno
+      if (rol === 'alumno' && !r.profesor_ref) {
+        errors.push(
+          `Fila ${rowNum}: alumno requiere 'profesor_ref'.`
+        );
+      }
+
+      usersRows.push({
+        ...r,
+        rol
+      });
+
+    } else if (tipo === 'grupo') {
+
+      // Campos obligatorios de grupo
+      for (const f of [
+        'nombre_grupo',
+        'profesor_ref',
+        'alumnos_ref'
+      ]) {
+        if (!r[f]) {
+          errors.push(
+            `Fila ${rowNum}: '${f}' es obligatorio para grupo.`
+          );
+        }
+      }
+
+      groupsRows.push(r);
+
+    } else {
+
+      errors.push(
+        `Fila ${rowNum}: tipo inválido '${r.tipo}'. ` +
+        `Use 'usuario' o 'grupo'.`
+      );
+    }
+  }
+
+
+  // ----------------------------------------------------------
+  //  4) Separación por referencias del CSV
+  //  - Map(ref -> fila profesor)
+  //  - Map(ref -> fila alumno)
+  // ----------------------------------------------------------
+
+  const profRefRows = new Map();
+  const alumRefRows = new Map();
+
+  for (const u of usersRows) {
+    if (u.rol === 'profesor') profRefRows.set(u.ref, u);
+    if (u.rol === 'alumno')   alumRefRows.set(u.ref, u);
+  }
+
+
+  // ----------------------------------------------------------
+  //  5) Validación: cada alumno debe apuntar a un profesor válido
+  //  - Puede ser una ref dentro del CSV
+  //  - O un ObjectId (si el profesor ya existe en BD)
+  // ----------------------------------------------------------
+
+  for (const a of alumRefRows.values()) {
+
+    const pref = a.profesor_ref;
+
+    const ok =
+      profRefRows.has(pref)
+      || isLikelyObjectId(pref);
+
+    if (!ok) {
+      errors.push(
+        `Alumno ref='${a.ref}': profesor_ref '${pref}' ` +
+        `no existe en CSV ni parece ObjectId.`
+      );
+    }
+  }
+
+
+  // ----------------------------------------------------------
+  //  6) Validación de grupos
+  //  - profesor_ref válido
+  //  - alumnos_ref no vacío
+  //  - refs de alumnos válidas
+  //  - regla de negocio:
+  //    un alumno no puede pertenecer a otro profesor
+  // ----------------------------------------------------------
+
+  for (const g of groupsRows) {
+
+    const pref = g.profesor_ref;
+
+    const profesorOk =
+      profRefRows.has(pref)
+      || isLikelyObjectId(pref);
+
+    if (!profesorOk) {
+      errors.push(
+        `Grupo ref='${g.ref}': profesor_ref '${pref}' ` +
+        `no existe en CSV ni parece ObjectId.`
+      );
+    }
+
+    // alumnos_ref se separa con '|'
+    const alumnoRefs = (g.alumnos_ref || '')
+      .split('|')
+      .map((s) => s.trim())
+      .filter(Boolean);
+
+    if (alumnoRefs.length === 0) {
+      errors.push(
+        `Grupo ref='${g.ref}': debe tener al menos un alumno ` +
+        `en alumnos_ref.`
+      );
+    }
+
+    // 6.1) Validación: cada alumno existe en CSV o es ObjectId
+    for (const ar of alumnoRefs) {
+
+      const existeEnCsv = alumRefRows.has(ar);
+      const pareceId   = isLikelyObjectId(ar);
+
+      if (!existeEnCsv && !pareceId) {
+        errors.push(
+          `Grupo ref='${g.ref}': alumno '${ar}' ` +
+          `no existe en CSV ni parece ObjectId.`
+        );
+      }
+    }
+
+    // 6.2) Regla de negocio: alumno pertenece a un profesor único
+    for (const ar of alumnoRefs) {
+
+      if (alumRefRows.has(ar)) {
+
+        const alumno = alumRefRows.get(ar);
+
+        if (alumno.profesor_ref && alumno.profesor_ref !== pref) {
+
+          errors.push(
+            `Regla negocio: Grupo ref='${g.ref}' ` +
+            `(profesor_ref='${pref}') incluye alumno ref='${ar}' ` +
+            `que pertenece a profesor_ref='${alumno.profesor_ref}'.`
+          );
+        }
+      }
+    }
+  }
+
+
+  // Si hay errores, se devuelve antes de crear nada
+  if (errors.length > 0) {
+    return {
+      status: 400,
+      body: {
+        error: 'Errores de validación en el CSV.',
+        errors
+      }
+    };
+  }
+
+
+  // ----------------------------------------------------------
+  //  7) Creación dentro de transacción (Mongoose session)
+  //  - Si algo falla, se aborta y no queda nada a medias
+  // ----------------------------------------------------------
+
+  const session = await mongoose.startSession();
+
+  // Se guardan usuarios creados para enviar credenciales al final
+  const usersToEmail = [];
+
+  try {
+
+    await session.startTransaction();
+
+
+    // --- 7.1) Crear profesores ---
+    const profesoresRows = [...profRefRows.values()];
+
+    const profesoresData = profesoresRows.map((p) => ({
+      nombre: p.nombre,
+      apellido1: p.apellido1,
+      apellido2: p.apellido2,
+      email: p.email,
+
+      // Se deriva baseUsername de 3 letras
+      baseUsername: deriveBaseUsername3(p)
+    }));
+
+    const createdProfesoresByRef = new Map();
+
+    if (profesoresData.length > 0) {
+
+      const res = await exports.addUsuarios(
+        profesoresData,
+        'profesor',
+        null,
+        session,
+        { sendEmails: false }
+      );
+
+      if (res.status !== 201) {
+        throw new Error(
+          res.body?.error || 'Error creando profesores'
+        );
+      }
+
+      const created = res.body;
+
+      profesoresRows.forEach((row, idx) => {
+        createdProfesoresByRef.set(row.ref, created[idx]);
+        usersToEmail.push(created[idx]);
+      });
+    }
+
+
+    // --- 7.2) Agrupar alumnos por profesor ---
+    const alumnosPorProfesor = new Map();
+
+    for (const [aref, a] of alumRefRows.entries()) {
+
+      // profesor_ref puede ser ObjectId o ref del CSV
+      const profesorId = isLikelyObjectId(a.profesor_ref)
+        ? a.profesor_ref
+        : String(
+            createdProfesoresByRef
+              .get(a.profesor_ref)
+              ._id
+          );
+
+      const data = {
+        nombre: a.nombre,
+        apellido1: a.apellido1,
+        apellido2: a.apellido2,
+        email: a.email,
+        baseUsername: deriveBaseUsername3(a),
+
+        // Guardamos ref del CSV para mapear el creado luego
+        __csv_ref: aref
+      };
+
+      if (!alumnosPorProfesor.has(profesorId)) {
+        alumnosPorProfesor.set(profesorId, []);
+      }
+
+      alumnosPorProfesor.get(profesorId).push(data);
+    }
+
+
+    // --- 7.3) Crear alumnos y mapear por ref ---
+    const createdAlumnosByRef = new Map();
+
+    for (const [profesorId, alumnosData] of alumnosPorProfesor.entries()) {
+
+      const res = await exports.addUsuarios(
+        alumnosData.map((x) => ({
+          nombre: x.nombre,
+          apellido1: x.apellido1,
+          apellido2: x.apellido2,
+          email: x.email,
+          baseUsername: x.baseUsername
+        })),
+        'alumno',
+        profesorId,
+        session,
+        { sendEmails: false }
+      );
+
+      if (res.status !== 201) {
+        throw new Error(
+          res.body?.error || 'Error creando alumnos'
+        );
+      }
+
+      const created = res.body;
+
+      alumnosData.forEach((a, idx) => {
+        createdAlumnosByRef.set(a.__csv_ref, created[idx]);
+        usersToEmail.push(created[idx]);
+      });
+    }
+
+
+    // --- 7.4) Crear grupos ---
+    for (const g of groupsRows) {
+
+      const profesorId = isLikelyObjectId(g.profesor_ref)
+        ? g.profesor_ref
+        : String(
+            createdProfesoresByRef
+              .get(g.profesor_ref)
+              ._id
+          );
+
+      const alumnoRefs = (g.alumnos_ref || '')
+        .split('|')
+        .map((s) => s.trim())
+        .filter(Boolean);
+
+      const alumnoIds = alumnoRefs.map((ar) =>
+        isLikelyObjectId(ar)
+          ? ar
+          : String(
+              createdAlumnosByRef
+                .get(ar)
+                ._id
+            )
+      );
+
+      const res = await grupoController.crearGrupo(
+        g.nombre_grupo,
+        profesorId,
+        alumnoIds,
+        session
+      );
+
+      if (res.status !== 201) {
+        throw new Error(
+          res.body?.error || 'Error creando grupo'
+        );
+      }
+    }
+
+
+    // --- 7.5) Commit total ---
+    await session.commitTransaction();
+    session.endSession();
+
+
+    // ----------------------------------------------------------
+    //  8) Envío de correos con credenciales
+    //  - se realiza fuera de transacción
+    //  - si falla un correo, no invalida lo creado
+    // ----------------------------------------------------------
+
+    for (const user of usersToEmail) {
+
+      const emailResult = await emailController.enviarEmailCredenciales(
+        user.email,
+        user.username,
+        user.password
+      );
+
+      if (emailResult.message !== 'Correo enviado correctamente.') {
+
+        console.error(
+          `Error al enviar correo a ${user.email}: `
+          + `${emailResult.error || emailResult.message}`
+        );
+      }
+    }
+
+
+    // Respuesta final de éxito
+    return {
+      status: 201,
+      body: {
+        message: 'Importación CSV completada.',
+        created: {
+          profesores: profRefRows.size,
+          alumnos: alumRefRows.size,
+          grupos: groupsRows.length
+        }
+      }
+    };
+
+  } catch (e) {
+
+    // Si algo falla, se aborta toda la transacción
+    try {
+      await session.abortTransaction();
+    } catch (_) {}
+
+    session.endSession();
+
+    return {
+      status: 400,
+      body: {
+        error: 'La importación falló y se revirtió.',
+        details: e.message
+      }
+    };
+  }
+};
+
+\end{Verbatim}
+
+\subsection{Servicio de IA con Groq (integración por API y capa de servicios)}
+
+En el proyecto base, la lógica se repartía principalmente entre \textbf{rutas}, \textbf{controladores} y \textbf{modelos}. En este complemento se introduce además una \textbf{capa de servicios} para encapsular integraciones externas. Groq se integra mediante su \textbf{API pública}, y en la práctica el backend envía \textbf{prompts} (texto estructurado con instrucciones y contexto) y recibe una respuesta generada. Separarlo en un servicio evita mezclar esta comunicación externa con la lógica interna del sistema.
+
+\begin{Verbatim}[frame=single, fontsize=\small, xleftmargin=10pt, xrightmargin=10pt]
+
+// services/aiHint.service.js
+const Groq = require('groq-sdk');
+
+const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
+
+async function generarPistaTeoria({
+  preguntaTexto,
+  posiblesRespuestas,
+  recursoAudicion
+}) {
+
+  if (!process.env.GROQ_API_KEY) {
+    throw new Error('GROQ_API_KEY no está configurada');
+  }
+
+  const opciones = Array.isArray(posiblesRespuestas)
+    ? posiblesRespuestas
+        .map((r, i) => `${i + 1}) ${r?.texto ?? ''}`)
+        .join('\n')
+    : '';
+
+  const userContent =
+`Genera UNA pista breve para ayudar a responder esta pregunta tipo test sin revelar la respuesta.
+
+Pregunta:
+${preguntaTexto}
+
+Opciones:
+${opciones}
+
+${recursoAudicion ? 'Hay un recurso de audición asociado.' : ''}
+
+Requisitos:
+- 1 o 2 frases máximo
+- No digas cuál es la opción correcta
+- No des la solución ni pasos completos
+- No menciones "IA" ni "modelo"`;
+
+  const completion = await groq.chat.completions.create({
+    model: 'llama-3.3-70b-versatile',
+    messages: [
+      { role: 'system', content: 'Eres un tutor de música. Das pistas breves y seguras.' },
+      { role: 'user',   content: userContent }
+    ],
+    temperature: 0.2,
+    max_tokens: 90
+  });
+
+  const hint =
+    completion?.choices?.[0]?.message?.content?.trim();
+
+  if (!hint) throw new Error('No se pudo generar pista');
+
+  return hint
+    .replace(/^["'\s]+|["'\s]+$/g, '')
+    .trim();
+}
+
+module.exports = { generarPistaTeoria };
+
+\end{Verbatim}
+
+\section{Testing}
+\label{sec:backend_testing}
+
+Para el backend se mantiene el enfoque del TFG original con \textbf{Jest} y \textbf{Supertest}, centrado en validar endpoints y respuestas HTTP en un entorno controlado. En este complemento, cobra especial importancia asegurar que:
+\begin{itemize}
+  \item una importación inválida devuelve errores sin crear datos,
+  \item una importación válida crea lo esperado,
+  \item y operaciones sensibles (como eliminaciones) responden correctamente según permisos.
+\end{itemize}
+
+% Puedes incluir aquí uno o dos tests concretos si lo deseas, pero
+% como ya lo explicaste en el TFG original, con esta sección suele
+% ser suficiente para enlazar y justificar la continuidad.
+
+
+
+% =========================================================
+%  CAPÍTULO: DESARROLLO FRONTEND (COMPLEMENTO)
+% =========================================================
+\chapter{Desarrollo de la aplicación frontend}
+\label{chap:desarrollo_frontend}
+
+El frontend del complemento se mantiene sobre la pila del proyecto base: \textbf{Angular} + \textbf{Ionic}. Angular aporta la estructura modular basada en \textbf{componentes}, \textbf{servicios} y \textbf{módulos}, mientras que Ionic proporciona componentes visuales pensados para interfaz táctil y ejecución híbrida.
+
+A nivel de patrón, el desarrollo sigue el esquema habitual de Angular (frecuentemente descrito como un \textbf{MVC/MVVM práctico}): los \textbf{componentes} gestionan estado y renderizado de la vista, los \textbf{servicios} encapsulan lógica reutilizable y comunicación HTTP, y la “capa modelo” se representa mediante interfaces/DTOs y estructuras que viajan entre frontend y backend.
+
+En este complemento, aunque se han añadido pantallas y funcionalidades, el cambio más visible y relevante en frontend es la \textbf{exportación real a Android} y los ajustes necesarios para que la aplicación se comporte bien como app instalada.
+
+\section{Implementación}
+\label{sec:frontend_impl}
+
+\subsection{Exportación a Android con Capacitor}
+
+La exportación a móvil se realiza con \textbf{Capacitor}, que actúa como puente entre el proyecto web y el proyecto nativo Android. A nivel práctico:
+\begin{itemize}
+  \item genera un contenedor Android para ejecutar la app como instalada,
+  \item permite usar plugins para acceder a capacidades del dispositivo,
+  \item y facilita ajustes que en navegador (PC) no son necesarios.
+\end{itemize}
+
+\subsubsection{Ajuste de barras del sistema (zona superior e inferior)}
+
+En móvil pueden aparecer solapes con la barra superior o la zona inferior de navegación. Una forma de resolverlo es detectar plataforma nativa y aplicar estilos específicos.
+
+\begin{Verbatim}[frame=single, fontsize=\small, xleftmargin=10pt, xrightmargin=10pt]
+
+// Ejemplo orientativo: detectar ejecución nativa (Capacitor)
+import { Capacitor } from '@capacitor/core';
+
+const isNative = Capacitor.isNativePlatform();
+
+if (isNative) {
+  document.body.classList.add('native-platform');
+}
+
+\end{Verbatim}
+
+\begin{Verbatim}[frame=single, fontsize=\small, xleftmargin=10pt, xrightmargin=10pt]
+
+/* Ejemplo orientativo: padding extra en móvil para evitar solapes */
+.native-platform ion-content {
+  --padding-top: 16px;
+  --padding-bottom: 16px;
+}
+
+\end{Verbatim}
+
+\subsubsection{Apertura de PDFs en Android (Filesystem + FileOpener)}
+
+En PC, incrustar un PDF con \texttt{iframe} suele funcionar bien, pero en Android el WebView puede dar problemas. La solución aplicada consiste en:
+\begin{itemize}
+  \item detectar que se está en móvil,
+  \item mostrar un botón \textit{Abrir PDF},
+  \item guardar temporalmente el archivo en el dispositivo,
+  \item y abrirlo con el visor nativo del sistema.
+\end{itemize}
+
+\begin{Verbatim}[frame=single, fontsize=\small, xleftmargin=10pt, xrightmargin=10pt]
+
+// Ejemplo orientativo: abrir PDF en visor nativo Android
+import { Capacitor } from '@capacitor/core';
+import { Filesystem, Directory } from '@capacitor/filesystem';
+import { FileOpener } from '@capacitor-community/file-opener';
+
+async function abrirPdfEnMovil(
+  nombreFichero,
+  pdfBase64
+) {
+
+  // Solo se ejecuta en app instalada (Android/iOS)
+  if (!Capacitor.isNativePlatform()) return;
+
+  // 1) Guardar el PDF en Documents (o caché si prefieres)
+  const writeRes = await Filesystem.writeFile({
+    path: nombreFichero,
+    data: pdfBase64,
+    directory: Directory.Documents
+  });
+
+  // 2) Abrir el PDF con el visor nativo
+  await FileOpener.open({
+    filePath: writeRes.uri,
+    contentType: 'application/pdf'
+  });
+}
+
+\end{Verbatim}
+
+\subsubsection{Estilos específicos para móvil}
+
+Además de los cambios anteriores, se han aplicado ajustes de CSS para mejorar usabilidad en pantallas pequeñas (márgenes, tamaños de letra, botones a ancho completo, etc.). Un ejemplo típico es el uso de \texttt{@media}:
+
+\begin{Verbatim}[frame=single, fontsize=\small, xleftmargin=10pt, xrightmargin=10pt]
+
+/* Ejemplo orientativo de ajustes visuales para móvil */
+@media (max-width: 768px) {
+
+  ion-button {
+    width: 100%;
+    margin-bottom: 12px;
+  }
+
+  .content-wrapper {
+    padding: 12px;
+  }
+
+  .card-title {
+    font-size: 1.05rem;
+  }
+}
+
+\end{Verbatim}
+
+\subsubsection{Ajustes finales en Android Studio (iconos, splash, manifest)}
+
+Una vez compilado el proyecto Android, ciertos recursos visuales se terminan de ajustar desde \textbf{Android Studio}, como:
+\begin{itemize}
+  \item iconos definitivos,
+  \item pantalla de carga (\textit{splash}),
+  \item y referencias en el \textit{manifest} si procede.
+\end{itemize}
+
+% Aquí puedes ampliar tu caso real: logos en manifest, splash, etc.
+
+
+\section{Diseño}
+\label{sec:frontend_diseno}
+
+En este complemento, las capturas de diseño se plantean \textbf{desde móvil} (Android) para evidenciar justo lo explicado en implementación: comportamiento instalado, ausencia de solapes, apertura de PDFs con visor nativo y coherencia visual en pantalla pequeña.
+
+% ---------------------------------------------------------
+% Captura 1: Home en Android (layout general)
+% \begin{figure}[H]
+%   \centering
+%   \includegraphics[width=0.75\textwidth]{Figuras/frontend/movil/home_android.png}
+%   \caption{Pantalla principal ejecutándose como aplicación Android.}
+%   \label{fig:home_android}
+% \end{figure}
+%
+% Captura 2: Vista con safe-area (sin solape con barra superior/inferior)
+% \begin{figure}[H]
+%   \centering
+%   \includegraphics[width=0.75\textwidth]{Figuras/frontend/movil/safe_area.png}
+%   \caption{Ejemplo de vista en Android mostrando que no hay solapes con el sistema.}
+%   \label{fig:safe_area}
+% \end{figure}
+%
+% Captura 3: Pantalla de PDF en móvil con botón "Abrir PDF"
+% \begin{figure}[H]
+%   \centering
+%   \includegraphics[width=0.75\textwidth]{Figuras/frontend/movil/pdf_button.png}
+%   \caption{Acceso a PDF en móvil mediante botón para apertura con visor nativo.}
+%   \label{fig:pdf_button}
+% \end{figure}
+%
+% Captura 4: PDF abierto en visor nativo
+% \begin{figure}[H]
+%   \centering
+%   \includegraphics[width=0.75\textwidth]{Figuras/frontend/movil/pdf_native_viewer.png}
+%   \caption{Documento PDF abierto en el visor nativo del dispositivo Android.}
+%   \label{fig:pdf_native_viewer}
+% \end{figure}
+%
+% Captura 5: Splash/logo final tras compilar (Android Studio)
+% \begin{figure}[H]
+%   \centering
+%   \includegraphics[width=0.75\textwidth]{Figuras/frontend/movil/splash.png}
+%   \caption{Pantalla de carga y recursos visuales configurados en Android Studio.}
+%   \label{fig:splash_android}
+% \end{figure}
+% ---------------------------------------------------------
+
+
+\section{Testing}
+\label{sec:frontend_testing}
+
+El frontend mantiene el enfoque del TFG original con \textbf{Jasmine} y \textbf{Karma}. En esta fase, el objetivo principal es asegurar que los componentes siguen comportándose como se espera tras cambios y ajustes para móvil, y que los servicios que consumen la API siguen devolviendo datos de forma consistente.
+
+A continuación se incluye un ejemplo genérico (sustituible por tus tests reales):
+
+\begin{Verbatim}[frame=single, fontsize=\small, xleftmargin=10pt, xrightmargin=10pt]
+
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MiComponentePage } from './mi-componente.page';
+
+describe('MiComponentePage', () => {
+
+  let component: MiComponentePage;
+  let fixture: ComponentFixture<MiComponentePage>;
+
+  beforeEach(async () => {
+
+    await TestBed.configureTestingModule({
+      declarations: [MiComponentePage],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(MiComponentePage);
+    component = fixture.componentInstance;
+
+    fixture.detectChanges();
+  });
+
+  it('debe crearse correctamente', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('debe inicializar el estado por defecto', () => {
+    expect(component).toBeDefined();
+  });
+
+});
+
+\end{Verbatim}
+
 
 \chapter{Plan de implantación}
 \label{chap:implantacion}
