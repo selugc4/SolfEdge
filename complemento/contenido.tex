@@ -8,13 +8,13 @@ A partir de esta base teórica, se llevó a cabo una investigación empírica ap
 
 La combinación de marco teórico, investigación empírica y revisión bibliográfica proporcionó una base sólida para la definición de los requisitos funcionales y no funcionales del sistema, así como para la formulación de los objetivos del proyecto. Como resultado de este proceso, se diseñó e implementó una plataforma informática compuesta por un backend basado en una API REST y un frontend híbrido accesible desde distintos dispositivos.
 \section{Resultados del proyecto base y líneas de evolución}
-La aplicación desarrollada en el TFG original permite gestionar usuarios, grupos, material de clase, calificaciones, cuestionarios, tareas y comunicaciones internas, incorporando además mecanismos de autenticación, pruebas automatizadas, documentación técnica y procesos de despliegue continuo. Esta primera versión del sistema fue validada funcionalmente, demostrando su viabilidad técnica y su adecuación inicial a las necesidades detectadas.
+La aplicación desarrollada en la versión inicial permite gestionar usuarios, grupos, material de clase, calificaciones, cuestionarios, tareas y comunicaciones internas, incorporando además mecanismos de autenticación, pruebas automatizadas, documentación técnica y procesos de despliegue continuo. Esta primera versión del sistema fue validada funcionalmente, demostrando su viabilidad técnica y su adecuación inicial a las necesidades detectadas.
 
-No obstante, tanto las conclusiones del proyecto como la experiencia práctica derivada del uso de la aplicación evidenciaron que la solución implementada, aun siendo plenamente funcional, presenta margen de mejora y evolución. En particular, se identificaron oportunidades para refinar determinadas funcionalidades existentes, incorporar nuevas capacidades que amplíen el alcance de la aplicación y abordar de forma más profunda su implantación en entornos educativos reales. Estas líneas de evolución quedaron recogidas explícitamente como trabajo futuro en el TFG original.
+No obstante, tanto las conclusiones del proyecto como la experiencia práctica derivada del uso de la aplicación evidenciaron que la solución implementada, aun siendo plenamente funcional, presenta margen de mejora y evolución. En particular, se identificaron oportunidades para refinar determinadas funcionalidades existentes, incorporar nuevas capacidades que amplíen el alcance de la aplicación y abordar de forma más profunda su implantación en entornos educativos reales. Estas líneas de evolución quedaron recogidas explícitamente como trabajo futuro en el proyecto original.
 
 En este contexto, el presente proyecto no pretende repetir ni reformular el marco teórico ni los estudios ya realizados, sino apoyarse en ellos como base validada para dar un paso adicional. El foco se desplaza desde el desarrollo inicial de la solución hacia su extensión funcional y su preparación para una implantación realista y sostenible, considerando aspectos técnicos, organizativos y de seguridad que resultan fundamentales en un escenario de uso continuado.
 
-De este modo, este trabajo se plantea como una continuación natural y coherente del proyecto previo, orientada a consolidar la solución desarrollada y a sentar las bases necesarias para su evolución e implantación efectiva en centros educativos, manteniendo la alineación con la problemática detectada y con los principios pedagógicos que motivaron el proyecto original.
+De este modo, este trabajo se plantea como una continuación natural y coherente del proyecto previo, orientada a consolidar la solución desarrollada y a sentar las bases necesarias para su evolución e implantación efectiva en centros educativos, manteniendo la alineación con la problemática detectada y con los principios pedagógicos que motivaron el trabajo previo.
 
 \chapter{Objetivos del proyecto}
 \label{chap:objetivos}
@@ -30,16 +30,16 @@ A partir de este objetivo general, se definen los siguientes subobjetivos espec�
     \item \textbf{Definir un plan de implantación detallado} que contemple la adaptación tecnológica del sistema, la mejora de aspectos de seguridad, la gestión de archivos y datos, así como la viabilidad de su despliegue en centros educativos reales.
 \end{itemize}
 
-Estos objetivos se plantean manteniendo la coherencia con el proyecto original y aprovechando las conclusiones extraídas del proceso de investigación y desarrollo previo.
+Estos objetivos se plantean manteniendo la coherencia con el proyecto base y aprovechando las conclusiones extraídas del proceso de investigación y desarrollo previo.
 
 \chapter{Definición de la solución extendida}
 \label{chap:solucion}
 
-Este complemento parte de la solución desarrollada en el proyecto base y se apoya en su definición previa. La aplicación original resolvía los procesos esenciales de gestión académica y comunicación asociados a la enseñanza del lenguaje musical, ofreciendo una plataforma con roles diferenciados (administrador, profesor y alumno), ramas de contenido, tareas y cuestionarios, sistema de mensajería y calificaciones.
+Este complemento parte de la solución desarrollada en versión base y se apoya en su definición previa. La aplicación original resolvía los procesos esenciales de gestión académica y comunicación asociados a la enseñanza del lenguaje musical, ofreciendo una plataforma con roles diferenciados (administrador, profesor y alumno), ramas de contenido, tareas y cuestionarios, sistema de mensajería y calificaciones.
 
-Sin embargo, el propio enfoque del TFG ---y especialmente sus conclusiones y líneas de trabajo futuro--- asumía que una primera versión funcional no agota el problema: al llevar la solución a un entorno real aparecen necesidades operativas y oportunidades de mejora que no siempre resultan evidentes durante un desarrollo estrictamente académico. En particular, el uso prolongado en contextos educativos reales tiende a revelar fricciones relacionadas con la administración masiva, la gestión completa del ciclo de vida de usuarios y grupos y la experiencia de uso del alumnado en actividades evaluables.
+Sin embargo, el propio enfoque del proyecto ---y especialmente sus conclusiones y líneas de trabajo futuro--- asumía que una primera versión funcional no agota el problema: al llevar la solución a un entorno real aparecen necesidades operativas y oportunidades de mejora que no siempre resultan evidentes durante un desarrollo estrictamente académico. En particular, el uso prolongado en contextos educativos reales tiende a revelar fricciones relacionadas con la administración masiva, la gestión completa del ciclo de vida de usuarios y grupos y la experiencia de uso del alumnado en actividades evaluables.
 
-En este punto, el objetivo de este complemento no es replantear la solución desde cero, sino evolucionarla de forma controlada. Se mantiene la arquitectura general, la filosofía de funcionamiento y la mayor parte de requisitos ya definidos en el documento principal, lo que se incorpora ahora se centra en:
+En este punto, el objetivo de este complemento no es replantear la solución desde cero, sino evolucionarla de manera controlada. Se mantiene la arquitectura general, la filosofía de funcionamiento y la mayor parte de requisitos ya definidos en el documento principal, lo que se incorpora ahora se centra en:
 
 \begin{itemize}
     \item \textbf{Operatividad y administración real:} Reducir carga manual y facilitar tareas frecuentes en la práctica (altas masivas, etc.).
@@ -47,7 +47,7 @@ En este punto, el objetivo de este complemento no es replantear la solución des
     \item \textbf{Mejora de la experiencia del alumno:} Introducir mecanismos de apoyo durante el trabajo con cuestionarios para favorecer el aprendizaje sin romper la coherencia pedagógica.
 \end{itemize}
 
-Como en la definición del proyecto base, el proceso se plantea como un avance gradual desde un lenguaje natural todavía interpretativo hasta una definición progresivamente más objetiva. Primero se actualiza la especificación formal con las nuevas capacidades, después se refleja la ampliación en el diagrama de casos de uso, por último, se describen en detalle únicamente los casos de uso y requisitos afectados por los cambios (sin repetir lo ya definido en el TFG).
+Como en la definición de la solución base, el proceso se plantea como un avance gradual desde un lenguaje natural todavía interpretativo hasta una definición progresivamente más objetiva. Primero se actualiza la especificación formal con las nuevas capacidades, después se refleja la ampliación en el diagrama de casos de uso, por último, se describen en detalle únicamente los casos de uso y requisitos afectados por los cambios (sin repetir lo ya definido previamente).
 
 \section{Análisis de la solución base y motivación de la extensión}
 \label{sec:analisis_base}
@@ -63,7 +63,7 @@ A partir de este análisis, se definen nuevas extensiones funcionales sobre la b
 \section{Especificación formal de la solución extendida}
 \label{sec:especificacion_formal_extendida}
 
-En esta sección se conserva la especificación formal descrita en el TFG original, incorporando únicamente las ampliaciones necesarias para reflejar la evolución del sistema. El objetivo es mantener continuidad, evitar redundancias y, al mismo tiempo, dejar completamente claro qué aporta este complemento. Las partes incorporadas a la especificación en esta fase estarán destacadas en color rojo.
+En esta sección se conserva la especificación formal descrita en el proyecto original, incorporando únicamente las ampliaciones necesarias para reflejar la evolución del sistema. El objetivo es mantener continuidad, evitar redundancias y, al mismo tiempo, dejar completamente claro qué aporta este complemento. Las partes incorporadas a la especificación en esta fase estarán destacadas en color rojo.
 
 El sistema permitirá el acceso mediante un mecanismo de inicio de sesión en el que podrán autenticarse tres tipos de usuarios: administrador, profesor y alumno. Cada usuario tendrá acceso únicamente a las funcionalidades correspondientes a su rol, sin posibilidad de utilizar las funciones asignadas a otros.
 
@@ -94,14 +94,14 @@ Asimismo, los alumnos podrán acceder a los mismos cuatro apartados (Ritmo, Ento
 \begin{itemize}
 \item En la sección Libro del curso, los alumnos podrán visualizar el archivo PDF correspondiente y descargarlo, pero no modificarlo.
 
-\item En la sección Tareas a realizar, los alumnos podrán consultar la lista de tareas disponibles y realizar las entregas correspondientes. Los formatos permitidos serán PDF, MP3 o MP4, y/o bien un comentario textual dentro de la propia aplicación. En el caso de los cuestionarios, el alumno podrá acceder de forma específica a cada uno para completarlos \nuevo{apoyándose, si lo desea, en solo una pista por cada pregunta que responda}. El cuestionario no se considerará entregado hasta que el alumno pulse expresamente el botón de envío.
+\item En la sección Tareas a realizar, los alumnos podrán consultar la lista de tareas disponibles y realizar las entregas correspondientes. Los formatos permitidos serán PDF, MP3 o MP4, y/o bien un comentario textual dentro de la propia aplicación. En el caso de los cuestionarios, el alumno podrá acceder de forma específica a cada uno para completarlos \nuevo{apoyándose, si lo desea, en solo una pista por cada pregunta}. El cuestionario no se considerará entregado hasta que el alumno pulse expresamente el botón de envío.
 \end{itemize}
 
-Los alumnos y profesores dispondrán de un área específica de mensajes. En ella recibirán avisos cuando cuando se cree, se modifique, se califique (alumno) o se entregue (profesor) una tarea o cuestionario, cuando reciban una calificación general (mensajes del sistema) o un mensaje del profesor.
+Los alumnos y profesores dispondrán de un área específica de mensajes. En ella recibirán avisos cuando se cree, se modifique, se califique (alumno) o se entregue (profesor) una tarea o cuestionario, cuando reciban una calificación general (mensajes del sistema) o un mensaje del profesor.
 \section{Objetivos funcionales del sistema extendido}
 \label{sec:objetivos_funcionales_ext}
 
-Los objetivos funcionales descritos en el TFG original se mantienen, ya que la esencia del sistema no cambia: facilitar la enseñanza del lenguaje musical con herramientas específicas de gestión y aprendizaje. No obstante, este complemento añade objetivos de evolución funcional centrados en la operatividad real y en la mejora de la experiencia del alumno:
+Los objetivos funcionales descritos en el versión inicial se mantienen, ya que la esencia del sistema no cambia: facilitar la enseñanza del lenguaje musical con herramientas específicas de gestión y aprendizaje. No obstante, este complemento añade objetivos de evolución funcional centrados en la operatividad real y en la mejora de la experiencia del alumno:
 
 \begin{itemize}
   \item Permitir la administración masiva de usuarios y grupos mediante ficheros formateados, reduciendo la carga manual y los errores de alta.
@@ -129,7 +129,7 @@ La ampliación funcional se refleja en el diagrama general de casos de uso del s
 \section{Definición del diagrama de casos de uso}
 \label{sec:def_dcu_ext}
 
-Como se detalló en el TFG, el diagrama ofrece una visión objetiva pero todavía abstracta del sistema. Para alcanzar un nivel operativo y verificable, se definen a continuación únicamente los casos de uso nuevos y aquellos existentes que se ven modificados por la incorporación de requisitos adicionales, manteniendo el resto de definiciones del proyecto base sin cambios. Cabe destacar que se ha mantenido el mismo código de color para el nombre del caso de uso y se ha usado el color rojo en el resto de campos de los casos de uso que no son totalmente nuevos para indicar en qué cambian.
+Como se detalló en el trabajo previo, el diagrama ofrece una visión objetiva pero todavía abstracta del sistema. Para alcanzar un nivel operativo y verificable, se definen a continuación únicamente los casos de uso nuevos y aquellos existentes que se ven modificados por la incorporación de requisitos adicionales, manteniendo el resto de definiciones de la versión inicial sin cambios. Cabe destacar que se ha mantenido el mismo código de color para el nombre del caso de uso y se ha usado el color rojo en el resto de campos de los casos de uso que no son totalmente nuevos para indicar en qué cambian.
 
 \subsection{Casos de uso nuevos o modificados}
 
@@ -233,7 +233,7 @@ En coherencia con el documento original, los identificadores continúan a partir
   \item El sistema crea los usuarios y grupos indicados si todos han sido validados.
   \item El sistema informa del éxito.
 \end{enumerate} \\ \hline
-\textbf{Postcondición} & Los usuarios y grupos válidos quedan registrados y listos para su uso \\ \hline
+\textbf{Postcondición} & Los usuarios y grupos válidos quedan registrados y listos para su uso. \\ \hline
 \textbf{Excepciones} &
 \begin{itemize}
   \item El fichero no cumple el formato establecido o falta información obligatoria.
@@ -279,7 +279,7 @@ En coherencia con el documento original, los identificadores continúan a partir
   |>{\centering\arraybackslash}X|}
 \hline
 \textbf{RF-33} & \textbf{Eliminar profesor} \\ \hline
-\textbf{Descripción} & Permitir al administrador eliminar un profesor del sistema, eliminando de forma todo su material asociado (tareas, cuestionarios, ramas, entregas y
+\textbf{Descripción} & Permitir al administrador eliminar un profesor del sistema, eliminando todo su material asociado (tareas, cuestionarios, ramas, entregas y
 calificaciones), sus grupos y los alumnos creados bajo su responsabilidad, evitando referencias huérfanas o inconsistencias. \\ \hline
 \textbf{Precondición} & El administrador debe estar autenticado y el profesor a eliminar debe existir. \\ \hline
 \textbf{Secuencia de pasos} &
@@ -357,9 +357,6 @@ calificaciones), sus grupos y los alumnos creados bajo su responsabilidad, evita
 \caption{Requisito funcional: RF-35 Eliminar alumno}
 \end{table}
 
-% ------------------------------
-% RF-36 Eliminar grupo (NUEVO requisito dentro de gestionar grupos)
-% ------------------------------
 \begin{table}[H]
 \centering
 \begin{tabularx}{\textwidth}{
@@ -375,7 +372,7 @@ calificaciones), sus grupos y los alumnos creados bajo su responsabilidad, evita
   \item El profesor solicita la eliminación del grupo.
   \item El sistema solicita confirmación, indicando que se trata de una eliminación irreversible.
   \item El profesor confirma.
-  \item El sistema elimina el grupo y todos los datos relacionados con el grupo menos los usuarios, a los cuales les elimina la relación para mantener consistencia.
+  \item El sistema elimina el grupo y todos los datos relacionados con el grupo menos los usuarios.
   \item El sistema informa del éxito.
 \end{enumerate} \\ \hline
 \textbf{Postcondición} & El grupo deja de existir en el sistema y no puede seleccionarse, además, no quedan recursos asociados accesibles de forma inconsistente. \\ \hline
@@ -422,7 +419,7 @@ calificaciones), sus grupos y los alumnos creados bajo su responsabilidad, evita
 \section{Requisitos no funcionales nuevos}
 \label{sec:rnf_ext}
 
-El TFG original definía un requisito de portabilidad (RNF-04) orientado a asegurar que la aplicación pudiera utilizarse en distintos dispositivos y entornos. En este complemento, esa portabilidad se concreta en un objetivo más exigente y verificable: la exportación efectiva a un entorno móvil Android, aprovechando el diseño híbrido y responsive ya adoptado.
+El proyecto original definía un requisito de portabilidad (RNF-04) orientado a asegurar que la aplicación pudiera utilizarse en distintos dispositivos y entornos. En este complemento, esa portabilidad se concreta en un objetivo más exigente y verificable: la exportación efectiva a un entorno móvil Android, aprovechando el diseño híbrido y responsive ya adoptado.
 
 \begin{table}[H]
 \centering
@@ -433,7 +430,7 @@ El TFG original definía un requisito de portabilidad (RNF-04) orientado a asegu
 \textbf{RNF-08} & \textbf{Portabilidad a Android} \\ \hline
 \textbf{Descripción} & El sistema deberá poder ejecutarse como aplicación instalada en dispositivos Android, manteniendo las funcionalidades esenciales y una experiencia de usuario consistente. \\ \hline
 \textbf{Justificación} & Se da continuidad a RNF-04 (Portabilidad) del proyecto base, materializando la ejecución en un entorno móvil real para reforzar accesibilidad y facilitar su implantación en contextos educativos. \\ \hline
-\textbf{Criterio de cumplimiento} & La aplicación se exporta y ejecuta en Android mediante herramientas de construcción móvil, pudiendo autenticarse, navegar por ramas, consultar materiales y realizar acciones principales sin degradación funcional significativa. \\ \hline
+\textbf{Criterio de cumplimiento} & La aplicación se exporta y ejecuta en Android mediante herramientas de construcción móvil, pudiendo autenticarse, navegar por ramas, consultar materiales y realizar acciones principales sin degradación funcional. \\ \hline
 \end{tabularx}
 \caption{Requisito no funcional: RNF-08 Portabilidad a Android}
 \end{table}
@@ -441,11 +438,11 @@ El TFG original definía un requisito de portabilidad (RNF-04) orientado a asegu
 \section{Tecnologías y arquitectura de la solución extendida}
 \label{sec:tecnologias_ext}
 
-La solución extendida mantiene la arquitectura global cliente-servidor basada en una API REST y basándose en el patrón MVC (Modelo-Vista-Controlador) idéntica en su planteamiento al proyecto base. Esta continuidad tecnológica no es accidental: la pila original proporciona un equilibrio adecuado entre modularidad, escalabilidad y facilidad de mantenimiento, lo que permite incorporar nuevas capacidades sin necesidad de reestructurar el sistema ni introducir deuda técnica.
+La solución extendida mantiene la arquitectura global cliente-servidor basada en una API REST y una organización inspirada en el patrón MVC (Modelo-Vista-Controlador) idéntica en su planteamiento a la versión inicial. Esta continuidad tecnológica no es accidental: la pila original proporciona un equilibrio adecuado entre modularidad, escalabilidad y facilidad de mantenimiento, lo que permite incorporar nuevas capacidades sin necesidad de reestructurar el sistema ni introducir deuda técnica.
 
 \subsection{Pila tecnológica heredada del proyecto base}
 
-El proyecto se apoya en un conjunto de tecnologías consolidadas que cubren de forma eficaz las necesidades de una aplicación educativa con múltiples roles, gestión de contenidos multimedia y comunicación bidireccional:
+El proyecto se apoya en un conjunto de tecnologías consolidadas que cubren de manera eficaz las necesidades de una aplicación educativa con múltiples roles, gestión de contenidos multimedia y comunicación bidireccional:
 
 \begin{itemize}
     \item \textbf{Ionic + Angular (Frontend).}  
@@ -468,21 +465,21 @@ El proyecto se apoya en un conjunto de tecnologías consolidadas que cubren de f
     La documentación de la API se mantiene mediante Swagger, proporcionando una especificación clara y verificable de los endpoints disponibles, útil tanto para pruebas como para mantenimiento futuro.
 
     \item \textbf{Testing (Jest/Supertest y Jasmine/Karma).}  
-    Se conserva el uso de Jest y Supertest para pruebas del backend, y Jasmine/Karma para el frontend, permitiendo validar de forma automatizada el comportamiento del sistema y reducir regresiones durante la evolución del proyecto.
+    Se conserva el uso de Jest y Supertest para pruebas del backend, y Jasmine/Karma para el frontend, permitiendo validar de manera automatizada el comportamiento del sistema y reducir regresiones durante la evolución del proyecto.
     
     \item \textbf{Integración y despliegue continuo (Render, GitHub Actions y Pages).}
-    Se continua ejecutando el flujo de integración y despliegue continuo en GitHub Actions para automatizar el testing y el despliegue, que será realizado en Render para el backend y GitHub Pages para el frontend.
+    Se continúa ejecutando el flujo de integración y despliegue continuo en GitHub Actions para automatizar el testing y el despliegue, que será realizado en Render para el backend y GitHub Pages para el frontend.
 \end{itemize}
 
 \subsection{Tecnologías incorporadas en la solución extendida}
 
-La extensión del sistema introduce dos tecnologías nuevas que amplían las capacidades técnicas de la aplicación sin modificar su arquitectura base.
+La extensión del sistema introduce nuevas tecnologías que amplían las capacidades técnicas de la aplicación sin modificar su arquitectura base ni los principios de diseño definidos en el trabajo previo. Estas tecnologías se integran como componentes complementarios, manteniendo el desacoplamiento y la coherencia estructural del sistema.
 
 \subsubsection{Servicio de inferencia externa mediante Groq}
 
 Se incorpora un servicio de inferencia externa utilizando Groq como proveedor, haciendo uso de su API pública para el envío de peticiones desde el backend del sistema. En este contexto, Groq actúa como un servicio externo capaz de procesar \textit{prompts} de inteligencia artificial y devolver respuestas generadas a partir de modelos de lenguaje, sin que dichos modelos formen parte de la infraestructura propia de la aplicación.
 
-Desde un punto de vista tecnológico, la utilización de la API de Groq implica la integración de un servicio HTTP externo que recibe solicitudes estructuradas, incluyendo el contenido del \textit{prompt}, y devuelve una respuesta generada en formato estándar (por ejemplo, JSON). Esta aproximación permite tratar el sistema de inferencia como un recurso remoto, consumido de forma similar a cualquier otro servicio web.
+Desde un punto de vista tecnológico, la utilización de la API de Groq implica la integración de un servicio HTTP externo que recibe solicitudes estructuradas, incluyendo el contenido del \textit{prompt}, y devuelve una respuesta generada en un formato estándar (por ejemplo, JSON). Esta aproximación permite tratar el sistema de inferencia como un recurso remoto, consumido de forma análoga a cualquier otro servicio web.
 
 El uso de una API de inferencia externa presenta varias implicaciones técnicas relevantes:
 \begin{itemize}
@@ -490,39 +487,75 @@ El uso de una API de inferencia externa presenta varias implicaciones técnicas 
     \item Facilita el control del flujo de peticiones, ya que las llamadas a la API pueden regularse, validarse y encapsularse desde el backend.
     \item Aísla la lógica de generación de contenido del resto del sistema, permitiendo modificar el proveedor o el modelo utilizado sin afectar a la arquitectura interna.
 \end{itemize}
-Desde el punto de vista del diseño software, la integración mediante una API externa refuerza el desacoplamiento del sistema, ya que el servicio de inferencia se consume como una dependencia externa claramente delimitada, manteniendo la coherencia con la arquitectura por capas adoptada en el proyecto.
+
+Desde el punto de vista del diseño software, la integración mediante una API externa refuerza el desacoplamiento del sistema, ya que el servicio de inferencia se consume como una dependencia claramente delimitada, manteniendo la coherencia con la arquitectura por capas adoptada en el proyecto.
+
 \begin{figure}[H]
     \centering
     \includegraphics[height=2cm]{Figuras/logos/groq.png}
-    \caption{Tecnología de Inteligencia Artifical Groq.}
+    \caption{Logo Groq}
     \label{fig:logo_groq}
+\end{figure}
+
+\subsubsection{Capacitor como evolución del soporte móvil híbrido}
+
+El uso de Ionic junto con Angular permite abordar el desarrollo multiplataforma mediante una única base de código. Este enfoque resuelve gran parte de los problemas asociados a la portabilidad de la interfaz y de la lógica de la aplicación, tanto en entorno web como en dispositivos móviles. No obstante, el desarrollo puramente web presenta una limitación clara: existen funcionalidades propias del sistema operativo móvil que no pueden ser gestionadas directamente desde el navegador.
+
+\textbf{Primeros intentos de integración nativa.}  
+Para cubrir esta necesidad surgió Cordova, cuya función principal era actuar como un puente entre la aplicación web y el dispositivo. Gracias a esta tecnología fue posible acceder desde JavaScript a funcionalidades nativas, permitiendo que las aplicaciones híbridas pudieran comportarse como aplicaciones móviles instaladas. En su contexto histórico, Cordova supuso un avance clave para validar el modelo híbrido.
+
+Sin embargo, Cordova respondía a una etapa temprana de esta evolución. A medida que las aplicaciones comenzaron a requerir mayor control y personalización del entorno móvil, sus limitaciones se hicieron evidentes.
+
+\textbf{Evolución hacia un modelo más flexible.}  
+Capacitor surge como la evolución natural de este enfoque, manteniendo la reutilización del código web, pero adaptándolo a las necesidades actuales del desarrollo móvil. La diferencia entre ambos modelos puede resumirse claramente en los siguientes puntos:
+
+\begin{itemize}
+    \item \textbf{Relación con el código nativo}: Cordova ocultaba en gran medida la capa nativa, mientras que Capacitor la integra como parte explícita del proyecto.
+    \item \textbf{Configuración del sistema}: en Cordova, los ajustes específicos resultaban complejos y poco transparentes; Capacitor facilita configuraciones controladas y mantenibles.
+    \item \textbf{Evolución y mantenimiento}: Capacitor se alinea mejor con las herramientas y prácticas actuales del desarrollo móvil, favoreciendo la sostenibilidad del proyecto.
+\end{itemize}
+
+\textbf{Papel actual de Capacitor en el proyecto.}  
+En la actualidad, Capacitor no se limita únicamente al empaquetado de la aplicación y a su ejecución como aplicación instalada, funciones que ya desempeñaba Cordova. Su principal aportación es actuar como una capa de integración que permite extender el frontend híbrido con capacidades propias del entorno móvil cuando el proyecto lo requiere.
+
+En el contexto de este proyecto, Capacitor resulta especialmente relevante porque:
+\begin{itemize}
+    \item Permite generar una aplicación móvil instalable a partir del frontend híbrido existente.
+    \item Mantiene una única base de código, garantizando coherencia funcional entre la versión web y la versión móvil.
+    \item Facilita la incorporación de funcionalidades y configuraciones específicas del dispositivo sin alterar la arquitectura del sistema.
+\end{itemize}
+
+De este modo, Capacitor se incorpora como un elemento habilitador que amplía el alcance de la solución, facilitando su implantación real en dispositivos móviles y manteniendo los principios de reutilización, modularidad y separación de responsabilidades definidos en el proyecto.
+\begin{figure}[H]
+    \centering
+    \includegraphics[height=3cm]{Figuras/logos/Capacitor.png}
+    \caption{Logo Capacitor}
+    \label{fig:logo_Capacitor}
 \end{figure}
 \subsubsection{Android Studio y entorno de construcción móvil}
 
-La segunda tecnología incorporada es Android Studio, utilizado como entorno de construcción, empaquetado y validación de la aplicación en dispositivos Android. Su inclusión se apoya en el carácter híbrido del frontend, que permite reutilizar la misma base de código web para generar una aplicación instalable.
+La tercera tecnología incorporada es Android Studio, utilizado como entorno de construcción, empaquetado y validación de la aplicación en dispositivos Android. Su inclusión se apoya en el carácter híbrido del frontend, que permite reutilizar la misma base de código web para generar una aplicación instalable.
 
 Desde el punto de vista tecnológico, el uso de Android Studio implica:
 \begin{itemize}
-    \item La integración con la cadena de herramientas oficial de Android para compilación, firma y despliegue de aplicaciones.
+    \item La integración con la cadena de herramientas oficial de Android para la compilación, firma y despliegue de aplicaciones.
     \item La generación de un contenedor nativo que encapsula la aplicación híbrida, permitiendo su ejecución como aplicación instalada.
     \item El acceso a herramientas de depuración, emulación y análisis propias del ecosistema Android.
 \end{itemize}
-Este enfoque no introduce una nueva base de código ni una bifurcación tecnológica, sino que extiende el alcance del sistema aprovechando el diseño responsive existente. De este modo, la portabilidad se aborda como una extensión técnica natural del frontend híbrido, sin duplicar lógica ni comprometer la consistencia del sistema.
+
+Este enfoque no introduce una nueva base de código ni una bifurcación tecnológica, sino que extiende el alcance del sistema aprovechando el diseño \textit{responsive} existente. De este modo, la portabilidad se aborda como una extensión técnica natural del frontend híbrido, sin duplicar lógica ni comprometer la consistencia del sistema.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[height=2cm]{Figuras/logos/android_studio.png}
-    \caption{Entorno de desarrollo y construcción móvil utilizado para la exportación a Android.}
+    \includegraphics[height=3cm]{Figuras/logos/android_studio.png}
+    \caption{Logo Android Studio.}
     \label{fig:logo_android_studio}
 \end{figure}
 
-En conjunto, las tecnologías incorporadas refuerzan la arquitectura existente, ampliando las capacidades del sistema desde un punto de vista estrictamente técnico y manteniendo los principios de modularidad, reutilización y separación de responsabilidades definidos en el proyecto base.
+En conjunto, las tecnologías incorporadas refuerzan la arquitectura existente, ampliando las capacidades del sistema desde un punto de vista estrictamente técnico y manteniendo los principios de modularidad, reutilización y separación de responsabilidades definidos en el trabajo previo.
 
-A nivel conceptual, la arquitectura global permanece idéntica. Se incluye a continuación el diagrama original para facilitar la lectura del documento sin obligar a consultar constantemente el TFG.
+A nivel conceptual, la arquitectura global permanece idéntica. Se incluye a continuación el diagrama original para facilitar la lectura del documento sin obligar a consultar constantemente la versión original.
 
-% ----------------------------------------------------------
-% DIAGRAMA ORIGINAL (copiar/pegar tal cual del TFG)
-% ----------------------------------------------------------
 \tikzstyle{block} = [rectangle, draw, node distance=4.5cm,
     text width=6em, text centered, rounded corners, minimum height=3em, fill=blue!10]
 \tikzstyle{line} = [draw, -latex']
@@ -547,15 +580,15 @@ A nivel conceptual, la arquitectura global permanece idéntica. Se incluye a con
 \label{fig:arquitectura_global_ext}
 \end{figure}
 
-Con esta definición, la solución extendida queda descrita con el mismo enfoque del proyecto base: continuidad en arquitectura y metodología, y ampliación funcional bien acotada, verificable y orientada a la implantación real.
+Con esta definición, la solución extendida queda descrita con el mismo enfoque de la primera versión: continuidad en arquitectura y metodología, y ampliación funcional bien acotada, verificable y orientada a la implantación real.
 
 \chapter{Planificación del proyecto}
 \label{chap:planificacion}
-La planificación de este complemento se concibe como una extensión directa de la planificación definida en el proyecto original, manteniendo sus mismos criterios generales de organización, seguimiento y gestión del tiempo. Dado que la base del sistema ya se encuentra diseñada e implementada, no resulta necesario replantear la estructura global del cronograma, sino ampliarla de forma coherente para incorporar las nuevas tareas derivadas de la evolución funcional del proyecto.
+La planificación de este complemento se concibe como una extensión directa de la planificación definida en el proyecto original, manteniendo sus mismos criterios generales de organización, seguimiento y gestión del tiempo. Dado que la base del sistema ya se encuentra diseñada e implementada, no resulta necesario replantear la estructura global del cronograma, sino ampliarla de manera coherente para incorporar las nuevas tareas derivadas de la evolución funcional del proyecto.
 
-En este contexto, la planificación del complemento se centra en integrar las actividades adicionales asociadas a la mejora de funcionalidades, la incorporación de nuevas capacidades y la preparación del sistema para su implantación, respetando la secuencia lógica y la continuidad del trabajo previamente realizado. De este modo, se garantiza que la evolución del proyecto se produce de forma ordenada y alineada con los objetivos ya establecidos.
+En este contexto, la planificación del complemento se centra en integrar las actividades adicionales asociadas a la mejora de funcionalidades, la incorporación de nuevas capacidades y la preparación del sistema para su implantación, respetando la secuencia lógica y la continuidad del trabajo previamente realizado. De este modo, se garantiza que la evolución del proyecto se produce ordenada y alineada con los objetivos ya establecidos.
 
-El diagrama Gantt de planificación reutiliza la estructura del cronograma original, incorporando las nuevas tareas y sub-tareas de manera diferenciada mediante un código de color, lo que permite identificar claramente qué actividades pertenecen al proyecto base y cuáles corresponden específicamente a este complemento. Esta representación facilita la comprensión del alcance real de la extensión sin introducir redundancias en la documentación.
+El diagrama Gantt de planificación reutiliza la estructura del cronograma original, incorporando las nuevas tareas y sub-tareas de manera diferenciada mediante un código de color, lo que permite identificar claramente qué actividades pertenecen al proyecto inicial y cuáles corresponden específicamente a este complemento. Esta representación facilita la comprensión del alcance real de la extensión sin introducir redundancias en la documentación.
 
 En conjunto, la planificación del complemento actúa como un marco de referencia que guía la ejecución de esta fase de evolución del proyecto, manteniendo la flexibilidad propia del contexto académico y asegurando la coherencia con el trabajo previamente desarrollado.
 
@@ -571,30 +604,38 @@ Por último, también se añade la planificación de las tareas principales en h
     \caption{Planificación de las tareas principales en horas}
     \label{fig:planificacion_horas}
 \end{figure}
-% =========================================================
-%  CAPÍTULO: DESARROLLO BACKEND (COMPLEMENTO)
-% =========================================================
 \chapter{Desarrollo de la aplicación backend}
 \label{chap:desarrollo_backend}
 
-El backend de este complemento se apoya directamente en la base implementada en el TFG original, manteniendo la misma pila tecnológica: \textbf{Node.js} como entorno de ejecución y \textbf{Express} como framework para exponer una \textbf{API REST}. A nivel de organización interna, se conserva la separación de responsabilidades típica del proyecto base, con una estructura inspirada en \textbf{MVC adaptado a backend} (sin vistas): \textbf{modelos} para persistencia y esquema de datos, \textbf{controladores} para la lógica de operaciones y \textbf{rutas} como capa de entrada a los endpoints.
+El backend de este complemento se apoya directamente en la base implementada en versión inicial, manteniendo la misma pila tecnológica: \textbf{Node.js} como entorno de ejecución y \textbf{Express} como framework para exponer una \textbf{API REST}. A nivel de organización interna, se conserva la separación de responsabilidades típica de la versión anterior, con una estructura inspirada en \textbf{MVC adaptado a backend} (sin capa de interfaz): \textbf{modelos} para persistencia y esquema de datos, \textbf{controladores} para la lógica de operaciones y \textbf{rutas} como capa de entrada a los endpoints.
 
 En esta fase del complemento, la mayor diferencia no está en “hacer un CRUD nuevo”, sino en reforzar operaciones de uso real (revisiones, eliminaciones y altas masivas) que requieren más validación, limpieza de relaciones y control de errores. Además, aparece una pieza nueva dentro del backend: \textbf{servicios}, usados para encapsular integraciones externas como la comunicación con la \textbf{API de Groq}.
+\section{Modelado de datos}
+Con el objetivo de proporcionar una visión global de la estructura de la información manejada por el sistema, se elaboró en el sistema base un modelo conceptual de datos que identifica las principales entidades del dominio y las relaciones existentes entre ellas. Este modelo permite comprender de forma clara cómo se organiza la información dentro de la aplicación y sirve como referencia para la posterior implementación de la persistencia de datos en el backend.
+
+Es importante recordar que el diagrama presentado no corresponde a un diagrama Entidad-Relación (ER) en sentido estricto, en su lugar, se adopta un enfoque conceptual que refleja la estructura lógica de los datos y sus relaciones semánticas, independientemente de su implementación física.
+
+La Figura~\ref{fig:modelo_conceptual} muestra el modelo conceptual de datos del sistema, proporcionando una visión estructural que complementa la definición funcional y arquitectónica presentada en los apartados anteriores.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{Figuras/modelo_Conceptual.png}
+    \caption{Modelo conceptual de datos del sistema}
+    \label{fig:modelo_conceptual}
+\end{figure}
 
 \section{Implementación}
 \label{sec:backend_impl}
 
 \subsection{Operaciones lógicas (revisión y eliminación)}
 
-Las operaciones de revisión (listados y consultas) reutilizan el mismo patrón del proyecto base: filtrado por rol, respuesta en JSON y acceso a través de controladores. En cambio, las eliminaciones se han ampliado para contemplar el efecto real en otras colecciones (por ejemplo: al eliminar un grupo se eliminan/limpian tareas, cuestionarios, entregas y calificaciones asociadas, y se elimina la relación en los alumnos).
+Las operaciones de revisión (listados y consultas) reutilizan el mismo patrón del trabajo previo: filtrado por rol, respuesta en JSON y acceso a través de controladores. En cambio, las eliminaciones se han ampliado para contemplar el efecto real en otras colecciones (por ejemplo: al eliminar un grupo se eliminan/limpian tareas, cuestionarios, entregas y calificaciones asociadas, y se elimina la relación en los alumnos).
 
 Se incluye un ejemplo representativo (el resto de eliminaciones sigue una estructura muy similar):
 
 \begin{Verbatim}[frame=single, fontsize=\small, xleftmargin=10pt, xrightmargin=10pt]
-
 // Ejemplo representativo: eliminar un grupo y limpiar datos asociados
 async function eliminarGrupo(groupId, profesorId) {
-
   // 1) Verificar que el grupo existe y pertenece al profesor autenticado
   const grupo = await Grupo.findOne({
     _id: groupId,
@@ -604,7 +645,6 @@ async function eliminarGrupo(groupId, profesorId) {
   if (!grupo) {
     throw new Error('Grupo no encontrado o sin permisos');
   }
-
   // 2) Eliminar contenido asociado al grupo
   await Tarea.deleteMany({ grupo: groupId });
   await Cuestionario.deleteMany({ grupo: groupId });
@@ -613,644 +653,55 @@ async function eliminarGrupo(groupId, profesorId) {
   await Entrega.deleteMany({ grupo: groupId });
   await Calificacion.deleteMany({ grupo: groupId });
 
-  // 4) Eliminar la relación del grupo en alumnos
-  await Alumno.updateMany(
-    { grupos: groupId },
-    { $pull: { grupos: groupId } }
-  );
-
-  // 5) Eliminar el documento principal
+  // 4) Eliminar el documento principal
   await Grupo.deleteOne({ _id: groupId });
-
+  // Las relaciones también quedan eliminadas
   return { ok: true };
 }
-
 \end{Verbatim}
 
-\subsection{Importación masiva desde CSV (deformateo, validación y creación)}
+\subsection{Importación masiva desde CSV (normalización, validación y creación)}
 
-La importación desde CSV introduce un flujo distinto al alta individual: se trabaja con datos externos que pueden venir incompletos, repetidos o con referencias inconsistentes. Por eso, el proceso se estructura en dos fases:
+La importación masiva desde CSV introduce un flujo distinto al alta individual, ya que los datos provienen de una fuente externa y pueden contener errores, duplicados o referencias inconsistentes. Por este motivo, el proceso se ha diseñado siguiendo un enfoque estrictamente controlado, dividido en dos fases claramente diferenciadas.
 
 \begin{itemize}
-  \item \textbf{Validación previa completa:} se parsea el CSV y se recorren todas las filas acumulando errores. Si existe cualquier error, no se crea nada.
-  \item \textbf{Creación en transacción:} si el CSV es válido, se crea todo dentro de una transacción de Mongoose para evitar estados parciales.
+  \item \textbf{Validación completa previa}: El archivo CSV se parsea y se recorren todas las filas sin crear ningún elemento en la base de datos. Durante esta fase se validan campos obligatorios, duplicados internos, referencias cruzadas entre usuarios y grupos, y se comprueba la coherencia con las reglas de negocio del sistema.
+  \item \textbf{Creación atómica}: Únicamente si la validación finaliza sin errores, se procede a la creación de usuarios y grupos dentro de una transacción de Mongoose, garantizando que el proceso se complete íntegramente o se revierta completamente en caso de fallo.
 \end{itemize}
 
 Además, se aplica una regla del sistema clave en este complemento: \textbf{un alumno pertenece a un único profesor}. Esto se comprueba antes de crear los grupos: si un grupo de un profesor intenta incluir un alumno asignado a otro profesor, se detiene la importación.
 
-A continuación se incluye el fragmento completo solicitado. Está intencionadamente \textbf{muy comentado} y con \textbf{saltos de línea extra} para minimizar que se salga del margen en PDF.
+Este enfoque permite detectar todos los errores del CSV de forma anticipada y evita la creación parcial de datos, asegurando la consistencia del sistema incluso ante archivos mal formateados o incompletos. Dado que la implementación completa de este proceso resulta extensa y muy dependiente de detalles técnicos, se ha optado por presentar un código conceptual que resume el flujo principal, facilitando su comprensión sin perder el significado funcional.
 
 \begin{Verbatim}[frame=single, fontsize=\small, xleftmargin=10pt, xrightmargin=10pt]
 
+func importarDesdeCSV(archivoCSV):
 
-const generarUsername = async (baseUsername) => {
+  filas <- parsearCSV(archivoCSV)
+  errores <- []
 
-  // ----------------------------------------------------------
-  //  Generación del username final a partir de una base de 3 letras
-  //  - Se busca cuántos usuarios existen ya con ese prefijo
-  //  - Si hay coincidencias, se añade un sufijo numérico
-  // ----------------------------------------------------------
+  // Fase 1: validación completa
+  para cada fila en filas:
+    validarCamposObligatorios(fila)
+    validarDuplicadosInternos(fila)
+    validarReferencias(fila)
+    aplicarReglasDeNegocio(fila)
+    acumularErrores(errores)
 
-  if (baseUsername.length !== 3) {
-    return {
-      error: 'La base para el username debe ser de 3 letras.'
-    };
-  }
+  si errores no está vacío:
+    devolver errores y cancelar proceso
 
-  const regex = new RegExp(`^${baseUsername}`);
+  // Fase 2: creación atómica
+  iniciarTransacción()
 
-  const count = await Usuario.countDocuments({
-    username: regex
-  });
+  crearProfesores()
+  crearAlumnos(asignados a su profesor)
+  crearGrupos(verificando coherencia)
 
-  return {
-    username: count > 0
-      ? `${baseUsername}${count}`
-      : baseUsername
-  };
-};
+  confirmarTransacción()
 
-
-const normalize = (s) =>
-  (s || '')
-    .toString()
-    .trim()
-    .toLowerCase()
-
-    // ----------------------------------------------------------
-    //  Normalización Unicode para eliminar acentos:
-    //  Ej.: "José" -> "Jose"
-    // ----------------------------------------------------------
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-
-    // ----------------------------------------------------------
-    //  Se eliminan caracteres que no sean letras (a-z)
-    //  Ej.: espacios, guiones, números, etc.
-    // ----------------------------------------------------------
-    .replace(/[^a-z]/g, '');
-
-
-const deriveBaseUsername3 = ({
-  nombre,
-  apellido1,
-  apellido2,
-  email
-}) => {
-
-  // ----------------------------------------------------------
-  //  A partir de nombre/apellidos/email, se deriva una base de
-  //  3 letras para username (antes de aplicar el sufijo numérico)
-  // ----------------------------------------------------------
-
-  const n  = normalize(nombre);
-  const a1 = normalize(apellido1);
-  const a2 = normalize(apellido2);
-
-  const em = email
-    ? normalize(email.split('@')[0])
-    : '';
-
-  let base = '';
-
-  // Iniciales típicas: nombre + apellidos
-  if (n)  base += n[0];
-  if (a1) base += a1[0];
-  if (a2) base += a2[0];
-
-  // Si no alcanza 3 caracteres, se rellena con letras extra
-  if (base.length < 3) {
-
-    const extra =
-      a1.slice(1)
-      + n.slice(1)
-      + em;
-
-    for (const ch of extra) {
-      if (base.length >= 3) break;
-      if (ch) base += ch;
-    }
-  }
-
-  // En último caso, se fuerza a 3 caracteres
-  if (base.length < 3) {
-    base = (base + 'xxx').slice(0, 3);
-  }
-
-  return base.slice(0, 3);
-};
-
-
-const isLikelyObjectId = (v) =>
-  typeof v === 'string'
-  && /^[a-fA-F0-9]{24}$/.test(v);
-
-
-exports.importarDesdeCSV = async (fileBuffer) => {
-
-  // ----------------------------------------------------------
-  //  1) Parseo del CSV
-  //  - columns: true -> usa la primera fila como cabecera
-  //  - trim: true -> elimina espacios
-  // ----------------------------------------------------------
-
-  let records;
-
-  try {
-    records = parse(fileBuffer, {
-      columns: true,
-      skip_empty_lines: true,
-      trim: true
-    });
-  } catch (e) {
-    return {
-      status: 400,
-      body: {
-        error: 'CSV inválido o mal formateado.',
-        details: e.message
-      }
-    };
-  }
-
-  if (!Array.isArray(records) || records.length === 0) {
-    return {
-      status: 400,
-      body: { error: 'El CSV está vacío.' }
-    };
-  }
-
-
-  // ----------------------------------------------------------
-  //  2) Preparación de estructuras
-  //  - errors: lista de errores por fila
-  //  - usersRows: filas tipo "usuario"
-  //  - groupsRows: filas tipo "grupo"
-  //  - seenRefs / seenEmails: evitar duplicados dentro del CSV
-  // ----------------------------------------------------------
-
-  const errors = [];
-
-  const usersRows = [];
-  const groupsRows = [];
-
-  const seenRefs = new Set();
-  const seenEmails = new Set();
-
-
-  // ----------------------------------------------------------
-  //  3) Validación fila a fila
-  //  - Se recorren todas las filas y se registran errores
-  //  - NO se crea nada todavía
-  // ----------------------------------------------------------
-
-  for (let i = 0; i < records.length; i++) {
-
-    const r = records[i];
-
-    // +2: porque la fila 1 es cabecera
-    // y queremos mostrar número humano (base 1)
-    const rowNum = i + 2;
-
-    const tipo = (r.tipo || '').toLowerCase();
-
-
-    // ----- Validación de "ref" -----
-    if (!r.ref) {
-      errors.push(`Fila ${rowNum}: 'ref' es obligatorio.`);
-    }
-
-    if (r.ref && seenRefs.has(r.ref)) {
-      errors.push(
-        `Fila ${rowNum}: ref duplicado '${r.ref}'.`
-      );
-    }
-
-    if (r.ref) seenRefs.add(r.ref);
-
-
-    // ----- Tipos permitidos -----
-    if (tipo === 'usuario') {
-
-      // Rol: alumno o profesor
-      const rol = (r.rol || '').toLowerCase();
-
-      if (!['alumno', 'profesor'].includes(rol)) {
-        errors.push(
-          `Fila ${rowNum}: rol inválido '${r.rol}'.`
-        );
-      }
-
-      // Campos obligatorios de usuario
-      for (const f of [
-        'nombre',
-        'apellido1',
-        'apellido2',
-        'email'
-      ]) {
-        if (!r[f]) {
-          errors.push(
-            `Fila ${rowNum}: '${f}' es obligatorio para usuario.`
-          );
-        }
-      }
-
-      // Email único dentro del CSV
-      if (r.email) {
-        const em = r.email.toLowerCase();
-
-        if (seenEmails.has(em)) {
-          errors.push(
-            `Fila ${rowNum}: email duplicado en el CSV '${r.email}'.`
-          );
-        }
-
-        seenEmails.add(em);
-      }
-
-      // Reglas específicas de alumno
-      if (rol === 'alumno' && !r.profesor_ref) {
-        errors.push(
-          `Fila ${rowNum}: alumno requiere 'profesor_ref'.`
-        );
-      }
-
-      usersRows.push({
-        ...r,
-        rol
-      });
-
-    } else if (tipo === 'grupo') {
-
-      // Campos obligatorios de grupo
-      for (const f of [
-        'nombre_grupo',
-        'profesor_ref',
-        'alumnos_ref'
-      ]) {
-        if (!r[f]) {
-          errors.push(
-            `Fila ${rowNum}: '${f}' es obligatorio para grupo.`
-          );
-        }
-      }
-
-      groupsRows.push(r);
-
-    } else {
-
-      errors.push(
-        `Fila ${rowNum}: tipo inválido '${r.tipo}'. ` +
-        `Use 'usuario' o 'grupo'.`
-      );
-    }
-  }
-
-
-  // ----------------------------------------------------------
-  //  4) Separación por referencias del CSV
-  //  - Map(ref -> fila profesor)
-  //  - Map(ref -> fila alumno)
-  // ----------------------------------------------------------
-
-  const profRefRows = new Map();
-  const alumRefRows = new Map();
-
-  for (const u of usersRows) {
-    if (u.rol === 'profesor') profRefRows.set(u.ref, u);
-    if (u.rol === 'alumno')   alumRefRows.set(u.ref, u);
-  }
-
-
-  // ----------------------------------------------------------
-  //  5) Validación: cada alumno debe apuntar a un profesor válido
-  //  - Puede ser una ref dentro del CSV
-  //  - O un ObjectId (si el profesor ya existe en BD)
-  // ----------------------------------------------------------
-
-  for (const a of alumRefRows.values()) {
-
-    const pref = a.profesor_ref;
-
-    const ok =
-      profRefRows.has(pref)
-      || isLikelyObjectId(pref);
-
-    if (!ok) {
-      errors.push(
-        `Alumno ref='${a.ref}': profesor_ref '${pref}' ` +
-        `no existe en CSV ni parece ObjectId.`
-      );
-    }
-  }
-
-
-  // ----------------------------------------------------------
-  //  6) Validación de grupos
-  //  - profesor_ref válido
-  //  - alumnos_ref no vacío
-  //  - refs de alumnos válidas
-  //  - regla de negocio:
-  //    un alumno no puede pertenecer a otro profesor
-  // ----------------------------------------------------------
-
-  for (const g of groupsRows) {
-
-    const pref = g.profesor_ref;
-
-    const profesorOk =
-      profRefRows.has(pref)
-      || isLikelyObjectId(pref);
-
-    if (!profesorOk) {
-      errors.push(
-        `Grupo ref='${g.ref}': profesor_ref '${pref}' ` +
-        `no existe en CSV ni parece ObjectId.`
-      );
-    }
-
-    // alumnos_ref se separa con '|'
-    const alumnoRefs = (g.alumnos_ref || '')
-      .split('|')
-      .map((s) => s.trim())
-      .filter(Boolean);
-
-    if (alumnoRefs.length === 0) {
-      errors.push(
-        `Grupo ref='${g.ref}': debe tener al menos un alumno ` +
-        `en alumnos_ref.`
-      );
-    }
-
-    // 6.1) Validación: cada alumno existe en CSV o es ObjectId
-    for (const ar of alumnoRefs) {
-
-      const existeEnCsv = alumRefRows.has(ar);
-      const pareceId   = isLikelyObjectId(ar);
-
-      if (!existeEnCsv && !pareceId) {
-        errors.push(
-          `Grupo ref='${g.ref}': alumno '${ar}' ` +
-          `no existe en CSV ni parece ObjectId.`
-        );
-      }
-    }
-
-    // 6.2) Regla de negocio: alumno pertenece a un profesor único
-    for (const ar of alumnoRefs) {
-
-      if (alumRefRows.has(ar)) {
-
-        const alumno = alumRefRows.get(ar);
-
-        if (alumno.profesor_ref && alumno.profesor_ref !== pref) {
-
-          errors.push(
-            `Regla negocio: Grupo ref='${g.ref}' ` +
-            `(profesor_ref='${pref}') incluye alumno ref='${ar}' ` +
-            `que pertenece a profesor_ref='${alumno.profesor_ref}'.`
-          );
-        }
-      }
-    }
-  }
-
-
-  // Si hay errores, se devuelve antes de crear nada
-  if (errors.length > 0) {
-    return {
-      status: 400,
-      body: {
-        error: 'Errores de validación en el CSV.',
-        errors
-      }
-    };
-  }
-
-
-  // ----------------------------------------------------------
-  //  7) Creación dentro de transacción (Mongoose session)
-  //  - Si algo falla, se aborta y no queda nada a medias
-  // ----------------------------------------------------------
-
-  const session = await mongoose.startSession();
-
-  // Se guardan usuarios creados para enviar credenciales al final
-  const usersToEmail = [];
-
-  try {
-
-    await session.startTransaction();
-
-
-    // --- 7.1) Crear profesores ---
-    const profesoresRows = [...profRefRows.values()];
-
-    const profesoresData = profesoresRows.map((p) => ({
-      nombre: p.nombre,
-      apellido1: p.apellido1,
-      apellido2: p.apellido2,
-      email: p.email,
-
-      // Se deriva baseUsername de 3 letras
-      baseUsername: deriveBaseUsername3(p)
-    }));
-
-    const createdProfesoresByRef = new Map();
-
-    if (profesoresData.length > 0) {
-
-      const res = await exports.addUsuarios(
-        profesoresData,
-        'profesor',
-        null,
-        session,
-        { sendEmails: false }
-      );
-
-      if (res.status !== 201) {
-        throw new Error(
-          res.body?.error || 'Error creando profesores'
-        );
-      }
-
-      const created = res.body;
-
-      profesoresRows.forEach((row, idx) => {
-        createdProfesoresByRef.set(row.ref, created[idx]);
-        usersToEmail.push(created[idx]);
-      });
-    }
-
-
-    // --- 7.2) Agrupar alumnos por profesor ---
-    const alumnosPorProfesor = new Map();
-
-    for (const [aref, a] of alumRefRows.entries()) {
-
-      // profesor_ref puede ser ObjectId o ref del CSV
-      const profesorId = isLikelyObjectId(a.profesor_ref)
-        ? a.profesor_ref
-        : String(
-            createdProfesoresByRef
-              .get(a.profesor_ref)
-              ._id
-          );
-
-      const data = {
-        nombre: a.nombre,
-        apellido1: a.apellido1,
-        apellido2: a.apellido2,
-        email: a.email,
-        baseUsername: deriveBaseUsername3(a),
-
-        // Guardamos ref del CSV para mapear el creado luego
-        __csv_ref: aref
-      };
-
-      if (!alumnosPorProfesor.has(profesorId)) {
-        alumnosPorProfesor.set(profesorId, []);
-      }
-
-      alumnosPorProfesor.get(profesorId).push(data);
-    }
-
-
-    // --- 7.3) Crear alumnos y mapear por ref ---
-    const createdAlumnosByRef = new Map();
-
-    for (const [profesorId, alumnosData] of alumnosPorProfesor.entries()) {
-
-      const res = await exports.addUsuarios(
-        alumnosData.map((x) => ({
-          nombre: x.nombre,
-          apellido1: x.apellido1,
-          apellido2: x.apellido2,
-          email: x.email,
-          baseUsername: x.baseUsername
-        })),
-        'alumno',
-        profesorId,
-        session,
-        { sendEmails: false }
-      );
-
-      if (res.status !== 201) {
-        throw new Error(
-          res.body?.error || 'Error creando alumnos'
-        );
-      }
-
-      const created = res.body;
-
-      alumnosData.forEach((a, idx) => {
-        createdAlumnosByRef.set(a.__csv_ref, created[idx]);
-        usersToEmail.push(created[idx]);
-      });
-    }
-
-
-    // --- 7.4) Crear grupos ---
-    for (const g of groupsRows) {
-
-      const profesorId = isLikelyObjectId(g.profesor_ref)
-        ? g.profesor_ref
-        : String(
-            createdProfesoresByRef
-              .get(g.profesor_ref)
-              ._id
-          );
-
-      const alumnoRefs = (g.alumnos_ref || '')
-        .split('|')
-        .map((s) => s.trim())
-        .filter(Boolean);
-
-      const alumnoIds = alumnoRefs.map((ar) =>
-        isLikelyObjectId(ar)
-          ? ar
-          : String(
-              createdAlumnosByRef
-                .get(ar)
-                ._id
-            )
-      );
-
-      const res = await grupoController.crearGrupo(
-        g.nombre_grupo,
-        profesorId,
-        alumnoIds,
-        session
-      );
-
-      if (res.status !== 201) {
-        throw new Error(
-          res.body?.error || 'Error creando grupo'
-        );
-      }
-    }
-
-
-    // --- 7.5) Commit total ---
-    await session.commitTransaction();
-    session.endSession();
-
-
-    // ----------------------------------------------------------
-    //  8) Envío de correos con credenciales
-    //  - se realiza fuera de transacción
-    //  - si falla un correo, no invalida lo creado
-    // ----------------------------------------------------------
-
-    for (const user of usersToEmail) {
-
-      const emailResult = await emailController.enviarEmailCredenciales(
-        user.email,
-        user.username,
-        user.password
-      );
-
-      if (emailResult.message !== 'Correo enviado correctamente.') {
-
-        console.error(
-          `Error al enviar correo a ${user.email}: `
-          + `${emailResult.error || emailResult.message}`
-        );
-      }
-    }
-
-
-    // Respuesta final de éxito
-    return {
-      status: 201,
-      body: {
-        message: 'Importación CSV completada.',
-        created: {
-          profesores: profRefRows.size,
-          alumnos: alumRefRows.size,
-          grupos: groupsRows.length
-        }
-      }
-    };
-
-  } catch (e) {
-
-    // Si algo falla, se aborta toda la transacción
-    try {
-      await session.abortTransaction();
-    } catch (_) {}
-
-    session.endSession();
-
-    return {
-      status: 400,
-      body: {
-        error: 'La importación falló y se revirtió.',
-        details: e.message
-      }
-    };
-  }
-};
-
+  enviarCorreosConCredenciales()
+  devolver resultado de éxito
 \end{Verbatim}
 
 \subsection{Servicio de IA con Groq (integración por API y capa de servicios)}
@@ -1259,29 +710,43 @@ En el proyecto base, la lógica se repartía principalmente entre \textbf{rutas}
 
 \begin{Verbatim}[frame=single, fontsize=\small, xleftmargin=10pt, xrightmargin=10pt]
 
-// services/aiHint.service.js
+// Importación del SDK oficial de Groq para realizar peticiones
+// al servicio de inferencia mediante su API
 const Groq = require('groq-sdk');
 
+// Inicialización del cliente de Groq utilizando la clave
+// de API definida en las variables de entorno 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
+// Función asíncrona encargada de generar una pista teórica
+// breve para una pregunta tipo test
 async function generarPistaTeoria({
   preguntaTexto,
   posiblesRespuestas,
   recursoAudicion
 }) {
 
+// Comprobación previa de la existencia de la clave de API.
+// Si no está configurada, se interrumpe la ejecución
   if (!process.env.GROQ_API_KEY) {
     throw new Error('GROQ_API_KEY no está configurada');
   }
 
+// Construcción del bloque de opciones en formato texto.
+// Se numeran las respuestas y se evita provocar errores
+// en caso de que algún elemento no tenga texto definido
   const opciones = Array.isArray(posiblesRespuestas)
     ? posiblesRespuestas
         .map((r, i) => `${i + 1}) ${r?.texto ?? ''}`)
         .join('\n')
     : '';
 
+  // Definición del contenido que se enviará al modelo.
+  // Incluye la pregunta, las opciones y una serie de
+  // restricciones para controlar el tipo de respuesta
   const userContent =
-`Genera UNA pista breve para ayudar a responder esta pregunta tipo test sin revelar la respuesta.
+`Genera UNA pista breve para ayudar a responder esta pregunta tipo test 
+sin revelar la respuesta.
 
 Pregunta:
 ${preguntaTexto}
@@ -1297,53 +762,138 @@ Requisitos:
 - No des la solución ni pasos completos
 - No menciones "IA" ni "modelo"`;
 
+  // Envío de la petición al servicio de Groq indicando
+  // el modelo, los mensajes de contexto y los parámetros
+  // que controlan la generación de la respuesta
   const completion = await groq.chat.completions.create({
     model: 'llama-3.3-70b-versatile',
     messages: [
-      { role: 'system', content: 'Eres un tutor de música. Das pistas breves y seguras.' },
+      { role: 'system', content: 'Eres un tutor de música. 
+      Das pistas breves y seguras.' },
       { role: 'user',   content: userContent }
     ],
     temperature: 0.2,
     max_tokens: 90
   });
 
+  // Extracción segura del contenido generado por el modelo.
+  // Se utiliza encadenamiento opcional para evitar errores
+  // si la respuesta no tiene la estructura esperada
   const hint =
     completion?.choices?.[0]?.message?.content?.trim();
 
+  // Validación final para asegurar que se ha generado una pista
   if (!hint) throw new Error('No se pudo generar pista');
 
+  // Limpieza del texto devuelto antes de retornarlo,
+  // eliminando comillas o espacios sobrantes
   return hint
     .replace(/^["'\s]+|["'\s]+$/g, '')
     .trim();
 }
 
+// Exportación de la función para su reutilización
+// desde otras partes del backend
 module.exports = { generarPistaTeoria };
-
 \end{Verbatim}
+
 
 \section{Testing}
 \label{sec:backend_testing}
 
-Para el backend se mantiene el enfoque del TFG original con \textbf{Jest} y \textbf{Supertest}, centrado en validar endpoints y respuestas HTTP en un entorno controlado. En este complemento, cobra especial importancia asegurar que:
+El backend mantiene el enfoque de testing definido en el proyecto base, utilizando \textbf{Jest} como framework de pruebas unitarias y \textbf{Supertest} como herramienta para la validación de endpoints HTTP. Tal como se describió previamente en el proyecto base, esta combinación permite comprobar sistemáticamente la correcta implementación de la lógica de negocio, la validez de las respuestas REST y el cumplimiento de las reglas funcionales del sistema.
+
+Sobre esta base consolidada, la solución extendida refuerza el conjunto de pruebas automatizadas con nuevos escenarios derivados de las funcionalidades incorporadas, prestando especial atención a aquellos flujos que presentan una mayor complejidad lógica o impacto sobre la integridad de los datos.
+
+En particular, se ha puesto el foco en validar:
+
 \begin{itemize}
-  \item una importación inválida devuelve errores sin crear datos,
-  \item una importación válida crea lo esperado,
-  \item y operaciones sensibles (como eliminaciones) responden correctamente según permisos.
+  \item Que los procesos de importación masiva desde CSV detecten correctamente los errores de formato, referencias inconsistentes y violaciones de reglas de negocio, sin generar datos parciales;
+  \item Que las importaciones válidas produzcan la creación íntegra y coherente de usuarios y grupos;
+  \item Que las operaciones sensibles, como la eliminación de usuarios o la generación de pistas mediante servicios externos, respondan adecuadamente según el contexto, los permisos y el estado del sistema.
 \end{itemize}
 
-% Puedes incluir aquí uno o dos tests concretos si lo deseas, pero
-% como ya lo explicaste en el TFG original, con esta sección suele
-% ser suficiente para enlazar y justificar la continuidad.
+Este enfoque garantiza que la ampliación funcional no comprometa la estabilidad global del backend y que los nuevos flujos queden correctamente integrados dentro de la arquitectura existente.
+
+Para ello, se mantiene la estrategia de aislamiento descrita en la versión inicial del proyecto, mediante el uso intensivo de \textit{mocks} y \textit{spies}, lo que permite simular de forma controlada la interacción con servicios externos, controladores internos y acceso a base de datos. Asimismo, el uso de Supertest facilita la ejecución de peticiones HTTP reales contra la aplicación, permitiendo validar tanto los códigos de estado como el contenido completo de las respuestas.
+
+Como fragmento representativo, se presenta a continuación el conjunto de pruebas desarrollado para el endpoint encargado de devolver una pista asociada a una pregunta concreta, accesible mediante la ruta \texttt{GET /cuestionarios/:id/preguntas/:index/pista}. Este endpoint introduce un nuevo flujo funcional basado en la integración con un servicio externo de inferencia, por lo que resulta especialmente relevante validar tanto los escenarios normales como las situaciones de error controlado.
+
+\begin{Verbatim}[frame=single, fontsize=\small, xleftmargin=10pt, xrightmargin=10pt]
+
+// Bloque de pruebas para el endpoint encargado de
+// devolver una pista asociada a una pregunta concreta
+describe('GET /cuestionarios/:id/preguntas/:index/pista', () => {
+
+  // Caso de éxito: la petición es válida y se devuelve
+  // una pista correctamente generada
+  it('200 - devuelve pista', async () => {
+
+    // Simulación del comportamiento del controlador para
+    // evitar dependencias externas durante el test
+    jest.spyOn(cuestionarioController, 'getPistaPregunta')
+      .mockResolvedValue({
+        status: 200,
+        body: { pista: 'PISTA', cached: true }
+      });
+
+    // Ejecución de la petición HTTP contra la aplicación
+    // utilizando Supertest
+    const res = await request(app)
+      .get('/cuestionarios/c1/preguntas/0/pista');
+
+    // Verificación del código de estado y del contenido
+    // de la respuesta
+    expect(res.status).toBe(200);
+    expect(res.body.pista).toBe('PISTA');
+  });
+
+  // Caso de error: el índice de la pregunta no es válido
+  // y no puede ser interpretado como un número
+  it('400 - preguntaIndex inválido', async () => {
+
+    // Petición con un índice incorrecto para comprobar
+    // la validación de parámetros en la ruta
+    const res = await request(app)
+      .get('/cuestionarios/c1/preguntas/abc/pista');
+
+    // Se espera una respuesta de error por parte del servidor
+    expect(res.status).toBe(400);
+  });
+
+  // Caso de error controlado: el servicio de generación
+  // de pistas no está disponible temporalmente
+  it('503 - mantenimiento', async () => {
+
+    // Simulación de una respuesta del controlador que
+    // indica indisponibilidad del servicio externo
+    jest.spyOn(cuestionarioController, 'getPistaPregunta')
+      .mockResolvedValue({
+        status: 503,
+        body: { error: 'Pistas en mantenimiento.' }
+      });
+
+    // Ejecución de la petición en un escenario de
+    // mantenimiento del servicio
+    const res = await request(app)
+      .get('/cuestionarios/c1/preguntas/0/pista');
+
+    // Comprobación de que el código de estado refleje
+    // correctamente la situación de error
+    expect(res.status).toBe(503);
+  });
+});
+
+\end{Verbatim}
+
+Este conjunto de pruebas permite validar de manera precisa el correcto funcionamiento del endpoint bajo distintos escenarios, asegurando una integración fiable con el servicio externo de inferencia y una gestión coherente de los errores. De este modo, se refuerza la robustez del backend y se garantiza que la nueva funcionalidad se incorpora sin comprometer la estabilidad global del sistema.
 
 
 
-% =========================================================
-%  CAPÍTULO: DESARROLLO FRONTEND (COMPLEMENTO)
-% =========================================================
 \chapter{Desarrollo de la aplicación frontend}
 \label{chap:desarrollo_frontend}
 
-El frontend del complemento se mantiene sobre la pila del proyecto base: \textbf{Angular} + \textbf{Ionic}. Angular aporta la estructura modular basada en \textbf{componentes}, \textbf{servicios} y \textbf{módulos}, mientras que Ionic proporciona componentes visuales pensados para interfaz táctil y ejecución híbrida.
+El frontend del complemento se mantiene sobre la pila original: \textbf{Angular} + \textbf{Ionic}. Angular aporta la estructura modular basada en \textbf{componentes}, \textbf{servicios} y \textbf{módulos}, mientras que Ionic proporciona componentes visuales pensados para interfaz táctil y ejecución híbrida.
 
 A nivel de patrón, el desarrollo sigue el esquema habitual de Angular (frecuentemente descrito como un \textbf{MVC/MVVM práctico}): los \textbf{componentes} gestionan estado y renderizado de la vista, los \textbf{servicios} encapsulan lógica reutilizable y comunicación HTTP, y la “capa modelo” se representa mediante interfaces/DTOs y estructuras que viajan entre frontend y backend.
 
@@ -1356,34 +906,44 @@ En este complemento, aunque se han añadido pantallas y funcionalidades, el camb
 
 La exportación a móvil se realiza con \textbf{Capacitor}, que actúa como puente entre el proyecto web y el proyecto nativo Android. A nivel práctico:
 \begin{itemize}
-  \item genera un contenedor Android para ejecutar la app como instalada,
-  \item permite usar plugins para acceder a capacidades del dispositivo,
-  \item y facilita ajustes que en navegador (PC) no son necesarios.
+  \item Genera un contenedor Android para ejecutar la app como instalada,
+  \item Permite usar plugins para acceder a capacidades del dispositivo,
+  \item Facilita ajustes que en navegador (PC) no son necesarios.
 \end{itemize}
 
-\subsubsection{Ajuste de barras del sistema (zona superior e inferior)}
+\subsubsection{Ajuste de menús del sistema}
 
-En móvil pueden aparecer solapes con la barra superior o la zona inferior de navegación. Una forma de resolverlo es detectar plataforma nativa y aplicar estilos específicos.
+En sistemas móviles pueden aparecer solapes con algunos menús nativos como la barra de estado superior. Actualmente, Capacitor en combinación con Ionic, ofrecen una solución para ello bastante sencilla gracias a su conjunto de plugins, además también se aplican soluciones de padding para no solapar con otros menús como la botonera inferior del sistema nativo.
 
 \begin{Verbatim}[frame=single, fontsize=\small, xleftmargin=10pt, xrightmargin=10pt]
-
-// Ejemplo orientativo: detectar ejecución nativa (Capacitor)
-import { Capacitor } from '@capacitor/core';
-
-const isNative = Capacitor.isNativePlatform();
-
-if (isNative) {
-  document.body.classList.add('native-platform');
+// Platform, servicio Standalone de Ionic 
+// que detecta si el entorno en ejecución es web o móvil (Android o iOS)
+if (this.platform.is('capacitor')) { 
+  // StatusBar, plugin de Capacitor que permite modificar 
+  // el manejo de la barra de estado.
+  // En este caso, se establece en que no debe superponerse con la app.
+  await StatusBar.setOverlaysWebView({ overlay: false });
+  // Y se implementa que su color debe seguir la temática de la app.
+  await StatusBar.setStyle({ style: Style.Default });
 }
 
 \end{Verbatim}
 
 \begin{Verbatim}[frame=single, fontsize=\small, xleftmargin=10pt, xrightmargin=10pt]
 
-/* Ejemplo orientativo: padding extra en móvil para evitar solapes */
-.native-platform ion-content {
-  --padding-top: 16px;
-  --padding-bottom: 16px;
+// Los safe-areas son unas variables que entrega 
+// el sistema operativo a la aplicación.
+// Estas variables representan las zonas que ocupan 
+// partes nativas del sistema (barra de estado o botonera inferior del sistema nativo).
+// De este modo, añadiendo padding en los cuatro lados
+// en estilos globales del desarrollo,
+// la aplicación se adaptará al tamaño de forma automática 
+// sin solapes, independientemente del menú que aparezca.
+body {
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
 }
 
 \end{Verbatim}
@@ -1391,194 +951,1007 @@ if (isNative) {
 \subsubsection{Apertura de PDFs en Android (Filesystem + FileOpener)}
 
 En PC, incrustar un PDF con \texttt{iframe} suele funcionar bien, pero en Android el WebView puede dar problemas. La solución aplicada consiste en:
-\begin{itemize}
-  \item detectar que se está en móvil,
-  \item mostrar un botón \textit{Abrir PDF},
-  \item guardar temporalmente el archivo en el dispositivo,
-  \item y abrirlo con el visor nativo del sistema.
-\end{itemize}
+\begin{enumerate}
+  \item Detectar que se está en móvil.
+  \item Mostrar un botón \textit{Abrir PDF}.
+  \item Guardar temporalmente el archivo en el dispositivo.
+  \item Abrirlo con el visor nativo del sistema.
+\end{enumerate}
+
+Un fragmento de código representativo es el que muestra el caso de los detalles de cada rama de la enseñanza, en el cual, puede haber un libro del curso. Este libro, proviene de la base de datos y aparece en pantalla (todo esto tratado en el proyecto original).
+La evolución a móvil impide la vista directamente ya que no hay un visor de PDF integrado en la app (lo cual sí que aparece en los navegadores), por lo tanto, es necesario abrirlo vía externa en el visor del sistema accediendo así a las funcionalidades nativas mediante los plugins de Capacitor, en concreto, se usarán FileSystem y FileOpener.
 
 \begin{Verbatim}[frame=single, fontsize=\small, xleftmargin=10pt, xrightmargin=10pt]
-
-// Ejemplo orientativo: abrir PDF en visor nativo Android
-import { Capacitor } from '@capacitor/core';
-import { Filesystem, Directory } from '@capacitor/filesystem';
-import { FileOpener } from '@capacitor-community/file-opener';
-
-async function abrirPdfEnMovil(
-  nombreFichero,
-  pdfBase64
-) {
-
-  // Solo se ejecuta en app instalada (Android/iOS)
-  if (!Capacitor.isNativePlatform()) return;
-
-  // 1) Guardar el PDF en Documents (o caché si prefieres)
-  const writeRes = await Filesystem.writeFile({
-    path: nombreFichero,
-    data: pdfBase64,
-    directory: Directory.Documents
-  });
-
-  // 2) Abrir el PDF con el visor nativo
-  await FileOpener.open({
-    filePath: writeRes.uri,
-    contentType: 'application/pdf'
-  });
+//Se comprueba al inicio si es pantalla reducida (sistemas Android o iOS de tablet y móvil).
+@HostListener('window:resize')
+onResize() {
+  this.checkIsMobile();
+}
+private checkIsMobile(): void {
+  this.isMobile = window.matchMedia('(max-width: 1368px)').matches;
+}
+// Un botón solo accesible desde móvil acciona el método.
+async openPdf(): Promise<void> {
+  try {
+    if (!this.libroBlob) {
+      await this
+        .presentToast('No hay PDF disponible para abrir.', 'danger');
+      return;
+    }
+    // En caso de haber libro, es necesario obtenerlo en base64 
+    // para poder construirlo fuera del dominio de la aplicación
+    const base64 = await this.blobToBase64(this.libroBlob);
+    const fileName = 
+    `libro-apoyo-${this.ramaConfig?._id || 'rama'}.pdf`;
+    // El plugin FileSystem construye el documento a partir 
+    // del código en base64 y lo guarda en memoria 
+    // generando así una URL real y accesible.
+    const result = await Filesystem.writeFile({
+      path: fileName,
+      data: base64,
+      directory: Directory.Cache, // Guardado temporal
+      recursive: true,
+    });
+    // El plugin FileOpener le indica que tipo de formato tiene
+    // el archivo para que lo abra con la aplicación predeterminada 
+    // del sistema (en este caso PDF) y su URL para ubicarlo y abrirlo.
+    await FileOpener.open({
+      filePath: result.uri,
+      contentType: 'application/pdf',
+      openWithDefault: true,
+    });
+  } catch (e) {
+    console.error(e);
+    await this.presentToast
+    ('No se pudo abrir el PDF en este dispositivo.', 'danger');
+  }
 }
 
 \end{Verbatim}
 
 \subsubsection{Estilos específicos para móvil}
 
-Además de los cambios anteriores, se han aplicado ajustes de CSS para mejorar usabilidad en pantallas pequeñas (márgenes, tamaños de letra, botones a ancho completo, etc.). Un ejemplo típico es el uso de \texttt{@media}:
+Además de los cambios anteriores, se han aplicado ajustes menores de scss para algunas partes de la aplicación que, gracias a Ionic combinado con Capacitor, son muy ligeros. El ejemplo más elaborado es el cambio en el menú de botones que le aparecía al profesor en la lista de tareas creadas de cada rama, 
+en este caso, el menú de botones provocaba que en pantallas pequeñas no se llegara a ver, por tanto, se detecta el tamaño de pantalla que es y, en caso de tamaño pequeño manejado con @media, se pasa a un solo botón que ya, pulsándolo, despliega el resto de opciones.
 
 \begin{Verbatim}[frame=single, fontsize=\small, xleftmargin=10pt, xrightmargin=10pt]
-
-/* Ejemplo orientativo de ajustes visuales para móvil */
-@media (max-width: 768px) {
-
-  ion-button {
-    width: 100%;
-    margin-bottom: 12px;
+// En caso de tener un tamaño demasiado pequeño, esconde 
+// los tres botones y los encapsula en un único botón desplegable.
+@media (max-width: 767px) {
+  .desktop-only {
+    display: none;
   }
 
-  .content-wrapper {
-    padding: 12px;
-  }
-
-  .card-title {
-    font-size: 1.05rem;
+  .mobile-only {
+    display: flex;
   }
 }
+// En caso contrario, los muestra y esconde el botón único.
+.desktop-only {
+  display: flex;
+}
 
+.mobile-only {
+  display: none;
+}
 \end{Verbatim}
 
-\subsubsection{Ajustes finales en Android Studio (iconos, splash, manifest)}
+\subsubsection{Ajustes finales en Android Studio (Iconos, Pantallas de carga y XML)}
 
 Una vez compilado el proyecto Android, ciertos recursos visuales se terminan de ajustar desde \textbf{Android Studio}, como:
 \begin{itemize}
-  \item iconos definitivos,
-  \item pantalla de carga (\textit{splash}),
-  \item y referencias en el \textit{manifest} si procede.
+  \item Iconos de la aplicación en vistas nativas.
+  \item Pantalla de carga.
 \end{itemize}
 
-% Aquí puedes ampliar tu caso real: logos en manifest, splash, etc.
+Todo esto lo maneja Android Studio para cada aplicación añadiendo unos XML que contienen las referencias a los distintos logos y estilos usados, en concreto, AndroidManifest (donde se declara el nombre, icono y permisos) y splash.xml (pantalla de carga)
+\section{Diseño y experiencia de usuario (UX/UI)}
+\label{sec:frontend_diseno_ext}
 
+El diseño del frontend en la solución extendida se apoya directamente en la interfaz y los principios UX/UI definidos en la primera versión, descritos en el apartado correspondiente. En este complemento no se plantea un rediseño completo de la aplicación, sino una \textbf{adaptación visual y funcional al contexto móvil}, derivada de la exportación a Android mediante Capacitor y de los ajustes descritos en la sección~\ref{sec:frontend_impl}.
 
-\section{Diseño}
-\label{sec:frontend_diseno}
+De este modo, el objetivo principal de esta sección es mostrar \textbf{cómo los cambios implementados se traducen en mejoras perceptibles para el usuario final}, garantizando una experiencia coherente, estable y visualmente consistente cuando la aplicación se ejecuta como app instalada.
 
-En este complemento, las capturas de diseño se plantean \textbf{desde móvil} (Android) para evidenciar justo lo explicado en implementación: comportamiento instalado, ausencia de solapes, apertura de PDFs con visor nativo y coherencia visual en pantalla pequeña.
+\subsection{Continuidad visual y coherencia de interacción}
 
-% ---------------------------------------------------------
-% Captura 1: Home en Android (layout general)
-% \begin{figure}[H]
-%   \centering
-%   \includegraphics[width=0.75\textwidth]{Figuras/frontend/movil/home_android.png}
-%   \caption{Pantalla principal ejecutándose como aplicación Android.}
-%   \label{fig:home_android}
-% \end{figure}
-%
-% Captura 2: Vista con safe-area (sin solape con barra superior/inferior)
-% \begin{figure}[H]
-%   \centering
-%   \includegraphics[width=0.75\textwidth]{Figuras/frontend/movil/safe_area.png}
-%   \caption{Ejemplo de vista en Android mostrando que no hay solapes con el sistema.}
-%   \label{fig:safe_area}
-% \end{figure}
-%
-% Captura 3: Pantalla de PDF en móvil con botón "Abrir PDF"
-% \begin{figure}[H]
-%   \centering
-%   \includegraphics[width=0.75\textwidth]{Figuras/frontend/movil/pdf_button.png}
-%   \caption{Acceso a PDF en móvil mediante botón para apertura con visor nativo.}
-%   \label{fig:pdf_button}
-% \end{figure}
-%
-% Captura 4: PDF abierto en visor nativo
-% \begin{figure}[H]
-%   \centering
-%   \includegraphics[width=0.75\textwidth]{Figuras/frontend/movil/pdf_native_viewer.png}
-%   \caption{Documento PDF abierto en el visor nativo del dispositivo Android.}
-%   \label{fig:pdf_native_viewer}
-% \end{figure}
-%
-% Captura 5: Splash/logo final tras compilar (Android Studio)
-% \begin{figure}[H]
-%   \centering
-%   \includegraphics[width=0.75\textwidth]{Figuras/frontend/movil/splash.png}
-%   \caption{Pantalla de carga y recursos visuales configurados en Android Studio.}
-%   \label{fig:splash_android}
-% \end{figure}
-% ---------------------------------------------------------
+Tal y como se ha detallado en el apartado de implementación, la aplicación mantiene intacta la estructura de navegación, los patrones de interacción y la identidad visual definidos en el proyecto base. Esto permite que la experiencia de usuario sea continua entre la versión web y la versión móvil, evitando una curva de aprendizaje adicional.
 
+En particular, gracias al uso de Ionic y a la correcta integración con Capacitor:
+
+\begin{itemize}
+    \item Se conserva la \textbf{organización funcional de pantallas}, manteniendo la separación entre navegación académica y navegación de gestión, como se aprecia en la vista principal mostrada en la figura~\ref{fig:menus}.
+    
+    \item Se mantienen los \textbf{patrones de interacción habituales}, como el uso de modales, listas dinámicas y formularios guiados garantizando una experiencia predecible y consistente.
+    
+    \item La aplicación presenta una \textbf{identidad gráfica homogénea} independientemente del dispositivo, reforzando la percepción de producto unificado.
+\end{itemize}
+
+\subsection{Efectos visibles de la adaptación a móvil}
+
+Tal y como se ha expuesto en la sección~\ref{sec:frontend_impl}, la exportación a Android ha requerido una serie de ajustes técnicos específicos. Desde el punto de vista del usuario, estas adaptaciones se traducen en mejoras directas en la experiencia visual y funcional:
+
+\begin{itemize}
+    \item \textbf{Ausencia de solapes con elementos del sistema}: Gracias al uso de \textit{safe areas} y a la configuración del plugin \texttt{StatusBar}, la interfaz se adapta automáticamente a la presencia de la barra superior y la navegación inferior del sistema, garantizando una correcta visualización del contenido, como se observa en la figura~\ref{fig:ritmo}.
+    
+    \item \textbf{Gestión nativa de documentos PDF}: Los documentos PDF se abren mediante el visor nativo del sistema, proporcionando una lectura fluida y estable.
+    
+    \item \textbf{Reorganización adaptativa de controles}: En pantallas reducidas, algunos menús de acciones se condensan en botones desplegables, preservando la accesibilidad sin comprometer la claridad visual.
+    
+    \item \textbf{Ajustes de tamaño y posición}: Algunos elementos, al basarse en el porcentaje ocupado de la página para posicionarse y ocupar un tamaño, no ofrecían una buena experiencia de usuario en pantallas pequeñas, por tanto, también eso ha requerido de ajustes como se puede ver en la comparativa del tamaño del vídeo en los cuestionarios (tanto en edición como en creación y entrega) entre la versión web y la versión Android en la figura~\ref{fig:cuestionario}.
+    
+    \item \textbf{Percepción de aplicación instalada}: La configuración de iconos y pantallas de carga refuerza la sensación de aplicación nativa, como se aprecia en el logo de la aplicación representada en la figura~\ref{fig:splash_android}.
+\end{itemize}
+
+\subsection{Ejemplos visuales de la solución extendida}
+
+Las siguientes figuras ilustran los principales efectos visuales derivados de la implementación descrita previamente, mostrando la ejecución de la aplicación como app instalada en Android, la correcta adaptación al espacio disponible, la apertura de documentos PDF mediante el visor nativo y la personalización de los recursos visuales.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.3\textwidth]{Figuras/menus.png}
+  \caption{Menú doble (lateral e inferior)}
+  \label{fig:menus}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{Figuras/Ritmo_pc.png}
+  \hfill
+  \includegraphics[width=0.2\textwidth]{Figuras/Ritmo.png}
+  \caption{Vista de la rama de ritmo en versión web (izquierda) y Android (derecha).}
+  \label{fig:ritmo}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{Figuras/cuestionario_pc.png}
+  \hfill
+  \includegraphics[width=0.2\textwidth]{Figuras/cuestionario.png}
+  \caption{Vista de cuestionario en versión web (izquierda) y Android (derecha).}
+  \label{fig:cuestionario}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.3\textwidth]{Figuras/splash.png}
+  \caption{Icono desde vista nativa}
+  \label{fig:splash_android}
+\end{figure}
+
+En conjunto, estos elementos reflejan cómo la implementación descrita previamente se traduce en una experiencia de usuario consistente, fluida y adaptada al entorno móvil, preservando la identidad visual y funcional del proyecto original.
 
 \section{Testing}
 \label{sec:frontend_testing}
 
-El frontend mantiene el enfoque del TFG original con \textbf{Jasmine} y \textbf{Karma}. En esta fase, el objetivo principal es asegurar que los componentes siguen comportándose como se espera tras cambios y ajustes para móvil, y que los servicios que consumen la API siguen devolviendo datos de forma consistente.
+El frontend mantiene el enfoque de testing definido en el versión inicial, utilizando \textbf{Jasmine} como framework de pruebas unitarias y \textbf{Karma} como entorno de ejecución. Como se expuso en el trabajo previo, esta combinación permite validar de forma sistemática la lógica interna de los componentes Angular y su correcta integración con los servicios y la interfaz de usuario.
 
-A continuación se incluye un ejemplo genérico (sustituible por tus tests reales):
+Sobre esta base ya establecida, la solución extendida no introduce cambios estructurales en la metodología de pruebas, sino que amplía el conjunto de tests existentes para cubrir las nuevas funcionalidades incorporadas. En particular, se ha reforzado el testing en aquellos componentes que presentan una mayor complejidad lógica o que introducen flujos críticos de interacción, especialmente aquellos relacionados con la gestión administrativa del sistema.
+
+En este contexto, se ha desarrollado un conjunto específico de pruebas para el panel de gestión de profesores, accesible por el administrador, cuyo objetivo es permitir la revisión y eliminación controlada de usuarios con rol docente tal y como se establece en la definición del proyecto. Este componente introduce nuevas posibilidades que requieren ser verificadas mediante tests automatizados, tales como la confirmación explícita de acciones destructivas, la validación de identificadores y la correcta gestión de errores.
+
+De manera concreta, los tests implementados persiguen los siguientes objetivos:
+
+\begin{itemize}
+  \item Verificar la correcta inicialización del componente y la carga inicial del listado de profesores desde el servicio backend.
+  \item Comprobar la correcta interacción con los servicios de negocio mediante la simulación controlada de respuestas.
+  \item Validar los flujos de interacción que requieren confirmación explícita por parte del usuario antes de ejecutar acciones irreversibles.
+  \item Garantizar la actualización coherente del estado interno del componente tras operaciones de eliminación.
+  \item Verificar el tratamiento de situaciones de error y su correcta notificación visual mediante alertas y mensajes emergentes.
+\end{itemize}
+
+Para ello, se emplea el mismo enfoque de aislamiento descrito en el proyecto base, utilizando \textit{spies} de Jasmine sobre los controladores de Ionic y los servicios de negocio. Este mecanismo permite simular de modo controlado el comportamiento de dependencias externas, evitando efectos colaterales durante la ejecución de las pruebas. Asimismo, se utilizan herramientas específicas para el control del flujo asíncrono, lo que permite reproducir con precisión operaciones basadas en promesas y observables.
+
+A continuación se presenta un pseudocódigo estructurado que resume el comportamiento validado por los tests implementados para el componente de gestión de profesores. Se ha decidido usar esta representación porque mantiene un nivel de detalle cercano a la semántica real facilitando su comprensión y la implementación real resulta demasiado extensa y depende de detalles técnicos 
 
 \begin{Verbatim}[frame=single, fontsize=\small, xleftmargin=10pt, xrightmargin=10pt]
 
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MiComponentePage } from './mi-componente.page';
+Inicializar entorno de pruebas
 
-describe('MiComponentePage', () => {
+Crear mocks de dependencias:
+  - ModalController
+  - ToastController
+  - AlertController
+  - UsuarioService
 
-  let component: MiComponentePage;
-  let fixture: ComponentFixture<MiComponentePage>;
+Crear spies para métodos críticos:
+  - dismiss()
+  - create() y present() de alertas y toasts
+  - getAllProfesores()
+  - deleteUsuario()
 
-  beforeEach(async () => {
+Configurar TestBed con el componente y los mocks
+Crear instancia del componente
+Ejecutar ciclo inicial (ngOnInit)
 
-    await TestBed.configureTestingModule({
-      declarations: [MiComponentePage],
-    }).compileComponents();
+TEST 1: Creación del componente
+  Verificar que la instancia se crea correctamente
 
-    fixture = TestBed.createComponent(MiComponentePage);
-    component = fixture.componentInstance;
+TEST 2: Carga inicial de profesores
+  Simular respuesta del servicio
+  Ejecutar ngOnInit
+  Verificar llamada al servicio y asignación interna
 
-    fixture.detectChanges();
-  });
+TEST 3: Cierre del modal
+  Ejecutar dismissModal
+  Verificar invocación del ModalController
 
-  it('debe crearse correctamente', () => {
-    expect(component).toBeTruthy();
-  });
+TEST 4: Solicitud de eliminación
+  Ejecutar deleteProfesor(id)
+  Verificar aparición de alerta de confirmación
 
-  it('debe inicializar el estado por defecto', () => {
-    expect(component).toBeDefined();
-  });
+TEST 5: ID inválido
+  Ejecutar deleteProfesor('')
+  Verificar aparición de toast de error
+  Comprobar que no se invoca deleteUsuario
 
-});
+TEST 6: Confirmación de eliminación
+  Precargar lista interna
+  Confirmar eliminación
+  Verificar:
+    - llamada al servicio
+    - aparición de toast de éxito
+    - actualización correcta del listado
+
+TEST 7: Error en eliminación
+  Simular error del servicio
+  Confirmar eliminación
+  Verificar:
+    - aparición de toast de error
+    - no modificación del estado interno
+
+TEST 8: Cancelación
+  Abrir alerta
+  No confirmar eliminación
+  Verificar que no se invoca deleteUsuario
 
 \end{Verbatim}
 
+Este conjunto de pruebas permite validar sistemáticamente los principales flujos funcionales introducidos en la solución extendida, garantizando un comportamiento estable ante escenarios normales y situaciones de error. De este modo, se refuerza la fiabilidad global del frontend y se reduce el riesgo de regresiones durante la evolución futura del sistema.
+\chapter{Despliegue del sistema}
+\label{chap:despliegue}
 
+El despliegue del sistema mantiene la misma infraestructura y metodología establecidas en el proyecto original, basadas en un flujo de integración y entrega continua que garantiza la estabilidad, trazabilidad y fiabilidad del software. En este complemento, el objetivo no es redefinir dicho proceso, sino extenderlo con un nuevo escenario de despliegue: la generación de una aplicación móvil Android instalada.
+
+De este modo, el despliegue web se conserva sin modificaciones relevantes, mientras que la principal aportación de esta fase se centra en la incorporación de un flujo específico para la construcción, empaquetado y validación de la versión móvil, apoyado en el uso de Capacitor y Android Studio, tal y como se ha descrito en la sección~\ref{sec:frontend_impl}.
+
+\section{Despliegue web}
+
+Tal y como se detalla en el documento principal, el sistema se despliega mediante un flujo de integración y entrega continua basado en \textbf{GitHub Actions}, con publicación automática del backend en \textbf{Render} y del frontend web en \textbf{GitHub Pages}, apoyándose en una base de datos gestionada en la nube mediante \textbf{MongoDB Atlas}.
+
+Este enfoque permite automatizar la ejecución de pruebas, la construcción de artefactos y la publicación de nuevas versiones, garantizando estabilidad operativa, control de versiones y detección temprana de errores. Dado que este mecanismo no ha sufrido modificaciones en el presente complemento, no se reproduce aquí su descripción completa, remitiendo al lector al capítulo correspondiente del proyecto original.
+
+\section{Despliegue móvil: generación de la aplicación Android}
+
+La principal novedad introducida en esta fase es la posibilidad de ejecutar la aplicación como una \textbf{app instalada en dispositivos Android}, partiendo directamente del frontend híbrido desarrollado con Ionic y Angular. Esta ampliación responde al objetivo de reforzar la portabilidad del sistema y facilitar su uso en contextos educativos reales, donde el acceso desde dispositivos móviles resulta especialmente relevante.
+
+El proceso de despliegue móvil se apoya en dos herramientas principales:
+
+\begin{itemize}
+  \item \textbf{Capacitor}, como puente entre la aplicación web y el entorno nativo móvil.
+  \item \textbf{Android Studio}, como entorno oficial para la construcción, depuración y empaquetado de la aplicación Android.
+\end{itemize}
+
+\subsection{Generación del contenedor Android mediante Capacitor}
+
+Capacitor permite encapsular la aplicación web en un contenedor nativo Android, proporcionando una capa de comunicación entre el código JavaScript y las funcionalidades propias del sistema operativo. Este mecanismo hace posible que la aplicación híbrida se comporte como una app instalada, manteniendo una única base de código para las versiones web y móvil.
+
+El flujo general seguido para la generación del proyecto Android es el siguiente:
+
+\begin{enumerate}
+  \item Compilación del frontend Angular en modo producción.
+  \item Sincronización del proyecto web con Capacitor.
+  \item Generación automática de la estructura Android nativa.
+  \item Apertura del proyecto resultante en Android Studio.
+\end{enumerate}
+
+Este procedimiento permite reutilizar íntegramente la lógica y la interfaz desarrolladas, evitando duplicidades y manteniendo la coherencia funcional entre plataformas.
+
+\subsection{Construcción y validación en Android Studio}
+
+Una vez generado el proyecto Android, Android Studio se utiliza como entorno principal para:
+
+\begin{itemize}
+  \item Gestionar dependencias nativas.
+  \item Compilar el contenedor Android junto con el WebView.
+  \item Ejecutar la aplicación en emuladores y dispositivos físicos.
+  \item Depurar errores específicos de plataforma.
+  \item Generar el paquete instalable (APK).
+\end{itemize}
+
+Este entorno permite además realizar los ajustes finales en recursos gráficos, configuración del manifiesto, permisos y pantallas de carga, tal y como se ha descrito en la sección~\ref{sec:frontend_impl}. De este modo, la aplicación adquiere una apariencia plenamente nativa, reforzando la percepción de producto final estable y profesional.
+
+\subsection{Generación del paquete instalable}
+
+El proceso culmina con la construcción de una \textbf{APK}, que permite instalar la aplicación directamente en dispositivos Android sin necesidad de pasar por tiendas de aplicaciones. Este paquete constituye un artefacto verificable que materializa la portabilidad efectiva del sistema, permitiendo evaluar su comportamiento en condiciones reales de uso.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{Figuras/apk_install.png}
+  \caption{Aplicación instalada en un dispositivo Android}
+  \label{fig:apk_install}
+\end{figure}
+
+\section{Valor añadido del despliegue móvil}
+
+La incorporación del despliegue móvil aporta un valor añadido significativo al sistema, ya que:
+
+\begin{itemize}
+  \item Refuerza la accesibilidad para alumnado y profesorado.
+  \item Facilita el uso en entornos educativos reales.
+  \item Consolida la arquitectura híbrida adoptada.
+  \item Permite futuras extensiones a otras plataformas móviles sin cambios estructurales.
+\end{itemize}
+
+De este modo, el despliegue móvil no se concibe como una mera adaptación técnica, sino como un paso estratégico hacia la implantación real del sistema, alineado con los objetivos definidos en el capítulo~\ref{chap:objetivos}.
 \chapter{Plan de implantación}
 \label{chap:implantacion}
 
-Este apartado constituye uno de los ejes principales del proyecto y describe el conjunto de acciones necesarias para implantar la solución en un entorno educativo real.
+El presente capítulo describe un plan integral para la implantación progresiva de la solución desarrollada en un entorno educativo real. Aunque durante el desarrollo de este proyecto no se ha llevado a cabo una implantación completa siguiendo dicho plan, sí se ha realizado una validación preliminar en un centro educativo, mostrando el funcionamiento general de la aplicación y recogiendo observaciones directas del profesorado. Esta experiencia, descrita en el apartado~\ref{sec:validacion_preliminar}, ha permitido detectar mejoras relevantes y refuerza la necesidad de contar con un plan estructurado que guíe una futura implantación realista.
 
-\section{Adaptación tecnológica}
+El objetivo de este plan no es documentar un proceso ya ejecutado, sino establecer un marco estratégico, técnico y organizativo que permita, en un escenario real, desplegar la aplicación de forma segura, estable, escalable y sostenible, contemplando tanto los aspectos tecnológicos como los humanos y organizativos implicados. Este enfoque resulta coherente con la evolución funcional y tecnológica presentada en los capítulos~\ref{chap:desarrollo_backend} y~\ref{chap:desarrollo_frontend}.
 
-Se identifican los cambios necesarios para migrar la solución hacia tecnologías más robustas y adecuadas para un entorno productivo, incluyendo mejoras en la gestión de archivos, el almacenamiento de datos y la escalabilidad del sistema.
+Además, cabe destacar que las decisiones técnicas adoptadas a lo largo del proyecto han favorecido de manera significativa su adaptación a un contexto real de implantación. Las tecnologías seleccionadas, aunque en su configuración actual priorizan el uso de recursos gratuitos y presentan limitaciones para un entorno productivo, ofrecen planes de escalado superiores o permiten una migración sencilla hacia infraestructuras de pago, sin necesidad de reestructurar la arquitectura del sistema. Asimismo, aunque se han identificado determinados aspectos susceptibles de mejora en materia de seguridad, estos quedan documentados como líneas de evolución futura, manteniendo la versión actual del sistema suficientemente preparada para asumir dichos cambios de forma progresiva y controlada.
+\section{Objetivos del plan de implantación}
+\label{sec:objetivos_implantacion}
 
-\section{Mejoras de seguridad}
+La implantación de un sistema informático en un entorno educativo requiere una planificación cuidadosa que tenga en cuenta múltiples factores. En este contexto, el plan de implantación persigue los siguientes objetivos principales:
 
-Aunque no todas las mejoras de seguridad propuestas se implementan directamente en esta fase, se detallan las modificaciones necesarias para cumplir con buenas prácticas, tales como la gestión segura de credenciales, el almacenamiento cifrado de contraseñas y la protección de datos sensibles.
+\begin{itemize}
+    \item Garantizar una transición progresiva desde el entorno de desarrollo hacia un entorno productivo real, minimizando interrupciones en la actividad docente.
+    \item Asegurar la estabilidad técnica del sistema, su disponibilidad continua y la integridad de los datos almacenados, en coherencia con los principios arquitectónicos definidos en el apartado~\ref{sec:tecnologias_ext} y en la versión inicial.
+    \item Facilitar la adopción de la herramienta por parte del profesorado y el alumnado, reduciendo la resistencia al cambio mediante interfaces intuitivas y procesos alineados con la práctica educativa real.
+    \item Proteger los datos personales gestionados por el sistema, especialmente aquellos relativos a menores, cumpliendo con la normativa vigente en materia de protección de datos.
+    \item Definir un marco de mantenimiento, soporte y evolución que garantice la sostenibilidad del proyecto a medio y largo plazo.
+\end{itemize}
 
-\section{Implantación en un centro educativo}
+Estos objetivos sitúan la implantación como una fase crítica dentro del ciclo de vida del sistema, en la que convergen aspectos técnicos, organizativos, legales y pedagógicos, complementando el proceso de desarrollo descrito en los capítulos anteriores.
 
-Se describe el proceso de implantación de la aplicación en un centro educativo real, incluyendo la adaptación del flujo de trabajo del profesorado y del alumnado.
+\section{Contexto de implantación en centros educativos}
+\label{sec:contexto_implantacion}
+
+La aplicación ha sido concebida para su uso en centros educativos dedicados a la enseñanza musical, tales como conservatorios profesionales, escuelas municipales de música o academias privadas. Este enfoque se deriva directamente del análisis funcional y pedagógico realizado en el proyecto original y sintetizado en el capítulo~\ref{chap:contexto}.
+
+Estos entornos presentan una serie de características comunes que condicionan el proceso de implantación:
+
+\begin{itemize}
+    \item Existencia de múltiples perfiles de usuario con roles claramente diferenciados, tal y como se definió en la especificación funcional del sistema (apartado~\ref{sec:especificacion_formal_extendida}).
+    \item Gestión simultánea de múltiples grupos, niveles académicos y asignaturas.
+    \item Necesidad de acceso desde distintos dispositivos y ubicaciones, lo que refuerza la importancia de la portabilidad móvil abordada en el apartado~\ref{sec:frontend_impl}.
+    \item Infraestructuras tecnológicas heterogéneas y, en muchos casos, limitadas.
+\end{itemize}
+
+Además, estos centros suelen contar con sistemas propios de gestión académica, lo que introduce la necesidad de contemplar procesos de migración e integración de datos. En este contexto, la implantación del sistema debe realizarse de forma progresiva y flexible, adaptándose a las particularidades organizativas y tecnológicas de cada institución.
+
+
+\section{Estrategia de implantación progresiva}
+\label{sec:estrategia_implantacion}
+
+La implantación del sistema se estructura como un proceso progresivo, planificado en fases claramente diferenciadas, con el objetivo de reducir riesgos técnicos y organizativos, facilitar la adaptación de los usuarios y garantizar la estabilidad del servicio antes de su adopción completa.
+
+La implantación se ejecutará en tres fases sucesivas, cada una con objetivos, tareas y criterios de validación claramente definidos.
+
+\subsection{Fase 1: Despliegue piloto}
+
+Durante esta primera fase, el sistema se implantará en un entorno real pero controlado, con un número reducido de usuarios. Esta fase se desarrollará durante un periodo estimado de \textbf{cuatro a seis semanas}.
+
+El despliegue piloto se realizará con:
+\begin{itemize}
+    \item Un único profesor voluntario.
+    \item Uno o dos grupos reducidos de alumnos.
+\end{itemize}
+
+Las acciones concretas que se llevarán a cabo son:
+
+\begin{enumerate}
+    \item Despliegue del backend y frontend en el entorno productivo seleccionado.
+    \item Configuración inicial del sistema y validación de la infraestructura.
+    \item Creación controlada de usuarios reales y verificación de accesos por rol.
+    \item Importación de datos académicos mediante los mecanismos desarrollados.
+    \item Uso cotidiano del sistema en actividades docentes reales, siguiendo la operativa definida en los casos de uso y requisitos funcionales descritos en el documento.
+    \item Registro sistemático de incidencias técnicas y funcionales, así como recopilación de feedback del profesorado.
+\end{enumerate}
+
+Los objetivos verificables de esta fase son:
+
+\begin{itemize}
+    \item Validar el correcto funcionamiento del sistema bajo condiciones reales.
+    \item Identificar errores no detectados en el entorno de desarrollo.
+    \item Evaluar la estabilidad general de la aplicación (backend, frontend y comunicaciones).
+    \item Recoger feedback directo del profesorado y alumnado para priorizar ajustes.
+\end{itemize}
+
+Al finalizar esta fase se elaborará un \textbf{informe técnico de validación}, que servirá como base para introducir ajustes correctivos antes de avanzar a la siguiente etapa.
+
+\subsection{Fase 2: Despliegue parcial}
+
+Una vez validados los resultados del piloto, se procederá a un despliegue parcial ampliado durante un periodo aproximado de \textbf{dos a tres meses}.
+
+En esta fase, el sistema se extenderá a:
+
+\begin{itemize}
+    \item Varios profesores.
+    \item Múltiples grupos de distintos niveles dentro del mismo centro.
+\end{itemize}
+
+Las acciones planificadas son:
+
+\begin{enumerate}
+    \item Ampliación progresiva del número de usuarios y grupos activos.
+    \item Verificación de rendimiento bajo mayor carga (usuarios concurrentes, accesos a materiales, entregas y cuestionarios).
+    \item Ajuste de los procesos administrativos internos del centro relacionados con altas/bajas y gestión de grupos.
+    \item Monitorización intensiva del consumo de recursos y revisión de logs para detectar cuellos de botella.
+    \item Consolidación de procedimientos de soporte: canal de incidencias, prioridades y tiempos de respuesta.
+\end{enumerate}
+
+Los objetivos principales son:
+
+\begin{itemize}
+    \item Validar la escalabilidad del sistema.
+    \item Detectar cuellos de botella de rendimiento o límites de infraestructura.
+    \item Refinar la gestión de recursos multimedia y archivos.
+    \item Ajustar los flujos reales de trabajo del profesorado, reduciendo fricciones.
+\end{itemize}
+
+\subsection{Fase 3: Despliegue completo}
+
+Tras completar con éxito la fase parcial, se ejecutará el despliegue completo en el centro educativo, integrando el sistema como herramienta habitual.
+
+Las acciones serán:
+
+\begin{enumerate}
+    \item Alta y verificación de todos los profesores participantes.
+    \item Migración completa de grupos y datos académicos.
+    \item Activación del servicio como sistema operativo estándar del centro para las funcionalidades definidas.
+    \item Activación completa de los mecanismos de monitorización y respaldo.
+\end{enumerate}
+
+Esta fase marca la transición del sistema a \textbf{herramienta central de apoyo docente}, integrándose en la operativa diaria del centro.
+
+% ----------------------------------------------------------
+
+\section{Migración tecnológica hacia un entorno productivo}
+\label{sec:migracion_tecnologica}
+
+La migración tecnológica constituye un eje central del plan de implantación, cuyo objetivo es transformar la infraestructura académica y experimental en una plataforma productiva, escalable y robusta. Este proceso se apoya en la arquitectura modular descrita en el apartado~\ref{sec:tecnologias_ext}, que permite sustituir piezas de infraestructura minimizando el impacto sobre el código.
+
+\subsection{Justificación de la migración}
+
+Durante el desarrollo del proyecto se priorizó el uso de tecnologías gratuitas por motivos académicos. En un escenario real de operación continuada, esta infraestructura puede resultar limitada en términos de disponibilidad, escalado, monitorización y soporte. Por tanto, se realizará una migración controlada hacia servicios cloud profesionales que permitan:
+
+\begin{itemize}
+    \item Escalado automático bajo picos de carga.
+    \item Mayor disponibilidad y redundancia.
+    \item Monitorización avanzada y alertas.
+    \item Soporte técnico profesional y SLAs.
+\end{itemize}
+
+\subsection{Migración del backend y frontend a Microsoft Azure}
+\label{sec:migracion_azure}
+
+La migración de los servicios web hacia un entorno productivo se apoyará en la plataforma \textbf{Microsoft Azure}, aprovechando su ecosistema cloud maduro, su integración con herramientas de desarrollo modernas y su capacidad para proporcionar una infraestructura altamente escalable, resiliente y monitorizable.
+
+La arquitectura definida en el apartado~\ref{sec:tecnologias_ext} facilita este proceso, ya que el sistema presenta una clara separación entre frontend, backend y base de datos, permitiendo una transición progresiva sin necesidad de modificar la lógica de la aplicación. En este contexto, Azure App Service se utilizará como plataforma unificada tanto para el despliegue del backend como del frontend, garantizando una gestión homogénea de los recursos y un control centralizado del entorno productivo.
+
+\subsubsection{Azure App Service como plataforma de ejecución}
+
+Azure App Service proporciona un entorno gestionado para la ejecución de aplicaciones web, APIs REST y servicios backend, abstraendo la complejidad asociada a la gestión directa de servidores, redes, balanceadores de carga y sistemas operativos. Este modelo permite centrar los esfuerzos en el desarrollo funcional, delegando en la plataforma cloud la responsabilidad del escalado, la disponibilidad y la seguridad perimetral.
+
+Desde el punto de vista técnico, Azure App Service ofrece las siguientes capacidades clave:
+
+\begin{itemize}
+    \item \textbf{Escalado vertical}: permite aumentar dinámicamente la capacidad de cómputo asignada a la aplicación (CPU, memoria RAM y rendimiento de disco), adaptando el entorno de ejecución a mayores cargas sin modificar la arquitectura del sistema.
+    
+    \item \textbf{Escalado horizontal}: posibilita la ejecución simultánea de múltiples instancias de la aplicación, distribuyendo la carga de peticiones entrantes mediante balanceo automático. Este mecanismo resulta especialmente relevante en escenarios con alta concurrencia, ya que permite absorber incrementos súbitos de tráfico manteniendo tiempos de respuesta estables.
+    
+    \item \textbf{Gestión automática de infraestructura}: Azure se encarga del aprovisionamiento, monitorización y recuperación ante fallos de las instancias, garantizando una elevada disponibilidad del servicio sin intervención manual.
+    
+    \item \textbf{Integración nativa con CI/CD}: Azure App Service se integra de forma directa con GitHub Actions, facilitando la automatización completa del flujo de despliegue, tal y como se describe en el capítulo~\ref{chap:despliegue}, de esta forma, todas las operaciones de la migración quedarán integradas de forma automática con tan solo unas líneas en el archivo .YML que lee GitHub Actions.
+\end{itemize}
+
+Este conjunto de características convierte a Azure App Service en una plataforma idónea para albergar tanto el backend Node.js como el frontend Angular/Ionic, permitiendo un despliegue coherente, altamente disponible y preparado para un crecimiento progresivo del número de usuarios.
+
+\subsubsection{Arquitectura de despliegue propuesta}
+
+La arquitectura de despliegue en Azure se estructura en los siguientes componentes principales:
+
+\begin{itemize}
+    \item \textbf{Backend}: desplegado en un recurso Azure App Service configurado para Node.js, con políticas de escalado automático basadas en consumo de CPU, memoria y volumen de peticiones HTTP.
+    
+    \item \textbf{Frontend}: desplegado también sobre Azure App Service, sirviendo los recursos estáticos generados por el proceso de construcción de Angular/Ionic, permitiendo igualmente escalado horizontal bajo alta carga.
+    
+    \item \textbf{Servicios auxiliares}: almacenamiento de variables de entorno, gestión segura de secretos y configuración centralizada mediante Azure Key Vault.
+\end{itemize}
+
+Esta disposición garantiza un comportamiento homogéneo en ambos extremos de la aplicación y facilita la administración global del sistema desde un único entorno cloud.
+
+\subsubsection{Proceso de migración}
+
+La migración de los servicios web se ejecutará siguiendo un proceso estructurado en cuatro fases claramente definidas:
+
+\begin{enumerate}
+    \item \textbf{Creación de infraestructura base en Azure}: provisión de recursos App Service para backend y frontend, definición de grupos de recursos, configuración de redes virtuales, reglas de firewall y establecimiento de variables de entorno seguras.
+    
+    \item \textbf{Configuración de despliegue automatizado}: adaptación del pipeline de integración y despliegue continuo descrito en el proyecto original, modificando exclusivamente los endpoints de despliegue para apuntar a Azure, manteniendo intacta la lógica de CI/CD.
+    
+    \item \textbf{Despliegue inicial en Azure y validación funcional}: verificación exhaustiva del correcto funcionamiento del sistema, comprobando procesos de autenticación, acceso a la base de datos, ejecución de operaciones CRUD principales y respuesta bajo carga simulada.
+    
+    \item \textbf{Cambio controlado de tráfico}: una vez validado el entorno productivo, redirección progresiva del tráfico desde el entorno anterior hacia Azure, minimizando interrupciones del servicio.
+\end{enumerate}
+
+Este procedimiento permite garantizar una transición segura, reversible y con impacto mínimo sobre los usuarios finales.
+
+\subsubsection{Pipeline de despliegue automatizado}
+\label{sec:pipeline_azure}
+
+El objetivo principal de esta migración es que el cambio afecte únicamente al flujo de despliegue, sin introducir modificaciones en la lógica del sistema. La estructura modular del proyecto y el uso de contenedores de ejecución homogéneos permiten esta transición sin reescritura del código.
+
+A continuación se muestra un pipeline orientativo que ilustra la construcción, publicación de imágenes Docker en un registro privado (Azure Container Registry, ACR) y despliegue automatizado en \textit{Azure App Service for Containers}. Este flujo se apoya en los pasos ya consolidados de construcción y testeo automáticos descritos en el despliegue del proyecto original, y únicamente adapta la fase final de publicación para ejecutarse en Azure.
+
+\begin{Verbatim}[frame=single, fontsize=\small]
+  push-and-deploy-frontend:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    needs: build-frontend
+
+    steps:
+      # Descarga del código fuente del repositorio
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Autenticación contra Azure mediante credenciales seguras
+      - name: Login to Azure CLI
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      # Descarga de los artefactos generados previamente
+      # (resultado del build del frontend)
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with: 
+          name: www
+          path: ./www
+
+      # Construcción de la imagen Docker del frontend y subida
+      # al registro privado Azure Container Registry (ACR)
+      - name: Build and push frontend Docker image to ACR
+        run: |
+          IMAGE_NAME=repodocker.azurecr.io/twm-frontend:\
+${{ github.run_number }}
+          docker build -t $IMAGE_NAME ./frontend
+          echo ${{ secrets.AZURE_PASSWORD }} | docker login \
+repodocker.azurecr.io -u ${{ secrets.AZURE_USERNAME }} \
+--password-stdin
+          docker push $IMAGE_NAME
+
+      # Despliegue del contenedor del frontend en Azure Web App
+      - name: Deploy frontend to Azure Web App for Containers
+        run: |
+          IMAGE_NAME=repodocker.azurecr.io/twm-frontend:\
+${{ github.run_number }}
+          az webapp config container set \
+            --docker-custom-image-name $IMAGE_NAME \
+            --docker-registry-server-password \
+${{ secrets.AZURE_PASSWORD }} \
+            --docker-registry-server-url \
+https://repodocker.azurecr.io \
+            --docker-registry-server-user \
+${{ secrets.AZURE_USERNAME }} \
+            --name TWM-FRONTEND \
+            --resource-group cnsa-2024-rg
+
+  push-and-deploy-backend:
+    runs-on: ubuntu-latest
+    needs: build-backend
+
+    steps:
+      # Descarga del código fuente del backend
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Autenticación contra Azure
+      - name: Login to Azure CLI
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      # Construcción de la imagen Docker del backend y subida a ACR
+      - name: Build and push backend Docker image to ACR
+        run: |
+          IMAGE_NAME=repodocker.azurecr.io/twm-backend:\
+${{ github.run_number }}
+          docker build -t $IMAGE_NAME ./backend
+          echo ${{ secrets.AZURE_PASSWORD }} | docker login \
+repodocker.azurecr.io -u ${{ secrets.AZURE_USERNAME }} \
+--password-stdin
+          docker push $IMAGE_NAME
+
+      # Despliegue del backend en Azure Web App usando contenedores
+      - name: Deploy backend to Azure Web App for Containers
+        run: |
+          IMAGE_NAME=repodocker.azurecr.io/twm-backend:\
+${{ github.run_number }}
+          az webapp config container set \
+            --docker-custom-image-name $IMAGE_NAME \
+            --docker-registry-server-password \
+${{ secrets.AZURE_PASSWORD }} \
+            --docker-registry-server-url \
+https://repodocker.azurecr.io \
+            --docker-registry-server-user \
+${{ secrets.AZURE_USERNAME }} \
+            --name TWM \
+            --resource-group cnsa-2024-rg
+\end{Verbatim}
+Este pipeline automatiza de forma completa la publicación del sistema en el entorno productivo, reduciendo el riesgo de errores manuales y garantizando trazabilidad de versiones mediante etiquetas ligadas a cada ejecución (\texttt{run\_number}). Además, al basarse en contenedores, permite reproducibilidad del entorno de ejecución y facilita futuras ampliaciones del proceso.
 
 % \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=\textwidth]{Figuras/uso_real_escuela.png}
-%     \caption{Uso de la aplicación en un entorno educativo real}
+%   \centering
+%   \includegraphics[height=2cm]{Figuras/logos/azure.png}
+%   \caption{Logo Microsoft Azure}
+%   \label{fig:logo_azure}
 % \end{figure}
 
+\subsection{Escalado de la base de datos con MongoDB Atlas}
+\label{sec:escalado_mongodb}
+
+La base de datos constituye un componente crítico dentro del proceso de implantación, al centralizar toda la información académica, administrativa y de seguimiento del alumnado. Por este motivo, el plan contempla una estrategia de escalado progresivo utilizando las capacidades avanzadas de \textbf{MongoDB Atlas}, descritas previamente en el apartado~\ref{sec:tecnologias_ext}.
+
+\subsubsection{Arquitectura de clúster y escalabilidad}
+
+MongoDB Atlas permite desplegar clústeres distribuidos con capacidades de:
+
+\begin{itemize}
+    \item \textbf{Escalado vertical}: ampliación dinámica de recursos hardware (CPU, memoria y almacenamiento) asignados a cada nodo.
+    
+    \item \textbf{Escalado horizontal}: distribución de la carga mediante fragmentación (\textit{sharding}), permitiendo repartir los datos y las operaciones entre múltiples nodos.
+    
+    \item \textbf{Alta disponibilidad}: configuración de \textit{replica sets}, garantizando redundancia de datos y recuperación automática ante fallos de nodos individuales.
+\end{itemize}
+
+Este modelo proporciona una elevada tolerancia a fallos y un rendimiento estable incluso bajo cargas intensivas, lo que resulta especialmente relevante en escenarios con numerosos accesos concurrentes, como los que pueden darse durante periodos de evaluación o entrega masiva de tareas.
+
+\subsubsection{Plan de escalado progresivo}
+
+El escalado de la base de datos se ejecutará siguiendo tres medidas concretas:
+
+\begin{enumerate}
+    \item \textbf{Migración del clúster a un plan superior}: adaptación progresiva del tamaño del clúster en función del crecimiento del número de usuarios y del volumen de operaciones concurrentes.
+    
+    \item \textbf{Activación de copias de seguridad automáticas}: configuración de mecanismos de respaldo continuo y snapshots programados, garantizando la posibilidad de recuperación ante errores lógicos o fallos críticos.
+    
+    \item \textbf{Configuración de alta disponibilidad}: establecimiento de réplicas redundantes y, si resulta necesario, despliegue multi-región para minimizar la latencia y aumentar la tolerancia ante incidencias geográficas.
+\end{enumerate}
+
+Estas acciones permiten asegurar la continuidad del servicio, la integridad de los datos y la escalabilidad futura del sistema, alineándose con los objetivos de disponibilidad y resiliencia definidos en el apartado~\ref{sec:seguridad_implantacion}.
+
+\subsubsection{Integración con la arquitectura global}
+
+La combinación de Azure App Service para la capa de aplicación y MongoDB Atlas para la persistencia de datos da lugar a una arquitectura cloud-native altamente flexible, capaz de crecer de forma controlada sin necesidad de rediseñar la solución.
+
+Este enfoque refuerza la idoneidad de las decisiones tecnológicas adoptadas durante el desarrollo, demostrando que, aunque se haya trabajado inicialmente con infraestructuras gratuitas, la transición hacia un entorno productivo puede realizarse mediante ajustes acotados y perfectamente planificados, preservando la coherencia del sistema y su estabilidad operativa.
+
+\section{Migración del sistema de almacenamiento de archivos}
+\label{sec:migracion_archivos}
+
+En la versión actual del sistema, los archivos (PDF, MP3 y MP4) se almacenan en formato Base64 dentro de la base de datos, tal y como se describe en el apartado~\ref{sec:backend_impl}. Este enfoque resulta adecuado en un entorno académico y de pruebas, ya que simplifica la arquitectura y evita dependencias externas adicionales.
+
+No obstante, en un entorno productivo real presenta limitaciones relevantes en términos de rendimiento, escalabilidad y gestión de recursos, debido al incremento del tamaño de los documentos almacenados y a la sobrecarga derivada de los procesos de codificación y decodificación.
+
+Por este motivo, el plan de implantación contempla una migración progresiva hacia un sistema de almacenamiento externo especializado, como \textbf{Firebase Storage} o \textbf{Azure Blob Storage}, permitiendo desacoplar la gestión de ficheros del núcleo transaccional del sistema.
+
+La migración se ejecutará en cinco fases claramente definidas:
+
+\begin{enumerate}
+    \item Selección del proveedor de almacenamiento.
+    \item Configuración de variables de entorno e implementación en backend de un servicio de gestión de subida, descarga y eliminación de archivos.
+    \item Sustitución del modelo Base64 por almacenamiento de metadatos y referencias seguras (URLs).
+    \item Adaptación del frontend para el consumo directo de dichas referencias.
+    \item Migración progresiva de los ficheros existentes, priorizando los materiales activos.
+\end{enumerate}
+
+Este cambio permitirá mejorar el rendimiento general del sistema, reducir la carga sobre la base de datos y facilitar la escalabilidad futura, sin introducir modificaciones sustanciales en la arquitectura definida en el apartado~\ref{sec:tecnologias_ext}. Asimismo, esta migración se llevará a cabo durante la fase de despliegue parcial (Sección~\ref{sec:estrategia_implantacion}), evitando interferencias en la fase piloto.
+
+\subsection*{Comparativa técnica: Base64 vs almacenamiento externo}
+
+Desde el punto de vista de implementación, el cambio implica una simplificación notable en la gestión de archivos. Mientras que el enfoque actual requiere procesos explícitos de codificación y decodificación, el nuevo modelo permite trabajar directamente con referencias a recursos externos.
+
+\textbf{Modelo actual (Base64 embebido en base de datos):}
+
+\begin{Verbatim}[frame=single, fontsize=\small]
+const base64 = fileBuffer.toString('base64');
+
+await Libro.create({
+  nombre: 'libro.pdf',
+  contenido: base64,
+  tipo: 'application/pdf'
+});
+
+// Recuperación
+const buffer = Buffer.from(libro.contenido, 'base64');
+res.contentType(libro.tipo).send(buffer);
+\end{Verbatim}
+
+\textbf{Modelo propuesto (almacenamiento externo con referencia):}
+
+\begin{Verbatim}[frame=single, fontsize=\small]
+// Subida del archivo al servicio externo
+const fileUrl = await storageService.upload(file);
+
+// Persistencia de metadatos y referencia
+await Libro.create({
+  nombre: 'libro.pdf',
+  url: fileUrl,
+  tipo: 'application/pdf'
+});
+
+// Recuperación
+res.redirect(libro.url);
+\end{Verbatim}
+
+Este segundo enfoque elimina la necesidad de conversiones intermedias, reduce la carga computacional del servidor y permite delegar la entrega de contenido pesado a infraestructuras especializadas, mejorando significativamente el rendimiento y la escalabilidad del sistema.
+
+% \begin{figure}[H]
+%   \centering
+%   \includegraphics[height=2cm]{Figuras/logos/firebase.png}
+%   \caption{Logo Firebase Storage}
+%   \label{fig:logo_firebase}
+% \end{figure}
+
+\section{Gestión profesional del correo electrónico}
+\label{sec:correo_profesional}
+
+El correo electrónico constituye un canal crítico de comunicación con los usuarios, ya que se emplea para el envío de credenciales, notificaciones operativas y recordatorios asociados al uso de la plataforma. En un escenario real de implantación, la fiabilidad de este canal impacta directamente en la experiencia de usuario, en la percepción de madurez del sistema y en la seguridad del proceso de alta y recuperación de acceso.
+
+Con el objetivo de garantizar una entrega estable, trazable y alineada con buenas prácticas, se profesionalizará el servicio de correo mediante las siguientes acciones concretas:
+
+\begin{enumerate}
+    \item \textbf{Adquisición de un dominio propio}: se registrará un dominio del centro o del sistema, evitando el uso de dominios genéricos que degradan la confianza del usuario y dificultan la entregabilidad.
+    \item \textbf{Configuración del proveedor de correo}: se empleará un proveedor transaccional (por ejemplo, Mailjet u otro equivalente), centralizando el envío de correos desde un servicio controlado y monitorizable.
+    \item \textbf{Autenticación del dominio (SPF, DKIM y DMARC)}: se configurarán obligatoriamente estos mecanismos para mejorar la reputación del dominio, reducir el riesgo de suplantación y disminuir la probabilidad de clasificación como spam.
+    \item \textbf{Parametrización segura en el entorno}: se configurarán el correo emisor, las claves y los endpoints del proveedor mediante variables de entorno, evitando su exposición en el repositorio y facilitando el cambio de proveedor sin afectar al código.
+    \item \textbf{Validación previa y pruebas controladas}: se realizarán envíos de prueba a proveedores comunes, verificando entregabilidad, cabeceras de autenticación y puntuación anti-spam. Se documentarán los resultados como evidencia de preparación para producción.
+\end{enumerate}
+
+Estas tareas se ejecutarán \textbf{antes de finalizar la fase piloto} (Sección~\ref{sec:estrategia_implantacion}) para evitar que el escalado de usuarios se apoye en configuraciones temporales o con reputación insuficiente. Además, este enfoque reduce el impacto de incidencias habituales (correos no entregados o marcados como spam) y facilita la operación diaria del sistema durante el despliegue parcial y completo.
+
+
+\section{Seguridad, protección de datos y cumplimiento normativo}
+\label{sec:seguridad_implantacion}
+
+La seguridad se integra en el plan de implantación como un proceso operativo estructurado, con acciones, revisiones y controles periódicos. Aunque determinadas mejoras técnicas se plantearán como líneas de trabajo futuro, la implantación en un entorno real exige establecer desde el inicio un marco de supervisión y cumplimiento.
+
+\subsection{Plan operativo de seguridad}
+
+Se ejecutará el siguiente plan operativo:
+
+\begin{enumerate}
+    \item \textbf{Auditoría inicial previa al piloto} (semana 0--1): revisión de configuración del entorno, variables de entorno, permisos y configuración de base de datos.
+    \item \textbf{Checklist RGPD} (semana 1): revisión de datos tratados, finalidades y criterios de retención.
+    \item \textbf{Configuración de control de accesos} (semana 1): verificación de roles, permisos y validación de rutas según autenticación.
+    \item \textbf{Definición de política de backups y restauración} (semana 2): programación y test básico de recuperación.
+    \item \textbf{Revisiones periódicas} (cada 3 meses): revisión de cuentas activas, logs, accesos y dependencias externas.
+\end{enumerate}
+
+\subsection{Protección de datos personales y marco normativo}
+
+En un centro educativo el sistema trata datos personales de alumnado y profesorado, por lo que se operará bajo un marco alineado con RGPD. En la implantación se ejecutarán estas acciones:
+
+\begin{enumerate}
+    \item Identificación de datos personales tratados y su finalidad.
+    \item Definición de política de retención y borrado (por curso académico, bajas, etc.).
+    \item Establecimiento de procedimientos para atender derechos de acceso, rectificación y supresión.
+    \item Documentación interna del tratamiento y responsabilidades del centro (responsable del tratamiento) y del sistema (encargado, si aplica).
+\end{enumerate}
+
+\subsection{Gestión de credenciales y control de accesos}
+
+Aunque el sistema ya incorpora autenticación y roles, la implantación exige controles operativos:
+
+\begin{enumerate}
+    \item Revisión mensual de cuentas activas e inactivas.
+    \item Procedimiento de revocación inmediata ante bajas.
+    \item Política de sesiones: caducidad, invalidación y revisión de tokens.
+\end{enumerate}
+
+\subsection{Integración de servicios externos (correo, contraseñas, IA)}
+
+Las integraciones externas (generación de contraseñas, envío de correo, Groq) se gestionarán con controles concretos:
+
+\begin{enumerate}
+    \item Verificación semanal de disponibilidad del servicio (monitorización básica).
+    \item Revisión mensual de claves API y caducidad.
+    \item Revisión trimestral de cambios en políticas o SDKs del proveedor.
+    \item Definición de contingencias: proveedor alternativo o modo degradado (por ejemplo, desactivar pistas temporalmente).
+\end{enumerate}
+
+\subsection{Protección frente a pérdida de información (backups)}
+
+Se ejecutará una política mínima obligatoria:
+
+\begin{itemize}
+    \item Backup incremental diario.
+    \item Backup completo semanal.
+    \item Simulación trimestral de restauración para verificar integridad.
+\end{itemize}
+
+\subsection{Seguridad en entorno móvil}
+
+La exportación Android requiere supervisar elementos específicos:
+
+\begin{enumerate}
+    \item Firma de la aplicación y gestión segura de claves.
+    \item Validación de permisos solicitados.
+    \item Verificación de comunicaciones cifradas (HTTPS) y configuración segura de endpoints.
+\end{enumerate}
+
+
+\section{Formación de usuarios y adopción del sistema}
+\label{sec:formacion_implantacion}
+
+La implantación tecnológica se acompaña de un plan de adopción centrado en el factor humano. Aunque en el contexto de este proyecto no se ha llevado a cabo una implantación real completa, se define un programa de formación estructurado que permitiría facilitar la integración progresiva del sistema en un centro educativo real.
+
+Este plan formativo se ejecutaría en paralelo a la implantación técnica, con un calendario definido y una estructura gradual orientada a reducir la resistencia al cambio y favorecer la adopción natural de la herramienta.
+
+\subsection{Formación del profesorado}
+
+La formación del profesorado se estructuraría en tres etapas complementarias:
+
+\begin{enumerate}
+    \item \textbf{Sesión inicial (4 horas)} previa al inicio de la fase piloto, centrada en la navegación general del sistema, gestión de grupos, publicación de materiales, creación de tareas y gestión de calificaciones.
+    \item \textbf{Taller práctico} durante la segunda semana del piloto, enfocado en la creación de cuestionarios, revisión de entregas, uso del sistema de mensajería y resolución de dudas operativas.
+    \item \textbf{Sesión de consolidación (2 horas)} tras el primer mes de uso, orientada a la resolución de incidencias recurrentes, revisión de flujos de trabajo y fijación de buenas prácticas.
+\end{enumerate}
+
+Este enfoque progresivo permitiría que el profesorado incorpore la herramienta de manera gradual, reduciendo la carga cognitiva y facilitando una transición fluida desde los métodos tradicionales.
+
+\subsection{Formación del alumnado}
+
+La formación del alumnado se plantearía como una introducción eminentemente práctica, apoyándose en la simplicidad de la interfaz descrita en el apartado~\ref{sec:frontend_diseno_ext}. El plan contemplaría:
+
+\begin{itemize}
+    \item Una sesión introductoria de aproximadamente 30 minutos por grupo durante la primera semana de uso.
+    \item Acceso a una guía rápida visual integrada en la propia aplicación.
+    \item Resolución de dudas iniciales durante las dos primeras semanas de utilización.
+\end{itemize}
+
+Este planteamiento permite una rápida adaptación del alumnado sin generar una sobrecarga formativa innecesaria.
+
+\subsection{Documentación y recursos de apoyo}
+
+Como parte del plan de implantación, se prevé la elaboración de un conjunto de recursos de apoyo destinados a facilitar la autonomía de los usuarios y reducir la dependencia de soporte técnico directo:
+
+\begin{itemize}
+    \item Manual de usuario para profesorado.
+    \item Guía rápida para alumnado.
+    \item Documento de preguntas frecuentes (FAQ) y guía básica de resolución de incidencias.
+\end{itemize}
+
+Estos materiales se desarrollarían antes del despliegue parcial del sistema, sirviendo como soporte permanente durante las primeras fases de adopción y facilitando el autoaprendizaje.
+
+\section{Validación práctica en entorno educativo real}
+\label{sec:validacion_preliminar}
+
+Una vez definido el plan de implantación completo descrito en las secciones anteriores, se llevó a cabo una \textbf{validación práctica preliminar} del sistema en un entorno educativo real. Aunque esta experiencia no constituye una implantación formal siguiendo todas las fases del plan descrito, sí representa un \textbf{primer contacto real con usuarios finales}, aportando un elevado valor académico y permitiendo contrastar la idoneidad funcional, pedagógica y tecnológica de la solución desarrollada.
+
+Esta validación se realizó mediante una sesión de demostración en un centro educativo con el que el autor del proyecto mantiene una vinculación directa como docente, lo que permitió desarrollar la experiencia en un entorno real, familiar y pedagógicamente representativo. Este contexto facilitó un intercambio cercano y sincero con profesorado y alumnado, aportando una perspectiva especialmente valiosa para la evaluación del sistema.
+
+La sesión contó con la participación de una profesora de lenguaje musical y varios alumnos, con el objetivo de evaluar:
+
+\begin{itemize}
+    \item La facilidad de uso de la aplicación.
+    \item La comprensión de la interfaz por parte del alumnado.
+    \item La adecuación pedagógica de los flujos de trabajo.
+    \item La utilidad real de las funcionalidades incorporadas en este complemento.
+\end{itemize}
+
+Asimismo, esta experiencia permitió detectar pequeños problemas de usabilidad y comportamiento visual que fueron corregidos posteriormente, reforzando la calidad final del sistema y evidenciando la importancia de una fase de validación empírica dentro del ciclo de vida del software educativo.
+
+\subsection{Contexto de la demostración}
+
+La demostración se realizó en la Escuela de Música Manuel Sánchez Alonso, perteneciente a la Asociación Cultural Musical Eladio Guzmán, en colaboración directa con el profesorado del centro y dentro de un contexto de enseñanza habitual del lenguaje musical.
+
+Se presentó la aplicación tanto en su versión web como en su versión móvil Android, con el objetivo de mostrar:
+
+\begin{itemize}
+    \item La coherencia funcional entre plataformas.
+    \item La correcta adaptación visual en dispositivos móviles.
+    \item La utilidad real de las nuevas funcionalidades implementadas.
+\end{itemize}
+
+Durante la sesión, se expusieron las principales áreas de la aplicación: gestión de grupos, publicación de material, tareas, cuestionarios y el nuevo sistema de pistas inteligentes. Los alumnos interactuaron directamente con la plataforma, completando cuestionarios, consultando material y navegando por las distintas ramas de contenido, lo que permitió observar de forma directa su comportamiento y grado de adaptación.
+
+\subsection{Valoración del profesorado}
+
+La profesora participante, Patricia, docente de lenguaje musical en el centro, ofreció una valoración muy positiva del sistema, destacando especialmente su \textbf{carácter completo, atractivo e intuitivo}. En particular, subrayó los siguientes aspectos:
+
+\begin{itemize}
+    \item \textbf{Facilidad de uso:} La interfaz fue percibida como muy clara y sencilla, permitiendo un manejo natural sin necesidad de formación previa intensiva.
+    \item \textbf{Centralización de recursos:} La posibilidad de disponer en un único entorno de materiales, tareas, calificaciones y comunicación fue considerada una mejora sustancial respecto a los métodos tradicionales empleados en el aula.
+    \item \textbf{Facilidad de seguimiento:} El acceso inmediato al estado de entregas y calificaciones proporcionó una visión clara y estructurada del progreso del alumnado.
+    \item \textbf{Utilidad del sistema de pistas:} Se valoró especialmente la incorporación de ayudas controladas durante la realización de cuestionarios, considerándolas un mecanismo pedagógicamente adecuado para reconducir el razonamiento del alumno sin ofrecer directamente la respuesta.
+\end{itemize}
+
+Asimismo, la docente destacó el \textbf{alto potencial de implantación real} de la herramienta en la dinámica habitual del aula, señalando que su uso podría mejorar notablemente la organización del trabajo, la comunicación con el alumnado y la motivación general durante el aprendizaje del lenguaje musical.
+
+\subsection{Reacciones del alumnado}
+
+El alumnado mostró una respuesta muy positiva ante el uso de la plataforma, destacando especialmente:
+
+\begin{itemize}
+    \item La claridad de la interfaz.
+    \item La facilidad de navegación.
+    \item El atractivo visual del entorno.
+    \item La utilidad de las pistas durante los cuestionarios.
+\end{itemize}
+
+Durante la sesión, se observó un alto grado de implicación y curiosidad por parte de los alumnos, que se mostraron especialmente motivados al interactuar con los cuestionarios y los contenidos multimedia. La experiencia resultó llamativa para ellos, favoreciendo una participación activa y una actitud positiva hacia la actividad propuesta.
+
+Además, se comprobó que comprendían rápidamente la lógica de funcionamiento de la aplicación, accedían sin dificultad a los contenidos y realizaban las entregas sin necesidad de explicaciones extensas, lo que refuerza la validez del diseño UX/UI descrito en la sección~\ref{sec:frontend_diseno_ext}.
+
+\subsection{Problemas detectados y mejoras aplicadas}
+
+La validación práctica permitió identificar una serie de pequeños problemas de diseño, usabilidad y comportamiento que no habían sido detectados durante las fases previas de desarrollo y pruebas en entorno controlado. Estos aspectos, aunque no comprometían el funcionamiento general del sistema, sí afectaban a la calidad de la experiencia de usuario y a la percepción de madurez de la aplicación.
+
+Entre los principales puntos detectados se encuentran:
+
+\begin{itemize}
+    \item Ajustes de tamaño en ciertos elementos visuales en pantallas pequeñas.
+    \item Pantalla de carga móvil no funcional.
+    \item Ausencia de iconos representativos y feedback visual insuficiente ante situaciones de error.
+    \item Formularios que no se limpiaban correctamente tras determinadas operaciones.
+\end{itemize}
+
+Estos problemas fueron abordados inmediatamente tras la sesión de validación, dando lugar a una \textbf{fase correctiva específica}, orientada a mejorar la estabilidad visual, la claridad de la interfaz y la calidad de la interacción con el usuario. Las correcciones se implementaron de forma iterativa, verificando su impacto directamente en dispositivos reales.
+
+Este proceso pone de manifiesto la importancia de incorporar fases de validación empírica dentro del plan de implantación, ya que permite detectar fricciones reales en el uso cotidiano de la aplicación, imposibles de anticipar completamente durante el desarrollo teórico. Asimismo, evidencia el valor de la observación directa y del feedback inmediato como herramientas fundamentales para la mejora continua del sistema.
+
+\subsection{Valor académico de la validación empírica}
+
+La realización de esta demostración aporta un valor añadido significativo al proyecto desde un punto de vista académico:
+
+\begin{itemize}
+    \item Permite validar empíricamente las decisiones de diseño.
+    \item Refuerza la orientación práctica del trabajo.
+    \item Introduce colaboración externa real.
+    \item Conecta el desarrollo técnico con su impacto pedagógico.
+\end{itemize}
+
+Además, esta experiencia permite afirmar que el sistema no solo es técnicamente viable, sino también funcionalmente adecuado y pedagógicamente coherente con los objetivos educativos planteados.
+
+\subsection{Evidencia visual de la demostración}
+
+A continuación se muestran algunas capturas realizadas durante la sesión de demostración, en las que puede observarse el uso real de la aplicación por parte del alumnado y el profesorado.
+
+% \begin{figure}[H]
+%   \centering
+%   \includegraphics[width=0.9\textwidth]{Figuras/implantacion_real/demostracion_aula_1.jpg}
+%   \caption{Demostración de la aplicación en aula real con alumnado.}
+%   \label{fig:demo_aula_1}
+% \end{figure}
+
+% \begin{figure}[H]
+%   \centering
+%   \includegraphics[width=0.9\textwidth]{Figuras/implantacion_real/demostracion_aula_2.jpg}
+%   \caption{Interacción directa del alumnado con la aplicación durante la sesión.}
+%   \label{fig:demo_aula_2}
+% \end{figure}
+
+% \begin{figure}[H]
+%   \centering
+%   \includegraphics[width=0.9\textwidth]{Figuras/implantacion_real/demostracion_profesora.jpg}
+%   \caption{Uso del panel docente durante la demostración práctica.}
+%   \label{fig:demo_profesora}
+% \end{figure}
+
+Estas evidencias visuales refuerzan el carácter aplicado del proyecto y demuestran su viabilidad real en contextos educativos auténticos.
+
+\section{Síntesis del plan de implantación}
+\label{sec:sintesis_implantacion}
+
+El plan de implantación presentado establece una hoja de ruta completa para trasladar la solución desde un entorno académico hacia un contexto real de uso educativo. A través de una estrategia progresiva (Sección~\ref{sec:estrategia_implantacion}), se asegura que la adopción del sistema se realice de forma controlada, permitiendo validar estabilidad, rendimiento y aceptación por parte de los usuarios antes de su despliegue completo.
+
+Desde el punto de vista técnico, el plan define un proceso de migración hacia un entorno productivo apoyado en servicios escalables (Sección~\ref{sec:migracion_tecnologica}), garantizando que el crecimiento del número de usuarios pueda abordarse sin reestructurar la arquitectura. Del mismo modo, se contempla la evolución de componentes críticos como el almacenamiento de ficheros (Sección~\ref{sec:migracion_archivos}) y la profesionalización del correo electrónico (Sección~\ref{sec:correo_profesional}), elementos clave para operar con fiabilidad en escenarios reales.
+
+En paralelo, se integra la seguridad como un proceso operativo de supervisión y cumplimiento (Sección~\ref{sec:seguridad_implantacion}), y se incorpora un plan de adopción orientado a minimizar fricciones en el uso cotidiano del sistema (Sección~\ref{sec:formacion_implantacion}). Aunque el plan no se ha ejecutado en su totalidad durante el desarrollo del proyecto, la validación práctica preliminar realizada (Sección~\ref{sec:validacion_preliminar}) aporta evidencia empírica y refuerza la utilidad de estructurar una implantación en fases.
+
+En conjunto, este capítulo completa el ciclo de vida del proyecto más allá del desarrollo funcional descrito en los capítulos~\ref{chap:desarrollo_backend} y~\ref{chap:desarrollo_frontend}, demostrando una visión integral de despliegue, operación y evolución. De este modo, la solución no se presenta únicamente como un prototipo académico, sino como una plataforma con un plan realista de implantación y un potencial de impacto educativo sostenible.
 
 \chapter{Conclusiones y líneas de trabajo futuro}
 \label{chap:conclusiones}

@@ -7,6 +7,9 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 exports.login = async (username, password) => {
     try {
+        if (username === 'sistema') {
+            return { status: 403, body: { error: 'Este usuario no puede iniciar sesión.' } };
+        }
         const usuario = await Usuario.findOne({ username });
         if (!usuario) {
             return { status: 404, body: { error: 'Usuario no encontrado.' } };
@@ -46,6 +49,9 @@ exports.verifySession = (token) => {
 
     try {
         const decoded = jwt.verify(token, JWT_SECRET);
+        if ((decoded.username || '').toLowerCase() === 'sistema') {
+        return { status: 401, body: { error: 'Sesión no permitida.' } };
+        }
         return { status: 200, body: { sessionData: decoded } };
     } catch (error) {
         return { status: 401, body: { error: 'Token no válido o expirado.' } };

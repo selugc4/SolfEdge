@@ -2270,144 +2270,209 @@ El enfoque dado mejora la mantenibilidad del sistema y simplifica la integració
 Con esta estructura, la implementación del backend cubre desde la lógica de negocio hasta la seguridad y la documentación, garantizando un sistema robusto, seguro y fácil de mantener.
 \section{Testing}
 
-Para asegurar la calidad y fiabilidad del backend, se ha implementado un conjunto de pruebas automatizadas que abarcan diferentes niveles, con el objetivo de detectar errores tempranamente y facilitar el mantenimiento del código.
+Para asegurar la calidad, fiabilidad y estabilidad del backend, se ha implementado un conjunto de pruebas automatizadas que abarcan diferentes niveles del sistema, con el objetivo de detectar errores de forma temprana, validar las reglas de negocio y facilitar el mantenimiento evolutivo del código.
 
 \subsection{Estrategia de pruebas}
 
-El proceso de testing se basa en dos tipos principales de pruebas:
+El proceso de testing se apoya en dos tipos principales de pruebas:
 
 \begin{itemize}
-    \item \textbf{Pruebas unitarias:} Se validan individualmente las funciones y métodos que componen la lógica de negocio y el acceso a datos, comprobando que cada unidad cumpla con el comportamiento esperado ante diversas situaciones.
-    \item \textbf{Pruebas de integración:} Se verifican las interacciones entre distintos módulos y componentes del backend, incluyendo la comunicación con la base de datos y la integración con servicios externos, asegurando que el sistema funcione correctamente como conjunto.
+    \item \textbf{Pruebas unitarias:} Se validan individualmente las funciones y métodos que componen la lógica de negocio y el acceso a datos, comprobando que cada unidad cumpla con el comportamiento esperado ante distintas situaciones, tanto normales como de error.
+    \item \textbf{Pruebas de integración:} Se verifican las interacciones entre distintos módulos y componentes del backend, incluyendo la comunicación con la base de datos y la integración con servicios externos, asegurando que el sistema funcione correctamente como un conjunto cohesionado.
 \end{itemize}
+
+Este enfoque permite evaluar tanto la corrección de la lógica interna como la robustez del sistema ante escenarios reales de uso.
 
 \subsection{Herramientas utilizadas}
 
-Se han utilizado herramientas especializadas que permiten automatizar y gestionar de forma eficiente las pruebas:
+Para la implementación de las pruebas se han utilizado herramientas especializadas que permiten automatizar su ejecución y facilitar la validación de resultados:
 
 \begin{itemize}
-    \item \textbf{Jest:} Framework para pruebas unitarias en JavaScript, que proporciona funcionalidades para mocks, aserciones y cobertura de código.
-    \item \textbf{Supertest:} Herramienta para realizar pruebas sobre endpoints HTTP, facilitando la simulación de peticiones y validación de respuestas en la API REST.
+    \item \textbf{Jest:} Framework de testing para JavaScript que proporciona un entorno completo para la ejecución de pruebas unitarias, así como herramientas avanzadas de mocking, aserciones y análisis de cobertura de código.
+    \item \textbf{Supertest:} Librería orientada a la validación de endpoints HTTP, que permite simular peticiones reales contra la API REST y comprobar tanto los códigos de estado como el contenido de las respuestas.
 \end{itemize}
 
 \subsection{Ejemplo de prueba}
 
-A modo ilustrativo, se presenta como ejemplo del sistema desarrollado un conjunto de pruebas que verifica el comportamiento del endpoint POST /calificaciones-generales, cuyas operaciones aparecen en el apartado~\ref{subsec:logic}, comprobando tanto el caso exitoso de creación o actualización de una calificación general como la correcta gestión de errores. Se valida que una calificación válida sea procesada correctamente y devuelta con estado 200, que la nota se encuentre dentro del rango permitido y que las reglas de negocio asociadas a las calificaciones extraordinarias se cumplan.
+A modo ilustrativo, se presenta un conjunto de pruebas que valida el comportamiento del endpoint \texttt{POST /calificaciones-generales}, cuyas operaciones se describen en el apartado~\ref{subsec:logic}. En estos tests se comprueban tanto los escenarios exitosos de creación o actualización de calificaciones como las principales situaciones de error asociadas a la validación de datos y a las reglas de negocio del sistema.
+
+En particular, se verifica que una calificación válida sea procesada correctamente, que la nota se encuentre dentro del rango permitido y que se cumplan las restricciones asociadas a las calificaciones extraordinarias.
 
 \begin{Verbatim}[frame=single, fontsize=\small, xleftmargin=10pt, xrightmargin=10pt]
-    describe('POST /calificaciones-generales', () => {
-        it('should create or update a general qualification', 
-        async () => {
-            const mockCalificacion = {
+
+describe('POST /calificaciones-generales', () => {
+
+    // Caso exitoso: creación o actualización correcta
+    // de una calificación general ordinaria
+    it('should create or update a general qualification', 
+    async () => {
+
+        // Simulación de una calificación creada o actualizada
+        const mockCalificacion = {
+            _id: 'calG1',
+            alumno: 'alumno1',
+            grupo: 'grupo1',
+            tipo: 'Ordinaria',
+            nota: 8,
+            toObject: () => ({
                 _id: 'calG1',
                 alumno: 'alumno1',
                 grupo: 'grupo1',
                 tipo: 'Ordinaria',
+                nota: 8
+            })
+        };
+
+        // Simulación de búsquedas de usuarios:
+        // primero el alumno, después el profesor
+        Usuario.findById
+            .mockResolvedValueOnce({ 
+                _id: 'alumno1', 
+                role: 'alumno' 
+            })
+            .mockResolvedValueOnce({ 
+                _id: 'profesor1', 
+                role: 'profesor' 
+            });
+
+        // Simulación de grupo existente
+        Grupo.findById
+            .mockResolvedValue({ _id: 'grupo1' });
+
+        // Simulación de operación de creación o actualización
+        CalificacionGeneral
+            .findOneAndUpdate
+            .mockResolvedValue(mockCalificacion);
+
+        // Simulación del usuario del sistema
+        Usuario.findOne
+            .mockResolvedValue({ _id: 'sistema-user' });
+
+        // Simulación del envío de mensaje de notificación
+        mensajeController
+            .crearMensaje
+            .mockResolvedValue({});
+
+        // Ejecución de la petición HTTP
+        const response = await request(app)
+            .post('/calificaciones-generales')
+            .send({
+                alumnoId: 'alumno1',
+                grupoId: 'grupo1',
+                tipo: 'Ordinaria',
                 nota: 8,
-                toObject: () => ({
-                    _id: 'calG1',
-                    alumno: 'alumno1',
-                    grupo: 'grupo1',
-                    tipo: 'Ordinaria',
-                    nota: 8
-                })
-            };
-            Usuario.findById
-                .mockResolvedValueOnce({ _id: 'alumno1', 
-                role: 'alumno' })
-                .mockResolvedValueOnce({ _id: 'profesor1', 
-                role: 'profesor' });
-
-            Grupo.findById.mockResolvedValue
-            ({ _id: 'grupo1' });
-            CalificacionGeneral.findOneAndUpdate.
-            mockResolvedValue(mockCalificacion);
-            Usuario.findOne.mockResolvedValue
-            ({ _id: 'sistema-user' });
-            mensajeController.crearMensaje.
-            mockResolvedValue({});
-            const response = await request(app)
-                .post('/calificaciones-generales')
-                .send({
-                    alumnoId: 'alumno1',
-                    grupoId: 'grupo1',
-                    tipo: 'Ordinaria',
-                    nota: 8,
-                    profesorId: 'profesor1'
-                });
-
-            expect(response.status).toBe(200);
-            expect(response.body).toEqual
-            (mockCalificacion.toObject());
-        });
-        it('should return 400 for invalid nota', async () => {
-            const response = await request(app)
-                .post('/calificaciones-generales')
-                .send({ alumnoId: 'alumno1', 
-                grupoId: 'grupo1', tipo: 'Ordinaria', 
-                nota: 11, profesorId: 'profesor1' });
-
-            expect(response.status).toBe(400);
-            expect(response.body).toEqual
-            ({ error: 'La nota debe ser un número entero 
-            entre 1 y 10.' });
-        });
-        it('should return 400 if Extraordinaria is set 
-        without prior Ordinaria', async () => {
-            Usuario.findById
-                .mockResolvedValueOnce
-                ({ _id: 'alumno1', role: 'alumno' })
-                .mockResolvedValueOnce
-                ({ _id: 'profesor1', role: 'profesor' });
-
-            Grupo.findById.mockResolvedValue({ _id: 'grupo1' });
-            CalificacionGeneral.findOne.mockResolvedValue(null);
-            const response = await request(app)
-                .post('/calificaciones-generales')
-                .send({
-                    alumnoId: 'alumno1',
-                    grupoId: 'grupo1',
-                    tipo: 'Extraordinaria',
-                    nota: 6,
-                    profesorId: 'profesor1'
-                });
-            expect(response.status).toBe(400);
-            expect(response.body).toEqual({
-                error: 'No se puede establecer una 
-                calificación Extraordinaria 
-                sin una calificación Ordinaria previa.'
+                profesorId: 'profesor1'
             });
-        });
-        it('should return 400 if Extraordinaria is 
-        set with Ordinaria >= 5', async () => {
-            Usuario.findById
-                .mockResolvedValueOnce
-                ({ _id: 'alumno1', role: 'alumno' })
-                .mockResolvedValueOnce
-                ({ _id: 'profesor1', role: 'profesor' });
 
-            Grupo.findById.mockResolvedValue
-            ({ _id: 'grupo1' });
-            CalificacionGeneral.findOne.mockResolvedValue
-            ({ nota: 5 });
-            const response = await request(app)
-                .post('/calificaciones-generales')
-                .send({
-                    alumnoId: 'alumno1',
-                    grupoId: 'grupo1',
-                    tipo: 'Extraordinaria',
-                    nota: 6,
-                    profesorId: 'profesor1'
-                });
-            expect(response.status).toBe(400);
-            expect(response.body).toEqual({
-                error: 'Solo se puede establecer una calificación 
-                Extraordinaria si la calificación Ordinaria 
-                es menor de 5.'
+        // Validación del código de estado y del contenido
+        expect(response.status).toBe(200);
+        expect(response.body)
+            .toEqual(mockCalificacion.toObject());
+    });
+
+    // Validación del rango de la nota
+    it('should return 400 for invalid nota', async () => {
+
+        const response = await request(app)
+            .post('/calificaciones-generales')
+            .send({ 
+                alumnoId: 'alumno1', 
+                grupoId: 'grupo1', 
+                tipo: 'Ordinaria', 
+                nota: 11, 
+                profesorId: 'profesor1' 
             });
+
+        expect(response.status).toBe(400);
+        expect(response.body).toEqual({
+            error: 
+            'La nota debe ser un número entero entre 1 y 10.'
         });
     });
+
+    // Regla de negocio: no puede existir calificación
+    // extraordinaria sin una ordinaria previa
+    it('should return 400 if Extraordinaria is set 
+    without prior Ordinaria', async () => {
+
+        Usuario.findById
+            .mockResolvedValueOnce({ 
+                _id: 'alumno1', 
+                role: 'alumno' 
+            })
+            .mockResolvedValueOnce({ 
+                _id: 'profesor1', 
+                role: 'profesor' 
+            });
+
+        Grupo.findById
+            .mockResolvedValue({ _id: 'grupo1' });
+
+        // No existe calificación ordinaria previa
+        CalificacionGeneral.findOne
+            .mockResolvedValue(null);
+
+        const response = await request(app)
+            .post('/calificaciones-generales')
+            .send({
+                alumnoId: 'alumno1',
+                grupoId: 'grupo1',
+                tipo: 'Extraordinaria',
+                nota: 6,
+                profesorId: 'profesor1'
+            });
+
+        expect(response.status).toBe(400);
+        expect(response.body).toEqual({
+            error: 
+            'No se puede establecer una calificación Extraordinaria ' +
+            'sin una calificación Ordinaria previa.'
+        });
+    });
+
+    // Regla de negocio: no se permite extraordinaria
+    // si la ordinaria es aprobada (>= 5)
+    it('should return 400 if Extraordinaria is 
+    set with Ordinaria >= 5', async () => {
+
+        Usuario.findById
+            .mockResolvedValueOnce({ 
+                _id: 'alumno1', 
+                role: 'alumno' 
+            })
+            .mockResolvedValueOnce({ 
+                _id: 'profesor1', 
+                role: 'profesor' 
+            });
+
+        Grupo.findById
+            .mockResolvedValue({ _id: 'grupo1' });
+
+        // Existe una calificación ordinaria aprobada
+        CalificacionGeneral.findOne
+            .mockResolvedValue({ nota: 5 });
+
+        const response = await request(app)
+            .post('/calificaciones-generales')
+            .send({
+                alumnoId: 'alumno1',
+                grupoId: 'grupo1',
+                tipo: 'Extraordinaria',
+                nota: 6,
+                profesorId: 'profesor1'
+            });
+
+        expect(response.status).toBe(400);
+        expect(response.body).toEqual({
+            error: 
+            'Solo se puede establecer una calificación Extraordinaria ' +
+            'si la calificación Ordinaria es menor de 5.'
+        });
+    });
+});
+
 \end{Verbatim}
+
 \section{Despliegue del backend}
 
 El despliegue de la aplicación backend se realiza mediante un flujo automatizado de integración y despliegue continuo (CI/CD) que garantiza calidad y rapidez en las entregas.
@@ -2928,89 +2993,132 @@ Estas imágenes reflejan cómo la combinación de Ionic y Angular junto con buen
 Estas imágenes reflejan la búsqueda de construir una interfaz que no solo sea visualmente atractiva, sino también usable, accesible y adaptable a los diversos entornos donde la aplicación pueda ser utilizada.
 \section{Testing}
 
-Para garantizar la calidad, estabilidad y correcto funcionamiento del frontend, se ha implementado un conjunto de pruebas automatizadas que permiten detectar errores y verificar la integridad del código durante el ciclo de desarrollo.
+Para garantizar la calidad, estabilidad y correcto funcionamiento del frontend, se ha implementado un conjunto de pruebas automatizadas que permiten validar el comportamiento de los componentes y detectar errores de forma temprana durante el ciclo de desarrollo. Este enfoque facilita la detección de regresiones, mejora la mantenibilidad del código y aporta mayor fiabilidad al sistema final.
 
 \subsection{Estrategia de pruebas}
 
-La estrategia de testing se centra principalmente en pruebas unitarias y de componentes, que validan el comportamiento individual de las unidades de código y su correcta integración en la interfaz.
+La estrategia de testing se basa principalmente en pruebas unitarias y pruebas de componentes, orientadas a verificar tanto la lógica interna como la correcta interacción con la interfaz y los servicios externos.
 
 \begin{itemize}
-    \item \textbf{Pruebas unitarias:} Se prueban de forma aislada funciones, métodos y componentes Angular para asegurar que cumplen con su funcionalidad esperada.
-    \item \textbf{Pruebas de componentes:} Se comprueba la correcta renderización, interacción y comunicación con servicios de los componentes, simulando eventos y validando resultados.
+    \item \textbf{Pruebas unitarias:} Se validan de forma aislada funciones, métodos y servicios, asegurando que cumplen con su comportamiento esperado ante distintos escenarios.
+    \item \textbf{Pruebas de componentes:} Se comprueba la correcta inicialización, renderización e interacción de los componentes Angular, simulando eventos de usuario y respuestas de servicios.
 \end{itemize}
+
+Este enfoque permite evaluar el funcionamiento de cada parte del sistema de manera controlada, reduciendo la probabilidad de errores en producción y facilitando la evolución del frontend.
 
 \subsection{Herramientas utilizadas}
 
-El conjunto de pruebas se ha desarrollado usando las siguientes herramientas:
+El conjunto de pruebas se ha desarrollado utilizando las siguientes herramientas:
 
 \begin{itemize}
-    \item \textbf{Karma:} Ejecuta los tests en navegadores reales o headless, facilitando la integración con Angular.
-    \item \textbf{Jasmine:} Framework de aserciones y spies para estructurar y definir las pruebas unitarias y de componentes.
+    \item \textbf{Karma:} Entorno de ejecución de pruebas que permite lanzar los tests en navegadores reales o en modo \textit{headless}, integrándose de forma nativa con Angular.
+    \item \textbf{Jasmine:} Framework de testing que proporciona la estructura de los tests, aserciones y mecanismos de simulación (\textit{spies}) para controlar el comportamiento de dependencias externas.
 \end{itemize}
 
-Estas herramientas se integran con Angular CLI, facilitando la ejecución continua y la generación de informes de cobertura.
+Estas herramientas se integran con Angular CLI, lo que facilita la ejecución automatizada de los tests y la generación de informes de resultados.
+
 \subsection{Ejemplo de prueba}
 
-A continuación se muestra un ejemplo simplificado del sistema desarrollado de test para el componente Angular "Tab5Page" mostrado previamente, donde se comprueba que se crea correctamente y que muestra un mensaje esperado:
+A continuación se muestra un ejemplo representativo del sistema de testing desarrollado para el componente Angular \texttt{Tab5Page}. En este test se valida la correcta creación del componente y el comportamiento de distintos flujos de interacción relacionados con la apertura de modales y la gestión de estados internos.
 
 \begin{Verbatim}[frame=single, fontsize=\small, xleftmargin=10pt, xrightmargin=10pt]
+
+// Importación de utilidades de testing de Angular
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+// Componente que se va a probar
 import { Tab5Page } from './tab5.page';
+
+// Controladores de Ionic utilizados por el componente
 import { ModalController, ToastController } 
 from '@ionic/angular/standalone';
+
+// Cliente HTTP y su versión de testing
 import { provideHttpClient } from '@angular/common/http';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClientTesting } 
+from '@angular/common/http/testing';
+
+// Utilidades RxJS para simular respuestas
 import { of } from 'rxjs';
+
+// Servicios propios utilizados por el componente
 import { AuthService } from '../services/auth.service';
-import { CalificacionService } from '../services/calificacion.service';
+import { CalificacionService } 
+from '../services/calificacion.service';
 import { CalificacionGeneralService } 
 from '../services/calificacion-general.service';
 import { MensajeService } from '../services/mensaje.service';
-import { GrupoStateService } from '../services/grupo-state.service';
+import { GrupoStateService } 
+from '../services/grupo-state.service';
 import { ActivatedRoute } from '@angular/router';
 
 describe('Tab5Page', () => {
+
+  // Instancia del componente y su fixture de Angular
   let component: Tab5Page;
   let fixture: ComponentFixture<Tab5Page>;
   let modalController: ModalController;
 
+  // Simulación del servicio de autenticación
   const authServiceMock = 
   { currentUser: of({ _id: 'user123', role: 'profesor' }) };
-  const calificacionServiceMock = { getCalificacionesByAlumno: jasmine.
-  createSpy('getCalificacionesByAlumno').and.returnValue(of([])) };
-  const calificacionGeneralServiceMock = 
-  { getCalificacionesByAlumnoAndGrupo: jasmine.createSpy
-  ('getCalificacionesByAlumnoAndGrupo').and.returnValue(of([])) };
-  const mensajeServiceMock = { crearMensaje: 
-  jasmine.createSpy('crearMensaje').and.returnValue(of({})) };
-  const grupoStateServiceMock = { selectedGrupo$: 
-  of({ _id: 'grupo123', nombre: 'Test Grupo', alumnos: [] }) };
 
+  // Simulación de servicios de calificaciones
+  const calificacionServiceMock = { 
+    getCalificacionesByAlumno: jasmine
+      .createSpy('getCalificacionesByAlumno')
+      .and.returnValue(of([])) 
+  };
+
+  const calificacionGeneralServiceMock = 
+  { getCalificacionesByAlumnoAndGrupo: jasmine
+      .createSpy('getCalificacionesByAlumnoAndGrupo')
+      .and.returnValue(of([])) 
+  };
+
+  // Simulación del servicio de mensajería
+  const mensajeServiceMock = { 
+    crearMensaje: jasmine
+      .createSpy('crearMensaje')
+      .and.returnValue(of({})) 
+  };
+
+  // Simulación del estado del grupo seleccionado
+  const grupoStateServiceMock = { 
+    selectedGrupo$: 
+      of({ _id: 'grupo123', nombre: 'Test Grupo', alumnos: [] }) 
+  };
+
+  // Mock del ModalController para evitar mostrar modales reales
   const modalControllerMock = {
     create: jasmine.createSpy('create').and.returnValue(
       Promise.resolve({
-        present: jasmine.createSpy('present').
-        and.returnValue(Promise.resolve()),
-        onWillDismiss: jasmine.createSpy('onWillDismiss').
-        and.returnValue(Promise.resolve({ role: 'cancel' }))
+        present: jasmine.createSpy('present')
+          .and.returnValue(Promise.resolve()),
+        onWillDismiss: jasmine.createSpy('onWillDismiss')
+          .and.returnValue(Promise.resolve({ role: 'cancel' }))
       })
     ),
-    dismiss: jasmine.createSpy('dismiss').and.returnValue(Promise.
-    resolve())
+    dismiss: jasmine.createSpy('dismiss')
+      .and.returnValue(Promise.resolve())
   };
 
+  // Mock del ToastController para simular mensajes emergentes
   const toastControllerMock = {
     create: jasmine.createSpy('create').and.returnValue(
       Promise.resolve({
-        present: jasmine.createSpy('present').
-        and.returnValue(Promise.resolve())
+        present: jasmine.createSpy('present')
+          .and.returnValue(Promise.resolve())
       })
     )
   };
 
+  // Simulación de la ruta activa
   const activatedRouteMock = { queryParams: of({}) };
 
   beforeEach(async () => {
+
+    // Configuración del entorno de pruebas e inyección de mocks
     await TestBed.configureTestingModule({
       imports: [
         Tab5Page
@@ -3018,46 +3126,65 @@ describe('Tab5Page', () => {
       providers: [
         { provide: AuthService, useValue: authServiceMock },
         { provide: CalificacionService, 
-        useValue: calificacionServiceMock },
+          useValue: calificacionServiceMock },
         { provide: CalificacionGeneralService, 
-        useValue: calificacionGeneralServiceMock },
-        { provide: MensajeService, useValue: mensajeServiceMock },
-        { provide: GrupoStateService, useValue: grupoStateServiceMock },
-        { provide: ModalController, useValue: modalControllerMock },
-        { provide: ToastController, useValue: toastControllerMock },
-        { provide: ActivatedRoute, useValue: activatedRouteMock },
+          useValue: calificacionGeneralServiceMock },
+        { provide: MensajeService, 
+          useValue: mensajeServiceMock },
+        { provide: GrupoStateService, 
+          useValue: grupoStateServiceMock },
+        { provide: ModalController, 
+          useValue: modalControllerMock },
+        { provide: ToastController, 
+          useValue: toastControllerMock },
+        { provide: ActivatedRoute, 
+          useValue: activatedRouteMock },
         provideHttpClient(),
         provideHttpClientTesting()
       ],
     }).compileComponents();
 
+    // Creación de la instancia del componente
     fixture = TestBed.createComponent(Tab5Page);
     component = fixture.componentInstance;
     modalController = TestBed.inject(ModalController);
+
+    // Ejecución del ciclo inicial de Angular
     fixture.detectChanges();
   });
 
+  // Verifica que el componente se crea correctamente
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
+  // Comprueba que se abre correctamente el modal de mensajes
   it('should present mensaje modal', async () => {
     await component.presentMensajeModal();
     expect(modalController.create).toHaveBeenCalled();
   });
 
+  // Verifica que se abre el modal de calificación general
+  // cuando existe un grupo seleccionado
   it('should present calificacion general modal 
   if a group is selected', async () => {
-    component.selectedGrupo = { _id: 'grupo123', 
-    nombre: 'Test Grupo', profesor: { _id: 'prof123' }, alumnos: [] };
+    component.selectedGrupo = { 
+      _id: 'grupo123', 
+      nombre: 'Test Grupo', 
+      profesor: { _id: 'prof123' }, 
+      alumnos: [] 
+    };
+
     await component.presentCalificacionGeneralModal();
     expect(modalController.create).toHaveBeenCalled();
   });
 
+  // Comprueba que no se abre el modal si no hay grupo seleccionado
   it('should not present calificacion general modal 
   if no group is selected', async () => {
     (modalController.create as jasmine.Spy).calls.reset();
     component.selectedGrupo = null;
+
     await component.presentCalificacionGeneralModal();
     expect(modalController.create).not.toHaveBeenCalled();
   });
@@ -3065,7 +3192,8 @@ describe('Tab5Page', () => {
 
 \end{Verbatim}
 
-Este tipo de pruebas permite detectar cambios no deseados en la interfaz y lógica, facilitando el mantenimiento y evolución del frontend.
+Este tipo de pruebas permite validar la lógica interna del componente y su correcta interacción con el entorno de Ionic, garantizando un comportamiento estable ante distintos escenarios de uso y facilitando la detección temprana de errores durante el desarrollo.
+
 \section{Despliegue del frontend}
 
 El despliegue de la aplicación frontend se realiza mediante un proceso sencillo y eficiente que asegura que la versión en producción esté actualizada y optimizada para la entrega en entornos web.

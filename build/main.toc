@@ -55,47 +55,47 @@
 \contentsline {subsection}{\numberline {8.4.1}Estrategia de pruebas}{67}{subsection.8.4.1}%
 \contentsline {subsection}{\numberline {8.4.2}Herramientas utilizadas}{68}{subsection.8.4.2}%
 \contentsline {subsection}{\numberline {8.4.3}Ejemplo de prueba}{68}{subsection.8.4.3}%
-\contentsline {section}{\numberline {8.5}Despliegue del backend}{71}{section.8.5}%
-\contentsline {chapter}{\numberline {9}Desarrollo de la aplicación frontend}{73}{chapter.9}%
-\contentsline {section}{\numberline {9.1}Arquitectura y visión general del frontend}{73}{section.9.1}%
-\contentsline {section}{\numberline {9.2}Implementación}{74}{section.9.2}%
-\contentsline {subsection}{\numberline {9.2.1}Estructura del proyecto}{74}{subsection.9.2.1}%
-\contentsline {subsection}{\numberline {9.2.2}Páginas, componentes y controladores}{75}{subsection.9.2.2}%
-\contentsline {paragraph}{Aspectos de la implementación:}{79}{subsection.9.2.2}%
-\contentsline {subsection}{\numberline {9.2.3}Manejo de rutas y navegación}{79}{subsection.9.2.3}%
-\contentsline {subsection}{\numberline {9.2.4}Gestión del estado}{80}{subsection.9.2.4}%
-\contentsline {subsection}{\numberline {9.2.5}Integración con el backend}{82}{subsection.9.2.5}%
-\contentsline {section}{\numberline {9.3}Diseño y experiencia de usuario (UX/UI)}{83}{section.9.3}%
-\contentsline {subsection}{\numberline {9.3.1}Componentes Ionic y su papel en el diseño}{83}{subsection.9.3.1}%
-\contentsline {subsection}{\numberline {9.3.2}Diseño responsive y adaptabilidad}{84}{subsection.9.3.2}%
-\contentsline {subsection}{\numberline {9.3.3}Usabilidad y experiencia de usuario}{84}{subsection.9.3.3}%
-\contentsline {subsection}{\numberline {9.3.4}Accesibilidad}{85}{subsection.9.3.4}%
-\contentsline {subsection}{\numberline {9.3.5}Ejemplos visuales de diseño y experiencia}{85}{subsection.9.3.5}%
-\contentsline {section}{\numberline {9.4}Testing}{87}{section.9.4}%
-\contentsline {subsection}{\numberline {9.4.1}Estrategia de pruebas}{87}{subsection.9.4.1}%
-\contentsline {subsection}{\numberline {9.4.2}Herramientas utilizadas}{87}{subsection.9.4.2}%
-\contentsline {subsection}{\numberline {9.4.3}Ejemplo de prueba}{87}{subsection.9.4.3}%
-\contentsline {section}{\numberline {9.5}Despliegue del frontend}{90}{section.9.5}%
-\contentsline {subsection}{\numberline {9.5.1}Proceso de build y optimización}{90}{subsection.9.5.1}%
-\contentsline {subsection}{\numberline {9.5.2}Hosting y distribución}{90}{subsection.9.5.2}%
-\contentsline {chapter}{\numberline {10}Integración y Despliegue Continuo}{92}{chapter.10}%
-\contentsline {section}{\numberline {10.1}Descripción general del pipeline}{92}{section.10.1}%
-\contentsline {section}{\numberline {10.2}Archivo de configuración del pipeline}{93}{section.10.2}%
-\contentsline {section}{\numberline {10.3}Ventajas del pipeline integrado}{95}{section.10.3}%
-\contentsline {chapter}{\numberline {11}Conclusiones y líneas de trabajo futuro}{96}{chapter.11}%
-\contentsline {section}{\numberline {11.1}Conclusiones}{96}{section.11.1}%
-\contentsline {section}{\numberline {11.2}Líneas de trabajo futuro}{97}{section.11.2}%
-\contentsline {subsection}{\numberline {11.2.1}Plan de implantación y despliegue en entornos reales}{97}{subsection.11.2.1}%
-\contentsline {subsection}{\numberline {11.2.2}Extensión de funcionalidades e innovación}{98}{subsection.11.2.2}%
-\contentsline {subsection}{\numberline {11.2.3}Acceso sin autenticación y apertura a usuarios externos}{98}{subsection.11.2.3}%
-\contentsline {subsection}{\numberline {11.2.4}Creación de la aplicación móvil}{98}{subsection.11.2.4}%
-\contentsline {chapter}{\numberline {12}Anexo}{100}{chapter.12}%
-\contentsline {section}{\numberline {12.1}Repositorio del proyecto}{100}{section.12.1}%
-\contentsline {section}{\numberline {12.2}Estructura del proyecto}{100}{section.12.2}%
-\contentsline {subsection}{\numberline {12.2.1}Estructura del backend}{101}{subsection.12.2.1}%
-\contentsline {subsection}{\numberline {12.2.2}Estructura del frontend}{101}{subsection.12.2.2}%
-\contentsline {section}{\numberline {12.3}Capturas adicionales de la aplicación}{102}{section.12.3}%
-\contentsline {section}{\numberline {12.4}Entornos y herramientas de desarrollo}{104}{section.12.4}%
-\contentsline {subsection}{\numberline {12.4.1}Entorno de desarrollo}{104}{subsection.12.4.1}%
-\contentsline {subsection}{\numberline {12.4.2}Gestión y visualización de la base de datos}{104}{subsection.12.4.2}%
-\contentsline {subsection}{\numberline {12.4.3}Herramientas de apoyo adicionales}{105}{subsection.12.4.3}%
+\contentsline {section}{\numberline {8.5}Despliegue del backend}{72}{section.8.5}%
+\contentsline {chapter}{\numberline {9}Desarrollo de la aplicación frontend}{74}{chapter.9}%
+\contentsline {section}{\numberline {9.1}Arquitectura y visión general del frontend}{74}{section.9.1}%
+\contentsline {section}{\numberline {9.2}Implementación}{75}{section.9.2}%
+\contentsline {subsection}{\numberline {9.2.1}Estructura del proyecto}{75}{subsection.9.2.1}%
+\contentsline {subsection}{\numberline {9.2.2}Páginas, componentes y controladores}{76}{subsection.9.2.2}%
+\contentsline {paragraph}{Aspectos de la implementación:}{80}{subsection.9.2.2}%
+\contentsline {subsection}{\numberline {9.2.3}Manejo de rutas y navegación}{80}{subsection.9.2.3}%
+\contentsline {subsection}{\numberline {9.2.4}Gestión del estado}{81}{subsection.9.2.4}%
+\contentsline {subsection}{\numberline {9.2.5}Integración con el backend}{83}{subsection.9.2.5}%
+\contentsline {section}{\numberline {9.3}Diseño y experiencia de usuario (UX/UI)}{84}{section.9.3}%
+\contentsline {subsection}{\numberline {9.3.1}Componentes Ionic y su papel en el diseño}{84}{subsection.9.3.1}%
+\contentsline {subsection}{\numberline {9.3.2}Diseño responsive y adaptabilidad}{85}{subsection.9.3.2}%
+\contentsline {subsection}{\numberline {9.3.3}Usabilidad y experiencia de usuario}{85}{subsection.9.3.3}%
+\contentsline {subsection}{\numberline {9.3.4}Accesibilidad}{86}{subsection.9.3.4}%
+\contentsline {subsection}{\numberline {9.3.5}Ejemplos visuales de diseño y experiencia}{86}{subsection.9.3.5}%
+\contentsline {section}{\numberline {9.4}Testing}{88}{section.9.4}%
+\contentsline {subsection}{\numberline {9.4.1}Estrategia de pruebas}{88}{subsection.9.4.1}%
+\contentsline {subsection}{\numberline {9.4.2}Herramientas utilizadas}{88}{subsection.9.4.2}%
+\contentsline {subsection}{\numberline {9.4.3}Ejemplo de prueba}{89}{subsection.9.4.3}%
+\contentsline {section}{\numberline {9.5}Despliegue del frontend}{93}{section.9.5}%
+\contentsline {subsection}{\numberline {9.5.1}Proceso de build y optimización}{93}{subsection.9.5.1}%
+\contentsline {subsection}{\numberline {9.5.2}Hosting y distribución}{93}{subsection.9.5.2}%
+\contentsline {chapter}{\numberline {10}Integración y Despliegue Continuo}{95}{chapter.10}%
+\contentsline {section}{\numberline {10.1}Descripción general del pipeline}{95}{section.10.1}%
+\contentsline {section}{\numberline {10.2}Archivo de configuración del pipeline}{96}{section.10.2}%
+\contentsline {section}{\numberline {10.3}Ventajas del pipeline integrado}{98}{section.10.3}%
+\contentsline {chapter}{\numberline {11}Conclusiones y líneas de trabajo futuro}{99}{chapter.11}%
+\contentsline {section}{\numberline {11.1}Conclusiones}{99}{section.11.1}%
+\contentsline {section}{\numberline {11.2}Líneas de trabajo futuro}{100}{section.11.2}%
+\contentsline {subsection}{\numberline {11.2.1}Plan de implantación y despliegue en entornos reales}{100}{subsection.11.2.1}%
+\contentsline {subsection}{\numberline {11.2.2}Extensión de funcionalidades e innovación}{101}{subsection.11.2.2}%
+\contentsline {subsection}{\numberline {11.2.3}Acceso sin autenticación y apertura a usuarios externos}{101}{subsection.11.2.3}%
+\contentsline {subsection}{\numberline {11.2.4}Creación de la aplicación móvil}{101}{subsection.11.2.4}%
+\contentsline {chapter}{\numberline {12}Anexo}{103}{chapter.12}%
+\contentsline {section}{\numberline {12.1}Repositorio del proyecto}{103}{section.12.1}%
+\contentsline {section}{\numberline {12.2}Estructura del proyecto}{103}{section.12.2}%
+\contentsline {subsection}{\numberline {12.2.1}Estructura del backend}{104}{subsection.12.2.1}%
+\contentsline {subsection}{\numberline {12.2.2}Estructura del frontend}{104}{subsection.12.2.2}%
+\contentsline {section}{\numberline {12.3}Capturas adicionales de la aplicación}{105}{section.12.3}%
+\contentsline {section}{\numberline {12.4}Entornos y herramientas de desarrollo}{107}{section.12.4}%
+\contentsline {subsection}{\numberline {12.4.1}Entorno de desarrollo}{107}{subsection.12.4.1}%
+\contentsline {subsection}{\numberline {12.4.2}Gestión y visualización de la base de datos}{107}{subsection.12.4.2}%
+\contentsline {subsection}{\numberline {12.4.3}Herramientas de apoyo adicionales}{108}{subsection.12.4.3}%

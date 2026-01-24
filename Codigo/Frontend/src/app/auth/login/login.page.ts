@@ -50,6 +50,7 @@ export class LoginPage implements OnInit {
             } else {
               this.router.navigate(['/Areas']);
             }
+            this.loginForm.reset();
           },
           error: async (err) => {
             await this.presentErrorAlert(err.error.error || 'Error al verificar el usuario.');
