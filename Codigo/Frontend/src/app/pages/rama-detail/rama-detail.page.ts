@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterModule, Router } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { AlertController, IonButtons, IonMenuButton, ModalController, ToastController, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonList, IonItem, IonLabel, IonIcon, IonToggle, IonSpinner, IonFab, IonFabButton, ActionSheetController } from '@ionic/angular/standalone'; // Added IonSpinner
+import { AlertController, IonButtons, IonMenuButton, ModalController, ToastController, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonList, IonItem, IonLabel, IonIcon, IonToggle, IonSpinner, IonFab, IonFabButton, ActionSheetController } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { add, addCircleOutline, cloudUploadOutline, createOutline, documentTextOutline, ribbonOutline, trashOutline, checkmarkCircleOutline, closeCircleOutline, ellipsisVertical } from 'ionicons/icons';
 
@@ -63,9 +63,9 @@ export class RamaDetailPage implements OnDestroy {
   private readonly sanitizer: DomSanitizer = inject(DomSanitizer);
   private readonly router: Router = inject(Router);
   private readonly zone: NgZone = inject(NgZone);
-  private readonly cuestionarioStateService: CuestionarioStateService = inject(CuestionarioStateService); // Inject CuestionarioStateService
+  private readonly cuestionarioStateService: CuestionarioStateService = inject(CuestionarioStateService);
   private readonly tareaStateService: TareaStateService = inject(TareaStateService);
-  private cuestionarioSubscription: Subscription | undefined; // Add cuestionarioSubscription
+  private cuestionarioSubscription: Subscription | undefined;
   private tareaSubscription: Subscription | undefined;
   isMobile= false;
   nonSafeUrl: string = '';
@@ -307,7 +307,7 @@ async openPdf(): Promise<void> {
   }
 
   loadTareas() {
-    if (!this.userId) return of([]); // Return an observable
+    if (!this.userId) return of([]);
     return this.tareaService.getTareasByUsuarioAndRama(this.userId, this.ramaConfig!._id).pipe(
       tap(tareas => {
         this.tareas = tareas;
@@ -316,7 +316,7 @@ async openPdf(): Promise<void> {
   }
 
   loadCuestionarios() {
-    if (!this.userId) return of([]); // Return an observable
+    if (!this.userId) return of([]);
     return this.cuestionarioService.getCuestionariosByUsuarioAndRama(this.userId, this.ramaConfig!._id).pipe(
       tap(cuestionarios => {
         this.cuestionarios = cuestionarios;
@@ -326,19 +326,21 @@ async openPdf(): Promise<void> {
 
   async onFileSelected(event: any) {
     const file: File = event.target.files[0];
+
     if (file && file.type === 'application/pdf' && this.ramaConfig) {
       this.ramaConfigService.updateRamaPdf(this.ramaConfig._id, file).subscribe({
         next: () => {
-          this.presentToast('Libro subido con éxito.');
-          if (this.selectedGrupo) {
-            this.loadRamaConfig(this.selectedGrupo._id);
-          }
+          this.zone.run(() => {
+            this.presentToast('Libro subido con éxito.');
+            if (this.selectedGrupo) {
+              this.loadRamaConfig(this.selectedGrupo._id).subscribe();
+            }
+          });
         },
         error: () => this.presentToast('Error al subir el archivo.', 'danger')
       });
     }
   }
-
   async eliminarLibro() {
     const alert = await this.alertController.create({
       header: 'Confirmar Eliminación',
@@ -351,9 +353,16 @@ async openPdf(): Promise<void> {
             if (this.ramaConfig) {
               this.ramaConfigService.updateRamaPdf(this.ramaConfig._id, null).subscribe({
                 next: () => {
-                  this.presentToast('Libro eliminado.');
-                  this.pdfUrl = null;
-                  this.hasLibroDeApoyo = false;
+                  this.zone.run(() => {
+                    this.presentToast('Libro eliminado.');
+
+                    if (this.nonSafeUrl) URL.revokeObjectURL(this.nonSafeUrl);
+                    this.nonSafeUrl = '';
+                    this.libroBlob = null;
+
+                    this.pdfUrl = null;
+                    this.hasLibroDeApoyo = false;
+                  });
                 },
                 error: () => this.presentToast('Error al eliminar el libro.', 'danger')
               });
@@ -362,6 +371,7 @@ async openPdf(): Promise<void> {
         }
       ]
     });
+
     await alert.present();
   }
 

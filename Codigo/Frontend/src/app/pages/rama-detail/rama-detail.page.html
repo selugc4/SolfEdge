@@ -40,10 +40,14 @@
                     }
                     @else {
                       <ion-button expand="block" (click)="openPdf()">
+                        <ion-icon name="document-text-outline" slot="start"></ion-icon>
                         Abrir PDF
                       </ion-button>
                     }
-                    <ion-button expand="block" color="danger" (click)="eliminarLibro()">Eliminar Libro</ion-button>
+                    <ion-button expand="block" color="danger" (click)="eliminarLibro()">
+                      Eliminar Libro
+                      <ion-icon slot="start" name="trash-outline"></ion-icon>
+                    </ion-button>
                   }
                   @else{
                     <p>No hay ningún libro de apoyo cargado.</p>
@@ -61,6 +65,7 @@
                   }
                   @else {
                     <ion-button expand="block" (click)="openPdf()">
+                      <ion-icon name="document-text-outline" slot="start"></ion-icon>
                       Abrir PDF
                     </ion-button>
                   }
@@ -72,14 +77,11 @@
             </div>
           </ion-card-content>
         </ion-card>
-
-        <!-- Toggle para Tareas/Cuestionarios -->
         @if(isTeoria){
         <ion-item>
           <ion-toggle [(ngModel)]="useCuestionarios" justify="space-between">Usar Cuestionarios</ion-toggle>
         </ion-item>
         }
-        <!-- Sección de Tareas -->
         @if(!useCuestionarios){
           <ion-card>
             <ion-card-header>

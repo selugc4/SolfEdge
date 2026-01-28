@@ -2,12 +2,12 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
   <!-- FONDO DEL SPLASH -->
-  <item android:drawable="@color/ic_launcher_background"/>
+  <item android:drawable="@color/ic_launcher_background_2"/>
 
   <!-- LOGO CENTRADO -->
   <item>
     <bitmap
-      android:src="@drawable/new_logo"
+      android:src="@drawable/splash_icon"
       android:gravity="center"
       android:filter="true" />
   </item>

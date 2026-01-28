@@ -7,8 +7,8 @@ import { GrupoService } from '../../services/grupo.service';
 import { GrupoStateService } from '../../services/grupo-state.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { IonCard, IonCardTitle, IonCardHeader, IonCardContent, IonItem, IonButton, IonList, IonListHeader, IonLabel, IonIcon, IonInput, ModalController, ToastController} from "@ionic/angular/standalone";
-import { addIcons } from 'ionicons';
-import { closeCircleOutline } from 'ionicons/icons';
+import { addIcons} from 'ionicons';
+import { closeCircleOutline, optionsOutline, addCircleOutline} from 'ionicons/icons';
 @Component({
   selector: 'app-gestion-grupos',
   templateUrl: './gestion-grupos.component.html',
@@ -27,7 +27,7 @@ export class GestionGruposComponent implements OnInit {
   private grupoStateService = inject(GrupoStateService);
 
   constructor() {
-    addIcons({ closeCircleOutline })
+    addIcons({ closeCircleOutline, optionsOutline, addCircleOutline});
   }
 
   ngOnInit() {}
@@ -36,7 +36,7 @@ export class GestionGruposComponent implements OnInit {
     const modal = await this.modalController.create({
       component: SelectAlumnosModalComponent,
       componentProps: {
-        previouslySelectedAlumnos: this.selectedAlumnos, // Pass already selected students
+        previouslySelectedAlumnos: this.selectedAlumnos,
         fetchAllAlumnos: true
       }
     });

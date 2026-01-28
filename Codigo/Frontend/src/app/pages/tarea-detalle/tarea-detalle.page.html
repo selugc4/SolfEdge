@@ -51,6 +51,7 @@
           }
           @else {
             <ion-button expand="block" (click)="openPdf()">
+              <ion-icon name="document-text-outline" slot="start"></ion-icon>
               Abrir PDF
             </ion-button>
           }
@@ -69,6 +70,7 @@
         @if(isProfessor && tarea && !isTareaClosed(tarea)){
           <div class="ion-margin-top">
             <ion-button expand="block" color="warning" (click)="closeTarea()">
+              <ion-icon name="close-circle-outline" slot="start"></ion-icon>
               Cerrar Tarea
             </ion-button>
           </div>
@@ -76,6 +78,7 @@
         @if(isProfessor && tarea){
           <div class="ion-margin-top">
             <ion-button expand="block" color="danger" (click)="deleteTarea()">
+              <ion-icon name="trash-outline" slot="start"></ion-icon>
               Eliminar Tarea
             </ion-button>
           </div>

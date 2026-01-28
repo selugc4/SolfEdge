@@ -22,7 +22,7 @@ import { addIcons } from 'ionicons';
 export class TareaModalComponent implements OnInit {
   @Input() tarea: Tarea | null = null;
   @Input() rama: 'Ritmo' | 'Entonación' | 'Audición' | 'Teoría' = 'Teoría';
-  @Input() alumnos: Usuario[] = []; // This is the initial pool of students
+  @Input() alumnos: Usuario[] = [];
   @Input() currentGroup: Grupo | null = null;
   form: FormGroup;
   selectedFile: File | null = null;
@@ -82,7 +82,6 @@ export class TareaModalComponent implements OnInit {
         const fechaCierre = new Date(this.tarea.fechaCierre);
         this.form.patchValue({ fechaCierre: fechaCierre.toISOString().split('T')[0] });
       }
-      // If editing, pre-select students from the current group if they are part of the task
       if (this.tarea.alumnos && this.currentGroup) {
         this.selectedStudentsFromGroups = this.currentGroup.alumnos
           .filter(alumno => this.tarea?.alumnos.includes(alumno._id as string))
@@ -131,7 +130,6 @@ export class TareaModalComponent implements OnInit {
         descripcion: this.form.value.descripcion,
         rama: this.rama,
         fechaCierre: this.form.value.fechaCierre,
-        // Add materialDeApoyo here if no file is selected
         ...(this.selectedFile ? {} : { materialDeApoyo: null }),
         alumnos: finalAlumnos,
         profesorId: profesorId

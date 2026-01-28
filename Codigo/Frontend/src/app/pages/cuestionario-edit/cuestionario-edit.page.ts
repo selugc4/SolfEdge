@@ -14,7 +14,7 @@ import { CuestionarioStateService } from '../../services/cuestionario-state.serv
 import { IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonItem, IonLabel, IonSelect, IonSelectOption, IonListHeader, IonIcon, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonInput, IonTextarea, ToastController, IonRadioGroup, IonRadio, IonText } from "@ionic/angular/standalone";
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { addIcons } from 'ionicons';
-import { addCircleOutline, trashOutline, musicalNotesOutline, closeCircleOutline } from 'ionicons/icons';
+import { addCircleOutline, trashOutline, musicalNotesOutline, closeCircleOutline, checkmarkCircleOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-cuestionario-edit',
@@ -52,7 +52,7 @@ export class CuestionarioEditPage implements OnInit {
       preguntas: this.fb.array([], [Validators.required, Validators.minLength(1)]),
       fechaCierre: [null]
     });
-    addIcons({ addCircleOutline, trashOutline, musicalNotesOutline, closeCircleOutline }); // Added musicalNotesOutline, closeCircleOutline
+    addIcons({ addCircleOutline, trashOutline, musicalNotesOutline, closeCircleOutline, checkmarkCircleOutline });
   }
 
   ngOnInit() {
@@ -85,11 +85,10 @@ export class CuestionarioEditPage implements OnInit {
   setupForm(cuestionario: Cuestionario) {
       this.form.patchValue({
         nombre: cuestionario.nombre,
-        alumnos: cuestionario.alumnos.map(a => (a as any)._id || a) // Handle partial User object or just ID
+        alumnos: cuestionario.alumnos.map(a => (a as any)._id || a)
       });
       if (cuestionario.fechaCierre) {
         const fechaCierre = new Date(cuestionario.fechaCierre);
-        // Only set if fechaCierre is a valid date object. The API returns it as Date object.
         if (!isNaN(fechaCierre.getTime())) {
           this.form.patchValue({ fechaCierre: fechaCierre.toISOString().split('T')[0] });
         }
@@ -165,9 +164,8 @@ export class CuestionarioEditPage implements OnInit {
 
     const pregunta = this.preguntas.at(preguntaIndex);
     pregunta.get('archivoParaSubir')?.setValue(file);
-    // Clear the URL field to avoid confusion
     pregunta.get('recursoAudicion')?.setValue('');
-    event.target.value = ''; // Allow re-selecting the same file if needed
+    event.target.value = '';
     this.presentToast(`"${file.name}" listo para subir.`, 'success');
   }
 
@@ -188,17 +186,14 @@ export class CuestionarioEditPage implements OnInit {
     this.presentToast('Recurso de audición eliminado localmente.', 'success');
   }
 
-  // Helper to check if resource is Base64 audio
   isBase64Audio(resource: string | undefined): boolean {
     return resource ? resource.startsWith('data:audio/mpeg;base64,') : false;
   }
 
-  // Helper to get safe URL for Base64 audio
   getSafeBase64Url(resource: string | undefined): SafeResourceUrl | null {
     return resource ? this.domSanitizer.bypassSecurityTrustResourceUrl(resource) : null;
   }
 
-  // Helper to check if resource is a YouTube URL and extract video ID
   isYouTubeUrl(resource: string | undefined): string | null {
     if (!resource) return null;
     const youtubeRegex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
@@ -206,7 +201,6 @@ export class CuestionarioEditPage implements OnInit {
     return match && match[1] ? match[1] : null;
   }
 
-  // Helper to check if resource is a Spotify URL and extract ID
   isSpotifyUrl(resource: string | undefined): { type: string, id: string } | null {
     if (!resource) return null;
     const spotifyRegex = /open\.spotify\.com\/(?:[a-z\-]+\/)?(track|album|playlist|artist)\/([a-zA-Z0-9]+)(?:\?si=[a-zA-Z0-9]+)?/;
@@ -214,12 +208,10 @@ export class CuestionarioEditPage implements OnInit {
     return match && match[1] && match[2] ? { type: match[1], id: match[2] } : null;
   }
 
-  // Helper to get safe YouTube embed URL
   getYouTubeEmbedUrl(videoId: string): SafeResourceUrl {
     return this.domSanitizer.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/${videoId}`);
   }
 
-  // Helper to get safe Spotify embed URL
   getSpotifyEmbedUrl(type: string, id: string): SafeResourceUrl {
     return this.domSanitizer.bypassSecurityTrustResourceUrl(`https://open.spotify.com/embed/${type}/${id}`);
   }
@@ -242,7 +234,7 @@ export class CuestionarioEditPage implements OnInit {
     });
 
     if (uploadObservables.length === 0) {
-      return of(null); // No files to upload
+      return of(null);
     }
 
     return forkJoin(uploadObservables);

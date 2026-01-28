@@ -1,7 +1,9 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ModalController, ToastController, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent, IonList, IonListHeader, IonLabel, IonItem} from '@ionic/angular/standalone';
+import { ModalController, ToastController, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent, IonList, IonListHeader, IonLabel, IonItem, IonIcon} from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import { add, trashOutline } from 'ionicons/icons';
 import { Grupo } from 'src/app/models/grupo.model';
 import { GrupoService } from 'src/app/services/grupo.service';
 
@@ -10,7 +12,7 @@ import { GrupoService } from 'src/app/services/grupo.service';
   templateUrl: './gestion-grupo-modal.component.html',
   styleUrls: ['./gestion-grupo-modal.component.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent, IonList, IonListHeader, IonLabel, IonItem]
+  imports: [CommonModule, FormsModule, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent, IonList, IonListHeader, IonLabel, IonItem, IonIcon]
 })
 export class GestionGrupoModalComponent implements OnInit {
   @Input() selectedGrupo: Grupo | null = null;
@@ -18,7 +20,9 @@ export class GestionGrupoModalComponent implements OnInit {
   grupoService: GrupoService = inject(GrupoService);
   toastController: ToastController = inject(ToastController);
 
-  constructor() {}
+  constructor() {
+    addIcons({ 'trash-outline': trashOutline });
+  }
 
   ngOnInit() {}
 

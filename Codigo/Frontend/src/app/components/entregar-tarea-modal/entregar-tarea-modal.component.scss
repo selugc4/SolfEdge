@@ -1,0 +1,13 @@
+.upload-zone {
+  text-align: center;
+  padding: 20px;
+  border: 2px dashed var(--ion-color-medium);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.upload-zone:hover {
+  border-color: var(--ion-color-primary);
+  background: rgba(0, 0, 0, 0.03);
+}

@@ -5,8 +5,8 @@ import { AlertController, ToastController } from '@ionic/angular';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { UsuarioService } from '../../services/usuario.service';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonLabel, IonButton, IonInput} from "@ionic/angular/standalone";
-import { sendOutline } from 'ionicons/icons';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonLabel, IonButton, IonInput, IonIcon} from "@ionic/angular/standalone";
+import { sendOutline, keyOutline } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
 
 @Component({
@@ -14,7 +14,7 @@ import { addIcons } from 'ionicons';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonLabel, IonButton, IonInput]
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonLabel, IonButton, IonInput, IonIcon]
 })
 export class LoginPage implements OnInit {
   loginForm: FormGroup;
@@ -25,7 +25,7 @@ export class LoginPage implements OnInit {
   toastController: ToastController = inject(ToastController);
 
   constructor() {
-    addIcons({ 'send-outline': sendOutline });
+    addIcons({ 'send-outline': sendOutline, 'key-outline': keyOutline });
     this.loginForm = new FormGroup({
       username: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required])

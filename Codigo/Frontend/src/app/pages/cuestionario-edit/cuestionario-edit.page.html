@@ -39,9 +39,9 @@
     <div formArrayName="preguntas">
       @for(preguntaGroup of preguntas.controls; track i; let i = $index){
         <ion-card [formGroupName]="i">
-          <ion-card-header>
+          <ion-card-header class="card-header-row">
             <ion-card-title>Pregunta {{ i + 1 }}</ion-card-title>
-            <ion-button (click)="removePregunta(i)" color="danger" fill="clear" slot="end">
+            <ion-button (click)="removePregunta(i)" color="danger" fill="clear">
               <ion-icon name="trash-outline"></ion-icon>
             </ion-button>
           </ion-card-header>
@@ -50,8 +50,6 @@
               <ion-label position="floating">Texto de la Pregunta</ion-label>
               <ion-textarea formControlName="texto" rows="2" [autoGrow]="true"></ion-textarea>
             </ion-item>
-
-            <!-- Recurso de audición -->
             <ion-item>
               @if(!isBase64Audio(preguntaGroup.get('recursoAudicion')?.value)){
                 <ion-input
@@ -154,6 +152,7 @@
     </div>
 
     <ion-button expand="block" type="submit" [disabled]="form.invalid" class="ion-margin-top">
+      <ion-icon slot="start" name="{{isEditMode ? 'checkmark-circle-outline': 'add-circle-outline'}}"></ion-icon>
       {{ isEditMode ? 'Guardar Cambios' : 'Crear Cuestionario' }}
     </ion-button>
   </form>

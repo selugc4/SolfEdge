@@ -13,11 +13,22 @@
       <ion-label position="floating">Respuesta de texto</ion-label>
       <ion-textarea formControlName="respuestaTexto" rows="5"></ion-textarea>
     </ion-item>
+  <ion-item class="ion-margin-top">
+    <ion-label>Adjuntar archivo (PDF, MP3)</ion-label>
 
-    <ion-item class="ion-margin-top">
-      <ion-label>Adjuntar archivo (PDF, MP3)</ion-label>
-      <input type="file" (change)="onFileSelected($event)" accept=".pdf,.mp3">
-    </ion-item>
+    <input
+      type="file"
+      #fileInput
+      hidden
+      accept=".pdf,.mp3"
+      (change)="onFileSelected($event)"
+    />
+
+    <ion-button slot="end" (click)="fileInput.click()">
+      <ion-icon name="attach-outline" slot="start"></ion-icon>
+      Adjuntar
+    </ion-button>
+  </ion-item>
     @if(selectedFile){
       <ion-item lines="none">
         <ion-icon name="attach-outline" slot="start"></ion-icon>

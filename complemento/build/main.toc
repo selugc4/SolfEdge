@@ -27,69 +27,85 @@
 \contentsline {subsubsection}{\numberline {3.7.2.2}Capacitor como evolución del soporte móvil híbrido}{17}{subsubsection.3.7.2.2}%
 \contentsline {subsubsection}{\numberline {3.7.2.3}Android Studio y entorno de construcción móvil}{18}{subsubsection.3.7.2.3}%
 \contentsline {chapter}{\numberline {4}Planificación del proyecto}{20}{chapter.4}%
-\contentsline {chapter}{\numberline {5}Desarrollo de la aplicación backend}{22}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Modelado de datos}{22}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Implementación}{23}{section.5.2}%
-\contentsline {subsection}{\numberline {5.2.1}Operaciones lógicas (revisión y eliminación)}{24}{subsection.5.2.1}%
-\contentsline {subsection}{\numberline {5.2.2}Importación masiva desde CSV (normalización, validación y creación)}{24}{subsection.5.2.2}%
-\contentsline {subsection}{\numberline {5.2.3}Servicio de IA con Groq (integración por API y capa de servicios)}{26}{subsection.5.2.3}%
-\contentsline {section}{\numberline {5.3}Testing}{28}{section.5.3}%
-\contentsline {chapter}{\numberline {6}Desarrollo de la aplicación frontend}{31}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Implementación}{31}{section.6.1}%
-\contentsline {subsection}{\numberline {6.1.1}Exportación a Android con Capacitor}{31}{subsection.6.1.1}%
-\contentsline {subsubsection}{\numberline {6.1.1.1}Ajuste de menús del sistema}{31}{subsubsection.6.1.1.1}%
-\contentsline {subsubsection}{\numberline {6.1.1.2}Apertura de PDFs en Android (Filesystem + FileOpener)}{32}{subsubsection.6.1.1.2}%
-\contentsline {subsubsection}{\numberline {6.1.1.3}Estilos específicos para móvil}{34}{subsubsection.6.1.1.3}%
-\contentsline {subsubsection}{\numberline {6.1.1.4}Ajustes finales en Android Studio (Iconos, Pantallas de carga y XML)}{34}{subsubsection.6.1.1.4}%
-\contentsline {section}{\numberline {6.2}Diseño y experiencia de usuario (UX/UI)}{34}{section.6.2}%
-\contentsline {subsection}{\numberline {6.2.1}Continuidad visual y coherencia de interacción}{35}{subsection.6.2.1}%
-\contentsline {subsection}{\numberline {6.2.2}Efectos visibles de la adaptación a móvil}{35}{subsection.6.2.2}%
-\contentsline {subsection}{\numberline {6.2.3}Ejemplos visuales de la solución extendida}{36}{subsection.6.2.3}%
-\contentsline {section}{\numberline {6.3}Testing}{38}{section.6.3}%
-\contentsline {chapter}{\numberline {7}Despliegue del sistema}{41}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Despliegue web}{41}{section.7.1}%
-\contentsline {section}{\numberline {7.2}Despliegue móvil: generación de la aplicación Android}{41}{section.7.2}%
-\contentsline {subsection}{\numberline {7.2.1}Generación del contenedor Android mediante Capacitor}{42}{subsection.7.2.1}%
-\contentsline {subsection}{\numberline {7.2.2}Construcción y validación en Android Studio}{42}{subsection.7.2.2}%
-\contentsline {subsection}{\numberline {7.2.3}Generación del paquete instalable}{42}{subsection.7.2.3}%
-\contentsline {section}{\numberline {7.3}Valor añadido del despliegue móvil}{43}{section.7.3}%
-\contentsline {chapter}{\numberline {8}Plan de implantación}{44}{chapter.8}%
-\contentsline {section}{\numberline {8.1}Objetivos del plan de implantación}{44}{section.8.1}%
-\contentsline {section}{\numberline {8.2}Contexto de implantación en centros educativos}{45}{section.8.2}%
-\contentsline {section}{\numberline {8.3}Estrategia de implantación progresiva}{45}{section.8.3}%
-\contentsline {subsection}{\numberline {8.3.1}Fase 1: Despliegue piloto}{46}{subsection.8.3.1}%
-\contentsline {subsection}{\numberline {8.3.2}Fase 2: Despliegue parcial}{47}{subsection.8.3.2}%
-\contentsline {subsection}{\numberline {8.3.3}Fase 3: Despliegue completo}{47}{subsection.8.3.3}%
-\contentsline {section}{\numberline {8.4}Migración tecnológica hacia un entorno productivo}{48}{section.8.4}%
-\contentsline {subsection}{\numberline {8.4.1}Justificación de la migración}{48}{subsection.8.4.1}%
-\contentsline {subsection}{\numberline {8.4.2}Migración del backend y frontend a Microsoft Azure}{48}{subsection.8.4.2}%
-\contentsline {subsubsection}{\numberline {8.4.2.1}Azure App Service como plataforma de ejecución}{49}{subsubsection.8.4.2.1}%
-\contentsline {subsubsection}{\numberline {8.4.2.2}Arquitectura de despliegue propuesta}{49}{subsubsection.8.4.2.2}%
-\contentsline {subsubsection}{\numberline {8.4.2.3}Proceso de migración}{50}{subsubsection.8.4.2.3}%
-\contentsline {subsubsection}{\numberline {8.4.2.4}Pipeline de despliegue automatizado}{50}{subsubsection.8.4.2.4}%
-\contentsline {subsection}{\numberline {8.4.3}Escalado de la base de datos con MongoDB Atlas}{53}{subsection.8.4.3}%
-\contentsline {subsubsection}{\numberline {8.4.3.1}Arquitectura de clúster y escalabilidad}{53}{subsubsection.8.4.3.1}%
-\contentsline {subsubsection}{\numberline {8.4.3.2}Plan de escalado progresivo}{53}{subsubsection.8.4.3.2}%
-\contentsline {subsubsection}{\numberline {8.4.3.3}Integración con la arquitectura global}{53}{subsubsection.8.4.3.3}%
-\contentsline {section}{\numberline {8.5}Migración del sistema de almacenamiento de archivos}{54}{section.8.5}%
-\contentsline {section}{\numberline {8.6}Gestión profesional del correo electrónico}{55}{section.8.6}%
-\contentsline {section}{\numberline {8.7}Seguridad, protección de datos y cumplimiento normativo}{56}{section.8.7}%
-\contentsline {subsection}{\numberline {8.7.1}Plan operativo de seguridad}{56}{subsection.8.7.1}%
-\contentsline {subsection}{\numberline {8.7.2}Protección de datos personales y marco normativo}{57}{subsection.8.7.2}%
-\contentsline {subsection}{\numberline {8.7.3}Gestión de credenciales y control de accesos}{57}{subsection.8.7.3}%
-\contentsline {subsection}{\numberline {8.7.4}Integración de servicios externos (correo, contraseñas, IA)}{57}{subsection.8.7.4}%
-\contentsline {subsection}{\numberline {8.7.5}Protección frente a pérdida de información (backups)}{57}{subsection.8.7.5}%
-\contentsline {subsection}{\numberline {8.7.6}Seguridad en entorno móvil}{58}{subsection.8.7.6}%
-\contentsline {section}{\numberline {8.8}Formación de usuarios y adopción del sistema}{58}{section.8.8}%
-\contentsline {subsection}{\numberline {8.8.1}Formación del profesorado}{58}{subsection.8.8.1}%
-\contentsline {subsection}{\numberline {8.8.2}Formación del alumnado}{58}{subsection.8.8.2}%
-\contentsline {subsection}{\numberline {8.8.3}Documentación y recursos de apoyo}{59}{subsection.8.8.3}%
-\contentsline {section}{\numberline {8.9}Validación práctica en entorno educativo real}{59}{section.8.9}%
-\contentsline {subsection}{\numberline {8.9.1}Contexto de la demostración}{60}{subsection.8.9.1}%
-\contentsline {subsection}{\numberline {8.9.2}Valoración del profesorado}{60}{subsection.8.9.2}%
-\contentsline {subsection}{\numberline {8.9.3}Reacciones del alumnado}{61}{subsection.8.9.3}%
-\contentsline {subsection}{\numberline {8.9.4}Problemas detectados y mejoras aplicadas}{61}{subsection.8.9.4}%
-\contentsline {subsection}{\numberline {8.9.5}Valor académico de la validación empírica}{62}{subsection.8.9.5}%
-\contentsline {subsection}{\numberline {8.9.6}Evidencia visual de la demostración}{62}{subsection.8.9.6}%
-\contentsline {section}{\numberline {8.10}Síntesis del plan de implantación}{62}{section.8.10}%
-\contentsline {chapter}{\numberline {9}Conclusiones y líneas de trabajo futuro}{64}{chapter.9}%
+\contentsline {chapter}{\numberline {5}Desarrollo de la aplicación backend}{23}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Modelado de datos}{23}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Implementación}{24}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Operaciones lógicas (revisión y eliminación)}{25}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}Importación masiva desde CSV (normalización, validación y creación)}{25}{subsection.5.2.2}%
+\contentsline {subsection}{\numberline {5.2.3}Servicio de IA con Groq (integración por API y capa de servicios)}{27}{subsection.5.2.3}%
+\contentsline {section}{\numberline {5.3}Testing}{29}{section.5.3}%
+\contentsline {chapter}{\numberline {6}Desarrollo de la aplicación frontend}{32}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Implementación}{32}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}Exportación a Android con Capacitor}{32}{subsection.6.1.1}%
+\contentsline {subsubsection}{\numberline {6.1.1.1}Ajuste de menús del sistema}{32}{subsubsection.6.1.1.1}%
+\contentsline {subsubsection}{\numberline {6.1.1.2}Apertura de PDFs en Android (Filesystem + FileOpener)}{33}{subsubsection.6.1.1.2}%
+\contentsline {subsubsection}{\numberline {6.1.1.3}Estilos específicos para móvil}{35}{subsubsection.6.1.1.3}%
+\contentsline {subsubsection}{\numberline {6.1.1.4}Ajustes finales en Android Studio (Iconos, Pantallas de carga y XML)}{35}{subsubsection.6.1.1.4}%
+\contentsline {section}{\numberline {6.2}Diseño y experiencia de usuario (UX/UI)}{36}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}Continuidad visual y coherencia de interacción}{36}{subsection.6.2.1}%
+\contentsline {subsection}{\numberline {6.2.2}Efectos visibles de la adaptación a móvil}{36}{subsection.6.2.2}%
+\contentsline {subsection}{\numberline {6.2.3}Ejemplos visuales de la solución extendida}{37}{subsection.6.2.3}%
+\contentsline {section}{\numberline {6.3}Testing}{39}{section.6.3}%
+\contentsline {chapter}{\numberline {7}Despliegue del sistema}{42}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Despliegue web}{42}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Despliegue móvil: generación de la aplicación Android}{42}{section.7.2}%
+\contentsline {subsection}{\numberline {7.2.1}Generación del contenedor Android mediante Capacitor}{43}{subsection.7.2.1}%
+\contentsline {subsection}{\numberline {7.2.2}Construcción y validación en Android Studio}{43}{subsection.7.2.2}%
+\contentsline {subsection}{\numberline {7.2.3}Generación del paquete instalable}{43}{subsection.7.2.3}%
+\contentsline {section}{\numberline {7.3}Valor añadido del despliegue móvil}{44}{section.7.3}%
+\contentsline {chapter}{\numberline {8}Plan de implantación}{45}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Objetivos del plan de implantación}{45}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Contexto de implantación en centros educativos}{46}{section.8.2}%
+\contentsline {section}{\numberline {8.3}Estrategia de implantación progresiva}{46}{section.8.3}%
+\contentsline {subsection}{\numberline {8.3.1}Fase 1: Despliegue piloto}{47}{subsection.8.3.1}%
+\contentsline {subsection}{\numberline {8.3.2}Fase 2: Despliegue parcial}{48}{subsection.8.3.2}%
+\contentsline {subsection}{\numberline {8.3.3}Fase 3: Despliegue completo}{48}{subsection.8.3.3}%
+\contentsline {section}{\numberline {8.4}Migración tecnológica hacia un entorno productivo}{49}{section.8.4}%
+\contentsline {subsection}{\numberline {8.4.1}Justificación de la migración}{49}{subsection.8.4.1}%
+\contentsline {subsection}{\numberline {8.4.2}Migración del backend y frontend a Microsoft Azure}{49}{subsection.8.4.2}%
+\contentsline {subsubsection}{\numberline {8.4.2.1}Azure App Service como plataforma de ejecución}{50}{subsubsection.8.4.2.1}%
+\contentsline {subsubsection}{\numberline {8.4.2.2}Arquitectura de despliegue propuesta}{50}{subsubsection.8.4.2.2}%
+\contentsline {subsubsection}{\numberline {8.4.2.3}Proceso de migración}{51}{subsubsection.8.4.2.3}%
+\contentsline {subsubsection}{\numberline {8.4.2.4}Pipeline de despliegue automatizado}{51}{subsubsection.8.4.2.4}%
+\contentsline {paragraph}{Configuración previa en Azure}{51}{subsubsection.8.4.2.4}%
+\contentsline {paragraph}{Flujo general de despliegue}{52}{subsubsection.8.4.2.4}%
+\contentsline {paragraph}{Pipeline de despliegue}{52}{Item.67}%
+\contentsline {subsection}{\numberline {8.4.3}Escalado de la base de datos con MongoDB Atlas}{55}{subsection.8.4.3}%
+\contentsline {subsubsection}{\numberline {8.4.3.1}Arquitectura de clúster y escalabilidad}{55}{subsubsection.8.4.3.1}%
+\contentsline {subsubsection}{\numberline {8.4.3.2}Plan de escalado progresivo}{55}{subsubsection.8.4.3.2}%
+\contentsline {subsubsection}{\numberline {8.4.3.3}Integración con la arquitectura global}{55}{subsubsection.8.4.3.3}%
+\contentsline {section}{\numberline {8.5}Publicación y distribución oficial de la aplicación móvil}{56}{section.8.5}%
+\contentsline {subsection}{\numberline {8.5.1}Justificación de la publicación en tienda oficial}{56}{subsection.8.5.1}%
+\contentsline {subsection}{\numberline {8.5.2}Preparación técnica para la publicación}{56}{subsection.8.5.2}%
+\contentsline {subsection}{\numberline {8.5.3}Generación del paquete Android App Bundle (AAB)}{57}{subsection.8.5.3}%
+\contentsline {subsection}{\numberline {8.5.4}Proceso de publicación en Google Play Console}{57}{subsection.8.5.4}%
+\contentsline {subsection}{\numberline {8.5.5}Integración en la estrategia de implantación}{57}{subsection.8.5.5}%
+\contentsline {section}{\numberline {8.6}Migración del sistema de almacenamiento de archivos}{58}{section.8.6}%
+\contentsline {section}{\numberline {8.7}Gestión profesional del correo electrónico}{59}{section.8.7}%
+\contentsline {section}{\numberline {8.8}Seguridad, protección de datos y cumplimiento normativo}{60}{section.8.8}%
+\contentsline {subsection}{\numberline {8.8.1}Plan operativo de seguridad}{60}{subsection.8.8.1}%
+\contentsline {subsection}{\numberline {8.8.2}Protección de datos personales y marco normativo}{60}{subsection.8.8.2}%
+\contentsline {subsection}{\numberline {8.8.3}Gestión de credenciales y control de accesos}{61}{subsection.8.8.3}%
+\contentsline {subsection}{\numberline {8.8.4}Integración de servicios externos (correo, contraseñas, IA)}{61}{subsection.8.8.4}%
+\contentsline {subsection}{\numberline {8.8.5}Protección frente a pérdida de información (backups)}{61}{subsection.8.8.5}%
+\contentsline {subsection}{\numberline {8.8.6}Seguridad en entorno móvil}{61}{subsection.8.8.6}%
+\contentsline {section}{\numberline {8.9}Formación de usuarios y adopción del sistema}{62}{section.8.9}%
+\contentsline {subsection}{\numberline {8.9.1}Formación del profesorado}{62}{subsection.8.9.1}%
+\contentsline {subsection}{\numberline {8.9.2}Formación del alumnado}{62}{subsection.8.9.2}%
+\contentsline {subsection}{\numberline {8.9.3}Documentación y recursos de apoyo}{62}{subsection.8.9.3}%
+\contentsline {section}{\numberline {8.10}Cronograma de implantación}{63}{section.8.10}%
+\contentsline {section}{\numberline {8.11}Validación práctica en entorno educativo real}{64}{section.8.11}%
+\contentsline {subsection}{\numberline {8.11.1}Contexto de la demostración}{65}{subsection.8.11.1}%
+\contentsline {subsection}{\numberline {8.11.2}Valoración del profesorado}{65}{subsection.8.11.2}%
+\contentsline {subsection}{\numberline {8.11.3}Reacciones del alumnado}{66}{subsection.8.11.3}%
+\contentsline {subsection}{\numberline {8.11.4}Problemas detectados y mejoras aplicadas}{66}{subsection.8.11.4}%
+\contentsline {subsection}{\numberline {8.11.5}Valor académico de la validación empírica}{67}{subsection.8.11.5}%
+\contentsline {section}{\numberline {8.12}Síntesis del plan de implantación}{68}{section.8.12}%
+\contentsline {chapter}{\numberline {9}Conclusiones y líneas de trabajo futuro}{69}{chapter.9}%
+\contentsline {section}{\numberline {9.1}Conclusiones}{69}{section.9.1}%
+\contentsline {section}{\numberline {9.2}Líneas de trabajo futuro}{70}{section.9.2}%
+\contentsline {subsection}{\numberline {9.2.1}Ejecución completa del plan de implantación en un centro educativo}{70}{subsection.9.2.1}%
+\contentsline {subsection}{\numberline {9.2.2}Extensión continua de funcionalidades e innovación pedagógica}{70}{subsection.9.2.2}%
+\contentsline {subsection}{\numberline {9.2.3}Apertura del sistema a usuarios externos y acceso sin autenticación}{71}{subsection.9.2.3}%
+\contentsline {subsection}{\numberline {9.2.4}Tecnologías de mantenimiento, monitorización y gestión de logs}{71}{subsection.9.2.4}%
+\contentsline {subsection}{\numberline {9.2.5}Refuerzo de la seguridad y mejora en la gestión de credenciales}{71}{subsection.9.2.5}%

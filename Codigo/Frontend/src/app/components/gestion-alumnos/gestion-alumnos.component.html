@@ -21,6 +21,7 @@
           <ion-input formControlName="email" type="email" pattern="^\S*$" (ionInput)="onEmailInput($event)" required maxlength="40"></ion-input>
         </ion-item>
         <ion-button expand="block" type="submit" [disabled]="studentForm.invalid" class="ion-margin-top">
+          <ion-icon slot="start" name="add-circle-outline"></ion-icon>
           Crear Alumno
         </ion-button>
       </form>

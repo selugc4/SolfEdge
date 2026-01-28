@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule, FormGroup, FormControl, Validators } 
 import { UsuarioService } from '../../services/usuario.service';
 import { IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonItem, IonLabel, IonButton, IonInput, IonIcon, ModalController, ToastController, AlertController} from "@ionic/angular/standalone";
 import { GestionAlumnosModalComponent } from '../gestion-alumnos-modal/gestion-alumnos-modal.component';
-import { personCircleOutline } from 'ionicons/icons';
+import { personCircleOutline, addCircleOutline } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
 
 @Component({
@@ -29,7 +29,7 @@ export class GestionAlumnosComponent implements OnInit {
       segundoApellido: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+$'), Validators.maxLength(20)]),
       email: new FormControl('', [Validators.required, Validators.email, Validators.pattern(/^\S*$/), Validators.maxLength(40)])
     });
-    addIcons({ personCircleOutline });
+    addIcons({ personCircleOutline, addCircleOutline });
   }
 
   ngOnInit() {}

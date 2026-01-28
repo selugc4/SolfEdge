@@ -212,9 +212,6 @@ Como se detalló en el trabajo previo, el diagrama ofrece una visión objetiva p
 
 En coherencia con el documento original, los identificadores continúan a partir del último requisito definido. A continuación se describen únicamente los nuevos requisitos y las ampliaciones necesarias de los casos de uso afectados.
 
-% ------------------------------
-% RF-31 Importación masiva (NUEVO)
-% ------------------------------
 \begin{table}[H]
 \centering
 \begin{tabularx}{\textwidth}{
@@ -243,9 +240,7 @@ En coherencia con el documento original, los identificadores continúan a partir
 \end{tabularx}
 \caption{{Requisito funcional: RF-31 Importar usuarios y grupos desde archivo formateado}}
 \end{table}
-% ------------------------------
-% RF-32 Revisar profesores (NUEVO dentro de gestionar profesores)
-% ------------------------------
+
 \begin{table}[H]
 \centering
 \begin{tabularx}{\textwidth}{
@@ -269,9 +264,7 @@ En coherencia con el documento original, los identificadores continúan a partir
 \end{tabularx}
 \caption{Requisito funcional: RF-32 Revisar profesores}
 \end{table}
-% ------------------------------
-% RF-33 Eliminar profesor (NUEVO dentro de gestionar profesores)
-% ------------------------------
+
 \begin{table}[H]
 \centering
 \begin{tabularx}{\textwidth}{
@@ -300,9 +293,7 @@ calificaciones), sus grupos y los alumnos creados bajo su responsabilidad, evita
 \end{tabularx}
 \caption{Requisito funcional: RF-33 Eliminar profesor}
 \end{table}
-% ------------------------------
-% RF-34 Revisar alumnos (NUEVO dentro de gestionar alumnos)
-% ------------------------------
+
 \begin{table}[H]
 \centering
 \begin{tabularx}{\textwidth}{
@@ -326,9 +317,7 @@ calificaciones), sus grupos y los alumnos creados bajo su responsabilidad, evita
 \end{tabularx}
 \caption{Requisito funcional: RF-34 Revisar alumnos}
 \end{table}
-% ------------------------------
-% RF-35 Eliminar alumno (NUEVO dentro de gestionar alumnos)
-% ------------------------------
+
 \begin{table}[H]
 \centering
 \begin{tabularx}{\textwidth}{
@@ -385,9 +374,6 @@ calificaciones), sus grupos y los alumnos creados bajo su responsabilidad, evita
 \caption{Requisito funcional: RF-36 Eliminar grupo}
 \end{table}
 
-% ------------------------------
-% RF-37 Pista en cuestionarios (NUEVO, asociado a RF-30)
-% ------------------------------
 \begin{table}[H]
 \centering
 \begin{tabularx}{\textwidth}{
@@ -477,7 +463,7 @@ La extensión del sistema introduce nuevas tecnologías que amplían las capacid
 
 \subsubsection{Servicio de inferencia externa mediante Groq}
 
-Se incorpora un servicio de inferencia externa utilizando Groq como proveedor, haciendo uso de su API pública para el envío de peticiones desde el backend del sistema. En este contexto, Groq actúa como un servicio externo capaz de procesar \textit{prompts} de inteligencia artificial y devolver respuestas generadas a partir de modelos de lenguaje, sin que dichos modelos formen parte de la infraestructura propia de la aplicación.
+Se incorpora un servicio de inferencia externa utilizando Groq \cite{groq_docs} como proveedor, haciendo uso de su API pública para el envío de peticiones desde el backend del sistema. En este contexto, Groq actúa como un servicio externo capaz de procesar \textit{prompts} de inteligencia artificial y devolver respuestas generadas a partir de modelos de lenguaje, sin que dichos modelos formen parte de la infraestructura propia de la aplicación.
 
 Desde un punto de vista tecnológico, la utilización de la API de Groq implica la integración de un servicio HTTP externo que recibe solicitudes estructuradas, incluyendo el contenido del \textit{prompt}, y devuelve una respuesta generada en un formato estándar (por ejemplo, JSON). Esta aproximación permite tratar el sistema de inferencia como un recurso remoto, consumido de forma análoga a cualquier otro servicio web.
 
@@ -502,12 +488,12 @@ Desde el punto de vista del diseño software, la integración mediante una API e
 El uso de Ionic junto con Angular permite abordar el desarrollo multiplataforma mediante una única base de código. Este enfoque resuelve gran parte de los problemas asociados a la portabilidad de la interfaz y de la lógica de la aplicación, tanto en entorno web como en dispositivos móviles. No obstante, el desarrollo puramente web presenta una limitación clara: existen funcionalidades propias del sistema operativo móvil que no pueden ser gestionadas directamente desde el navegador.
 
 \textbf{Primeros intentos de integración nativa.}  
-Para cubrir esta necesidad surgió Cordova, cuya función principal era actuar como un puente entre la aplicación web y el dispositivo. Gracias a esta tecnología fue posible acceder desde JavaScript a funcionalidades nativas, permitiendo que las aplicaciones híbridas pudieran comportarse como aplicaciones móviles instaladas. En su contexto histórico, Cordova supuso un avance clave para validar el modelo híbrido.
+Para cubrir esta necesidad surgió Cordova \cite{cordova_docs}, cuya función principal era actuar como un puente entre la aplicación web y el dispositivo. Gracias a esta tecnología fue posible acceder desde JavaScript a funcionalidades nativas, permitiendo que las aplicaciones híbridas pudieran comportarse como aplicaciones móviles instaladas. En su contexto histórico, Cordova supuso un avance clave para validar el modelo híbrido.
 
 Sin embargo, Cordova respondía a una etapa temprana de esta evolución. A medida que las aplicaciones comenzaron a requerir mayor control y personalización del entorno móvil, sus limitaciones se hicieron evidentes.
 
 \textbf{Evolución hacia un modelo más flexible.}  
-Capacitor surge como la evolución natural de este enfoque, manteniendo la reutilización del código web, pero adaptándolo a las necesidades actuales del desarrollo móvil. La diferencia entre ambos modelos puede resumirse claramente en los siguientes puntos:
+Capacitor \cite{capacitor_docs} aparece como la evolución natural de este enfoque, manteniendo la reutilización del código web, pero adaptándolo a las necesidades actuales del desarrollo móvil. La diferencia entre ambos modelos puede resumirse claramente en los siguientes puntos:
 
 \begin{itemize}
     \item \textbf{Relación con el código nativo}: Cordova ocultaba en gran medida la capa nativa, mientras que Capacitor la integra como parte explícita del proyecto.
@@ -534,7 +520,7 @@ De este modo, Capacitor se incorpora como un elemento habilitador que amplía el
 \end{figure}
 \subsubsection{Android Studio y entorno de construcción móvil}
 
-La tercera tecnología incorporada es Android Studio, utilizado como entorno de construcción, empaquetado y validación de la aplicación en dispositivos Android. Su inclusión se apoya en el carácter híbrido del frontend, que permite reutilizar la misma base de código web para generar una aplicación instalable.
+La tercera tecnología incorporada es Android Studio \cite{android_studio_docs}, utilizado como entorno de construcción, empaquetado y validación de la aplicación en dispositivos Android. Su inclusión se apoya en el carácter híbrido del frontend, que permite reutilizar la misma base de código web para generar una aplicación instalable.
 
 Desde el punto de vista tecnológico, el uso de Android Studio implica:
 \begin{itemize}
@@ -592,11 +578,11 @@ El diagrama Gantt de planificación reutiliza la estructura del cronograma origi
 
 En conjunto, la planificación del complemento actúa como un marco de referencia que guía la ejecución de esta fase de evolución del proyecto, manteniendo la flexibilidad propia del contexto académico y asegurando la coherencia con el trabajo previamente desarrollado.
 
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=\textwidth]{Figuras/planificacion_extendida.png}
-%     \caption{Planificación del proyecto con nuevas tareas destacadas}
-% \end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Figuras/planificacion_extendida.png}
+    \caption{Planificación del proyecto con nuevas tareas destacadas}
+\end{figure}
 Por último, también se añade la planificación de las tareas principales en horas.
 \begin{figure}[H]
     \centering
@@ -636,7 +622,7 @@ Se incluye un ejemplo representativo (el resto de eliminaciones sigue una estruc
 \begin{Verbatim}[frame=single, fontsize=\small, xleftmargin=10pt, xrightmargin=10pt]
 // Ejemplo representativo: eliminar un grupo y limpiar datos asociados
 async function eliminarGrupo(groupId, profesorId) {
-  // 1) Verificar que el grupo existe y pertenece al profesor autenticado
+  //1) Verificar que el grupo existe y pertenece al profesor autenticado
   const grupo = await Grupo.findOne({
     _id: groupId,
     profesor: profesorId
@@ -645,15 +631,15 @@ async function eliminarGrupo(groupId, profesorId) {
   if (!grupo) {
     throw new Error('Grupo no encontrado o sin permisos');
   }
-  // 2) Eliminar contenido asociado al grupo
+  //2) Eliminar contenido asociado al grupo
   await Tarea.deleteMany({ grupo: groupId });
   await Cuestionario.deleteMany({ grupo: groupId });
 
-  // 3) Eliminar entregas y calificaciones asociadas
+  //3) Eliminar entregas y calificaciones asociadas
   await Entrega.deleteMany({ grupo: groupId });
   await Calificacion.deleteMany({ grupo: groupId });
 
-  // 4) Eliminar el documento principal
+  //4) Eliminar el documento principal
   await Grupo.deleteOne({ _id: groupId });
   // Las relaciones también quedan eliminadas
   return { ok: true };
@@ -934,7 +920,8 @@ if (this.platform.is('capacitor')) {
 // Los safe-areas son unas variables que entrega 
 // el sistema operativo a la aplicación.
 // Estas variables representan las zonas que ocupan 
-// partes nativas del sistema (barra de estado o botonera inferior del sistema nativo).
+// partes nativas del sistema 
+(barra de estado o botonera inferior del sistema nativo).
 // De este modo, añadiendo padding en los cuatro lados
 // en estilos globales del desarrollo,
 // la aplicación se adaptará al tamaño de forma automática 
@@ -962,7 +949,8 @@ Un fragmento de código representativo es el que muestra el caso de los detalles
 La evolución a móvil impide la vista directamente ya que no hay un visor de PDF integrado en la app (lo cual sí que aparece en los navegadores), por lo tanto, es necesario abrirlo vía externa en el visor del sistema accediendo así a las funcionalidades nativas mediante los plugins de Capacitor, en concreto, se usarán FileSystem y FileOpener.
 
 \begin{Verbatim}[frame=single, fontsize=\small, xleftmargin=10pt, xrightmargin=10pt]
-//Se comprueba al inicio si es pantalla reducida (sistemas Android o iOS de tablet y móvil).
+//Se comprueba al inicio si es pantalla reducida 
+(sistemas Android o iOS de tablet y móvil).
 @HostListener('window:resize')
 onResize() {
   this.checkIsMobile();
@@ -1404,8 +1392,6 @@ Las acciones serán:
 
 Esta fase marca la transición del sistema a \textbf{herramienta central de apoyo docente}, integrándose en la operativa diaria del centro.
 
-% ----------------------------------------------------------
-
 \section{Migración tecnológica hacia un entorno productivo}
 \label{sec:migracion_tecnologica}
 
@@ -1425,24 +1411,24 @@ Durante el desarrollo del proyecto se priorizó el uso de tecnologías gratuitas
 \subsection{Migración del backend y frontend a Microsoft Azure}
 \label{sec:migracion_azure}
 
-La migración de los servicios web hacia un entorno productivo se apoyará en la plataforma \textbf{Microsoft Azure}, aprovechando su ecosistema cloud maduro, su integración con herramientas de desarrollo modernas y su capacidad para proporcionar una infraestructura altamente escalable, resiliente y monitorizable.
+La migración de los servicios web hacia un entorno productivo se apoyará en la plataforma \textbf{Microsoft Azure} \cite{azure_docs}, aprovechando su ecosistema cloud maduro, su integración con herramientas de desarrollo modernas y su capacidad para proporcionar una infraestructura altamente escalable, resiliente y monitorizable.
 
-La arquitectura definida en el apartado~\ref{sec:tecnologias_ext} facilita este proceso, ya que el sistema presenta una clara separación entre frontend, backend y base de datos, permitiendo una transición progresiva sin necesidad de modificar la lógica de la aplicación. En este contexto, Azure App Service se utilizará como plataforma unificada tanto para el despliegue del backend como del frontend, garantizando una gestión homogénea de los recursos y un control centralizado del entorno productivo.
+La arquitectura definida en el apartado~\ref{sec:tecnologias_ext} facilita este proceso, ya que el sistema presenta una clara separación entre frontend, backend y base de datos, permitiendo una transición progresiva sin necesidad de modificar la lógica de la aplicación. En este contexto, Azure App Service \cite{azure_app_service_docs} se utilizará como plataforma unificada tanto para el despliegue del backend como del frontend, garantizando una gestión homogénea de los recursos y un control centralizado del entorno productivo.
 
 \subsubsection{Azure App Service como plataforma de ejecución}
 
-Azure App Service proporciona un entorno gestionado para la ejecución de aplicaciones web, APIs REST y servicios backend, abstraendo la complejidad asociada a la gestión directa de servidores, redes, balanceadores de carga y sistemas operativos. Este modelo permite centrar los esfuerzos en el desarrollo funcional, delegando en la plataforma cloud la responsabilidad del escalado, la disponibilidad y la seguridad perimetral.
+Azure App Service proporciona un entorno gestionado para la ejecución de aplicaciones web, APIs REST y servicios backend, abstraendo la complejidad asociada a la gestión directa de servidores, redes, balanceo de carga y sistemas operativos. Este modelo permite centrar los esfuerzos en el desarrollo funcional, delegando en la plataforma cloud la responsabilidad del escalado, la disponibilidad y la seguridad perimetral.
 
 Desde el punto de vista técnico, Azure App Service ofrece las siguientes capacidades clave:
 
 \begin{itemize}
-    \item \textbf{Escalado vertical}: permite aumentar dinámicamente la capacidad de cómputo asignada a la aplicación (CPU, memoria RAM y rendimiento de disco), adaptando el entorno de ejecución a mayores cargas sin modificar la arquitectura del sistema.
+    \item \textbf{Escalado vertical}: Permite aumentar dinámicamente la capacidad de cómputo asignada a la aplicación (CPU, memoria RAM y rendimiento de disco), adaptando el entorno de ejecución a mayores cargas sin modificar la arquitectura del sistema.
     
-    \item \textbf{Escalado horizontal}: posibilita la ejecución simultánea de múltiples instancias de la aplicación, distribuyendo la carga de peticiones entrantes mediante balanceo automático. Este mecanismo resulta especialmente relevante en escenarios con alta concurrencia, ya que permite absorber incrementos súbitos de tráfico manteniendo tiempos de respuesta estables.
+    \item \textbf{Escalado horizontal}: Posibilita la ejecución simultánea de múltiples instancias de la aplicación, distribuyendo la carga de peticiones entrantes mediante balanceo automático. Este mecanismo resulta especialmente relevante en escenarios con alta concurrencia, ya que permite absorber incrementos súbitos de tráfico manteniendo tiempos de respuesta estables.
     
     \item \textbf{Gestión automática de infraestructura}: Azure se encarga del aprovisionamiento, monitorización y recuperación ante fallos de las instancias, garantizando una elevada disponibilidad del servicio sin intervención manual.
     
-    \item \textbf{Integración nativa con CI/CD}: Azure App Service se integra de forma directa con GitHub Actions, facilitando la automatización completa del flujo de despliegue, tal y como se describe en el capítulo~\ref{chap:despliegue}, de esta forma, todas las operaciones de la migración quedarán integradas de forma automática con tan solo unas líneas en el archivo .YML que lee GitHub Actions.
+    \item \textbf{Integración nativa con CI/CD}: Azure App Service se integra de forma directa con GitHub Actions, facilitando la automatización completa del flujo de despliegue, tal y como se describe en el capítulo~\ref{chap:despliegue}. En consecuencia, todas las operaciones de la migración quedarán integradas de forma automática con tan solo unas líneas en el archivo \texttt{.YML} que lee GitHub Actions.
 \end{itemize}
 
 Este conjunto de características convierte a Azure App Service en una plataforma idónea para albergar tanto el backend Node.js como el frontend Angular/Ionic, permitiendo un despliegue coherente, altamente disponible y preparado para un crecimiento progresivo del número de usuarios.
@@ -1452,11 +1438,11 @@ Este conjunto de características convierte a Azure App Service en una plataform
 La arquitectura de despliegue en Azure se estructura en los siguientes componentes principales:
 
 \begin{itemize}
-    \item \textbf{Backend}: desplegado en un recurso Azure App Service configurado para Node.js, con políticas de escalado automático basadas en consumo de CPU, memoria y volumen de peticiones HTTP.
+    \item \textbf{Backend}: Desplegado en un recurso Azure App Service configurado para Node.js, con políticas de escalado automático basadas en consumo de CPU, memoria y volumen de peticiones HTTP.
     
-    \item \textbf{Frontend}: desplegado también sobre Azure App Service, sirviendo los recursos estáticos generados por el proceso de construcción de Angular/Ionic, permitiendo igualmente escalado horizontal bajo alta carga.
+    \item \textbf{Frontend}: Desplegado también sobre Azure App Service, sirviendo los recursos estáticos generados por el proceso de construcción de Angular/Ionic, permitiendo igualmente escalado horizontal bajo alta carga.
     
-    \item \textbf{Servicios auxiliares}: almacenamiento de variables de entorno, gestión segura de secretos y configuración centralizada mediante Azure Key Vault.
+    \item \textbf{Servicios auxiliares}: Almacenamiento de variables de entorno, gestión segura de secretos y configuración centralizada mediante Azure Key Vault \cite{azure_key_vault_docs}.
 \end{itemize}
 
 Esta disposición garantiza un comportamiento homogéneo en ambos extremos de la aplicación y facilita la administración global del sistema desde un único entorno cloud.
@@ -1466,13 +1452,13 @@ Esta disposición garantiza un comportamiento homogéneo en ambos extremos de la
 La migración de los servicios web se ejecutará siguiendo un proceso estructurado en cuatro fases claramente definidas:
 
 \begin{enumerate}
-    \item \textbf{Creación de infraestructura base en Azure}: provisión de recursos App Service para backend y frontend, definición de grupos de recursos, configuración de redes virtuales, reglas de firewall y establecimiento de variables de entorno seguras.
+    \item \textbf{Creación de infraestructura base en Azure}: Provisión de recursos App Service para backend y frontend, definición de grupos de recursos, configuración de redes virtuales, reglas de firewall y establecimiento de variables de entorno seguras.
     
-    \item \textbf{Configuración de despliegue automatizado}: adaptación del pipeline de integración y despliegue continuo descrito en el proyecto original, modificando exclusivamente los endpoints de despliegue para apuntar a Azure, manteniendo intacta la lógica de CI/CD.
+    \item \textbf{Configuración de despliegue automatizado}: Adaptación del pipeline de integración y despliegue continuo descrito en el proyecto original, modificando exclusivamente los endpoints de despliegue para apuntar a Azure, manteniendo intacta la lógica de CI/CD.
     
-    \item \textbf{Despliegue inicial en Azure y validación funcional}: verificación exhaustiva del correcto funcionamiento del sistema, comprobando procesos de autenticación, acceso a la base de datos, ejecución de operaciones CRUD principales y respuesta bajo carga simulada.
+    \item \textbf{Despliegue inicial en Azure y validación funcional}: Verificación exhaustiva del correcto funcionamiento del sistema, comprobando procesos de autenticación, acceso a la base de datos, ejecución de operaciones CRUD principales y respuesta bajo carga simulada.
     
-    \item \textbf{Cambio controlado de tráfico}: una vez validado el entorno productivo, redirección progresiva del tráfico desde el entorno anterior hacia Azure, minimizando interrupciones del servicio.
+    \item \textbf{Cambio controlado de tráfico}: Una vez validado el entorno productivo, redirección progresiva del tráfico desde el entorno anterior hacia Azure, minimizando interrupciones del servicio.
 \end{enumerate}
 
 Este procedimiento permite garantizar una transición segura, reversible y con impacto mínimo sobre los usuarios finales.
@@ -1480,118 +1466,140 @@ Este procedimiento permite garantizar una transición segura, reversible y con i
 \subsubsection{Pipeline de despliegue automatizado}
 \label{sec:pipeline_azure}
 
-El objetivo principal de esta migración es que el cambio afecte únicamente al flujo de despliegue, sin introducir modificaciones en la lógica del sistema. La estructura modular del proyecto y el uso de contenedores de ejecución homogéneos permiten esta transición sin reescritura del código.
+El objetivo principal de esta migración es que el cambio afecte únicamente al flujo de despliegue, sin introducir modificaciones en la lógica del sistema. La estructura modular del proyecto y el uso de contenedores Docker \cite{docker_docs} permiten desacoplar completamente la ejecución de la aplicación del entorno subyacente, lo que facilita la transición desde un despliegue local hacia una infraestructura en la nube sin necesidad de reescritura del código.
 
-A continuación se muestra un pipeline orientativo que ilustra la construcción, publicación de imágenes Docker en un registro privado (Azure Container Registry, ACR) y despliegue automatizado en \textit{Azure App Service for Containers}. Este flujo se apoya en los pasos ya consolidados de construcción y testeo automáticos descritos en el despliegue del proyecto original, y únicamente adapta la fase final de publicación para ejecutarse en Azure.
+La aplicación desarrollada, la cual será definida por primera vez como \textit{SolfEdge}, se despliega en la plataforma Microsoft Azure utilizando el servicio \textit{Azure App Service for Containers}, que permite ejecutar contenedores Docker de forma gestionada, escalable y altamente disponible. Como registro privado se emplea \textit{Azure Container Registry} (ACR) \cite{azure_container_registry_docs}, que actúa como repositorio centralizado de imágenes Docker.
+
+Para la correcta ejecución del pipeline de despliegue es necesario realizar previamente una serie de configuraciones en Azure, que se detallan a continuación.
+
+\paragraph{Configuración previa en Azure}
+
+Antes de poder automatizar el despliegue, es imprescindible preparar la infraestructura mínima necesaria en la plataforma Azure:
+
+\begin{itemize}
+    \item \textbf{Creación del grupo de recursos}: Se define un grupo de recursos (por ejemplo, \texttt{RCPMA}) como convención de nomenclatura para agrupar todos los servicios asociados. Este identificador se emplea a modo ilustrativo y puede adaptarse al centro que realice la implantación.
+    
+    \item \textbf{Creación del Azure Container Registry (ACR):} Se crea un registro privado de contenedores donde se almacenarán las imágenes Docker del frontend y backend de SolfEdge. Este registro permite la gestión segura, versionada y centralizada de las imágenes, facilitando su despliegue automatizado.
+    
+    \item \textbf{Creación de las Web Apps para contenedores:} Se crean dos instancias independientes de \textit{Azure App Service for Containers} (sobre sistema Linux), una destinada al frontend (\texttt{solfedge-frontend}) y otra al backend (\texttt{solfedge-backend}). Estas aplicaciones se configuran para obtener sus imágenes desde el ACR.
+    
+    \item \textbf{Creación del Service Principal:} Se genera una identidad de servicio con permisos suficientes para autenticarse contra Azure, subir imágenes al ACR y modificar la configuración de las Web Apps. Las credenciales asociadas a este Service Principal se almacenan como secretos seguros en GitHub Actions.
+\end{itemize}
+
+Esta configuración inicial permite disponer de un entorno completamente preparado para recibir despliegues automáticos desde el repositorio de código.
+
+\paragraph{Flujo general de despliegue}
+
+El proceso completo de despliegue automatizado se integra dentro del pipeline CI/CD del proyecto, ejecutándose de forma automática cada vez que se realiza un \textit{push} sobre la rama principal del repositorio. Dicho flujo consta de las siguientes fases:
+
+\begin{enumerate}
+    \item Descarga del código fuente desde el repositorio.
+    \item Autenticación segura contra Azure mediante credenciales almacenadas en GitHub Secrets.
+    \item Construcción de las imágenes Docker correspondientes al frontend y backend.
+    \item Publicación de dichas imágenes en el Azure Container Registry.
+    \item Actualización automática de las Web Apps para que utilicen la nueva versión de las imágenes.
+\end{enumerate}
+
+Este enfoque garantiza un despliegue reproducible, trazable y consistente, eliminando la intervención manual y reduciendo drásticamente la probabilidad de errores humanos.
+
+\paragraph{Pipeline de despliegue}
+
+A continuación se muestra un pipeline orientativo que ilustra el proceso completo de construcción, publicación y despliegue automático de SolfEdge en Azure. Este pipeline se apoya en las fases previas de construcción y testeo ya descritas, adaptando únicamente la etapa final de despliegue al entorno cloud.
 
 \begin{Verbatim}[frame=single, fontsize=\small]
-  push-and-deploy-frontend:
-    if: github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    needs: build-frontend
+push-and-deploy-frontend:
+  if: github.ref == 'refs/heads/main'
+  runs-on: ubuntu-latest
+  needs: build-frontend
 
-    steps:
-      # Descarga del código fuente del repositorio
-      - name: Checkout code
-        uses: actions/checkout@v3
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-      # Autenticación contra Azure mediante credenciales seguras
-      - name: Login to Azure CLI
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+    - name: Login to Azure CLI
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      # Descarga de los artefactos generados previamente
-      # (resultado del build del frontend)
-      - name: Download artifacts
-        uses: actions/download-artifact@v4
-        with: 
-          name: www
-          path: ./www
+    - name: Download artifacts
+      uses: actions/download-artifact@v4
+      with: 
+        name: www
+        path: ./www
 
-      # Construcción de la imagen Docker del frontend y subida
-      # al registro privado Azure Container Registry (ACR)
-      - name: Build and push frontend Docker image to ACR
-        run: |
-          IMAGE_NAME=repodocker.azurecr.io/twm-frontend:\
-${{ github.run_number }}
-          docker build -t $IMAGE_NAME ./frontend
-          echo ${{ secrets.AZURE_PASSWORD }} | docker login \
-repodocker.azurecr.io -u ${{ secrets.AZURE_USERNAME }} \
---password-stdin
-          docker push $IMAGE_NAME
+    - name: Build and push frontend Docker image to ACR
+      run: |
+        IMAGE_NAME=repodocker.azurecr.io/solfedge-frontend:
+        ${{ github.run_number }}
+        docker build -t $IMAGE_NAME ./frontend
+        echo ${{ secrets.AZURE_PASSWORD }} | docker login \
+        repodocker.azurecr.io -u ${{ secrets.AZURE_USERNAME }} \
+        --password-stdin
+        docker push $IMAGE_NAME
 
-      # Despliegue del contenedor del frontend en Azure Web App
-      - name: Deploy frontend to Azure Web App for Containers
-        run: |
-          IMAGE_NAME=repodocker.azurecr.io/twm-frontend:\
-${{ github.run_number }}
-          az webapp config container set \
-            --docker-custom-image-name $IMAGE_NAME \
-            --docker-registry-server-password \
-${{ secrets.AZURE_PASSWORD }} \
-            --docker-registry-server-url \
-https://repodocker.azurecr.io \
-            --docker-registry-server-user \
-${{ secrets.AZURE_USERNAME }} \
-            --name TWM-FRONTEND \
-            --resource-group cnsa-2024-rg
+    - name: Deploy frontend to Azure Web App for Containers
+      run: |
+        IMAGE_NAME=repodocker.azurecr.io/solfedge-frontend:
+        ${{ github.run_number }}
+        az webapp config container set \
+          --docker-custom-image-name $IMAGE_NAME \
+          --docker-registry-server-password ${{ secrets.AZURE_PASSWORD }} \
+          --docker-registry-server-url https://repodocker.azurecr.io \
+          --docker-registry-server-user ${{ secrets.AZURE_USERNAME }} \
+          --name solfedge-frontend \
+          --resource-group RCPMA
 
-  push-and-deploy-backend:
-    runs-on: ubuntu-latest
-    needs: build-backend
 
-    steps:
-      # Descarga del código fuente del backend
-      - name: Checkout code
-        uses: actions/checkout@v3
+push-and-deploy-backend:
+  if: github.ref == 'refs/heads/main'
+  runs-on: ubuntu-latest
+  needs: build-backend
 
-      # Autenticación contra Azure
-      - name: Login to Azure CLI
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-      # Construcción de la imagen Docker del backend y subida a ACR
-      - name: Build and push backend Docker image to ACR
-        run: |
-          IMAGE_NAME=repodocker.azurecr.io/twm-backend:\
-${{ github.run_number }}
-          docker build -t $IMAGE_NAME ./backend
-          echo ${{ secrets.AZURE_PASSWORD }} | docker login \
-repodocker.azurecr.io -u ${{ secrets.AZURE_USERNAME }} \
---password-stdin
-          docker push $IMAGE_NAME
+    - name: Login to Azure CLI
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      # Despliegue del backend en Azure Web App usando contenedores
-      - name: Deploy backend to Azure Web App for Containers
-        run: |
-          IMAGE_NAME=repodocker.azurecr.io/twm-backend:\
-${{ github.run_number }}
-          az webapp config container set \
-            --docker-custom-image-name $IMAGE_NAME \
-            --docker-registry-server-password \
-${{ secrets.AZURE_PASSWORD }} \
-            --docker-registry-server-url \
-https://repodocker.azurecr.io \
-            --docker-registry-server-user \
-${{ secrets.AZURE_USERNAME }} \
-            --name TWM \
-            --resource-group cnsa-2024-rg
+    - name: Build and push backend Docker image to ACR
+      run: |
+        IMAGE_NAME=repodocker.azurecr.io/solfedge-backend:
+        ${{ github.run_number }}
+        docker build -t $IMAGE_NAME ./backend
+        echo ${{ secrets.AZURE_PASSWORD }} | docker login \
+        repodocker.azurecr.io -u ${{ secrets.AZURE_USERNAME }} \
+        --password-stdin
+        docker push $IMAGE_NAME
+
+    - name: Deploy backend to Azure Web App for Containers
+      run: |
+        IMAGE_NAME=repodocker.azurecr.io/solfedge-backend:
+        ${{ github.run_number }}
+        az webapp config container set \
+          --docker-custom-image-name $IMAGE_NAME \
+          --docker-registry-server-password ${{ secrets.AZURE_PASSWORD }} \
+          --docker-registry-server-url https://repodocker.azurecr.io \
+          --docker-registry-server-user ${{ secrets.AZURE_USERNAME }} \
+          --name solfedge-backend \
+          --resource-group RCPMA
 \end{Verbatim}
-Este pipeline automatiza de forma completa la publicación del sistema en el entorno productivo, reduciendo el riesgo de errores manuales y garantizando trazabilidad de versiones mediante etiquetas ligadas a cada ejecución (\texttt{run\_number}). Además, al basarse en contenedores, permite reproducibilidad del entorno de ejecución y facilita futuras ampliaciones del proceso.
 
-% \begin{figure}[H]
-%   \centering
-%   \includegraphics[height=2cm]{Figuras/logos/azure.png}
-%   \caption{Logo Microsoft Azure}
-%   \label{fig:logo_azure}
-% \end{figure}
+Este pipeline proporciona un mecanismo de despliegue completamente automatizado, garantizando que cada nueva versión validada del código sea publicada de forma inmediata y coherente en el entorno productivo. La combinación de Docker, Azure App Service y GitHub Actions permite establecer un flujo DevOps moderno, escalable y alineado con las buenas prácticas actuales de despliegue continuo.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[height=2cm]{Figuras/logos/azure.png}
+  \caption{Logo Microsoft Azure}
+  \label{fig:logo_azure}
+\end{figure}
 
 \subsection{Escalado de la base de datos con MongoDB Atlas}
 \label{sec:escalado_mongodb}
 
-La base de datos constituye un componente crítico dentro del proceso de implantación, al centralizar toda la información académica, administrativa y de seguimiento del alumnado. Por este motivo, el plan contempla una estrategia de escalado progresivo utilizando las capacidades avanzadas de \textbf{MongoDB Atlas}, descritas previamente en el apartado~\ref{sec:tecnologias_ext}.
+La base de datos constituye un componente crítico dentro del proceso de implantación, al centralizar toda la información académica, administrativa y de seguimiento del alumnado. Por este motivo, el plan contempla una estrategia de escalado progresivo utilizando las capacidades avanzadas de \textbf{MongoDB Atlas} \cite{mongodb_atlas_docs}, descritas previamente en el apartado~\ref{sec:tecnologias_ext}.
 
 \subsubsection{Arquitectura de clúster y escalabilidad}
 
@@ -1626,6 +1634,66 @@ Estas acciones permiten asegurar la continuidad del servicio, la integridad de l
 La combinación de Azure App Service para la capa de aplicación y MongoDB Atlas para la persistencia de datos da lugar a una arquitectura cloud-native altamente flexible, capaz de crecer de forma controlada sin necesidad de rediseñar la solución.
 
 Este enfoque refuerza la idoneidad de las decisiones tecnológicas adoptadas durante el desarrollo, demostrando que, aunque se haya trabajado inicialmente con infraestructuras gratuitas, la transición hacia un entorno productivo puede realizarse mediante ajustes acotados y perfectamente planificados, preservando la coherencia del sistema y su estabilidad operativa.
+\section{Publicación y distribución oficial de la aplicación móvil}
+\label{sec:playstore_implantacion}
+
+Aunque en el marco de este proyecto se ha validado técnicamente la exportación de la aplicación a Android mediante la generación de un paquete instalable (APK), la implantación real del sistema en un entorno educativo requiere un mecanismo de distribución más profesional, estable y escalable. En este contexto, la publicación oficial de la aplicación en \textbf{Google Play Store} se considera un paso clave dentro del proceso de implantación global.
+
+Este apartado no describe un proceso ejecutado durante el desarrollo del proyecto, sino que define de manera estructurada los pasos necesarios para llevar a cabo dicha publicación como parte del despliegue real del sistema en un centro educativo, alineándose con la estrategia de implantación progresiva descrita en la Sección~\ref{sec:estrategia_implantacion}.
+
+\subsection{Justificación de la publicación en tienda oficial}
+
+La distribución manual mediante archivos APK presenta limitaciones importantes en términos de mantenimiento, seguridad, experiencia de usuario y control de versiones. Por este motivo, la publicación en Google Play Store ofrece ventajas fundamentales:
+
+\begin{itemize}
+    \item Instalación sencilla para el alumnado y profesorado.
+    \item Actualización automática de versiones.
+    \item Mayor percepción de fiabilidad y profesionalidad.
+    \item Cumplimiento de estándares de seguridad y privacidad.
+    \item Gestión centralizada de versiones y despliegues progresivos.
+\end{itemize}
+
+Estas características convierten a Google Play en el canal idóneo para la distribución real del sistema en un entorno educativo.
+
+\subsection{Preparación técnica para la publicación}
+
+Antes de proceder a la publicación, será necesario realizar una serie de configuraciones técnicas dentro del proyecto Android generado mediante Capacitor y Android Studio:
+
+\begin{itemize}
+    \item Definición de un \textbf{identificador único estable} de la aplicación (\textit{applicationId}).
+    \item Configuración del \textbf{versionado semántico} mediante los campos \textit{versionName} y \textit{versionCode}.
+    \item Optimización del tamaño del paquete y compilación en modo \textit{release}.
+    \item Generación y custodia segura de la \textbf{clave de firma criptográfica (keystore)}.
+    \item Configuración definitiva de iconos adaptativos, pantallas de carga y recursos gráficos.
+\end{itemize}
+
+Estos pasos garantizan que la aplicación cumpla los requisitos técnicos exigidos por la plataforma y pueda mantenerse de forma sostenible a lo largo del tiempo.
+
+\subsection{Generación del paquete Android App Bundle (AAB)}
+
+Como parte del proceso de publicación, se generará el paquete en formato \textbf{Android App Bundle (AAB)}, recomendado oficialmente por Google frente al uso tradicional de APK. Este formato permite una distribución optimizada de los recursos, reduciendo el tamaño final de descarga y adaptando dinámicamente los contenidos a cada dispositivo.
+
+La utilización de AAB facilita además la gestión automática de arquitecturas, resoluciones de pantalla y optimización de recursos, mejorando la eficiencia del despliegue.
+
+\subsection{Proceso de publicación en Google Play Console}
+
+La publicación se realizará mediante la \textbf{Google Play Console} \cite{google_play_console_docs}, siguiendo el flujo estándar establecido por la plataforma:
+
+\begin{enumerate}
+    \item Creación y configuración de la cuenta de desarrollador.
+    \item Registro inicial de la aplicación.
+    \item Carga del paquete AAB firmado.
+    \item Definición de la ficha pública: nombre, descripción, capturas de pantalla, iconos y categoría.
+    \item Declaración de políticas de privacidad y tratamiento de datos.
+    \item Configuración de canales de prueba internos y cerrados.
+    \item Solicitud de revisión y posterior publicación.
+\end{enumerate}
+
+Este proceso permite validar el cumplimiento de los estándares de calidad, seguridad y protección de datos exigidos por Google, resultando especialmente relevante en un contexto educativo que implica el tratamiento de datos personales de menores.
+
+\subsection{Integración en la estrategia de implantación}
+
+La publicación en Google Play Store se integrará dentro de la \textbf{fase de despliegue parcial} definida en la sección~\ref{sec:estrategia_implantacion}, una vez validado el funcionamiento general del sistema durante el piloto. De este modo, se garantiza que la distribución oficial se realice sobre una infraestructura validada y con procedimientos operativos consolidados.
 
 \section{Migración del sistema de almacenamiento de archivos}
 \label{sec:migracion_archivos}
@@ -1634,7 +1702,7 @@ En la versión actual del sistema, los archivos (PDF, MP3 y MP4) se almacenan en
 
 No obstante, en un entorno productivo real presenta limitaciones relevantes en términos de rendimiento, escalabilidad y gestión de recursos, debido al incremento del tamaño de los documentos almacenados y a la sobrecarga derivada de los procesos de codificación y decodificación.
 
-Por este motivo, el plan de implantación contempla una migración progresiva hacia un sistema de almacenamiento externo especializado, como \textbf{Firebase Storage} o \textbf{Azure Blob Storage}, permitiendo desacoplar la gestión de ficheros del núcleo transaccional del sistema.
+Por este motivo, el plan de implantación contempla una migración progresiva hacia un sistema de almacenamiento externo especializado, como \textbf{Firebase Storage} \cite{firebase_storage_docs} o \textbf{Azure Blob Storage} \cite{azure_blob_storage_docs}, permitiendo desacoplar la gestión de ficheros del núcleo transaccional del sistema.
 
 La migración se ejecutará en cinco fases claramente definidas:
 
@@ -1655,44 +1723,33 @@ Desde el punto de vista de implementación, el cambio implica una simplificació
 \textbf{Modelo actual (Base64 embebido en base de datos):}
 
 \begin{Verbatim}[frame=single, fontsize=\small]
-const base64 = fileBuffer.toString('base64');
-
-await Libro.create({
-  nombre: 'libro.pdf',
-  contenido: base64,
-  tipo: 'application/pdf'
-});
-
-// Recuperación
-const buffer = Buffer.from(libro.contenido, 'base64');
-res.contentType(libro.tipo).send(buffer);
+if (this.tarea.materialDeApoyo) {
+  const pdfBlob = 
+  this.b64toBlob(this.tarea.materialDeApoyo, 'application/pdf');
+  this.nonSafeUrl = URL.createObjectURL(pdfBlob);
+  this.pdfUrl = 
+  this.sanitizer.bypassSecurityTrustResourceUrl(this.nonSafeUrl);
+}
 \end{Verbatim}
 
 \textbf{Modelo propuesto (almacenamiento externo con referencia):}
 
 \begin{Verbatim}[frame=single, fontsize=\small]
-// Subida del archivo al servicio externo
-const fileUrl = await storageService.upload(file);
-
-// Persistencia de metadatos y referencia
-await Libro.create({
-  nombre: 'libro.pdf',
-  url: fileUrl,
-  tipo: 'application/pdf'
-});
-
-// Recuperación
-res.redirect(libro.url);
+if (this.tarea.materialDeApoyo) {
+  this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+    this.tarea.materialDeApoyo
+  );
+}
 \end{Verbatim}
 
 Este segundo enfoque elimina la necesidad de conversiones intermedias, reduce la carga computacional del servidor y permite delegar la entrega de contenido pesado a infraestructuras especializadas, mejorando significativamente el rendimiento y la escalabilidad del sistema.
 
-% \begin{figure}[H]
-%   \centering
-%   \includegraphics[height=2cm]{Figuras/logos/firebase.png}
-%   \caption{Logo Firebase Storage}
-%   \label{fig:logo_firebase}
-% \end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[height=2cm]{Figuras/logos/firebase.png}
+  \caption{Logo Firebase Storage}
+  \label{fig:logo_firebase}
+\end{figure}
 
 \section{Gestión profesional del correo electrónico}
 \label{sec:correo_profesional}
@@ -1702,11 +1759,11 @@ El correo electrónico constituye un canal crítico de comunicación con los usu
 Con el objetivo de garantizar una entrega estable, trazable y alineada con buenas prácticas, se profesionalizará el servicio de correo mediante las siguientes acciones concretas:
 
 \begin{enumerate}
-    \item \textbf{Adquisición de un dominio propio}: se registrará un dominio del centro o del sistema, evitando el uso de dominios genéricos que degradan la confianza del usuario y dificultan la entregabilidad.
-    \item \textbf{Configuración del proveedor de correo}: se empleará un proveedor transaccional (por ejemplo, Mailjet u otro equivalente), centralizando el envío de correos desde un servicio controlado y monitorizable.
-    \item \textbf{Autenticación del dominio (SPF, DKIM y DMARC)}: se configurarán obligatoriamente estos mecanismos para mejorar la reputación del dominio, reducir el riesgo de suplantación y disminuir la probabilidad de clasificación como spam.
-    \item \textbf{Parametrización segura en el entorno}: se configurarán el correo emisor, las claves y los endpoints del proveedor mediante variables de entorno, evitando su exposición en el repositorio y facilitando el cambio de proveedor sin afectar al código.
-    \item \textbf{Validación previa y pruebas controladas}: se realizarán envíos de prueba a proveedores comunes, verificando entregabilidad, cabeceras de autenticación y puntuación anti-spam. Se documentarán los resultados como evidencia de preparación para producción.
+    \item \textbf{Adquisición de un dominio propio}: Se registrará un dominio del centro o del sistema, evitando el uso de dominios genéricos que degradan la confianza del usuario y dificultan la entregabilidad.
+    \item \textbf{Configuración del proveedor de correo}: Se empleará un proveedor transaccional (por ejemplo, Mailjet \cite{firebase_storage_docs} u otro equivalente), centralizando el envío de correos desde un servicio controlado y monitorizable.
+    \item \textbf{Autenticación del dominio (SPF, DKIM y DMARC)}: Se configurarán obligatoriamente estos mecanismos para mejorar la reputación del dominio, reducir el riesgo de suplantación y disminuir la probabilidad de clasificación como spam.
+    \item \textbf{Parametrización segura en el entorno}: Se configurarán el correo emisor, las claves y los endpoints del proveedor mediante variables de entorno, evitando su exposición en el repositorio y facilitando el cambio de proveedor sin afectar al código.
+    \item \textbf{Validación previa y pruebas controladas}: Se realizarán envíos de prueba a proveedores comunes, verificando entregabilidad, cabeceras de autenticación y puntuación anti-spam. Se documentarán los resultados como evidencia de preparación para producción.
 \end{enumerate}
 
 Estas tareas se ejecutarán \textbf{antes de finalizar la fase piloto} (Sección~\ref{sec:estrategia_implantacion}) para evitar que el escalado de usuarios se apoye en configuraciones temporales o con reputación insuficiente. Además, este enfoque reduce el impacto de incidencias habituales (correos no entregados o marcados como spam) y facilita la operación diaria del sistema durante el despliegue parcial y completo.
@@ -1818,12 +1875,29 @@ Este planteamiento permite una rápida adaptación del alumnado sin generar una 
 Como parte del plan de implantación, se prevé la elaboración de un conjunto de recursos de apoyo destinados a facilitar la autonomía de los usuarios y reducir la dependencia de soporte técnico directo:
 
 \begin{itemize}
-    \item Manual de usuario para profesorado.
-    \item Guía rápida para alumnado.
+    \item Guía rápida (profesorado).
+    \item Guía rápida (alumnado).
     \item Documento de preguntas frecuentes (FAQ) y guía básica de resolución de incidencias.
 \end{itemize}
 
-Estos materiales se desarrollarían antes del despliegue parcial del sistema, sirviendo como soporte permanente durante las primeras fases de adopción y facilitando el autoaprendizaje.
+Estos materiales se definirían antes del despliegue parcial, priorizando inicialmente una guía mínima y recursos breves de apoyo.
+\section{Cronograma de implantación}
+\label{sec:cronograma_implantacion}
+
+Con el fin de operativizar la estrategia descrita en la Sección~\ref{sec:estrategia_implantacion} en un proceso ejecutable y controlable, se define un cronograma orientativo de implantación. Este cronograma organiza las actividades por fases, marca dependencias lógicas (por ejemplo, disponer de infraestructura y configuración mínima antes de iniciar el piloto) y permite asociar hitos verificables para decidir el avance entre etapas.
+
+El cronograma propuesto se adapta a un centro educativo de tamaño medio y contempla una implantación progresiva en tres fases (piloto, parcial y completa), alineada con los tiempos ya establecidos en el propio plan: un piloto de cuatro a seis semanas, un despliegue parcial de dos a tres meses y una transición final hacia despliegue completo. Además, integra tareas transversales (seguridad, correo y formación) para garantizar que el crecimiento de usuarios se realice sobre una base estable y controlada.
+
+La Figura~\ref{fig:cronograma_implantacion} muestra el cronograma completo con la secuencia temporal de tareas y los hitos principales: preparación del entorno productivo, arranque del piloto, emisión del informe de validación, ampliación a despliegue parcial, consolidación operativa y paso a despliegue completo. Se incluyen también revisiones periódicas trimestrales asociadas al seguimiento de seguridad y dependencias externas, en coherencia con la Sección~\ref{sec:seguridad_implantacion}.
+
+\begin{figure}[H]
+  \centering
+ \includegraphics[width=\textwidth]{Figuras/cronogramaImplantacion.png}
+  \caption{Cronograma orientativo de implantación}
+  \label{fig:cronograma_implantacion}
+\end{figure}
+
+Este cronograma se concibe como un instrumento de control y toma de decisiones: cada fase finaliza con un hito de validación que determina si se avanza a la siguiente etapa o si se ejecuta una iteración correctiva. En este sentido, la validación práctica descrita en la Sección~\ref{sec:validacion_preliminar} puede interpretarse como una evidencia empírica preliminar equivalente a una comprobación propia del piloto, aunque realizada fuera del marco formal completo, reforzando la utilidad de planificar la implantación con un enfoque incremental.
 
 \section{Validación práctica en entorno educativo real}
 \label{sec:validacion_preliminar}
@@ -1915,32 +1989,14 @@ La realización de esta demostración aporta un valor añadido significativo al 
 
 Además, esta experiencia permite afirmar que el sistema no solo es técnicamente viable, sino también funcionalmente adecuado y pedagógicamente coherente con los objetivos educativos planteados.
 
-\subsection{Evidencia visual de la demostración}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.48\textwidth]{Figuras/demostracion_aula_1.jpeg}\hfill
+  \includegraphics[width=0.48\textwidth]{Figuras/demostracion_aula_2.jpeg}
+  \caption{Demostración de la aplicación SolfEdge en un entorno real de aula}
+  \label{fig:demo_aula}
+\end{figure}
 
-A continuación se muestran algunas capturas realizadas durante la sesión de demostración, en las que puede observarse el uso real de la aplicación por parte del alumnado y el profesorado.
-
-% \begin{figure}[H]
-%   \centering
-%   \includegraphics[width=0.9\textwidth]{Figuras/implantacion_real/demostracion_aula_1.jpg}
-%   \caption{Demostración de la aplicación en aula real con alumnado.}
-%   \label{fig:demo_aula_1}
-% \end{figure}
-
-% \begin{figure}[H]
-%   \centering
-%   \includegraphics[width=0.9\textwidth]{Figuras/implantacion_real/demostracion_aula_2.jpg}
-%   \caption{Interacción directa del alumnado con la aplicación durante la sesión.}
-%   \label{fig:demo_aula_2}
-% \end{figure}
-
-% \begin{figure}[H]
-%   \centering
-%   \includegraphics[width=0.9\textwidth]{Figuras/implantacion_real/demostracion_profesora.jpg}
-%   \caption{Uso del panel docente durante la demostración práctica.}
-%   \label{fig:demo_profesora}
-% \end{figure}
-
-Estas evidencias visuales refuerzan el carácter aplicado del proyecto y demuestran su viabilidad real en contextos educativos auténticos.
 
 \section{Síntesis del plan de implantación}
 \label{sec:sintesis_implantacion}
@@ -1954,10 +2010,98 @@ En paralelo, se integra la seguridad como un proceso operativo de supervisión y
 En conjunto, este capítulo completa el ciclo de vida del proyecto más allá del desarrollo funcional descrito en los capítulos~\ref{chap:desarrollo_backend} y~\ref{chap:desarrollo_frontend}, demostrando una visión integral de despliegue, operación y evolución. De este modo, la solución no se presenta únicamente como un prototipo académico, sino como una plataforma con un plan realista de implantación y un potencial de impacto educativo sostenible.
 
 \chapter{Conclusiones y líneas de trabajo futuro}
-\label{chap:conclusiones}
+\label{chap:conclusiones_complemento}
 
-El proyecto desarrollado demuestra la viabilidad de evolucionar una solución informática educativa desde una primera versión funcional hacia una plataforma más madura y preparada para su implantación real.
+En este capítulo se presentan las conclusiones finales del proyecto de complemento, evaluando el grado de cumplimiento de los objetivos planteados y el valor añadido aportado respecto al proyecto original, así como una reflexión sobre las principales líneas de trabajo futuro que permitirían seguir ampliando, mejorando y consolidando la solución desarrollada.
 
-Las mejoras introducidas y el plan de implantación definido sientan las bases para futuras ampliaciones, entre las que se incluyen la incorporación de funcionalidades más avanzadas, la mejora continua de la seguridad y la adaptación del sistema a distintos contextos educativos.
+\section{Conclusiones}
 
-Este trabajo refuerza el carácter práctico y aplicado del proyecto original, consolidando la solución desarrollada como una herramienta con potencial real en el ámbito de la enseñanza del lenguaje musical.
+El objetivo general de este proyecto de complemento ha sido extender e implantar la solución informática desarrollada en el proyecto previo, llevándola a un nivel superior tanto en términos funcionales como de preparación para su uso en entornos educativos reales. A lo largo del desarrollo, este objetivo se ha abordado mediante la mejora progresiva de la aplicación, la incorporación de nuevas funcionalidades, la adaptación a entornos móviles y la definición de un plan de implantación estructurado y realista.
+
+En relación con los subobjetivos definidos, se pueden extraer las siguientes conclusiones:
+
+\begin{itemize}
+    \item \textbf{Mejora y refinamiento de funcionalidades existentes:}  
+    Se han optimizado diversos aspectos de la aplicación original, mejorando la estabilidad, la usabilidad y la claridad de la interfaz. Estas mejoras han permitido adaptar la solución a flujos de trabajo reales, reforzando su adecuación al contexto educativo y aumentando la calidad de la experiencia de usuario tanto para profesorado como para alumnado.
+
+    \item \textbf{Incorporación de nuevas funcionalidades innovadoras:}  
+    El proyecto ha ampliado significativamente el alcance funcional de la plataforma, integrando nuevos mecanismos orientados a enriquecer el proceso de aprendizaje y a reforzar el valor pedagógico de la herramienta. Estas incorporaciones aportan un carácter innovador al sistema y permiten explorar nuevas metodologías educativas apoyadas en tecnología.
+
+    \item \textbf{Adaptación y despliegue en entornos móviles:}  
+    Gracias al uso de una arquitectura híbrida y diseño responsive, se ha logrado generar una versión móvil plenamente funcional de la aplicación, garantizando una experiencia de usuario coherente en dispositivos Android. Esta extensión incrementa notablemente la accesibilidad, portabilidad y flexibilidad del sistema, facilitando su integración en la dinámica educativa diaria.
+
+    \item \textbf{Definición de un plan de implantación realista:}  
+    Se ha elaborado un plan de implantación integral que abarca aspectos técnicos, organizativos, de seguridad y formativos, estableciendo una hoja de ruta clara para el despliegue progresivo del sistema en centros educativos reales. Este plan permite transformar un desarrollo académico en una solución con viabilidad operativa, aportando una visión profesional del ciclo de vida del software.
+\end{itemize}
+
+Adicionalmente, la realización de una validación práctica en un entorno educativo real ha permitido contrastar empíricamente la idoneidad funcional, pedagógica y tecnológica del sistema, reforzando la calidad final de la solución y evidenciando la importancia de incorporar procesos de evaluación con usuarios finales.
+
+En conjunto, el proyecto de complemento ha permitido consolidar la plataforma desarrollada, dotándola de una mayor madurez técnica, una funcionalidad ampliada y una proyección realista hacia su implantación en entornos educativos reales, cerrando así de forma coherente el ciclo completo de análisis, desarrollo, validación e implantación.
+
+\section{Líneas de trabajo futuro}
+
+A pesar de los avances alcanzados, el sistema mantiene un amplio margen de crecimiento. La propia evolución del complemento ha puesto de manifiesto nuevas necesidades y oportunidades de mejora que configuran un conjunto rico de líneas de trabajo futuro.
+
+\subsection{Ejecución completa del plan de implantación en un centro educativo}
+
+Aunque se ha definido un plan de implantación detallado y se ha realizado una validación preliminar, una de las principales líneas futuras consiste en la \textbf{ejecución completa del despliegue en un centro educativo real}, siguiendo todas las fases propuestas.
+
+Este trabajo permitiría:
+\begin{itemize}
+    \item Validar el comportamiento del sistema en uso continuado.
+    \item Analizar métricas reales de carga, rendimiento y estabilidad.
+    \item Obtener retroalimentación prolongada del profesorado y alumnado.
+    \item Ajustar procesos organizativos y técnicos en función del uso real.
+\end{itemize}
+
+La implantación completa consolidaría la madurez del sistema y permitiría evaluar su impacto pedagógico de forma longitudinal.
+
+\subsection{Extensión continua de funcionalidades e innovación pedagógica}
+
+El complemento ha incorporado mejoras relevantes, pero la naturaleza del dominio educativo permite una evolución funcional constante. Entre las posibles extensiones futuras destacan:
+
+\begin{itemize}
+    \item Evolución del sistema de ayudas inteligentes mediante mayor personalización, adaptación al progreso del alumno y análisis de errores recurrentes.
+    \item Incorporación de nuevos módulos didácticos interactivos (entrenamiento auditivo, dictados rítmicos, reconocimiento melódico, etc.).
+    \item Desarrollo de herramientas de analítica educativa que faciliten el seguimiento del progreso y la toma de decisiones pedagógicas.
+\end{itemize}
+
+Estas ampliaciones reforzarían el valor diferencial de la plataforma y su alineación con metodologías educativas activas.
+
+\subsection{Apertura del sistema a usuarios externos y acceso sin autenticación}
+
+Tal como se planteaba en el proyecto original, permanece pendiente la apertura parcial del sistema a usuarios no autenticados o no vinculados a centros educativos. Esta línea permitiría:
+
+\begin{itemize}
+    \item Facilitar el acceso a contenidos demostrativos.
+    \item Permitir el registro de usuarios independientes.
+    \item Aumentar la difusión y visibilidad del proyecto.
+\end{itemize}
+
+La implementación de este modelo requeriría un diseño cuidadoso de permisos, privacidad y segmentación funcional.
+
+\subsection{Tecnologías de mantenimiento, monitorización y gestión de logs}
+
+La evolución del sistema hacia escenarios productivos introduce la necesidad de reforzar las capacidades de mantenimiento y supervisión. Como líneas futuras se plantea:
+
+\begin{itemize}
+    \item Integración de sistemas de logging estructurado.
+    \item Centralización de registros y trazabilidad de eventos.
+    \item Incorporación de monitorización, métricas y alertas automáticas.
+\end{itemize}
+
+Estas mejoras permitirían detectar incidencias de forma temprana, reducir tiempos de resolución y aumentar la estabilidad operativa del sistema.
+
+\subsection{Refuerzo de la seguridad y mejora en la gestión de credenciales}
+
+La seguridad emerge como una línea prioritaria de evolución. Entre las mejoras futuras destacan:
+
+\begin{itemize}
+    \item Sustitución del envío directo de credenciales por flujos seguros basados en enlaces de activación y restablecimiento de contraseña.
+    \item Gestión avanzada de secretos mediante servicios dedicados.
+    \item Implementación de políticas de autenticación reforzada y control de accesos.
+\end{itemize}
+
+Estas acciones permitirían elevar significativamente el nivel de protección de datos personales, especialmente relevante en contextos educativos con menores.
+
+En conclusión, el proyecto de complemento no solo ha permitido materializar líneas de evolución previamente planteadas, sino que ha abierto nuevas vías de mejora orientadas a la profesionalización, la seguridad y la sostenibilidad del sistema. De este modo, la solución desarrollada se consolida como una plataforma con un alto potencial de crecimiento, capaz de adaptarse progresivamente a las exigencias técnicas, pedagógicas y organizativas de un entorno educativo real.

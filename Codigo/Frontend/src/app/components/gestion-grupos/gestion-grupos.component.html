@@ -8,6 +8,7 @@
     </ion-item>
 
     <ion-button expand="block" class="ion-margin-top" (click)="openSelectAlumnosModal()">
+      <ion-icon name="options-outline" slot="start"></ion-icon>
       Seleccionar Alumnos ({{ selectedAlumnos.length }})
     </ion-button>
     @if(selectedAlumnos.length > 0){
@@ -26,6 +27,7 @@
       </ion-list>
     }
     <ion-button expand="block" class="ion-margin-top" (click)="crearGrupo()" [disabled]="!nombreGrupo || selectedAlumnos.length === 0">
+      <ion-icon name="add-circle-outline" slot="start"></ion-icon>
       Crear Grupo
     </ion-button>
   </ion-card-content>

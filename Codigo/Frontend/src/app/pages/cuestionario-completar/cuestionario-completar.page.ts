@@ -12,7 +12,7 @@ import {
 } from "@ionic/angular/standalone";
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { addIcons } from 'ionicons';
-import { helpCircleOutline } from 'ionicons/icons';
+import { helpCircleOutline, sendOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-cuestionario-completar',
@@ -48,7 +48,7 @@ export class CuestionarioCompletarPage implements OnInit {
 
   constructor() {
     this.form = this.fb.group({});
-    addIcons({ helpCircleOutline });
+    addIcons({ helpCircleOutline, sendOutline });
   }
 
   ngOnInit() {

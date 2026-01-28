@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormControl } from '@angular/forms';
 import { TareaService } from '../../services/tarea.service';
 import { IonHeader, IonToolbar, IonTitle, IonButton, IonButtons, IonContent, IonItem, IonLabel, IonFooter, IonTextarea, ModalController, ToastController, IonIcon } from "@ionic/angular/standalone";
+import { addIcons } from 'ionicons';
+import { add, attachOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-entregar-tarea-modal',
@@ -23,6 +25,7 @@ export class EntregarTareaModalComponent implements OnInit {
     this.form = new FormGroup({
       respuestaTexto: new FormControl(''),
     });
+    addIcons({ attachOutline });
   }
 
   ngOnInit() { }

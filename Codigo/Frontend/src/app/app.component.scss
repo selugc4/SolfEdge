@@ -15,6 +15,7 @@ ion-header {
 ion-content {
   --background: var(--ion-color-interface);
   --padding-top: 20px;
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 ion-item {

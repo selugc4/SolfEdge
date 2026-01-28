@@ -7,3 +7,6 @@
 ion-title {
     font-weight: bold;
 }
+ion-content {
+  padding-bottom: env(safe-area-inset-bottom);
+}
