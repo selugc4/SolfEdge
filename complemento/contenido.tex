@@ -6,7 +6,7 @@ En el proyecto original se estableció, en primer lugar, un marco teórico que p
 
 A partir de esta base teórica, se llevó a cabo una investigación empírica apoyada en encuestas y entrevistas a profesores y alumnos de lenguaje musical, cuyo objetivo fue contrastar las problemáticas identificadas y detectar necesidades concretas desde la experiencia directa en entornos educativos reales. Paralelamente, se realizó un estudio basado en una revisión bibliográfica de trabajos previos y soluciones existentes, lo que permitió situar el proyecto dentro del estado del arte y analizar las limitaciones y oportunidades de las herramientas disponibles en la actualidad.
 
-La combinación de marco teórico, investigación empírica y revisión bibliográfica proporcionó una base sólida para la definición de los requisitos funcionales y no funcionales del sistema, así como para la formulación de los objetivos del proyecto. Como resultado de este proceso, se diseñó e implementó una plataforma informática compuesta por un backend basado en una API REST y un frontend híbrido accesible desde distintos dispositivos.
+La combinación de marco teórico, investigación empírica y revisión bibliográfica proporcionó una base sólida para la definición de los requisitos funcionales y no funcionales del sistema, así como para la formulación de los objetivos del proyecto. Como resultado de este proceso, se diseñó e implementó una plataforma informática compuesta por un backend basado en una API REST y un frontend híbrido y accesible.
 \section{Resultados del proyecto base y líneas de evolución}
 La aplicación desarrollada en la versión inicial permite gestionar usuarios, grupos, material de clase, calificaciones, cuestionarios, tareas y comunicaciones internas, incorporando además mecanismos de autenticación, pruebas automatizadas, documentación técnica y procesos de despliegue continuo. Esta primera versión del sistema fue validada funcionalmente, demostrando su viabilidad técnica y su adecuación inicial a las necesidades detectadas.
 
@@ -19,14 +19,14 @@ De este modo, este trabajo se plantea como una continuación natural y coherente
 \chapter{Objetivos del proyecto}
 \label{chap:objetivos}
 
-El objetivo general de este proyecto consiste en extender e implantar la solución informática desarrollada en el Trabajo Fin de Grado previo, llevándola a un nivel superior tanto en términos funcionales como de preparación para su uso en entornos educativos reales.
+El objetivo general de este proyecto consiste en extender la solución informática desarrollada en el Trabajo Fin de Grado realizado y prepararla para su uso en entornos educativos reales, llevándola así a un nivel superior.
 
 A partir de este objetivo general, se definen los siguientes subobjetivos específicos:
 
 \begin{itemize}
     \item \textbf{Mejorar y refinar funcionalidades ya existentes en la aplicación}, optimizando su usabilidad y adecuación a las necesidades detectadas en el contexto educativo.
     \item \textbf{Diseñar e incorporar nuevas funcionalidades innovadoras} que amplíen el alcance de la aplicación y aporten un valor añadido respecto a la versión inicial.
-    \item \textbf{Aprovechar el diseño responsive y la arquitectura híbrida de la aplicación para facilitar su adaptación y despliegue en sistemas móviles}, permitiendo su ejecución en dispositivos Android y iOS sin necesidad de desarrollar una base de código independiente, y garantizando una experiencia de usuario coherente y optimizada en distintos tamaños de pantalla.    
+    \item \textbf{Aprovechar el diseño responsive y la arquitectura híbrida de la aplicación para facilitar su adaptación y despliegue en sistemas móviles}, permitiendo su ejecución en dispositivos Android e iOS sin necesidad de desarrollar una base de código independiente, y garantizando una experiencia de usuario coherente y optimizada en distintos tamaños de pantalla.    
     \item \textbf{Definir un plan de implantación detallado} que contemple la adaptación tecnológica del sistema, la mejora de aspectos de seguridad, la gestión de archivos y datos, así como la viabilidad de su despliegue en centros educativos reales.
 \end{itemize}
 
@@ -39,16 +39,16 @@ Este complemento parte de la solución desarrollada en versión base y se apoya 
 
 Sin embargo, el propio enfoque del proyecto ---y especialmente sus conclusiones y líneas de trabajo futuro--- asumía que una primera versión funcional no agota el problema: al llevar la solución a un entorno real aparecen necesidades operativas y oportunidades de mejora que no siempre resultan evidentes durante un desarrollo estrictamente académico. En particular, el uso prolongado en contextos educativos reales tiende a revelar fricciones relacionadas con la administración masiva, la gestión completa del ciclo de vida de usuarios y grupos y la experiencia de uso del alumnado en actividades evaluables.
 
-En este punto, el objetivo de este complemento no es replantear la solución desde cero, sino evolucionarla de manera controlada. Se mantiene la arquitectura general, la filosofía de funcionamiento y la mayor parte de requisitos ya definidos en el documento principal, lo que se incorpora ahora se centra en:
+En este punto, el objetivo de este complemento no es replantear la solución desde cero, sino evolucionarla de manera controlada. Se mantiene la arquitectura general, la filosofía de funcionamiento y los requisitos ya definidos en el documento principal. Las incorporaciones de este complemento se centran en:
 
 \begin{itemize}
-    \item \textbf{Operatividad y administración real:} Reducir carga manual y facilitar tareas frecuentes en la práctica (altas masivas, etc.).
+    \item \textbf{Operatividad y administración real:} Reducir la carga manual y facilitar tareas frecuentes en la práctica (altas masivas, etc.).
     \item \textbf{Gestión completa del ciclo de vida:} Incorporar operaciones de revisión y eliminación con comportamiento coherente y seguro.
     \item \textbf{Mejora de la experiencia del alumno:} Introducir mecanismos de apoyo durante el trabajo con cuestionarios para favorecer el aprendizaje sin romper la coherencia pedagógica.
 \end{itemize}
 
 Como en la definición de la solución base, el proceso se plantea como un avance gradual desde un lenguaje natural todavía interpretativo hasta una definición progresivamente más objetiva. Primero se actualiza la especificación formal con las nuevas capacidades, después se refleja la ampliación en el diagrama de casos de uso, por último, se describen en detalle únicamente los casos de uso y requisitos afectados por los cambios (sin repetir lo ya definido previamente).
-
+\newpage
 \section{Análisis de la solución base y motivación de la extensión}
 \label{sec:analisis_base}
 
@@ -56,7 +56,7 @@ La solución original cubría de forma adecuada la operativa cotidiana de aula: 
 
 No obstante, al considerar una implantación real aparecen situaciones que requieren una respuesta más específica. Por ejemplo, la creación individual de usuarios funciona correctamente en grupos pequeños, pero se vuelve costosa cuando el número de alumnos aumenta o cuando se gestionan varios grupos simultáneos (escuelas con múltiples niveles, grupos por curso, etc.). De forma similar, en un entorno real es habitual que existan bajas, cambios de grupo, reorganizaciones o la necesidad de eliminar grupos completos cuando finaliza un curso o cuando se detectan altas erróneas, y estas operaciones deben dejar el sistema en un estado consistente.
 
-Por último, en relación con el aprendizaje, la realización de cuestionarios tipo test (especialmente en teoría) tiende a producir bloqueos cuando el alumno no recuerda un concepto puntual. En una sesión real, el profesor suele ofrecer una pista o guía mínima para reconducir el razonamiento sin revelar la respuesta. Replicar parte de esa asistencia dentro de la herramienta puede mejorar la experiencia del alumno y reducir frustración, siempre que se haga con límites y con una intención pedagógica clara.
+Por último, en relación con el aprendizaje, la realización de cuestionarios tipo test (especialmente en teoría) tiende a producir bloqueos cuando el alumno no recuerda un concepto puntual. En una sesión real, el profesor suele ofrecer una pista o guía mínima para reconducir el razonamiento sin revelar la respuesta. Replicar parte de esa asistencia dentro de la herramienta puede mejorar la experiencia del alumno y reducir la frustración, siempre que se haga con límites y con una intención pedagógica clara.
 
 A partir de este análisis, se definen nuevas extensiones funcionales sobre la base ya existente.
 
@@ -101,11 +101,11 @@ Los alumnos y profesores dispondrán de un área específica de mensajes. En ell
 \section{Objetivos funcionales del sistema extendido}
 \label{sec:objetivos_funcionales_ext}
 
-Los objetivos funcionales descritos en el versión inicial se mantienen, ya que la esencia del sistema no cambia: facilitar la enseñanza del lenguaje musical con herramientas específicas de gestión y aprendizaje. No obstante, este complemento añade objetivos de evolución funcional centrados en la operatividad real y en la mejora de la experiencia del alumno:
+Los objetivos funcionales descritos en la versión inicial se mantienen, ya que la esencia del sistema no cambia: facilitar la enseñanza del lenguaje musical con herramientas específicas de gestión y aprendizaje. No obstante, este complemento añade objetivos de evolución funcional centrados en la operatividad real y en la mejora de la experiencia del alumno:
 
 \begin{itemize}
   \item Permitir la administración masiva de usuarios y grupos mediante ficheros formateados, reduciendo la carga manual y los errores de alta.
-  \item Completar la gestión del ciclo de vida de los usuarios (alumnos y profesores) agregando la posibilidad de revisarlos y eliminarlos y la de los grupos permitiendo eliminarlos.
+  \item Completar la gestión del ciclo de vida tanto de los usuarios (alumnos y profesores), agregando la posibilidad de revisarlos y eliminarlos, como de los grupos, permitiendo su eliminación.
   \item Incorporar mecanismos de apoyo al alumno durante la realización de cuestionarios para mejorar la experiencia de aprendizaje en actividades evaluables.
 \end{itemize}
 
@@ -230,7 +230,7 @@ En coherencia con el documento original, los identificadores continúan a partir
   \item El sistema crea los usuarios y grupos indicados si todos han sido validados.
   \item El sistema informa del éxito.
 \end{enumerate} \\ \hline
-\textbf{Postcondición} & Los usuarios y grupos válidos quedan registrados y listos para su uso. \\ \hline
+\textbf{Postcondición} & Los usuarios y grupos quedan registrados y listos para su uso. \\ \hline
 \textbf{Excepciones} &
 \begin{itemize}
   \item El fichero no cumple el formato establecido o falta información obligatoria.
@@ -336,7 +336,7 @@ calificaciones), sus grupos y los alumnos creados bajo su responsabilidad, evita
   \item El sistema elimina el alumno, los datos exclusivos del alumno y las relaciones del alumno en el resto de registros que figure para mantener la consistencia.
   \item El sistema informa del éxito.
 \end{enumerate} \\ \hline
-\textbf{Postcondición} & El alumno deja de existir en el sistema y no es accesible desde la interfaz, a su vez, los datos asociados quedan en un estado consistente. \\ \hline
+\textbf{Postcondición} & El alumno deja de existir en el sistema y no es accesible desde la interfaz, por lo tanto, los datos asociados quedan en un estado consistente. \\ \hline
 \textbf{Excepciones} &
 \begin{itemize}
   \item {El alumno no existe o no ha sido creado por el profesor autenticado.}
@@ -479,7 +479,7 @@ Desde el punto de vista del diseño software, la integración mediante una API e
 \begin{figure}[H]
     \centering
     \includegraphics[height=2cm]{Figuras/logos/groq.png}
-    \caption{Logo Groq}
+    \caption{Groq}
     \label{fig:logo_groq}
 \end{figure}
 
@@ -497,7 +497,7 @@ Capacitor \cite{capacitor_docs} aparece como la evolución natural de este enfoq
 
 \begin{itemize}
     \item \textbf{Relación con el código nativo}: Cordova ocultaba en gran medida la capa nativa, mientras que Capacitor la integra como parte explícita del proyecto.
-    \item \textbf{Configuración del sistema}: en Cordova, los ajustes específicos resultaban complejos y poco transparentes; Capacitor facilita configuraciones controladas y mantenibles.
+    \item \textbf{Configuración del sistema}: En Cordova, los ajustes específicos resultaban complejos y poco transparentes; Capacitor facilita configuraciones controladas y mantenibles.
     \item \textbf{Evolución y mantenimiento}: Capacitor se alinea mejor con las herramientas y prácticas actuales del desarrollo móvil, favoreciendo la sostenibilidad del proyecto.
 \end{itemize}
 
@@ -515,7 +515,7 @@ De este modo, Capacitor se incorpora como un elemento habilitador que amplía el
 \begin{figure}[H]
     \centering
     \includegraphics[height=3cm]{Figuras/logos/Capacitor.png}
-    \caption{Logo Capacitor}
+    \caption{Capacitor}
     \label{fig:logo_Capacitor}
 \end{figure}
 \subsubsection{Android Studio y entorno de construcción móvil}
@@ -534,7 +534,7 @@ Este enfoque no introduce una nueva base de código ni una bifurcación tecnoló
 \begin{figure}[H]
     \centering
     \includegraphics[height=3cm]{Figuras/logos/android_studio.png}
-    \caption{Logo Android Studio.}
+    \caption{Android Studio.}
     \label{fig:logo_android_studio}
 \end{figure}
 
@@ -570,19 +570,21 @@ Con esta definición, la solución extendida queda descrita con el mismo enfoque
 
 \chapter{Planificación del proyecto}
 \label{chap:planificacion}
-La planificación de este complemento se concibe como una extensión directa de la planificación definida en el proyecto original, manteniendo sus mismos criterios generales de organización, seguimiento y gestión del tiempo. Dado que la base del sistema ya se encuentra diseñada e implementada, no resulta necesario replantear la estructura global del cronograma, sino ampliarla de manera coherente para incorporar las nuevas tareas derivadas de la evolución funcional del proyecto.
 
-En este contexto, la planificación del complemento se centra en integrar las actividades adicionales asociadas a la mejora de funcionalidades, la incorporación de nuevas capacidades y la preparación del sistema para su implantación, respetando la secuencia lógica y la continuidad del trabajo previamente realizado. De este modo, se garantiza que la evolución del proyecto se produce ordenada y alineada con los objetivos ya establecidos.
+La planificación de este proyecto de complemento se concibe como una continuación directa de la planificación establecida en el proyecto original, manteniendo sus mismos principios de organización, seguimiento y control temporal. Dado que la arquitectura base y las funcionalidades nucleares del sistema ya se encontraban definidas e implementadas, no ha sido necesario replantear el cronograma global, sino ampliarlo de forma coherente para dar cabida a las nuevas tareas derivadas de la evolución funcional, tecnológica y operativa de la solución.
 
-El diagrama Gantt de planificación reutiliza la estructura del cronograma original, incorporando las nuevas tareas y sub-tareas de manera diferenciada mediante un código de color, lo que permite identificar claramente qué actividades pertenecen al proyecto inicial y cuáles corresponden específicamente a este complemento. Esta representación facilita la comprensión del alcance real de la extensión sin introducir redundancias en la documentación.
+En este contexto, la planificación se ha centrado específicamente en estructurar y calendarizar las actividades asociadas a la mejora de funcionalidades existentes, la incorporación de nuevas capacidades, la adaptación a entornos móviles, la integración de servicios externos y la definición del plan de implantación. Estas tareas adicionales se han integrado respetando la secuencia lógica del trabajo previo y garantizando la continuidad del proceso de desarrollo, evitando solapamientos innecesarios y manteniendo una progresión ordenada.
 
-En conjunto, la planificación del complemento actúa como un marco de referencia que guía la ejecución de esta fase de evolución del proyecto, manteniendo la flexibilidad propia del contexto académico y asegurando la coherencia con el trabajo previamente desarrollado.
+El diagrama de planificación presentado refleja exclusivamente la parte correspondiente a este complemento, destacando las nuevas tareas y sub-tareas incorporadas respecto al cronograma original. Esta representación parcial permite visualizar con claridad el alcance real del trabajo adicional realizado, sin introducir redundancias documentales ni repetir información ya detallada en el proyecto base. Para facilitar su interpretación, se ha empleado un código visual diferenciado que identifica las actividades propias de esta fase de ampliación.
+
+En conjunto, esta planificación actúa como un marco de referencia operativo que ha guiado la ejecución de la fase de evolución del proyecto, aportando una estructura clara, flexible y coherente con los objetivos planteados, y adaptada a las particularidades del contexto académico en el que se ha desarrollado.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{Figuras/planificacion_extendida.png}
     \caption{Planificación del proyecto con nuevas tareas destacadas}
 \end{figure}
+\newpage
 Por último, también se añade la planificación de las tareas principales en horas.
 \begin{figure}[H]
     \centering
@@ -595,13 +597,13 @@ Por último, también se añade la planificación de las tareas principales en h
 
 El backend de este complemento se apoya directamente en la base implementada en versión inicial, manteniendo la misma pila tecnológica: \textbf{Node.js} como entorno de ejecución y \textbf{Express} como framework para exponer una \textbf{API REST}. A nivel de organización interna, se conserva la separación de responsabilidades típica de la versión anterior, con una estructura inspirada en \textbf{MVC adaptado a backend} (sin capa de interfaz): \textbf{modelos} para persistencia y esquema de datos, \textbf{controladores} para la lógica de operaciones y \textbf{rutas} como capa de entrada a los endpoints.
 
-En esta fase del complemento, la mayor diferencia no está en “hacer un CRUD nuevo”, sino en reforzar operaciones de uso real (revisiones, eliminaciones y altas masivas) que requieren más validación, limpieza de relaciones y control de errores. Además, aparece una pieza nueva dentro del backend: \textbf{servicios}, usados para encapsular integraciones externas como la comunicación con la \textbf{API de Groq}.
+En esta fase del complemento, la mayor diferencia no está en “hacer un CRUD nuevo”, sino en reforzar operaciones de uso real (revisiones, eliminaciones y altas masivas) que requieren más validación, limpieza de relaciones y control de errores. Además, aparece una pieza nueva dentro del backend: \textbf{Servicios}, usados para encapsular integraciones externas como la comunicación con la \textbf{API de Groq}, lo que facilita mantener la lógica de negocio aislada de dependencias externas.
 \section{Modelado de datos}
 Con el objetivo de proporcionar una visión global de la estructura de la información manejada por el sistema, se elaboró en el sistema base un modelo conceptual de datos que identifica las principales entidades del dominio y las relaciones existentes entre ellas. Este modelo permite comprender de forma clara cómo se organiza la información dentro de la aplicación y sirve como referencia para la posterior implementación de la persistencia de datos en el backend.
 
 Es importante recordar que el diagrama presentado no corresponde a un diagrama Entidad-Relación (ER) en sentido estricto, en su lugar, se adopta un enfoque conceptual que refleja la estructura lógica de los datos y sus relaciones semánticas, independientemente de su implementación física.
 
-La Figura~\ref{fig:modelo_conceptual} muestra el modelo conceptual de datos del sistema, proporcionando una visión estructural que complementa la definición funcional y arquitectónica presentada en los apartados anteriores.
+La figura~\ref{fig:modelo_conceptual} muestra el modelo conceptual de datos del sistema, proporcionando una visión estructural que complementa la definición funcional y arquitectónica presentada en los apartados anteriores.
 
 \begin{figure}[H]
     \centering
@@ -609,13 +611,13 @@ La Figura~\ref{fig:modelo_conceptual} muestra el modelo conceptual de datos del 
     \caption{Modelo conceptual de datos del sistema}
     \label{fig:modelo_conceptual}
 \end{figure}
-
+\newpage
 \section{Implementación}
 \label{sec:backend_impl}
 
 \subsection{Operaciones lógicas (revisión y eliminación)}
 
-Las operaciones de revisión (listados y consultas) reutilizan el mismo patrón del trabajo previo: filtrado por rol, respuesta en JSON y acceso a través de controladores. En cambio, las eliminaciones se han ampliado para contemplar el efecto real en otras colecciones (por ejemplo: al eliminar un grupo se eliminan/limpian tareas, cuestionarios, entregas y calificaciones asociadas, y se elimina la relación en los alumnos).
+Las operaciones de revisión (listados y consultas) reutilizan el mismo patrón del trabajo previo: filtrado por rol, respuesta en JSON y acceso a través de controladores. En cambio, las eliminaciones se han ampliado para contemplar el efecto real en otras colecciones (por ejemplo: al eliminar un grupo se eliminan también tareas, cuestionarios, entregas y calificaciones asociadas).
 
 Se incluye un ejemplo representativo (el resto de eliminaciones sigue una estructura muy similar):
 
@@ -804,9 +806,8 @@ Este enfoque garantiza que la ampliación funcional no comprometa la estabilidad
 Para ello, se mantiene la estrategia de aislamiento descrita en la versión inicial del proyecto, mediante el uso intensivo de \textit{mocks} y \textit{spies}, lo que permite simular de forma controlada la interacción con servicios externos, controladores internos y acceso a base de datos. Asimismo, el uso de Supertest facilita la ejecución de peticiones HTTP reales contra la aplicación, permitiendo validar tanto los códigos de estado como el contenido completo de las respuestas.
 
 Como fragmento representativo, se presenta a continuación el conjunto de pruebas desarrollado para el endpoint encargado de devolver una pista asociada a una pregunta concreta, accesible mediante la ruta \texttt{GET /cuestionarios/:id/preguntas/:index/pista}. Este endpoint introduce un nuevo flujo funcional basado en la integración con un servicio externo de inferencia, por lo que resulta especialmente relevante validar tanto los escenarios normales como las situaciones de error controlado.
-
+\newpage
 \begin{Verbatim}[frame=single, fontsize=\small, xleftmargin=10pt, xrightmargin=10pt]
-
 // Bloque de pruebas para el endpoint encargado de
 // devolver una pista asociada a una pregunta concreta
 describe('GET /cuestionarios/:id/preguntas/:index/pista', () => {
@@ -899,7 +900,7 @@ La exportación a móvil se realiza con \textbf{Capacitor}, que actúa como puen
 
 \subsubsection{Ajuste de menús del sistema}
 
-En sistemas móviles pueden aparecer solapes con algunos menús nativos como la barra de estado superior. Actualmente, Capacitor en combinación con Ionic, ofrecen una solución para ello bastante sencilla gracias a su conjunto de plugins, además también se aplican soluciones de padding para no solapar con otros menús como la botonera inferior del sistema nativo.
+En sistemas móviles pueden aparecer solapes con algunos menús nativos como la barra de estado superior. Actualmente, Capacitor en combinación con Ionic, ofrece una solución para ello bastante sencilla gracias a su conjunto de plugins, además también se aplican soluciones de padding para no solapar con otros menús como la botonera inferior del sistema nativo.
 
 \begin{Verbatim}[frame=single, fontsize=\small, xleftmargin=10pt, xrightmargin=10pt]
 // Platform, servicio Standalone de Ionic 
@@ -921,7 +922,7 @@ if (this.platform.is('capacitor')) {
 // el sistema operativo a la aplicación.
 // Estas variables representan las zonas que ocupan 
 // partes nativas del sistema 
-(barra de estado o botonera inferior del sistema nativo).
+// (barra de estado o botonera inferior del sistema nativo).
 // De este modo, añadiendo padding en los cuatro lados
 // en estilos globales del desarrollo,
 // la aplicación se adaptará al tamaño de forma automática 
@@ -935,11 +936,11 @@ body {
 
 \end{Verbatim}
 
-\subsubsection{Apertura de PDFs en Android (Filesystem + FileOpener)}
+\subsubsection{Apertura de PDFs en Android (FileSystem + FileOpener)}
 
-En PC, incrustar un PDF con \texttt{iframe} suele funcionar bien, pero en Android el WebView puede dar problemas. La solución aplicada consiste en:
+En navegador, incrustar un PDF con \texttt{iframe} suele funcionar bien, pero en Android el WebView puede dar problemas. La solución aplicada consiste en:
 \begin{enumerate}
-  \item Detectar que se está en móvil.
+  \item Detectar que se está en sistema Android o iOS mediante el tamaño de pantalla.
   \item Mostrar un botón \textit{Abrir PDF}.
   \item Guardar temporalmente el archivo en el dispositivo.
   \item Abrirlo con el visor nativo del sistema.
@@ -947,7 +948,6 @@ En PC, incrustar un PDF con \texttt{iframe} suele funcionar bien, pero en Androi
 
 Un fragmento de código representativo es el que muestra el caso de los detalles de cada rama de la enseñanza, en el cual, puede haber un libro del curso. Este libro, proviene de la base de datos y aparece en pantalla (todo esto tratado en el proyecto original).
 La evolución a móvil impide la vista directamente ya que no hay un visor de PDF integrado en la app (lo cual sí que aparece en los navegadores), por lo tanto, es necesario abrirlo vía externa en el visor del sistema accediendo así a las funcionalidades nativas mediante los plugins de Capacitor, en concreto, se usarán FileSystem y FileOpener.
-
 \begin{Verbatim}[frame=single, fontsize=\small, xleftmargin=10pt, xrightmargin=10pt]
 //Se comprueba al inicio si es pantalla reducida 
 (sistemas Android o iOS de tablet y móvil).
@@ -994,12 +994,11 @@ async openPdf(): Promise<void> {
     ('No se pudo abrir el PDF en este dispositivo.', 'danger');
   }
 }
-
 \end{Verbatim}
 
 \subsubsection{Estilos específicos para móvil}
 
-Además de los cambios anteriores, se han aplicado ajustes menores de scss para algunas partes de la aplicación que, gracias a Ionic combinado con Capacitor, son muy ligeros. El ejemplo más elaborado es el cambio en el menú de botones que le aparecía al profesor en la lista de tareas creadas de cada rama, 
+Además de los cambios anteriores, se han aplicado ajustes menores de SCSS para algunas partes de la aplicación que, gracias a Ionic combinado con Capacitor, son muy ligeros. El ejemplo más elaborado es el cambio en el menú de botones que le aparecía al profesor en la lista de tareas creadas de cada rama, 
 en este caso, el menú de botones provocaba que en pantallas pequeñas no se llegara a ver, por tanto, se detecta el tamaño de pantalla que es y, en caso de tamaño pequeño manejado con @media, se pasa a un solo botón que ya, pulsándolo, despliega el resto de opciones.
 
 \begin{Verbatim}[frame=single, fontsize=\small, xleftmargin=10pt, xrightmargin=10pt]
@@ -1032,7 +1031,7 @@ Una vez compilado el proyecto Android, ciertos recursos visuales se terminan de 
   \item Pantalla de carga.
 \end{itemize}
 
-Todo esto lo maneja Android Studio para cada aplicación añadiendo unos XML que contienen las referencias a los distintos logos y estilos usados, en concreto, AndroidManifest (donde se declara el nombre, icono y permisos) y splash.xml (pantalla de carga)
+Todo esto lo maneja Android Studio para cada aplicación mediante ficheros de configuración XML que contienen las referencias a los distintos logos y estilos usados, en concreto, AndroidManifest (donde se declara el nombre, icono y permisos) y splash.xml (pantalla de carga).
 \section{Diseño y experiencia de usuario (UX/UI)}
 \label{sec:frontend_diseno_ext}
 
@@ -1108,7 +1107,7 @@ En conjunto, estos elementos reflejan cómo la implementación descrita previame
 \section{Testing}
 \label{sec:frontend_testing}
 
-El frontend mantiene el enfoque de testing definido en el versión inicial, utilizando \textbf{Jasmine} como framework de pruebas unitarias y \textbf{Karma} como entorno de ejecución. Como se expuso en el trabajo previo, esta combinación permite validar de forma sistemática la lógica interna de los componentes Angular y su correcta integración con los servicios y la interfaz de usuario.
+El frontend mantiene el enfoque de testing definido en la versión inicial, utilizando \textbf{Jasmine} como framework de pruebas unitarias y \textbf{Karma} como entorno de ejecución. Como se expuso en el trabajo previo, esta combinación permite validar de forma sistemática la lógica interna de los componentes Angular y su correcta integración con los servicios y la interfaz de usuario.
 
 Sobre esta base ya establecida, la solución extendida no introduce cambios estructurales en la metodología de pruebas, sino que amplía el conjunto de tests existentes para cubrir las nuevas funcionalidades incorporadas. En particular, se ha reforzado el testing en aquellos componentes que presentan una mayor complejidad lógica o que introducen flujos críticos de interacción, especialmente aquellos relacionados con la gestión administrativa del sistema.
 
@@ -1123,10 +1122,10 @@ De manera concreta, los tests implementados persiguen los siguientes objetivos:
   \item Garantizar la actualización coherente del estado interno del componente tras operaciones de eliminación.
   \item Verificar el tratamiento de situaciones de error y su correcta notificación visual mediante alertas y mensajes emergentes.
 \end{itemize}
-
+\newpage
 Para ello, se emplea el mismo enfoque de aislamiento descrito en el proyecto base, utilizando \textit{spies} de Jasmine sobre los controladores de Ionic y los servicios de negocio. Este mecanismo permite simular de modo controlado el comportamiento de dependencias externas, evitando efectos colaterales durante la ejecución de las pruebas. Asimismo, se utilizan herramientas específicas para el control del flujo asíncrono, lo que permite reproducir con precisión operaciones basadas en promesas y observables.
 
-A continuación se presenta un pseudocódigo estructurado que resume el comportamiento validado por los tests implementados para el componente de gestión de profesores. Se ha decidido usar esta representación porque mantiene un nivel de detalle cercano a la semántica real facilitando su comprensión y la implementación real resulta demasiado extensa y depende de detalles técnicos 
+A continuación se presenta un pseudocódigo estructurado que resume el comportamiento validado por los tests implementados para el componente de gestión de profesores. Se ha decidido usar esta representación porque mantiene un nivel de detalle cercano a la semántica real facilitando su comprensión y la implementación real resulta demasiado extensa y depende de detalles técnicos.
 
 \begin{Verbatim}[frame=single, fontsize=\small, xleftmargin=10pt, xrightmargin=10pt]
 
@@ -1417,7 +1416,7 @@ La arquitectura definida en el apartado~\ref{sec:tecnologias_ext} facilita este 
 
 \subsubsection{Azure App Service como plataforma de ejecución}
 
-Azure App Service proporciona un entorno gestionado para la ejecución de aplicaciones web, APIs REST y servicios backend, abstraendo la complejidad asociada a la gestión directa de servidores, redes, balanceo de carga y sistemas operativos. Este modelo permite centrar los esfuerzos en el desarrollo funcional, delegando en la plataforma cloud la responsabilidad del escalado, la disponibilidad y la seguridad perimetral.
+Azure App Service proporciona un entorno gestionado para la ejecución de aplicaciones web, APIs REST y servicios backend, abstrayendo la complejidad asociada a la gestión directa de servidores, redes, balanceo de carga y sistemas operativos. Este modelo permite centrar los esfuerzos en el desarrollo funcional, delegando en la plataforma cloud la responsabilidad del escalado, la disponibilidad y la seguridad perimetral.
 
 Desde el punto de vista técnico, Azure App Service ofrece las siguientes capacidades clave:
 
@@ -1466,9 +1465,9 @@ Este procedimiento permite garantizar una transición segura, reversible y con i
 \subsubsection{Pipeline de despliegue automatizado}
 \label{sec:pipeline_azure}
 
-El objetivo principal de esta migración es que el cambio afecte únicamente al flujo de despliegue, sin introducir modificaciones en la lógica del sistema. La estructura modular del proyecto y el uso de contenedores Docker \cite{docker_docs} permiten desacoplar completamente la ejecución de la aplicación del entorno subyacente, lo que facilita la transición desde un despliegue local hacia una infraestructura en la nube sin necesidad de reescritura del código.
+El objetivo principal de esta migración es que el cambio afecte únicamente al flujo de despliegue, sin introducir modificaciones en la lógica del sistema. La estructura modular del proyecto y el uso de contenedores Docker en la fase de implantación \cite{docker_docs} permiten desacoplar completamente la ejecución de la aplicación del entorno subyacente, lo que facilita la transición desde un despliegue local hacia una infraestructura en la nube sin necesidad de reescritura del código.
 
-La aplicación desarrollada, la cual será definida por primera vez como \textit{SolfEdge}, se despliega en la plataforma Microsoft Azure utilizando el servicio \textit{Azure App Service for Containers}, que permite ejecutar contenedores Docker de forma gestionada, escalable y altamente disponible. Como registro privado se emplea \textit{Azure Container Registry} (ACR) \cite{azure_container_registry_docs}, que actúa como repositorio centralizado de imágenes Docker.
+La aplicación desarrollada, se despliega en la plataforma Microsoft Azure utilizando el servicio \textit{Azure App Service for Containers}, que permite ejecutar contenedores Docker de forma gestionada, escalable y altamente disponible. Como registro privado se emplea \textit{Azure Container Registry} (ACR) \cite{azure_container_registry_docs}, que actúa como repositorio centralizado de imágenes Docker.
 
 Para la correcta ejecución del pipeline de despliegue es necesario realizar previamente una serie de configuraciones en Azure, que se detallan a continuación.
 
@@ -1479,7 +1478,7 @@ Antes de poder automatizar el despliegue, es imprescindible preparar la infraest
 \begin{itemize}
     \item \textbf{Creación del grupo de recursos}: Se define un grupo de recursos (por ejemplo, \texttt{RCPMA}) como convención de nomenclatura para agrupar todos los servicios asociados. Este identificador se emplea a modo ilustrativo y puede adaptarse al centro que realice la implantación.
     
-    \item \textbf{Creación del Azure Container Registry (ACR):} Se crea un registro privado de contenedores donde se almacenarán las imágenes Docker del frontend y backend de SolfEdge. Este registro permite la gestión segura, versionada y centralizada de las imágenes, facilitando su despliegue automatizado.
+    \item \textbf{Creación del Azure Container Registry (ACR):} Se crea un registro privado de contenedores donde se almacenarán las imágenes Docker del frontend y backend. Este registro permite la gestión segura, versionada y centralizada de las imágenes, facilitando su despliegue automatizado.
     
     \item \textbf{Creación de las Web Apps para contenedores:} Se crean dos instancias independientes de \textit{Azure App Service for Containers} (sobre sistema Linux), una destinada al frontend (\texttt{solfedge-frontend}) y otra al backend (\texttt{solfedge-backend}). Estas aplicaciones se configuran para obtener sus imágenes desde el ACR.
     
@@ -1504,8 +1503,8 @@ Este enfoque garantiza un despliegue reproducible, trazable y consistente, elimi
 
 \paragraph{Pipeline de despliegue}
 
-A continuación se muestra un pipeline orientativo que ilustra el proceso completo de construcción, publicación y despliegue automático de SolfEdge en Azure. Este pipeline se apoya en las fases previas de construcción y testeo ya descritas, adaptando únicamente la etapa final de despliegue al entorno cloud.
-
+A continuación se muestra un pipeline orientativo que ilustra el proceso completo de construcción, publicación y despliegue automático del sistema en Azure. Este pipeline se apoya en las fases previas de construcción y testeo ya descritas, adaptando únicamente la etapa final de despliegue al entorno cloud.
+\newpage
 \begin{Verbatim}[frame=single, fontsize=\small]
 push-and-deploy-frontend:
   if: github.ref == 'refs/heads/main'
@@ -1592,11 +1591,11 @@ Este pipeline proporciona un mecanismo de despliegue completamente automatizado,
 \begin{figure}[H]
   \centering
   \includegraphics[height=2cm]{Figuras/logos/azure.png}
-  \caption{Logo Microsoft Azure}
+  \caption{Microsoft Azure}
   \label{fig:logo_azure}
 \end{figure}
 
-\subsection{Escalado de la base de datos con MongoDB Atlas}
+\subsection{Escalado de la base de datos de MongoDB Atlas}
 \label{sec:escalado_mongodb}
 
 La base de datos constituye un componente crítico dentro del proceso de implantación, al centralizar toda la información académica, administrativa y de seguimiento del alumnado. Por este motivo, el plan contempla una estrategia de escalado progresivo utilizando las capacidades avanzadas de \textbf{MongoDB Atlas} \cite{mongodb_atlas_docs}, descritas previamente en el apartado~\ref{sec:tecnologias_ext}.
@@ -1639,7 +1638,7 @@ Este enfoque refuerza la idoneidad de las decisiones tecnológicas adoptadas dur
 
 Aunque en el marco de este proyecto se ha validado técnicamente la exportación de la aplicación a Android mediante la generación de un paquete instalable (APK), la implantación real del sistema en un entorno educativo requiere un mecanismo de distribución más profesional, estable y escalable. En este contexto, la publicación oficial de la aplicación en \textbf{Google Play Store} se considera un paso clave dentro del proceso de implantación global.
 
-Este apartado no describe un proceso ejecutado durante el desarrollo del proyecto, sino que define de manera estructurada los pasos necesarios para llevar a cabo dicha publicación como parte del despliegue real del sistema en un centro educativo, alineándose con la estrategia de implantación progresiva descrita en la Sección~\ref{sec:estrategia_implantacion}.
+Este apartado no describe un proceso ejecutado durante el desarrollo del proyecto, sino que define de manera estructurada los pasos necesarios para llevar a cabo dicha publicación como parte del despliegue real del sistema en un centro educativo, alineándose con la estrategia de implantación progresiva descrita en la sección~\ref{sec:estrategia_implantacion}.
 
 \subsection{Justificación de la publicación en tienda oficial}
 
@@ -1714,7 +1713,7 @@ La migración se ejecutará en cinco fases claramente definidas:
     \item Migración progresiva de los ficheros existentes, priorizando los materiales activos.
 \end{enumerate}
 
-Este cambio permitirá mejorar el rendimiento general del sistema, reducir la carga sobre la base de datos y facilitar la escalabilidad futura, sin introducir modificaciones sustanciales en la arquitectura definida en el apartado~\ref{sec:tecnologias_ext}. Asimismo, esta migración se llevará a cabo durante la fase de despliegue parcial (Sección~\ref{sec:estrategia_implantacion}), evitando interferencias en la fase piloto.
+Este cambio permitirá mejorar el rendimiento general del sistema, reducir la carga sobre la base de datos y facilitar la escalabilidad futura, sin introducir modificaciones sustanciales en la arquitectura definida en el apartado~\ref{sec:tecnologias_ext}. Asimismo, esta migración se llevará a cabo durante la fase de despliegue parcial (sección~\ref{sec:estrategia_implantacion}), evitando interferencias en la fase piloto.
 
 \subsection*{Comparativa técnica: Base64 vs almacenamiento externo}
 
@@ -1747,7 +1746,7 @@ Este segundo enfoque elimina la necesidad de conversiones intermedias, reduce la
 \begin{figure}[H]
   \centering
   \includegraphics[height=2cm]{Figuras/logos/firebase.png}
-  \caption{Logo Firebase Storage}
+  \caption{Firebase Storage}
   \label{fig:logo_firebase}
 \end{figure}
 
@@ -1760,13 +1759,13 @@ Con el objetivo de garantizar una entrega estable, trazable y alineada con buena
 
 \begin{enumerate}
     \item \textbf{Adquisición de un dominio propio}: Se registrará un dominio del centro o del sistema, evitando el uso de dominios genéricos que degradan la confianza del usuario y dificultan la entregabilidad.
-    \item \textbf{Configuración del proveedor de correo}: Se empleará un proveedor transaccional (por ejemplo, Mailjet \cite{firebase_storage_docs} u otro equivalente), centralizando el envío de correos desde un servicio controlado y monitorizable.
+    \item \textbf{Configuración del proveedor de correo}: Se empleará un proveedor transaccional (por ejemplo, Mailjet \cite{mailjet_docs} u otro equivalente), centralizando el envío de correos desde un servicio controlado y monitorizable.
     \item \textbf{Autenticación del dominio (SPF, DKIM y DMARC)}: Se configurarán obligatoriamente estos mecanismos para mejorar la reputación del dominio, reducir el riesgo de suplantación y disminuir la probabilidad de clasificación como spam.
     \item \textbf{Parametrización segura en el entorno}: Se configurarán el correo emisor, las claves y los endpoints del proveedor mediante variables de entorno, evitando su exposición en el repositorio y facilitando el cambio de proveedor sin afectar al código.
     \item \textbf{Validación previa y pruebas controladas}: Se realizarán envíos de prueba a proveedores comunes, verificando entregabilidad, cabeceras de autenticación y puntuación anti-spam. Se documentarán los resultados como evidencia de preparación para producción.
 \end{enumerate}
 
-Estas tareas se ejecutarán \textbf{antes de finalizar la fase piloto} (Sección~\ref{sec:estrategia_implantacion}) para evitar que el escalado de usuarios se apoye en configuraciones temporales o con reputación insuficiente. Además, este enfoque reduce el impacto de incidencias habituales (correos no entregados o marcados como spam) y facilita la operación diaria del sistema durante el despliegue parcial y completo.
+Estas tareas se ejecutarán \textbf{antes de finalizar la fase piloto} (sección~\ref{sec:estrategia_implantacion}) para evitar que el escalado de usuarios se apoye en configuraciones temporales o con reputación insuficiente. Además, este enfoque reduce el impacto de incidencias habituales (correos no entregados o marcados como spam) y facilita la operación diaria del sistema durante el despliegue parcial y completo.
 
 
 \section{Seguridad, protección de datos y cumplimiento normativo}
@@ -1884,11 +1883,11 @@ Estos materiales se definirían antes del despliegue parcial, priorizando inicia
 \section{Cronograma de implantación}
 \label{sec:cronograma_implantacion}
 
-Con el fin de operativizar la estrategia descrita en la Sección~\ref{sec:estrategia_implantacion} en un proceso ejecutable y controlable, se define un cronograma orientativo de implantación. Este cronograma organiza las actividades por fases, marca dependencias lógicas (por ejemplo, disponer de infraestructura y configuración mínima antes de iniciar el piloto) y permite asociar hitos verificables para decidir el avance entre etapas.
+Con el fin de operativizar la estrategia descrita en la sección~\ref{sec:estrategia_implantacion} en un proceso ejecutable y controlable, se define un cronograma orientativo de implantación. Este cronograma organiza las actividades por fases, marca dependencias lógicas (por ejemplo, disponer de infraestructura y configuración mínima antes de iniciar el piloto) y permite asociar hitos verificables para decidir el avance entre etapas.
 
-El cronograma propuesto se adapta a un centro educativo de tamaño medio y contempla una implantación progresiva en tres fases (piloto, parcial y completa), alineada con los tiempos ya establecidos en el propio plan: un piloto de cuatro a seis semanas, un despliegue parcial de dos a tres meses y una transición final hacia despliegue completo. Además, integra tareas transversales (seguridad, correo y formación) para garantizar que el crecimiento de usuarios se realice sobre una base estable y controlada.
+El cronograma propuesto se adapta a un centro educativo de tamaño medio y contempla una implantación progresiva en tres fases (piloto, parcial y completa), alineada con los tiempos ya establecidos en el propio plan: un piloto de cuatro a seis semanas, un despliegue parcial de dos a tres meses y una transición final hacia despliegue completo.
 
-La Figura~\ref{fig:cronograma_implantacion} muestra el cronograma completo con la secuencia temporal de tareas y los hitos principales: preparación del entorno productivo, arranque del piloto, emisión del informe de validación, ampliación a despliegue parcial, consolidación operativa y paso a despliegue completo. Se incluyen también revisiones periódicas trimestrales asociadas al seguimiento de seguridad y dependencias externas, en coherencia con la Sección~\ref{sec:seguridad_implantacion}.
+La figura~\ref{fig:cronograma_implantacion} muestra el cronograma completo con la secuencia temporal de tareas y los hitos principales: preparación del entorno productivo, arranque del piloto, emisión del informe de validación, ampliación a despliegue parcial, consolidación operativa y paso a despliegue completo.
 
 \begin{figure}[H]
   \centering
@@ -1897,7 +1896,7 @@ La Figura~\ref{fig:cronograma_implantacion} muestra el cronograma completo con l
   \label{fig:cronograma_implantacion}
 \end{figure}
 
-Este cronograma se concibe como un instrumento de control y toma de decisiones: cada fase finaliza con un hito de validación que determina si se avanza a la siguiente etapa o si se ejecuta una iteración correctiva. En este sentido, la validación práctica descrita en la Sección~\ref{sec:validacion_preliminar} puede interpretarse como una evidencia empírica preliminar equivalente a una comprobación propia del piloto, aunque realizada fuera del marco formal completo, reforzando la utilidad de planificar la implantación con un enfoque incremental.
+Este cronograma se concibe como un instrumento de control y toma de decisiones: cada fase finaliza con un hito de validación que determina si se avanza a la siguiente etapa o si se ejecuta una iteración correctiva. En este sentido, la validación práctica descrita en la sección~\ref{sec:validacion_preliminar} puede interpretarse como una evidencia empírica preliminar equivalente a una comprobación propia del piloto, aunque realizada fuera del marco formal completo, reforzando la utilidad de planificar la implantación con un enfoque incremental.
 
 \section{Validación práctica en entorno educativo real}
 \label{sec:validacion_preliminar}
@@ -1993,7 +1992,7 @@ Además, esta experiencia permite afirmar que el sistema no solo es técnicament
   \centering
   \includegraphics[width=0.48\textwidth]{Figuras/demostracion_aula_1.jpeg}\hfill
   \includegraphics[width=0.48\textwidth]{Figuras/demostracion_aula_2.jpeg}
-  \caption{Demostración de la aplicación SolfEdge en un entorno real de aula}
+  \caption{Demostración de la aplicación en un entorno real de aula}
   \label{fig:demo_aula}
 \end{figure}
 
@@ -2001,11 +2000,11 @@ Además, esta experiencia permite afirmar que el sistema no solo es técnicament
 \section{Síntesis del plan de implantación}
 \label{sec:sintesis_implantacion}
 
-El plan de implantación presentado establece una hoja de ruta completa para trasladar la solución desde un entorno académico hacia un contexto real de uso educativo. A través de una estrategia progresiva (Sección~\ref{sec:estrategia_implantacion}), se asegura que la adopción del sistema se realice de forma controlada, permitiendo validar estabilidad, rendimiento y aceptación por parte de los usuarios antes de su despliegue completo.
+El plan de implantación presentado establece una hoja de ruta completa para trasladar la solución desde un entorno académico hacia un contexto real de uso educativo. A través de una estrategia progresiva (sección~\ref{sec:estrategia_implantacion}), se asegura que la adopción del sistema se realice de forma controlada, permitiendo validar estabilidad, rendimiento y aceptación por parte de los usuarios antes de su despliegue completo.
 
-Desde el punto de vista técnico, el plan define un proceso de migración hacia un entorno productivo apoyado en servicios escalables (Sección~\ref{sec:migracion_tecnologica}), garantizando que el crecimiento del número de usuarios pueda abordarse sin reestructurar la arquitectura. Del mismo modo, se contempla la evolución de componentes críticos como el almacenamiento de ficheros (Sección~\ref{sec:migracion_archivos}) y la profesionalización del correo electrónico (Sección~\ref{sec:correo_profesional}), elementos clave para operar con fiabilidad en escenarios reales.
+Desde el punto de vista técnico, el plan define un proceso de migración hacia un entorno productivo apoyado en servicios escalables (sección~\ref{sec:migracion_tecnologica}), garantizando que el crecimiento del número de usuarios pueda abordarse sin reestructurar la arquitectura. Del mismo modo, se contempla la evolución de componentes críticos como el almacenamiento de ficheros (sección~\ref{sec:migracion_archivos}) y la profesionalización del correo electrónico (sección~\ref{sec:correo_profesional}), elementos clave para operar con fiabilidad en escenarios reales.
 
-En paralelo, se integra la seguridad como un proceso operativo de supervisión y cumplimiento (Sección~\ref{sec:seguridad_implantacion}), y se incorpora un plan de adopción orientado a minimizar fricciones en el uso cotidiano del sistema (Sección~\ref{sec:formacion_implantacion}). Aunque el plan no se ha ejecutado en su totalidad durante el desarrollo del proyecto, la validación práctica preliminar realizada (Sección~\ref{sec:validacion_preliminar}) aporta evidencia empírica y refuerza la utilidad de estructurar una implantación en fases.
+En paralelo, se integra la seguridad como un proceso operativo de supervisión y cumplimiento (sección~\ref{sec:seguridad_implantacion}), y se incorpora un plan de adopción orientado a minimizar fricciones en el uso cotidiano del sistema (sección~\ref{sec:formacion_implantacion}). Aunque el plan no se ha ejecutado en su totalidad durante el desarrollo del proyecto, la validación práctica preliminar realizada (sección~\ref{sec:validacion_preliminar}) aporta evidencia empírica y refuerza la utilidad de estructurar una implantación en fases.
 
 En conjunto, este capítulo completa el ciclo de vida del proyecto más allá del desarrollo funcional descrito en los capítulos~\ref{chap:desarrollo_backend} y~\ref{chap:desarrollo_frontend}, demostrando una visión integral de despliegue, operación y evolución. De este modo, la solución no se presenta únicamente como un prototipo académico, sino como una plataforma con un plan realista de implantación y un potencial de impacto educativo sostenible.
 
@@ -2029,7 +2028,7 @@ En relación con los subobjetivos definidos, se pueden extraer las siguientes co
 
     \item \textbf{Adaptación y despliegue en entornos móviles:}  
     Gracias al uso de una arquitectura híbrida y diseño responsive, se ha logrado generar una versión móvil plenamente funcional de la aplicación, garantizando una experiencia de usuario coherente en dispositivos Android. Esta extensión incrementa notablemente la accesibilidad, portabilidad y flexibilidad del sistema, facilitando su integración en la dinámica educativa diaria.
-
+\newpage
     \item \textbf{Definición de un plan de implantación realista:}  
     Se ha elaborado un plan de implantación integral que abarca aspectos técnicos, organizativos, de seguridad y formativos, estableciendo una hoja de ruta clara para el despliegue progresivo del sistema en centros educativos reales. Este plan permite transformar un desarrollo académico en una solución con viabilidad operativa, aportando una visión profesional del ciclo de vida del software.
 \end{itemize}
@@ -2055,7 +2054,7 @@ Este trabajo permitiría:
 \end{itemize}
 
 La implantación completa consolidaría la madurez del sistema y permitiría evaluar su impacto pedagógico de forma longitudinal.
-
+\newpage
 \subsection{Extensión continua de funcionalidades e innovación pedagógica}
 
 El complemento ha incorporado mejoras relevantes, pero la naturaleza del dominio educativo permite una evolución funcional constante. Entre las posibles extensiones futuras destacan:

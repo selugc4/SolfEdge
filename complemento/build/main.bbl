@@ -99,4 +99,10 @@
   Available: \url{https://learn.microsoft.com/en-us/azure/storage/blobs/}
 \BIBentrySTDinterwordspacing
 
+\bibitem{mailjet_docs}
+\BIBentryALTinterwordspacing
+{Mailjet SAS}, ``Mailjet documentation.'' [Online]. Available:
+  \url{https://www.mailjet.com/docs/}
+\BIBentrySTDinterwordspacing
+
 \end{thebibliography}

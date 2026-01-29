@@ -88,7 +88,7 @@
 \contentsline {subsection}{\numberline {11.2.1}Plan de implantación y despliegue en entornos reales}{100}{subsection.11.2.1}%
 \contentsline {subsection}{\numberline {11.2.2}Extensión de funcionalidades e innovación}{101}{subsection.11.2.2}%
 \contentsline {subsection}{\numberline {11.2.3}Acceso sin autenticación y apertura a usuarios externos}{101}{subsection.11.2.3}%
-\contentsline {subsection}{\numberline {11.2.4}Creación de la aplicación móvil}{101}{subsection.11.2.4}%
+\contentsline {subsection}{\numberline {11.2.4}Creación de la aplicación móvil}{102}{subsection.11.2.4}%
 \contentsline {chapter}{\numberline {12}Anexo}{103}{chapter.12}%
 \contentsline {section}{\numberline {12.1}Repositorio del proyecto}{103}{section.12.1}%
 \contentsline {section}{\numberline {12.2}Estructura del proyecto}{103}{section.12.2}%

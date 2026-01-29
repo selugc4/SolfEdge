@@ -3249,7 +3249,7 @@ Este proceso asegura que el frontend esté disponible para usuarios finales de m
     \label{fig:ci_cd_backend_full}
 \end{figure}
 \chapter{Integración y Despliegue Continuo}
-
+\label{chap:cicd}
 Para asegurar la calidad, fiabilidad y rapidez en las entregas, se ha implementado un flujo completo de Integración Continua (CI) y Despliegue Continuo (CD) que abarca tanto el frontend como el backend del proyecto. Este pipeline automatiza la construcción, validación, pruebas y despliegue de ambas partes de la aplicación de forma coordinada.
 
 \section{Descripción general del pipeline}
@@ -3374,26 +3374,25 @@ En este capítulo se presentan las conclusiones finales del proyecto, evaluando 
 El objetivo principal de este proyecto consistía en \textbf{resolver la problemática relacionada con la falta de recursos informáticos específicos orientados a la enseñanza del lenguaje musical}. A lo largo del desarrollo de la aplicación se ha trabajado de forma progresiva para dar respuesta a esta necesidad, apoyándose en tecnologías actuales, gratuitas y ampliamente utilizadas, y poniendo el foco tanto en profesores como en alumnos.
 
 En relación con los subobjetivos definidos inicialmente, se pueden extraer las siguientes conclusiones:
-
 \begin{itemize}
     \item \textbf{Entender las necesidades de profesores y alumnos de lenguaje musical:}  
-    Este objetivo se ha cubierto de forma satisfactoria mediante el análisis del contexto educativo y la definición de casos de uso reales. La aplicación incorpora funcionalidades orientadas tanto a la gestión docente (grupos, calificaciones, comunicación) como al seguimiento y participación del alumnado, reflejando una comprensión adecuada de las dinámicas habituales en la enseñanza del lenguaje musical.
+    Este objetivo se ha alcanzado a través de un proceso sistemático de análisis que ha incluido la investigación en centros educativos, la recopilación de información mediante encuestas y entrevistas, así como el estudio bibliográfico. Este trabajo previo ha permitido identificar con precisión las dinámicas habituales de la enseñanza del lenguaje musical, las principales dificultades detectadas y las carencias existentes en las herramientas digitales disponibles. Como resultado directo de este análisis, la aplicación incorpora funcionalidades alineadas con estas necesidades, tales como la gestión de grupos, calificaciones, tareas, cuestionarios y mensajería, ofreciendo un soporte integral tanto para la labor docente como para el seguimiento y la participación activa del alumnado.
 
     \item \textbf{Aprender sobre la relación existente entre la informática y el lenguaje musical:}  
-    El desarrollo del proyecto, principalmente en las fases de estudio y de investigación, ha permitido profundizar en la intersección entre ambas disciplinas, especialmente en la representación de conceptos musicales mediante herramientas digitales y en la adaptación de flujos educativos tradicionales a entornos informáticos. Este objetivo puede considerarse ampliamente cumplido, ya que ha servido como base conceptual para el diseño de la aplicación.
-
+    Las fases de estudio, análisis y diseño del proyecto han permitido profundizar en la intersección entre ambas disciplinas, abordando la representación digital de conceptos musicales, la estructuración pedagógica de contenidos y la adaptación de metodologías tradicionales a entornos software interactivos. Este aprendizaje ha sido determinante para el planteamiento de la arquitectura funcional de la aplicación, la definición de los distintos módulos y la elección de las tecnologías empleadas, consolidando una base conceptual sólida sobre la que se ha construido toda la solución.
+\newpage
     \item \textbf{Definir una solución informática que cubra las necesidades detectadas:}  
-    Se ha definido y diseñado una solución coherente que integra backend y frontend, ofreciendo una plataforma funcional que centraliza la gestión académica y la interacción entre usuarios. La arquitectura adoptada permite escalar y extender la aplicación, lo que refuerza la validez de la solución propuesta.
-    La arquitectura y la implementación técnica detalladas en los capítulos~\ref{chap:backend}, \ref{chap:frontend} y \ref{chap:cicd} confirman la viabilidad y solidez de la solución propuesta.
-    \newpage
+    A partir del análisis previo, se ha definido una solución integral basada en una arquitectura cliente-servidor que integra un backend modular y un frontend híbrido multiplataforma. La especificación funcional, la definición de requisitos y el diseño arquitectónico han permitido establecer una estructura coherente, escalable y mantenible, capaz de dar respuesta a las necesidades identificadas. Tal y como se detalla en los capítulos~\ref{chap:backend}, \ref{chap:frontend} y~\ref{chap:cicd}, la arquitectura adoptada y la implementación técnica confirman la viabilidad, robustez y consistencia de la solución propuesta.
+
     \item \textbf{Desarrollar la solución:}  
-    Este objetivo se ha cumplido mediante la implementación completa de la aplicación, abarcando el desarrollo del backend, el frontend híbrido y los procesos de testing y despliegue. La aplicación es funcional, estable y usable, cumpliendo los requisitos definidos durante las fases iniciales del proyecto.
+    Este objetivo se ha materializado mediante la implementación completa del sistema, abarcando el desarrollo del backend, la construcción del frontend híbrido, la integración de mecanismos de seguridad, la automatización de pruebas y la implantación de un flujo de integración y despliegue continuo. El resultado es una aplicación funcional, estable y usable, validada mediante pruebas unitarias y de integración, y preparada para su despliegue en entornos reales, cumpliendo con los requisitos establecidos durante las fases iniciales del proyecto.
 
     \item \textbf{Llevar a cabo el proceso de desarrollo con tecnologías totalmente gratuitas:}  
-    El uso de tecnologías gratuitas y de código abierto ha sido una constante a lo largo del proyecto, tanto en el desarrollo como en el despliegue. No obstante, este enfoque también ha introducido ciertas limitaciones, especialmente en lo relativo a la implantación real en entornos productivos, lo que abre la puerta a futuras mejoras. Aun así, el objetivo puede considerarse cumplido, ya que se ha demostrado la viabilidad de una solución completa sin costes de licencias.
+    A lo largo de todo el proyecto se han empleado exclusivamente tecnologías gratuitas y de código abierto, tanto en el desarrollo como en el despliegue, incluyendo frameworks, herramientas de testing y plataformas de integración continua. Este enfoque ha permitido demostrar la viabilidad de una solución completa sin costes de licencias, si bien también ha puesto de manifiesto ciertas limitaciones en términos de escalabilidad y despliegue en producción, que constituyen una base realista para futuras líneas de mejora. En conjunto, el objetivo se considera plenamente alcanzado.
+
 \end{itemize}
 
-En conjunto, el proyecto ha logrado cumplir el objetivo principal y la mayoría de los subobjetivos planteados han sentado una base sólida para una herramienta informática orientada a la enseñanza del lenguaje musical, con margen de evolución y mejora.
+En conjunto, el proyecto ha logrado cumplir de manera satisfactoria el objetivo principal y los subobjetivos planteados, estableciendo una base sólida para una herramienta informática orientada a la enseñanza del lenguaje musical, con un alto potencial de evolución, mejora y adaptación a contextos educativos reales.
 
 \section{Líneas de trabajo futuro}
 
@@ -3411,7 +3410,6 @@ Sería necesario estudiar aspectos como:
 \end{itemize}
 
 Este trabajo permitiría acercar la aplicación a un uso real en entornos educativos.
-\newpage
 \subsection{Extensión de funcionalidades e innovación}
 
 Otra línea clara de evolución es la ampliación de las funcionalidades actuales, tanto para mejorar la calidad del desarrollo como para ofrecer características innovadoras y atractivas para los usuarios, algunos ejemplos son:
@@ -3460,7 +3458,7 @@ El repositorio incluye:
 El acceso al repositorio se realiza a través del siguiente enlace:
 
 \begin{center}
-\texttt{https://github.com/selugc4/RitmoApp}
+\texttt{https://github.com/selugc4/SolfEdge}
 \end{center}
 
 Este enlace permite verificar de forma directa los aspectos técnicos descritos en la memoria y facilita la reproducibilidad del proyecto en entornos de desarrollo locales.
