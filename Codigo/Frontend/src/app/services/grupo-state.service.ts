@@ -37,7 +37,18 @@ export class GrupoStateService {
     const currentUser = this.authService.currentUserValue;
     if (currentUser) {
       this.grupoService.getGruposByUsuario(currentUser._id).pipe(
-        tap(grupos => this.gruposSubject.next(grupos))
+        tap(grupos => {
+          this.gruposSubject.next(grupos);
+          const currentSelected = this.selectedGrupoSubject.getValue();
+          if (currentSelected) {
+            const updatedSelected = grupos.find(g => g._id === currentSelected._id);
+            if (updatedSelected) {
+              this.setSelectedGrupo(updatedSelected);
+            } else {
+              this.setSelectedGrupo(null);
+            }
+          }
+        })
       ).subscribe();
     }
   }

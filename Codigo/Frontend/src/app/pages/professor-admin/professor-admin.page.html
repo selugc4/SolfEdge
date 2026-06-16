@@ -17,18 +17,27 @@
     <app-gestion-grupos></app-gestion-grupos>
     <ion-card>
       <ion-card-header>
-        <ion-card-title>Comunicación</ion-card-title>
+        <ion-card-title>Gestión y Comunicación</ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        <ion-button expand="block" (click)="navegarAMensajes()">
+        <ion-button expand="block" (click)="presentMensajeModal()" [disabled]="!selectedGrupo" color ="medium">
           <ion-icon slot="start" name="send-outline"></ion-icon>
-          Acceder al perfil y mostrar herramienta de mensajería
+          Enviar mensaje al grupo
         </ion-button>
-        <ion-button expand="block" (click)="navegarACalificaciones()" class="ion-margin-top">
+        <ion-button expand="block" (click)="presentCalificacionGeneralModal()" class="ion-margin-top" [disabled]="!selectedGrupo" color ="medium">
           <ion-icon slot="start" name="ribbon-outline"></ion-icon>
-          Acceder al perfil y mostrar herramienta de calificaciones generales
+          Adjuntar calificación general
         </ion-button>
-        <p class="ion-margin-top">Navegue al perfil para poder acceder a la herramienta de calificaciones generales o mensajería del alumnado y gestionar las notas o los mensajes del grupo actual.</p>
+        <ion-button expand="block" (click)="presentGestionGrupoModal()" class="ion-margin-top" [disabled]="!selectedGrupo" color ="medium">
+          <ion-icon slot="start" name="people-outline"></ion-icon>
+          Gestionar grupo actual
+        </ion-button>
+        @if(!selectedGrupo){
+          <p class="ion-margin-top">Seleccione un grupo para activar las opciones</p>
+        }
+        @else {
+          <p class="ion-margin-top">Utilice estas herramientas para gestionar las notas, enviar mensajes o modificar los detalles del grupo seleccionado.</p>
+        }
       </ion-card-content>
     </ion-card>
   }

@@ -27,9 +27,20 @@
     }
     @else{
       <div>
+        <input type="file" #fileInput (change)="onFileSelected($event)" accept=".pdf" hidden>
         <ion-card>
           <ion-card-header>
             <ion-card-title>Libro del Curso</ion-card-title>
+            @if(isProfessor && hasLibroDeApoyo){
+              <div class="professor-actions">
+                <ion-button fill="clear" (click)="fileInput.click()" class="ion-no-margin">
+                  <ion-icon slot="icon-only" name="cloud-upload-outline" color="medium"></ion-icon>
+                </ion-button>
+                <ion-button fill="clear" (click)="eliminarLibro()" class="ion-no-margin">
+                  <ion-icon slot="icon-only" name="trash-outline" color="danger"></ion-icon>
+                </ion-button>
+              </div>
+            }
           </ion-card-header>
           <ion-card-content>
             <div>
@@ -44,19 +55,14 @@
                         Abrir PDF
                       </ion-button>
                     }
-                    <ion-button expand="block" color="danger" (click)="eliminarLibro()">
-                      Eliminar Libro
-                      <ion-icon slot="start" name="trash-outline"></ion-icon>
-                    </ion-button>
                   }
                   @else{
                     <p>No hay ningún libro de apoyo cargado.</p>
+                    <ion-button expand="block" (click)="fileInput.click()" class="ion-margin-top" color="medium">
+                      <ion-icon slot="start" name="cloud-upload-outline"></ion-icon>
+                      Subir o Reemplazar Libro (PDF)
+                    </ion-button>
                   }
-                  <ion-button expand="block" (click)="fileInput.click()" class="ion-margin-top">
-                    <ion-icon slot="start" name="cloud-upload-outline"></ion-icon>
-                    Subir o Reemplazar Libro (PDF)
-                  </ion-button>
-                  <input type="file" #fileInput (change)="onFileSelected($event)" accept=".pdf" hidden>
               }
               @else{
                 @if(hasLibroDeApoyo){
@@ -89,7 +95,7 @@
             </ion-card-header>
             @if(isProfessor){
               <ion-fab vertical="top" horizontal="end">
-                <ion-fab-button (click)="presentTareaModal()">
+                <ion-fab-button (click)="presentTareaModal()" color="medium">
                   <ion-icon name="add"></ion-icon>
                 </ion-fab-button>
               </ion-fab>

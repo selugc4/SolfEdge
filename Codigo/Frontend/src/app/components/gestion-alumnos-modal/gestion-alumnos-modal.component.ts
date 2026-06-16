@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { ModalController, ToastController, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent, IonList, IonListHeader, IonLabel, IonItem, IonIcon, AlertController } from '@ionic/angular/standalone';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { GrupoStateService } from 'src/app/services/grupo-state.service';
 import { Usuario } from 'src/app/models/usuario.model';
 import { trashOutline } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
@@ -20,6 +21,7 @@ export class GestionAlumnosModalComponent implements OnInit {
   modalController: ModalController = inject(ModalController);
   usuarioService: UsuarioService = inject(UsuarioService);
   authService: AuthService = inject(AuthService);
+  grupoStateService: GrupoStateService = inject(GrupoStateService);
   toastController: ToastController = inject(ToastController);
   alertController: AlertController = inject(AlertController); // Inject AlertController
 
@@ -72,6 +74,7 @@ export class GestionAlumnosModalComponent implements OnInit {
               next: () => {
                 this.presentToast('Alumno eliminado correctamente.', 'success');
                 this.alumnos = this.alumnos.filter(alumno => alumno._id !== alumnoId);
+                this.grupoStateService.refreshGrupos();
               },
               error: (err) => {
                 this.presentToast(`Error al eliminar alumno: ${err.error.error || err.message}`, 'danger');

@@ -25,13 +25,13 @@
         La contraseña es requerida.
       </div>
     }
-    <ion-button expand="block" type="submit" [disabled]="loginForm.invalid" class="ion-margin-top">
+    <ion-button expand="block" type="submit" [disabled]="loginForm.invalid" class="ion-margin-top" color="medium">
       Entrar
       <ion-icon name="send-outline" slot="start"></ion-icon>
     </ion-button>
   </form>
 
-  <ion-button expand="block" fill="clear" (click)="forgotPassword()" class="ion-margin-top">
+  <ion-button expand="block" fill="clear" (click)="forgotPassword()" class="ion-margin-top" color ="medium">
     ¿Has olvidado tu contraseña?
     <ion-icon name="key-outline" slot="start"></ion-icon>
   </ion-button>

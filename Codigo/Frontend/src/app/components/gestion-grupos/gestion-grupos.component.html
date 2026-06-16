@@ -7,7 +7,7 @@
       <ion-input label="Nombre del Grupo" labelPlacement="floating" [(ngModel)]="nombreGrupo" type="text" pattern="^[a-zA-Z0-9_-]*$" (ionInput)="onNombreGrupoInput($event)" maxlength="5"></ion-input>
     </ion-item>
 
-    <ion-button expand="block" class="ion-margin-top" (click)="openSelectAlumnosModal()">
+    <ion-button expand="block" class="ion-margin-top" (click)="openSelectAlumnosModal()" color="medium">
       <ion-icon name="options-outline" slot="start"></ion-icon>
       Seleccionar Alumnos ({{ selectedAlumnos.length }})
     </ion-button>
@@ -26,7 +26,7 @@
         }
       </ion-list>
     }
-    <ion-button expand="block" class="ion-margin-top" (click)="crearGrupo()" [disabled]="!nombreGrupo || selectedAlumnos.length === 0">
+    <ion-button expand="block" class="ion-margin-top" (click)="crearGrupo()" [disabled]="!nombreGrupo || selectedAlumnos.length === 0" color="medium">
       <ion-icon name="add-circle-outline" slot="start"></ion-icon>
       Crear Grupo
     </ion-button>

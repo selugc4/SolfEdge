@@ -298,3 +298,12 @@ ion-card {
   height: 50px;
   --color: var(--ion-color-primary); /* Spinner color */
 }
+
+.group-select-alert {
+  .alert-button-role-cancel {
+    color: var(--ion-color-medium) !important;
+  }
+  .alert-button:not(.alert-button-role-cancel) {
+    display: none !important;
+  }
+}

@@ -20,14 +20,14 @@
           <ion-label position="floating">Correo Electrónico</ion-label>
           <ion-input formControlName="email" type="email" pattern="^\S*$" (ionInput)="onEmailInput($event)" required maxlength="40"></ion-input>
         </ion-item>
-        <ion-button expand="block" type="submit" [disabled]="professorForm.invalid" class="ion-margin-top">
+        <ion-button expand="block" type="submit" [disabled]="professorForm.invalid" class="ion-margin-top" color ="medium">
           Crear Profesor
         </ion-button>
       </form>
-      <ion-button expand="block" (click)="presentGestionProfesoresModal()" class="ion-margin-top">
+      <ion-button expand="block" (click)="presentGestionProfesoresModal()" class="ion-margin-top" color="medium">
         <ion-icon slot="start" name="person-circle-outline"></ion-icon>
         Gestionar Profesores
-      </ion-button>      
+      </ion-button>
     </ion-card-content>
   </ion-card>
 

@@ -20,18 +20,36 @@ ion-card {
   margin-bottom: 24px;
   transition: transform 0.2s ease-in-out;
 
-  &:hover {
-    transform: translateY(-5px);
-  }
-
   ion-card-header {
     background-color: rgba(var(--ion-color-interface-rgb), 0.1);
+    position: relative;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    padding-top: 12px;
+    padding-bottom: 12px;
+
     ion-card-title {
       color: var(--ion-color-heading);
       font-size: 1.5em;
+      margin: 0;
+      text-align: center;
+      width: 100%;
+    }
+
+    .professor-actions {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+
+      ion-button {
+        margin-top: 0;
+        --padding-start: 4px;
+        --padding-end: 4px;
+      }
     }
   }
 

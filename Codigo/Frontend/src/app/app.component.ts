@@ -33,6 +33,14 @@ export class AppComponent implements OnInit {
   modalController: ModalController = inject(ModalController);
   grupoStateService: GrupoStateService = inject(GrupoStateService);
   private platform = inject(Platform);
+
+  groupSelectInterfaceOptions: any = {
+    header: 'Seleccionar Grupo',
+    subHeader: '',
+    message: '',
+    cssClass: 'group-select-alert'
+  };
+
   constructor() {
     addIcons({ briefcaseSharp, logOutSharp, notificationsSharp, peopleSharp, mailSharp });
   }
@@ -51,11 +59,13 @@ export class AppComponent implements OnInit {
       } else {
         this.grupos = [];
         this.selectedGrupo = null;
+        this.updateGroupSelectInterfaceOptions();
       }
     });
 
     this.grupoStateService.grupos$.subscribe(grupos => {
       this.grupos = grupos;
+      this.updateGroupSelectInterfaceOptions();
       if (this.grupos.length > 0 && !this.selectedGrupo) {
         this.grupoStateService.setSelectedGrupo(this.grupos[0]);
       }
@@ -64,6 +74,15 @@ export class AppComponent implements OnInit {
     this.grupoStateService.selectedGrupo$.subscribe(grupo => {
       this.selectedGrupo = grupo;
     });
+  }
+
+  updateGroupSelectInterfaceOptions() {
+    this.groupSelectInterfaceOptions = {
+      header: 'Seleccionar Grupo',
+      subHeader: this.grupos.length === 0 ? 'No hay grupos disponibles' : '',
+      message: this.grupos.length === 0 ? 'Por favor cree un grupo' : '',
+      cssClass: 'group-select-alert'
+    };
   }
 
   onGrupoChange(event: any) {

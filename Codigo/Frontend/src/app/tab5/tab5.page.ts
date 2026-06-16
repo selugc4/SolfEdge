@@ -62,84 +62,19 @@ export class Tab5Page implements OnInit {
   ngOnInit() {
     this.authService.currentUser.subscribe(user => {
       this.currentUser = user;
-      this.grupoService.selectedGrupo$.subscribe(grupo => {
-        if (grupo) {
+      if (user) {
+        this.grupoService.selectedGrupo$.subscribe(grupo => {
           this.selectedGrupo = grupo;
-          if(user?.role === 'alumno'){
-            this.loadAllGrades(user!._id, grupo._id);
+          if (user.role === 'alumno' && grupo) {
+            this.loadAllGrades(user._id, grupo._id);
           }
           this.isLoading = false;
-          this.activatedRoute.queryParams.subscribe(params => {
-            const tool = params['tool'];
-            if (tool) {
-              if (tool === 'mensajes') {
-                this.presentMensajeModal();
-              } else if (tool === 'calificaciones') {
-                this.presentCalificacionGeneralModal();
-              }
-              this.router.navigate([], {
-                relativeTo: this.activatedRoute,
-                queryParams: { tool: null },
-                queryParamsHandling: 'merge'
-              });
-            }
-          });
-        }
-      });
-    });
-  }
-  async presentMensajeModal() {
-    const modal = await this.modalController.create({
-      component: MensajeModalComponent,
-    });
-    modal.present();
-
-    const { data, role } = await modal.onWillDismiss();
-
-    if (role === 'confirm') {
-      if (!this.currentUser) {
-        this.presentToast('Error: ID de profesor no disponible.', 'danger');
-        return;
-      }
-      this.mensajeService.crearMensaje(this.currentUser._id, data.asunto, data.texto, data.alumnoIds).subscribe({
-        next: () => {
-          this.presentToast('Mensaje enviado con éxito.');
-        },
-        error: (err) => {
-          this.presentToast(`Error al enviar mensaje: ${err.error.message || err.message}`, 'danger');
-        }
-      });
-    }
-  }
-
-  async presentGestionGrupoModal() {
-    if (!this.selectedGrupo) {
-      await this.presentToast('Por favor, selecciona un grupo primero.', 'warning');
-      return;
-    }
-
-    const modal = await this.modalController.create({
-      component: GestionGrupoModalComponent,
-      componentProps: {
-        selectedGrupo: this.selectedGrupo
+        });
+      } else {
+        this.isLoading = false;
       }
     });
-    modal.present();
-
-    const { role } = await modal.onWillDismiss();
-
-    if (role === 'confirm') {
-      this.grupoService.refreshGrupos();
-      this.grupoService.grupos$.subscribe(grupos => {
-        if (grupos.length > 0) {
-          this.grupoService.setSelectedGrupo(grupos[0]);
-        } else {
-          this.grupoService.setSelectedGrupo(null);
-        }
-      });
-    }
   }
-
   loadAllGrades(alumnoId: string, grupoId: string) {
     forkJoin({
       continuas: this.calificacionService.getCalificacionesByAlumno(alumnoId, grupoId),
@@ -158,45 +93,6 @@ export class Tab5Page implements OnInit {
   getNotaPorTipo(tipo: 'Q1' | 'Q2' | 'Q3' | 'Ordinaria' | 'Extraordinaria'): number | null {
     const calificacion = this.calificacionesGeneralesList.find(g => g.tipo === tipo);
     return calificacion ? calificacion.nota : null;
-  }
-  async presentCalificacionGeneralModal() {
-    if (!this.selectedGrupo) {
-      await this.presentToast('Por favor, selecciona un grupo primero.', 'warning');
-      return;
-    }
-    if (!this.currentUser!._id) {
-      await this.presentToast('Error: ID de profesor no disponible para calificar.', 'danger');
-      return;
-    }
-
-    const modal = await this.modalController.create({
-      component: CalificacionGeneralModalComponent,
-      componentProps: {
-        grupoId: this.selectedGrupo._id
-      }
-    });
-    modal.present();
-
-    const { data, role } = await modal.onWillDismiss();
-
-    if (role === 'confirm' && data) {
-      this.calificacionGeneralService.crearOActualizarCalificacion(
-        data.alumnoId,
-        this.selectedGrupo._id,
-        data.selectedTipo,
-        data.nota,
-        this.currentUser!._id
-      ).subscribe({
-        next: async (calificacion) => {
-          await this.presentToast(`Calificación '${calificacion.tipo}' guardada para ${data.alumnoUsername}.`);
-        },
-        error: async (err) => {
-          console.error('Error al guardar calificación general:', err);
-          const errorMessage = err.error && err.error.error ? err.error.error : 'Error al guardar la calificación general.';
-          await this.presentToast(errorMessage, 'danger');
-        }
-      });
-    }
   }
   segmentChanged(event: any) {
     this.segmentoSeleccionado = event.detail.value;

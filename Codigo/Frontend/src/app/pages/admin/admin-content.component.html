@@ -34,7 +34,7 @@
                   </ion-text>
                   <div class="ion-margin-vertical">
                     <input type="file" #fileInput (change)="fileSelected($event)" accept=".csv" style="display: none;">
-                    <ion-button expand="block" (click)="fileInput.click()" [disabled]="isLoadingCsv">
+                    <ion-button expand="block" (click)="fileInput.click()" [disabled]="isLoadingCsv" color ="medium">
                       <ion-icon slot="start" name="document-text-outline"></ion-icon>
                       Seleccionar Archivo CSV
                     </ion-button>
@@ -47,7 +47,7 @@
                       </ion-item>
                     }
                   </div>
-                  <ion-button expand="block" (click)="uploadCsv()" [disabled]="!selectedFile || isLoadingCsv" class="ion-margin-top">
+                  <ion-button expand="block" (click)="uploadCsv()" [disabled]="!selectedFile || isLoadingCsv" class="ion-margin-top" color ="medium">
                     <ion-icon slot="start" name="cloud-upload-outline"></ion-icon>
                     Subir CSV
                   </ion-button>
