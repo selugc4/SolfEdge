@@ -1,7 +1,46 @@
+.custom-input {
+  --background: var(--ion-color-light);
+  --border-radius: 8px;
+  --padding-start: 12px;
+  --padding-end: 12px;
+  --padding-top: 8px;
+  --padding-bottom: 8px;
+  margin: 8px;
+  height: auto; /* Ensure it expands to content */
+  
+  ion-label {
+    font-weight: 600;
+    color: var(--ion-color-dark);
+    margin-bottom: 4px; /* Space between label and select */
+  }
+  
+  ion-select {
+    width: 100%;
+    /* Remove fixed height to allow dynamic sizing */
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}
+
+ion-textarea {
+  --padding-top: 8px;
+  --padding-bottom: 8px;
+}
+
+.file-section {
+  border: 1px dashed var(--ion-color-medium);
+  border-radius: 8px;
+  padding: 16px;
+  background-color: rgba(var(--ion-color-light-rgb), 0.5);
+}
 .file-selected {
   color: var(--ion-color-success);
+  font-weight: 500;
+  display: block;
 }
 
 .no-file {
-  color: var(--ion-color-danger);
+  color: var(--ion-color-medium);
+  font-style: italic;
+  display: block;
 }

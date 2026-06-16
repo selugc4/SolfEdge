@@ -14,14 +14,16 @@
       <ion-input formControlName="nombre"></ion-input>
     </ion-item>
 
-    <ion-item>
+    <ion-item (click)="openSelectAlumnosModal()" button>
       <ion-label>Alumnos</ion-label>
-      <ion-select formControlName="alumnos" multiple="true" placeholder="Seleccionar alumnos">
-        @for(alumno of alumnos; track alumno._id){
-          <ion-select-option [value]="alumno._id">{{ alumno.username }}</ion-select-option>
-        }
-      </ion-select>
+      <ion-note slot="end">{{ selectedAlumnos.length > 0 ? selectedAlumnos.length + ' seleccionados' : 'Seleccionar alumnos' }}</ion-note>
     </ion-item>
+    
+    @if(selectedAlumnos.length > 0) {
+      <ion-item lines="none">
+        <ion-label>Seleccionados: {{ selectedUsernamesString }}</ion-label>
+      </ion-item>
+    }
 
     <ion-item>
       <ion-label position="floating">Fecha de Cierre</ion-label>
@@ -30,7 +32,7 @@
 
     <ion-list-header>
       <ion-label>Preguntas</ion-label>
-      <ion-button (click)="addPregunta()" size="small" fill="outline">
+      <ion-button color= "medium"(click)="addPregunta()" size="small" fill="outline">
         <ion-icon slot="start" name="add-circle-outline"></ion-icon>
         Añadir Pregunta
       </ion-button>
@@ -65,7 +67,7 @@
                 accept="audio/mpeg"
                 (change)="onFileSelected($event, i)"
               />
-              <ion-button (click)="fileInput.click()" fill="clear" slot="end">
+              <ion-button color= "medium"(click)="fileInput.click()" fill="clear" slot="end">
                 <ion-icon name="musical-notes-outline"></ion-icon>
               </ion-button>
               @if (preguntaGroup.get('recursoAudicion')?.value || preguntaGroup.get('archivoParaSubir')?.value) {
@@ -124,7 +126,7 @@
             <ion-list-header>
               <ion-label>Posibles Respuestas</ion-label>
               @if(getPosiblesRespuestas(i).length < 4){
-                <ion-button (click)="addRespuesta(i)" size="small" fill="outline">
+                <ion-button color ="medium" (click)="addRespuesta(i)" size="small" fill="outline">
                   <ion-icon slot="start" name="add-circle-outline"></ion-icon>
                   Añadir
                 </ion-button>
@@ -151,7 +153,7 @@
       }
     </div>
 
-    <ion-button expand="block" type="submit" [disabled]="form.invalid" class="ion-margin-top">
+    <ion-button color="medium" expand="block" type="submit" [disabled]="form.invalid" class="ion-margin-top">
       <ion-icon slot="start" name="{{isEditMode ? 'checkmark-circle-outline': 'add-circle-outline'}}"></ion-icon>
       {{ isEditMode ? 'Guardar Cambios' : 'Crear Cuestionario' }}
     </ion-button>

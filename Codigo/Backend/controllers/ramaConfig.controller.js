@@ -16,7 +16,8 @@ exports.getRamaPdf = async (id) => {
     try {
         const rama = await RamaConfig.findById(id).select('libroDeApoyo');
         if (!rama || !rama.libroDeApoyo) {
-            return { status: 404, body: { error: `PDF no encontrado para la rama con ID '${id}'.` } };
+            // Return 204 instead of 404 to avoid console error
+            return { status: 204, body: null };
         }
         // El PDF está en Base64, lo decodificamos y enviamos como buffer binario
         const pdfBuffer = Buffer.from(rama.libroDeApoyo, 'base64');

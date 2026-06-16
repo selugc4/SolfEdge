@@ -14,7 +14,10 @@
     </ion-list-header>
     @for(alumno of selectedGrupo?.alumnos; track alumno._id){
       <ion-item>
-        <ion-label>{{ alumno.username }}</ion-label>
+        <ion-label>
+          <h2>{{ alumno.username }}</h2>
+          <p>{{ alumno.email }}</p>
+        </ion-label>
       </ion-item>
     }
   </ion-list>

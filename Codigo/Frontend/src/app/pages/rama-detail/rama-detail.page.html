@@ -50,7 +50,7 @@
                       <iframe [src]="pdfUrl" width="100%" height="500px"></iframe>
                     }
                     @else {
-                      <ion-button expand="block" (click)="openPdf()">
+                      <ion-button expand="block" (click)="openPdf()" color="medium">
                         <ion-icon name="document-text-outline" slot="start"></ion-icon>
                         Abrir PDF
                       </ion-button>
@@ -70,7 +70,7 @@
                     <iframe [src]="pdfUrl" width="100%" height="500px"></iframe>
                   }
                   @else {
-                    <ion-button expand="block" (click)="openPdf()">
+                    <ion-button expand="block" (click)="openPdf()" color="medium">
                       <ion-icon name="document-text-outline" slot="start"></ion-icon>
                       Abrir PDF
                     </ion-button>
@@ -85,7 +85,7 @@
         </ion-card>
         @if(isTeoria){
         <ion-item>
-          <ion-toggle [(ngModel)]="useCuestionarios" justify="space-between">Usar Cuestionarios</ion-toggle>
+          <ion-toggle [(ngModel)]="useCuestionarios" justify="space-between" color="">Usar Cuestionarios</ion-toggle>
         </ion-item>
         }
         @if(!useCuestionarios){
@@ -161,7 +161,7 @@
             </ion-card-header>
             @if(isProfessor && isTeoria){
               <ion-fab vertical="top" horizontal="end">
-                <ion-fab-button (click)="presentCuestionarioModal()">
+                <ion-fab-button (click)="presentCuestionarioModal()" color="medium">
                   <ion-icon name="add"></ion-icon>
                 </ion-fab-button>
               </ion-fab>

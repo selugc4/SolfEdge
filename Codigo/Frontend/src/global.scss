@@ -299,11 +299,17 @@ ion-card {
   --color: var(--ion-color-primary); /* Spinner color */
 }
 
-.group-select-alert {
-  .alert-button-role-cancel {
+/* Alert Buttons Customization */
+.alert-wrapper {
+  .alert-button.alert-cancel-button {
     color: var(--ion-color-medium) !important;
   }
-  .alert-button:not(.alert-button-role-cancel) {
-    display: none !important;
+  .alert-button.alert-delete-button {
+    color: var(--ion-color-danger) !important;
+    font-weight: bold !important;
+  }
+  .alert-button.alert-warning-button {
+    color: var(--ion-color-warning) !important;
+    font-weight: bold !important;
   }
 }

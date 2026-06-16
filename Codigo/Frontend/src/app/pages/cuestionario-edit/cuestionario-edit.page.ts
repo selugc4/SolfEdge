@@ -11,17 +11,20 @@ import { CuestionarioService } from '../../services/cuestionario.service';
 import { GrupoService } from '../../services/grupo.service';
 import { AuthService } from '../../services/auth.service';
 import { CuestionarioStateService } from '../../services/cuestionario-state.service';
-import { IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonItem, IonLabel, IonSelect, IonSelectOption, IonListHeader, IonIcon, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonInput, IonTextarea, ToastController, IonRadioGroup, IonRadio, IonText } from "@ionic/angular/standalone";
+import { IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonItem, IonLabel, IonSelect, IonSelectOption, IonListHeader, IonIcon, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonInput, IonTextarea, ToastController, IonRadioGroup, IonRadio, IonText, IonNote } from "@ionic/angular/standalone";
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { addIcons } from 'ionicons';
 import { addCircleOutline, trashOutline, musicalNotesOutline, closeCircleOutline, checkmarkCircleOutline } from 'ionicons/icons';
+
+import { ModalController } from "@ionic/angular/standalone";
+import { SelectAlumnosModalComponent } from '../../components/select-alumnos-modal/select-alumnos-modal.component';
 
 @Component({
   selector: 'app-cuestionario-edit',
   templateUrl: './cuestionario-edit.page.html',
   styleUrls: ['./cuestionario-edit.page.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonItem, IonLabel, IonSelect, IonSelectOption, IonListHeader, IonIcon, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonInput, IonTextarea, IonRadioGroup, IonRadio, IonText]
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonItem, IonLabel, IonListHeader, IonIcon, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonInput, IonTextarea, IonRadioGroup, IonRadio, IonText, IonNote]
 })
 export class CuestionarioEditPage implements OnInit {
   private route = inject(ActivatedRoute);
@@ -33,12 +36,14 @@ export class CuestionarioEditPage implements OnInit {
   private toastCtrl = inject(ToastController);
   private cuestionarioStateService = inject(CuestionarioStateService);
   private domSanitizer: DomSanitizer = inject(DomSanitizer);
+  private modalCtrl = inject(ModalController);
   form: FormGroup;
   isEditMode = false;
   cuestionarioId: string | null = null;
   rama: string | null = null;
   grupoId: string | null = null;
   alumnos: Partial<Usuario>[] = [];
+  selectedAlumnos: Usuario[] = [];
   pageTitle = 'Crear Cuestionario';
   minDate: string;
   private today = new Date();
@@ -53,6 +58,27 @@ export class CuestionarioEditPage implements OnInit {
       fechaCierre: [null]
     });
     addIcons({ addCircleOutline, trashOutline, musicalNotesOutline, closeCircleOutline, checkmarkCircleOutline });
+  }
+
+  get selectedUsernamesString(): string {
+    return this.selectedAlumnos.map(a => a.username).join(', ');
+  }
+
+  async openSelectAlumnosModal() {
+    const modal = await this.modalCtrl.create({
+      component: SelectAlumnosModalComponent,
+      componentProps: {
+        multiple: true,
+        previouslySelectedAlumnos: this.selectedAlumnos,
+        fetchAllAlumnos: false
+      }
+    });
+    await modal.present();
+    const { data, role } = await modal.onDidDismiss();
+    if (role === 'confirm') {
+      this.selectedAlumnos = data;
+      this.form.get('alumnos')?.setValue(this.selectedAlumnos.map(a => a._id));
+    }
   }
 
   ngOnInit() {
@@ -100,6 +126,14 @@ export class CuestionarioEditPage implements OnInit {
 
   get preguntas() {
     return this.form.get('preguntas') as FormArray;
+  }
+
+  getSelectedUsernames(): string {
+    const selectedIds = this.form.get('alumnos')?.value || [];
+    return this.alumnos
+      .filter(a => selectedIds.includes(a._id))
+      .map(a => a.username)
+      .join(', ');
   }
 
   addPregunta(pregunta?: Pregunta) {

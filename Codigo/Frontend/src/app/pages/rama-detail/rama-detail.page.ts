@@ -5,7 +5,7 @@ import { ActivatedRoute, RouterModule, Router } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { AlertController, IonButtons, IonMenuButton, ModalController, ToastController, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonList, IonItem, IonLabel, IonIcon, IonToggle, IonSpinner, IonFab, IonFabButton, ActionSheetController } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { add, addCircleOutline, cloudUploadOutline, createOutline, documentTextOutline, ribbonOutline, trashOutline, checkmarkCircleOutline, closeCircleOutline, ellipsisVertical } from 'ionicons/icons';
+import { add, addCircleOutline, cloudUploadOutline, createOutline, documentTextOutline, ribbonOutline, trashOutline, checkmarkCircleOutline, closeCircleOutline, ellipsisVertical, closeOutline } from 'ionicons/icons';
 
 import { RamaConfigService } from '../../services/rama-config.service';
 import { TareaService } from '../../services/tarea.service';
@@ -14,7 +14,7 @@ import { CuestionarioService } from '../../services/cuestionario.service';
 import { AuthService } from '../../services/auth.service';
 import { GrupoStateService } from '../../services/grupo-state.service';
 import { TareaStateService } from '../../services/tarea-state.service';
-import { Subscription } from 'rxjs';
+import { Subscription, Subject, forkJoin, of } from 'rxjs';
 
 import { RamaConfig } from '../../models/rama-config.model';
 import { Tarea } from '../../models/tarea.model';
@@ -23,8 +23,7 @@ import { Grupo } from '../../models/grupo.model';
 
 import { TareaModalComponent } from '../../components/tarea-modal/tarea-modal.component';
 import { EntregarTareaModalComponent } from '../../components/entregar-tarea-modal/entregar-tarea-modal.component';
-import { forkJoin, of } from 'rxjs';
-import { finalize, switchMap, tap } from 'rxjs/operators';
+import { finalize, switchMap, tap, take, takeUntil } from 'rxjs/operators';
 import { Filesystem, Directory } from '@capacitor/filesystem';
 import { FileOpener } from '@capacitor-community/file-opener';
 
@@ -65,8 +64,7 @@ export class RamaDetailPage implements OnDestroy {
   private readonly zone: NgZone = inject(NgZone);
   private readonly cuestionarioStateService: CuestionarioStateService = inject(CuestionarioStateService);
   private readonly tareaStateService: TareaStateService = inject(TareaStateService);
-  private cuestionarioSubscription: Subscription | undefined;
-  private tareaSubscription: Subscription | undefined;
+  private destroy$ = new Subject<void>();
   isMobile= false;
   nonSafeUrl: string = '';
   actionSheetCtrl: ActionSheetController = inject(ActionSheetController);
@@ -82,14 +80,15 @@ export class RamaDetailPage implements OnDestroy {
       trashOutline,
       checkmarkCircleOutline,
       closeCircleOutline,
-      ellipsisVertical
+      ellipsisVertical,
+      closeOutline
     });
 
-    this.tareaSubscription = this.tareaStateService.tareaModified$.subscribe(() => {
+    this.tareaStateService.tareaModified$.pipe(takeUntil(this.destroy$)).subscribe(() => {
       this.loadTareas().subscribe();
     });
 
-    this.cuestionarioSubscription = this.cuestionarioStateService.cuestionarioModified$.subscribe(() => {
+    this.cuestionarioStateService.cuestionarioModified$.pipe(takeUntil(this.destroy$)).subscribe(() => {
       this.loadCuestionarios().subscribe();
     });
   }
@@ -97,12 +96,8 @@ export class RamaDetailPage implements OnDestroy {
 
   }
   ngOnDestroy() {
-    if (this.tareaSubscription) {
-      this.tareaSubscription.unsubscribe();
-    }
-    if (this.cuestionarioSubscription) {
-      this.cuestionarioSubscription.unsubscribe();
-    }
+    this.destroy$.next();
+    this.destroy$.complete();
     if (this.nonSafeUrl) {
       URL.revokeObjectURL(this.nonSafeUrl);
     }
@@ -116,12 +111,13 @@ export class RamaDetailPage implements OnDestroy {
     this.isMobile = window.matchMedia('(max-width: 1368px)').matches;
   }
 async openPdf(): Promise<void> {
-  try {
-    if (!this.libroBlob) {
-      await this.presentToast('No hay PDF disponible para abrir.', 'danger');
-      return;
-    }
+  if (!this.libroBlob) {
+    await this.presentToast('No hay PDF disponible para abrir.', 'danger');
+    return;
+  }
 
+  try {
+    // Intentar usar el plugin nativo de Capacitor (para móviles)
     const base64 = await this.blobToBase64(this.libroBlob);
     const fileName = `libro-apoyo-${this.ramaConfig?._id || 'rama'}.pdf`;
 
@@ -138,8 +134,11 @@ async openPdf(): Promise<void> {
       openWithDefault: true,
     });
   } catch (e) {
-    console.error(e);
-    await this.presentToast('No se pudo abrir el PDF en este dispositivo.', 'danger');
+    // Si falla el plugin (por ejemplo, en un navegador de PC), abrir en una nueva pestaña
+    console.warn('Plugin nativo no disponible, abriendo en el navegador:', e);
+    const url = URL.createObjectURL(this.libroBlob);
+    window.open(url, '_blank');
+    // Nota: El navegador gestionará la liberación del objeto o se liberará al cerrar la pestaña
   }
 }
 
@@ -181,7 +180,8 @@ async openPdf(): Promise<void> {
       },
       {
         text: 'Cancelar',
-        role: 'cancel'
+        role: 'cancel',
+        icon: 'close-outline'
       }
     );
 
@@ -226,7 +226,8 @@ async openPdf(): Promise<void> {
       },
       {
         text: 'Cancelar',
-        role: 'cancel'
+        role: 'cancel',
+        icon: 'close-outline'
       }
     );
 
@@ -235,21 +236,29 @@ async openPdf(): Promise<void> {
   }
   ionViewWillEnter() {
     this.isLoading = true;
-    this.route.data.subscribe(data => {
+    this.destroy$ = new Subject<void>(); // New subject for this entry
+
+    this.route.data.pipe(takeUntil(this.destroy$)).subscribe(data => {
       this.title = data['title'];
       this.ramaNombre = data['ramaNombre'];
       this.isTeoria = this.ramaNombre === 'Teoria';
     });
 
-    this.authService.currentUser.subscribe(user => {
+    this.authService.currentUser.pipe(take(1)).subscribe(user => {
       if (user) {
         this.isProfessor = user.role === 'profesor';
         this.userId = user._id;
-        this.grupoStateService.selectedGrupo$.subscribe(grupo => {
+
+        this.grupoStateService.selectedGrupo$.pipe(takeUntil(this.destroy$)).subscribe(grupo => {
           this.selectedGrupo = grupo;
           if (grupo) {
-            this.isLoading = true;
+            // Check if already loaded, but set isLoading to false first!
+            if (this.ramaConfig && this.ramaConfig.grupo === grupo._id) {
+              this.isLoading = false;
+              return;
+            }
 
+            this.isLoading = true;
             this.loadRamaConfig(grupo._id).pipe(
               switchMap(() =>
                 forkJoin([
@@ -259,13 +268,9 @@ async openPdf(): Promise<void> {
               ),
               finalize(() => {
                 this.isLoading = false;
-              })
-            ).subscribe({
-              error: (err) => {
-                console.error('Error cargando datos', err);
-              }
-            });
-
+              }),
+              takeUntil(this.destroy$)
+            ).subscribe();
           } else {
             this.tareas = [];
             this.cuestionarios = [];
@@ -281,19 +286,33 @@ async openPdf(): Promise<void> {
       }
     });
   }
+
+  ionViewWillLeave() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
   loadRamaConfig(grupoId: string) {
     return this.ramaConfigService.getAllRamas().pipe(
       tap(ramas => {
         this.ramaConfig = ramas.find(r => r.nombre === this.ramaNombre && r.grupo === grupoId);
+
         if (this.ramaConfig) {
           this.ramaConfigService.getRamaPdf(this.ramaConfig._id).subscribe({
             next: (pdfBlob) => {
-              this.libroBlob = pdfBlob;
-              this.nonSafeUrl = URL.createObjectURL(pdfBlob);
-              this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.nonSafeUrl);
-              this.hasLibroDeApoyo = true;
+              if (pdfBlob && pdfBlob.size > 0) {
+                this.libroBlob = pdfBlob;
+                this.nonSafeUrl = URL.createObjectURL(pdfBlob);
+                this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.nonSafeUrl);
+                this.hasLibroDeApoyo = true;
+              } else {
+                // PDF is empty (204 No Content)
+                this.pdfUrl = null;
+                this.hasLibroDeApoyo = false;
+              }
             },
-            error: () => {
+            error: (err) => {
+              console.error('Error cargando el PDF:', err);
               this.pdfUrl = null;
               this.hasLibroDeApoyo = false;
             }
@@ -346,9 +365,10 @@ async openPdf(): Promise<void> {
       header: 'Confirmar Eliminación',
       message: '¿Estás seguro de que quieres eliminar el libro de apoyo?',
       buttons: [
-        { text: 'Cancelar', role: 'cancel' },
+        { text: 'Cancelar', role: 'cancel', cssClass: 'alert-cancel-button' },
         {
           text: 'Eliminar',
+          cssClass: 'alert-delete-button',
           handler: () => {
             if (this.ramaConfig) {
               this.ramaConfigService.updateRamaPdf(this.ramaConfig._id, null).subscribe({
@@ -380,9 +400,10 @@ async openPdf(): Promise<void> {
       header: 'Confirmar Eliminación',
       message: '¿Estás seguro de que quieres eliminar esta tarea?',
       buttons: [
-        { text: 'Cancelar', role: 'cancel' },
+        { text: 'Cancelar', role: 'cancel', cssClass: 'alert-cancel-button' },
         {
           text: 'Eliminar',
+          cssClass: 'alert-delete-button',
           handler: () => {
             this.tareaService.deleteTarea(tareaId).subscribe(() => {
               this.zone.run(() => {
@@ -402,9 +423,10 @@ async openPdf(): Promise<void> {
       header: 'Confirmar Eliminación',
       message: '¿Estás seguro de que quieres eliminar este cuestionario?',
       buttons: [
-        { text: 'Cancelar', role: 'cancel' },
+        { text: 'Cancelar', role: 'cancel', cssClass: 'alert-cancel-button' },
         {
           text: 'Eliminar',
+          cssClass: 'alert-delete-button',
           handler: () => {
             this.cuestionarioService.deleteCuestionario(cuestionarioId).subscribe(() => {
               this.zone.run(() => {
@@ -424,9 +446,10 @@ async openPdf(): Promise<void> {
       header: 'Confirmar Cierre',
       message: '¿Estás seguro de que quieres cerrar esta tarea? No se aceptarán más entregas.',
       buttons: [
-        { text: 'Cancelar', role: 'cancel' },
+        { text: 'Cancelar', role: 'cancel', cssClass: 'alert-cancel-button' },
         {
           text: 'Cerrar',
+          cssClass: 'alert-warning-button',
           handler: () => {
             this.tareaService.closeTarea(tareaId).subscribe(() => {
               this.zone.run(() => {
@@ -446,9 +469,10 @@ async openPdf(): Promise<void> {
       header: 'Confirmar Cierre',
       message: '¿Estás seguro de que quieres cerrar este cuestionario? No se aceptarán más entregas.',
       buttons: [
-        { text: 'Cancelar', role: 'cancel' },
+        { text: 'Cancelar', role: 'cancel', cssClass: 'alert-cancel-button' },
         {
           text: 'Cerrar',
+          cssClass: 'alert-warning-button',
           handler: () => {
             this.cuestionarioService.closeCuestionario(cuestionarioId).subscribe(() => {
               this.zone.run(() => {

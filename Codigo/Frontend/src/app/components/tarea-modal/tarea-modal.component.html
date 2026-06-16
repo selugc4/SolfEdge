@@ -7,44 +7,52 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
   <form [formGroup]="form" (ngSubmit)="confirm()">
-    <ion-item>
-      <ion-label position="floating">Título</ion-label>
-      <ion-input formControlName="titulo" required></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label position="floating">Descripción</ion-label>
-      <ion-textarea formControlName="descripcion"></ion-textarea>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Fecha de Cierre</ion-label>
-      <ion-input type="date" formControlName="fechaCierre" [min]="minDate"></ion-input>
-    </ion-item>
-    @if(currentGroup && studentsInSelectedGroups.length > 0){
-      <ion-item>
-        <ion-select label="Alumnos del Grupo" multiple="true" formControlName="selectedStudentsFromGroups" (ionChange)="onStudentsFromGroupsChange($event)">
-          @for(alumno of studentsInSelectedGroups; ; track i; let i = $index) {
-            <ion-select-option [value]="alumno._id">{{ alumno.username }}</ion-select-option>
-          }
-
-        </ion-select>
+    <ion-list lines="none">
+      <ion-item class="custom-input">
+        <ion-label position="stacked">Título</ion-label>
+        <ion-input formControlName="titulo" required placeholder="Introduce el título de la tarea"></ion-input>
       </ion-item>
-    }
+
+      <ion-item class="custom-input ion-margin-top">
+        <ion-label position="stacked">Descripción</ion-label>
+        <ion-textarea formControlName="descripcion" rows="4" placeholder="Describe la tarea..."></ion-textarea>
+      </ion-item>
+
+      <ion-item class="custom-input ion-margin-top">
+        <ion-label position="stacked">Fecha de Cierre</ion-label>
+        <ion-input type="date" formControlName="fechaCierre" [min]="minDate"></ion-input>
+      </ion-item>
+
+      @if(currentGroup && studentsInSelectedGroups.length > 0){
+        <ion-item class="custom-input ion-margin-top">
+          <ion-label position="stacked">Alumnos del Grupo</ion-label>
+          <ion-select multiple="true" formControlName="selectedStudentsFromGroups" (ionChange)="onStudentsFromGroupsChange($event)">
+            @for(alumno of studentsInSelectedGroups; track i; let i = $index) {
+              <ion-select-option [value]="alumno._id">{{ alumno.username }}</ion-select-option>
+            }
+          </ion-select>
+        </ion-item>
+      }
+    </ion-list>
+
+    <div class="file-section ion-margin-top">
       <input type="file" #fileInput (change)="onFileSelected($event)" accept="application/pdf" style="display: none;">
-      <ion-button expand="block" (click)="fileInput.click()">
+      <ion-button expand="block" (click)="fileInput.click()" color="medium" fill="outline">
         <ion-icon slot="start" name="document-attach-outline"></ion-icon>
-        Subir Archivo (PDF)
+        {{ (selectedFile || (tarea && tarea.materialDeApoyo)) ? 'Sustituir PDF' : 'Subir Archivo (PDF)' }}
       </ion-button>
-      <div class="file-status ion-padding-top">
+      <div class="file-status ion-padding-top ion-text-center">
         @if(selectedFile) {
           <span class="file-selected">Archivo Seleccionado: {{ selectedFile.name }}</span>
-        }
-        @else {
-          <span class="no-file">Archivo seleccionado: No</span>
+        } @else if (tarea && tarea.materialDeApoyo) {
+          <span class="file-selected">La tarea ya tiene PDF</span>
+        } @else {
+          <span class="no-file">Ningún archivo seleccionado</span>
         }
       </div>
+    </div>
   </form>
 </ion-content>
 

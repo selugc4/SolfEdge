@@ -9,7 +9,7 @@ import { AuthService } from '../../services/auth.service';
 import { UsuarioService } from '../../services/usuario.service';
 import { GrupoService } from '../../services/grupo.service';
 import { TareaService } from 'src/app/services/tarea.service';
-import { IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent, IonItem, IonLabel, IonSelectOption, IonInput, IonFooter, ModalController, ToastController, IonTextarea, IonSelect, IonIcon } from "@ionic/angular/standalone";
+import { IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent, IonItem, IonLabel, IonSelectOption, IonInput, IonFooter, ModalController, ToastController, IonTextarea, IonSelect, IonIcon, IonList } from "@ionic/angular/standalone";
 import { documentAttachOutline } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
 @Component({
@@ -17,7 +17,7 @@ import { addIcons } from 'ionicons';
   templateUrl: './tarea-modal.component.html',
   styleUrls: ['./tarea-modal.component.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent, IonItem, IonLabel, IonSelectOption, IonInput, IonFooter, IonTextarea, IonSelect, IonIcon]
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent, IonItem, IonLabel, IonSelectOption, IonInput, IonFooter, IonTextarea, IonSelect, IonIcon, IonList]
 })
 export class TareaModalComponent implements OnInit {
   @Input() tarea: Tarea | null = null;

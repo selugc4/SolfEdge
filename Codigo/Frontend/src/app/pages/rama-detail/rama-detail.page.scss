@@ -94,6 +94,17 @@ ion-button {
 .mobile-only {
   display: none;
 }
+.alert-cancel-button {
+  --color: var(--ion-color-medium);
+}
+.alert-delete-button {
+  --color: var(--ion-color-danger);
+  font-weight: bold;
+}
+.alert-warning-button {
+  --color: var(--ion-color-warning);
+  font-weight: bold;
+}
 @media (max-width: 767px) {
   .desktop-only {
     display: none;

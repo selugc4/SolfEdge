@@ -1,9 +1,10 @@
 .placeholder {
   color: var(--ion-color-medium);
 }
-
+.listPadding {
+  padding-left: 10px;
+}
 .selected-alumnos-list {
-  background-color: #EDF4F1;
   border-radius: 8px;
   margin-top: 10px;
   padding: 5px 0;

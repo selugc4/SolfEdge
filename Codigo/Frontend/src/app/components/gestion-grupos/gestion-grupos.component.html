@@ -18,7 +18,10 @@
         </ion-list-header>
         @for(alumno of selectedAlumnos; ; track i; let i = $index) {
           <ion-item>
-            <ion-label>{{ alumno.username }} ({{ alumno.email }})</ion-label>
+            <ion-label>
+              <h2>{{ alumno.username }}</h2>
+              <p>{{ alumno.email }}</p>
+            </ion-label>
             <ion-button slot="end" fill="clear" color="danger" (click)="removeAlumno(alumno)">
               <ion-icon name="close-circle-outline"></ion-icon>
             </ion-button>
