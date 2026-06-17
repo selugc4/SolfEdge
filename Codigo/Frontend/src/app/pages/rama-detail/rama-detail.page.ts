@@ -1,4 +1,4 @@
-import { Component, HostListener, inject, NgZone, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, inject, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterModule, Router } from '@angular/router';
@@ -23,6 +23,7 @@ import { Grupo } from '../../models/grupo.model';
 
 import { TareaModalComponent } from '../../components/tarea-modal/tarea-modal.component';
 import { EntregarTareaModalComponent } from '../../components/entregar-tarea-modal/entregar-tarea-modal.component';
+import { MetronomeComponent } from '../../components/metronome/metronome.component';
 import { finalize, switchMap, tap, take, takeUntil } from 'rxjs/operators';
 import { Filesystem, Directory } from '@capacitor/filesystem';
 import { FileOpener } from '@capacitor-community/file-opener';
@@ -32,9 +33,10 @@ import { FileOpener } from '@capacitor-community/file-opener';
   templateUrl: './rama-detail.page.html',
   styleUrls: ['./rama-detail.page.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, IonButtons, IonMenuButton, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonIcon, IonList, IonItem, IonLabel, IonButtons, RouterModule, IonToggle, IonSpinner, IonFab, IonFabButton] // Added IonSpinner
+  imports: [CommonModule, FormsModule, IonButtons, IonMenuButton, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonIcon, IonList, IonItem, IonLabel, IonButtons, RouterModule, IonToggle, IonSpinner, IonFab, IonFabButton, MetronomeComponent] // Added IonSpinner
 })
 export class RamaDetailPage implements OnDestroy {
+  @ViewChild(MetronomeComponent) metronome?: MetronomeComponent;
   title: string = '';
   readonly RAMA_NOMBRE = 'Teoria';
   ramaNombre: string = '';
@@ -45,6 +47,7 @@ export class RamaDetailPage implements OnDestroy {
   isProfessor = false;
   userId: string = '';
   selectedGrupo: Grupo | null = null;
+  loadingGroup: string | null = null;
   pdfUrl: SafeResourceUrl | null = null;
   hasLibroDeApoyo = false;
   useCuestionarios = false;
@@ -252,12 +255,13 @@ async openPdf(): Promise<void> {
         this.grupoStateService.selectedGrupo$.pipe(takeUntil(this.destroy$)).subscribe(grupo => {
           this.selectedGrupo = grupo;
           if (grupo) {
-            // Check if already loaded, but set isLoading to false first!
-            if (this.ramaConfig && this.ramaConfig.grupo === grupo._id) {
+            // Check if already loaded or loading
+            if (this.loadingGroup === grupo._id || (this.ramaConfig && this.ramaConfig.grupo === grupo._id)) {
               this.isLoading = false;
               return;
             }
 
+            this.loadingGroup = grupo._id;
             this.isLoading = true;
             this.loadRamaConfig(grupo._id).pipe(
               switchMap(() =>
@@ -268,6 +272,7 @@ async openPdf(): Promise<void> {
               ),
               finalize(() => {
                 this.isLoading = false;
+                this.loadingGroup = null;
               }),
               takeUntil(this.destroy$)
             ).subscribe();
@@ -278,6 +283,7 @@ async openPdf(): Promise<void> {
             this.pdfUrl = null;
             this.hasLibroDeApoyo = false;
             this.isLoading = false;
+            this.loadingGroup = null;
           }
           this.checkIsMobile();
         });
@@ -288,6 +294,7 @@ async openPdf(): Promise<void> {
   }
 
   ionViewWillLeave() {
+    this.metronome?.stop();
     this.destroy$.next();
     this.destroy$.complete();
   }

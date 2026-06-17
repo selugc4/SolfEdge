@@ -15,12 +15,14 @@ import { AuthService } from '../../services/auth.service';
 import { GrupoStateService } from '../../services/grupo-state.service';
 import { TareaStateService } from '../../services/tarea-state.service';
 import { TareaModalComponent } from '../../components/tarea-modal/tarea-modal.component';
+import { MetronomeComponent } from '../../components/metronome/metronome.component';
 
 describe('RamaDetailPage', () => {
   let component: RamaDetailPage;
   let fixture: ComponentFixture<RamaDetailPage>;
   let modalController: ModalController;
   let alertController: AlertController;
+  let metronomeSpy: jasmine.SpyObj<MetronomeComponent>;
 
   // Mock services
   const ramaConfigServiceMock = {
@@ -75,6 +77,8 @@ describe('RamaDetailPage', () => {
 
     fixture = TestBed.createComponent(RamaDetailPage);
     component = fixture.componentInstance;
+    metronomeSpy = jasmine.createSpyObj('MetronomeComponent', ['stop']);
+    component.metronome = metronomeSpy;
     modalController = TestBed.inject(ModalController);
     alertController = TestBed.inject(AlertController);
   }));
@@ -103,6 +107,11 @@ describe('RamaDetailPage', () => {
   it('should present delete confirmation alert for a task', async () => {
     await component.deleteTarea('tarea1');
     expect(alertController.create).toHaveBeenCalled();
+  });
+
+  it('should call stop on metronome when leaving view', () => {
+    component.ionViewWillLeave();
+    expect(metronomeSpy.stop).toHaveBeenCalled();
   });
 
 });

@@ -1,0 +1,12 @@
+<ion-item>
+  <ion-label>Metrónomo ({{bpm}} BPM)</ion-label>
+  <ion-button slot="end" (click)="toggleMetronome()" color="medium">
+    <ion-icon slot="icon-only" [name]="isPlaying ? 'square' : 'play'"></ion-icon>
+  </ion-button>
+</ion-item>
+<ion-item>
+  <ion-range min="40" max="220" [(ngModel)]="bpm" color="medium">
+    <ion-label slot="start">40</ion-label>
+    <ion-label slot="end">220</ion-label>
+  </ion-range>
+</ion-item>

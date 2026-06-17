@@ -8,6 +8,7 @@
 </ion-header>
 
 <ion-content class="ion-padding">
+
   @if(isLoading){
     <div class="loading-container">
       <ion-spinner name="crescent"></ion-spinner>
@@ -83,6 +84,10 @@
             </div>
           </ion-card-content>
         </ion-card>
+
+        @if (ramaNombre === 'Ritmo' && !isProfessor) {
+          <app-metronome></app-metronome>
+        }
         @if(isTeoria){
         <ion-item>
           <ion-toggle [(ngModel)]="useCuestionarios" justify="space-between" color="medium">Usar Cuestionarios</ion-toggle>
