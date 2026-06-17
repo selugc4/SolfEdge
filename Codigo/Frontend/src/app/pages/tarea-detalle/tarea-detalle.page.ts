@@ -100,6 +100,7 @@ export class TareaDetallePage implements OnInit {
     this.tareaService.getTareaById(tareaId).subscribe({
       next: (tarea) => {
         this.tarea = tarea;
+        console.log('Tarea recibida:', tarea); // Debug
         if (this.isProfessor) {
           this.loadEntregas(tareaId);
         }
@@ -116,9 +117,14 @@ export class TareaDetallePage implements OnInit {
         }
 
         if (this.tarea.materialDeApoyo) {
-          const pdfBlob = this.b64toBlob(this.tarea.materialDeApoyo, 'application/pdf');
-          this.nonSafeUrl = URL.createObjectURL(pdfBlob);
-          this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.nonSafeUrl);
+            // Now rama is populated, we can access rama.nombre
+            const ramaNombre = (this.tarea.rama as any).nombre;
+            const isAudio = ramaNombre && ramaNombre.includes('Entonación');
+            const mimeType = isAudio ? 'audio/mpeg' : 'application/pdf';
+            
+            const blob = this.b64toBlob(this.tarea.materialDeApoyo, mimeType);
+            this.nonSafeUrl = URL.createObjectURL(blob);
+            this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.nonSafeUrl);
         }
       },
       error: (err) => {

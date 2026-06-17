@@ -197,7 +197,7 @@ exports.deleteTarea = async (tareaId) => {
 
 exports.getTareaById = async (tareaId) => {
     try {
-        const tarea = await Tarea.findById(tareaId);
+        const tarea = await Tarea.findById(tareaId).populate('rama');
         if (!tarea) {
             return { status: 404, body: { error: 'Tarea no encontrada.' } };
         }

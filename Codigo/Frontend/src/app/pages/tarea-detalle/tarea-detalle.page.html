@@ -43,17 +43,24 @@
         }
 
         @if(pdfUrl){
-          @if(!isMobile){
-            <div class="pdf-viewer-container">
-              <h3>Material de Apoyo (PDF)</h3>
-              <iframe [src]="pdfUrl" width="100%" height="500px" frameborder="0"></iframe>
+          @if(tarea.rama && tarea.rama === 'Entonación'){
+            <div class="audio-player-container">
+              <h3>Material de Apoyo (Audio)</h3>
+              <audio controls [src]="pdfUrl" style="width: 100%"></audio>
             </div>
-          }
-          @else {
-            <ion-button expand="block" (click)="openPdf()">
-              <ion-icon name="document-text-outline" slot="start"></ion-icon>
-              Abrir PDF
-            </ion-button>
+          } @else {
+            @if(!isMobile){
+              <div class="pdf-viewer-container">
+                <h3>Material de Apoyo (PDF)</h3>
+                <iframe [src]="pdfUrl" width="100%" height="500px" frameborder="0"></iframe>
+              </div>
+            }
+            @else {
+              <ion-button color="medium"expand="block" (click)="openPdf()">
+                <ion-icon name="document-text-outline" slot="start"></ion-icon>
+                Abrir PDF
+              </ion-button>
+            }
           }
         }
         @if(!pdfUrl && tarea.materialDeApoyo){
