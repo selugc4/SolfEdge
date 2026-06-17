@@ -506,7 +506,7 @@ async openPdf(): Promise<void> {
     const modal = await this.modalController.create({
       component: TareaModalComponent,
       componentProps: {
-        rama: this.ramaConfig?._id,
+        rama: this.ramaNombre,
         tarea: tarea || null,
         alumnos: uniqueAlumnos,
         currentGroup: this.selectedGrupo

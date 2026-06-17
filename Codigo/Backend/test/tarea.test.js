@@ -4,11 +4,13 @@ const tareaRouter = require('../routes/tarea.routes');
 const Tarea = require('../models/tarea.model');
 const Usuario = require('../models/usuario.model');
 const Calificacion = require('../models/calificacion.model');
+const RamaConfig = require('../models/ramaConfig.model');
 const mensajeController = require('../controllers/mensaje.controller');
 
 jest.mock('../models/tarea.model');
 jest.mock('../models/usuario.model');
 jest.mock('../models/calificacion.model');
+jest.mock('../models/ramaConfig.model');
 jest.mock('../controllers/mensaje.controller');
 
 const app = express();
@@ -38,6 +40,7 @@ describe('Tarea API', () => {
         titulo: 'Test Tarea',
         descripcion: 'Desc',
         rama: 'rama1',
+        grupoId: 'grupo1',
         alumnos: []
       };
       const taskDataJson = JSON.stringify(taskData);
@@ -57,11 +60,13 @@ describe('Tarea API', () => {
         titulo: 'Test Tarea',
         descripcion: 'Desc',
         rama: 'rama1',
+        grupoId: 'grupo1',
         alumnos: ['alumno1']
       };
       const taskDataJson = JSON.stringify(taskData);
 
       Usuario.findById.mockResolvedValue({ _id: 'profesor1', role: 'alumno' });
+      RamaConfig.findOne.mockResolvedValue({ _id: 'rama1' }); // Mock rama found
 
       const response = await request(app)
         .post('/tareas')
@@ -72,7 +77,7 @@ describe('Tarea API', () => {
     });
 
     it('should return 400 if file is not PDF for non-Entonación rama', async () => {
-      const taskData = { rama: 'Ritmo' };
+      const taskData = { rama: 'Ritmo', grupoId: 'grupo1' };
       const taskDataJson = JSON.stringify(taskData);
       
       const response = await request(app)
@@ -85,7 +90,7 @@ describe('Tarea API', () => {
     });
 
     it('should return 400 if file is not PDF or MP3 for Entonación rama', async () => {
-      const taskData = { rama: 'Entonación' };
+      const taskData = { rama: 'Entonación', grupoId: 'grupo1' };
       const taskDataJson = JSON.stringify(taskData);
       
       const response = await request(app)
@@ -102,11 +107,13 @@ describe('Tarea API', () => {
         titulo: 'Test Tarea',
         descripcion: 'Desc',
         rama: 'Entonación',
+        grupoId: 'grupo1',
         alumnos: ['alumno1']
       };
       const taskDataJson = JSON.stringify(taskData);
       
       Usuario.findById.mockResolvedValue({ _id: 'profesor1', role: 'profesor' });
+      RamaConfig.findOne.mockResolvedValue({ _id: 'ramaConfig1' });
       // Mock crearTarea to avoid DB calls
       const tareaController = require('../controllers/tarea.controller');
       tareaController.crearTarea = jest.fn().mockResolvedValue({ status: 201, body: { _id: 't1' } });

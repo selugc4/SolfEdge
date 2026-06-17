@@ -4,6 +4,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ModalController, ToastController } from '@ionic/angular/standalone';
 import { AuthService } from '../../services/auth.service';
 import { of } from 'rxjs';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 describe('TareaModalComponent', () => {
   let component: TareaModalComponent;
@@ -19,7 +21,9 @@ describe('TareaModalComponent', () => {
       providers: [
         { provide: AuthService, useValue: authServiceMock },
         { provide: ToastController, useValue: toastControllerMock },
-        { provide: ModalController, useValue: modalControllerMock }
+        { provide: ModalController, useValue: modalControllerMock },
+        provideHttpClient(),
+        provideHttpClientTesting()
       ]
     }).compileComponents();
 

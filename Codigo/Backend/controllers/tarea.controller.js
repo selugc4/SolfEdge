@@ -2,6 +2,8 @@ const Tarea = require('../models/tarea.model');
 const Usuario = require('../models/usuario.model');
 const Calificacion = require('../models/calificacion.model');
 const mensajeController = require('./mensaje.controller');
+const RamaConfig = require('../models/ramaConfig.model');
+// ...
 exports.crearTarea = async (taskDataJsonString, file, profesorId) => {
   try {
     let tareaData;
@@ -15,9 +17,17 @@ exports.crearTarea = async (taskDataJsonString, file, profesorId) => {
       return { status: 400, body: { error: 'La tarea debe tener al menos un alumno.' } };
     }
 
-    if (!tareaData.rama) {
-      return { status: 400, body: { error: 'La tarea debe tener una rama asociada.' } };
+    if (!tareaData.rama || !tareaData.grupoId) {
+      return { status: 400, body: { error: 'La tarea debe tener una rama y un grupo asociado.' } };
     }
+
+    const ramaConfig = await RamaConfig.findOne({ nombre: tareaData.rama, grupo: tareaData.grupoId });
+    if (!ramaConfig) {
+      return { status: 404, body: { error: 'No se encontró la configuración de la rama para este grupo.' } };
+    }
+    
+    // Replace branch name with ObjectId
+    tareaData.rama = ramaConfig._id;
 
     if (!tareaData.titulo || tareaData.titulo.trim() === '') {
       return { status: 400, body: { error: 'La tarea debe tener un título.' } };
@@ -63,6 +73,9 @@ exports.crearTarea = async (taskDataJsonString, file, profesorId) => {
     return { status: 201, body: tarea };
   } catch (error) {
     console.error('Controller: Error in crearTarea:', error);
+    if (error.name === 'ValidationError') {
+        return { status: 400, body: { error: error.message } };
+    }
     return { status: 500, body: { error: error.message } };
   }
 };
@@ -99,6 +112,15 @@ exports.updateTarea = async (tareaId, taskDataJsonString, file, profesorId) => {
         } else if (tareaData.materialDeApoyo === undefined) {
             // If no file was uploaded and materialDeApoyo was not explicitly set to null in taskData
             tareaData.materialDeApoyo = tarea.materialDeApoyo; // Keep the old one
+        }
+
+        // Handle rama: resolve branch name to ObjectId if provided
+        if (tareaData.rama && typeof tareaData.rama === 'string' && !mongoose.Types.ObjectId.isValid(tareaData.rama)) {
+            const ramaConfig = await RamaConfig.findOne({ nombre: tareaData.rama, grupo: tareaData.grupoId || tarea.rama.grupo });
+            if (!ramaConfig) {
+                return { status: 404, body: { error: 'No se encontró la configuración de la rama para este grupo.' } };
+            }
+            tareaData.rama = ramaConfig._id;
         }
 
         // Handle fechaCierre

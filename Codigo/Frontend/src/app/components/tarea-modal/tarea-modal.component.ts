@@ -106,7 +106,7 @@ export class TareaModalComponent implements OnInit {
     if (!file) return;
 
     const isPdf = file.type === 'application/pdf';
-    const isMp3 = file.type === 'audio/mpeg';
+    const isMp3 = file.type === 'audio/mpeg' || file.type === 'audio/mp3';
 
     const isAllowed = this.rama === 'Entonación' ? (isPdf || isMp3) : isPdf;
 
@@ -145,6 +145,7 @@ export class TareaModalComponent implements OnInit {
         titulo: this.form.value.titulo,
         descripcion: this.form.value.descripcion,
         rama: this.rama,
+        grupoId: this.currentGroup?._id, // Add this
         fechaCierre: this.form.value.fechaCierre,
         ...(this.selectedFile ? {} : { materialDeApoyo: null }),
         alumnos: finalAlumnos,
