@@ -1,139 +1,148 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { GestionGruposComponent } from 'src/app/components/gestion-grupos/gestion-grupos.component';
-import { ModalController, ToastController } from '@ionic/angular/standalone';
+import { TareaDetallePage } from './tarea-detalle.page';
+import { TareaService } from 'src/app/services/tarea.service';
+import { UsuarioService } from 'src/app/services/usuario.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { TareaStateService } from 'src/app/services/tarea-state.service';
+import {
+  ModalController,
+  ToastController,
+  AlertController,
+  NavController
+} from '@ionic/angular/standalone';
+import { ActivatedRoute, Router } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
+import { Location } from '@angular/common';
+import { of } from 'rxjs';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { of } from 'rxjs';
-import { GrupoService } from '../../services/grupo.service';
-import { GrupoStateService } from '../../services/grupo-state.service';
-import { AuthService } from 'src/app/services/auth.service';
-import { SelectAlumnosModalComponent } from 'src/app/components/select-alumnos-modal/select-alumnos-modal.component';
-import { Grupo } from 'src/app/models/grupo.model'; // Ajusta según tu ruta
-import { Usuario } from 'src/app/models/usuario.model';
 
-describe('GestionGruposComponent', () => {
-  let component: GestionGruposComponent;
-  let fixture: ComponentFixture<GestionGruposComponent>;
-  let grupoService: jasmine.SpyObj<GrupoService>;
-  let modalController: jasmine.SpyObj<ModalController>;
-  let toastController: jasmine.SpyObj<ToastController>;
+describe('TareaDetallePage', () => {
+  let component: TareaDetallePage;
+  let fixture: ComponentFixture<TareaDetallePage>;
 
-  const modalControllerMock = jasmine.createSpyObj('ModalController', ['create']);
-  modalControllerMock.create.and.returnValue(Promise.resolve({
-    present: jasmine.createSpy('present').and.returnValue(Promise.resolve()),
-    onWillDismiss: jasmine.createSpy('onWillDismiss').and.returnValue(Promise.resolve({ role: 'cancel', data: null }))
-  }));
-
-  const toastControllerMock = jasmine.createSpyObj('ToastController', ['create']);
-  toastControllerMock.create.and.returnValue(Promise.resolve({
-    present: jasmine.createSpy('present').and.returnValue(Promise.resolve())
-  }));
-
-  const mockProfesor: Partial<Usuario> & { _id: string } = {
-    _id: 'profesor123',
-    username: 'profesor1',
-    email: 'profesor1@example.com',
-    role: 'profesor'
-  };
-
-  const mockAlumno: Partial<Usuario> & { _id: string } = {
-    _id: 'alumno1',
-    username: 'alumno1',
-    email: 'alumno1@example.com',
-    role: 'alumno'
-  };
-
-  const mockGrupo: Grupo = {
-    _id: 'grupo1',
-    nombre: 'Test Grupo',
-    alumnos: [mockAlumno],
-    profesor: mockProfesor
-  };
-
-  const grupoServiceMock = jasmine.createSpyObj('GrupoService', ['crearGrupo']);
-  grupoServiceMock.crearGrupo.and.returnValue(of(mockGrupo));
+  const tareaServiceMock = jasmine.createSpyObj('TareaService', ['getTareaById']);
+  const usuarioServiceMock = jasmine.createSpyObj('UsuarioService', ['getUsuarioById']);
 
   const authServiceMock = {
-    currentUserValue: mockProfesor
+    currentUser: of({ _id: 'prof1', role: 'alumno' })
   };
 
-  // Aquí agregamos 'refreshGrupos' para que no falle
-  const grupoStateServiceMock = jasmine.createSpyObj('GrupoStateService', ['addGrupo', 'refreshGrupos']);
-  grupoStateServiceMock.refreshGrupos.and.returnValue(undefined);
+  const modalControllerMock = jasmine.createSpyObj('ModalController', ['create']);
+  const toastControllerMock = jasmine.createSpyObj('ToastController', ['create']);
+  const alertControllerMock = jasmine.createSpyObj('AlertController', ['create']);
+  const tareaStateServiceMock = jasmine.createSpyObj('TareaStateService', ['touch']);
+  const routerMock = jasmine.createSpyObj('Router', ['navigate']);
+  const locationMock = jasmine.createSpyObj('Location', ['back']);
+  const sanitizerMock = jasmine.createSpyObj('DomSanitizer', [
+    'bypassSecurityTrustResourceUrl'
+  ]);
+
+  const activatedRouteMock = {
+    paramMap: of({ get: () => 'tarea1' })
+  };
 
   beforeEach(waitForAsync(() => {
+    tareaServiceMock.getTareaById.calls.reset();
+    usuarioServiceMock.getUsuarioById.calls.reset();
+
+    usuarioServiceMock.getUsuarioById.and.returnValue(
+      of({
+        _id: 'prof1',
+        nombre: 'Profesor Test',
+        email: 'profesor@test.com',
+        role: 'profesor'
+      } as any)
+    );
+
+    sanitizerMock.bypassSecurityTrustResourceUrl.and.returnValue('safe-url' as any);
+
     TestBed.configureTestingModule({
-      imports: [
-        GestionGruposComponent,
-      ],
+      imports: [TareaDetallePage],
       providers: [
-        { provide: ModalController, useValue: modalControllerMock },
-        { provide: GrupoService, useValue: grupoServiceMock },
-        { provide: ToastController, useValue: toastControllerMock },
+        { provide: TareaService, useValue: tareaServiceMock },
+        { provide: UsuarioService, useValue: usuarioServiceMock },
         { provide: AuthService, useValue: authServiceMock },
-        { provide: GrupoStateService, useValue: grupoStateServiceMock },
+        { provide: ModalController, useValue: modalControllerMock },
+        { provide: ToastController, useValue: toastControllerMock },
+        { provide: AlertController, useValue: alertControllerMock },
+        {
+          provide: NavController,
+          useValue: jasmine.createSpyObj('NavController', ['back', 'navigate'])
+        },
+        { provide: TareaStateService, useValue: tareaStateServiceMock },
+        { provide: Router, useValue: routerMock },
+        { provide: Location, useValue: locationMock },
+        { provide: DomSanitizer, useValue: sanitizerMock },
+        { provide: ActivatedRoute, useValue: activatedRouteMock },
         provideHttpClient(),
         provideHttpClientTesting()
       ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(GestionGruposComponent);
+    fixture = TestBed.createComponent(TareaDetallePage);
     component = fixture.componentInstance;
-    grupoService = TestBed.inject(GrupoService) as jasmine.SpyObj<GrupoService>;
-    modalController = TestBed.inject(ModalController) as jasmine.SpyObj<ModalController>;
-    toastController = TestBed.inject(ToastController) as jasmine.SpyObj<ToastController>;
 
-    fixture.detectChanges();
+    spyOn(URL, 'createObjectURL').and.returnValue('blob:mock-url');
   }));
 
   it('should create', () => {
+    tareaServiceMock.getTareaById.and.returnValue(
+      of({
+        _id: 'tarea1',
+        titulo: 'Test Tarea',
+        descripcion: 'Desc',
+        profesor: 'prof1',
+        rama: { nombre: 'Ritmo' },
+        materialDeApoyo: 'JVBERi0xLjQ=',
+        cerrada: false,
+        alumnos: [],
+        fechaCierre: new Date()
+      } as any)
+    );
+
+    fixture.detectChanges();
+
     expect(component).toBeTruthy();
   });
 
-  it('should open select alumnos modal', async () => {
-    await component.openSelectAlumnosModal();
-    expect(modalController.create).toHaveBeenCalledWith({
-      component: SelectAlumnosModalComponent,
-      componentProps: {
-        previouslySelectedAlumnos: [],
-        fetchAllAlumnos: true
-      }
-    });
+  it('should detect audio for Audición branch', () => {
+    const mockTarea = {
+      _id: 'tarea1',
+      titulo: 'Test Tarea',
+      descripcion: 'Desc',
+      profesor: 'prof1',
+      rama: { nombre: 'Audición' },
+      materialDeApoyo: 'SUQzAAAA',
+      cerrada: false,
+      alumnos: [],
+      fechaCierre: new Date()
+    };
+
+    tareaServiceMock.getTareaById.and.returnValue(of(mockTarea as any));
+
+    component.loadTareaDetalle('tarea1');
+
+    expect(component.isAudio).toBeTrue();
   });
 
-  it('should call crearGrupo on valid submission', async () => {
-    component.nombreGrupo = 'Test Grupo';
-    component.selectedAlumnos = [mockAlumno as Usuario];
+  it('should detect PDF for Ritmo branch', () => {
+    const mockTarea = {
+      _id: 'tarea1',
+      titulo: 'Test Tarea',
+      descripcion: 'Desc',
+      profesor: 'prof1',
+      rama: { nombre: 'Ritmo' },
+      materialDeApoyo: 'JVBERi0xLjQ=',
+      cerrada: false,
+      alumnos: [],
+      fechaCierre: new Date()
+    };
 
-    await component.crearGrupo();
+    tareaServiceMock.getTareaById.and.returnValue(of(mockTarea as any));
 
-    expect(grupoService.crearGrupo).toHaveBeenCalledWith('Test Grupo', mockProfesor._id, [mockAlumno._id]);
-    expect(toastController.create).toHaveBeenCalledWith(jasmine.objectContaining({ color: 'success' }));
-  });
+    component.loadTareaDetalle('tarea1');
 
-  it('should not call crearGrupo if name is missing', async () => {
-    grupoService.crearGrupo.calls.reset();
-    toastController.create.calls.reset();
-
-    component.nombreGrupo = '';
-    component.selectedAlumnos = [mockAlumno as Usuario];
-
-    await component.crearGrupo();
-
-    expect(grupoService.crearGrupo).not.toHaveBeenCalled();
-    expect(toastController.create).toHaveBeenCalledWith(jasmine.objectContaining({ color: 'danger' }));
-  });
-
-  it('should not call crearGrupo if students are missing', async () => {
-    grupoService.crearGrupo.calls.reset();
-    toastController.create.calls.reset();
-
-    component.nombreGrupo = 'Test Grupo';
-    component.selectedAlumnos = [];
-
-    await component.crearGrupo();
-
-    expect(grupoService.crearGrupo).not.toHaveBeenCalled();
-    expect(toastController.create).toHaveBeenCalledWith(jasmine.objectContaining({ color: 'danger' }));
+    expect(component.isAudio).toBeFalse();
   });
 });

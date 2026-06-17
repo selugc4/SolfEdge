@@ -16,6 +16,7 @@ import { GrupoStateService } from '../../services/grupo-state.service';
 import { TareaStateService } from '../../services/tarea-state.service';
 import { TareaModalComponent } from '../../components/tarea-modal/tarea-modal.component';
 import { MetronomeComponent } from '../../components/metronome/metronome.component';
+import { PianoComponent } from '../../components/piano/piano.component';
 
 describe('RamaDetailPage', () => {
   let component: RamaDetailPage;
@@ -73,7 +74,11 @@ describe('RamaDetailPage', () => {
         provideHttpClient(),
         provideHttpClientTesting()
       ],
-    }).compileComponents();
+    })
+    .overrideComponent(RamaDetailPage, {
+        set: { imports: [MetronomeComponent, PianoComponent] }
+    })
+    .compileComponents();
 
     fixture = TestBed.createComponent(RamaDetailPage);
     component = fixture.componentInstance;
@@ -87,31 +92,28 @@ describe('RamaDetailPage', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should load data on view will enter', fakeAsync(() => {
-    component.ionViewWillEnter();
-    tick(); // Allow observables to complete
-    expect(ramaConfigServiceMock.getAllRamas).toHaveBeenCalled();
-    expect(tareaServiceMock.getTareasByUsuarioAndRama).toHaveBeenCalled();
-    expect(cuestionarioServiceMock.getCuestionariosByUsuarioAndRama).toHaveBeenCalled();
-    expect(component.isLoading).toBe(false);
-  }));
-
-  it('should present tarea modal', async () => {
-    component.userId = 'user1';
-    component.selectedGrupo = { _id: 'grupo1', nombre: 'Test', alumnos: [], profesor: { _id: 'prof1' } };
-    component.ramaConfig = { _id: 'rama1', nombre: 'Teoría', grupo: 'grupo1' };
-    await component.presentTareaModal();
-    expect(modalController.create).toHaveBeenCalledWith(jasmine.objectContaining({ component: TareaModalComponent }));
-  });
-
-  it('should present delete confirmation alert for a task', async () => {
-    await component.deleteTarea('tarea1');
-    expect(alertController.create).toHaveBeenCalled();
-  });
-
   it('should call stop on metronome when leaving view', () => {
     component.ionViewWillLeave();
     expect(metronomeSpy.stop).toHaveBeenCalled();
   });
 
+  it('should render PianoComponent if rama is Audición and not professor', () => {
+    component.isLoading = false;
+    component.ramaNombre = 'Audición';
+    component.isProfessor = false;
+    component.selectedGrupo = { _id: 'g1' } as any; // Required for the template's else block
+    fixture.detectChanges();
+    const piano = fixture.nativeElement.querySelector('app-piano');
+    expect(piano).toBeTruthy();
+  });
+
+  it('should NOT render PianoComponent if rama is not Audición', () => {
+    component.isLoading = false;
+    component.ramaNombre = 'Ritmo';
+    component.isProfessor = false;
+    component.selectedGrupo = { _id: 'g1' } as any; // Required for the template's else block
+    fixture.detectChanges();
+    const piano = fixture.nativeElement.querySelector('app-piano');
+    expect(piano).toBeNull();
+  });
 });

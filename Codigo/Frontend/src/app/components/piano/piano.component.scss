@@ -1,0 +1,24 @@
+.piano-container {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+
+.white-key {
+  width: 40px;
+  height: 120px;
+  background: white;
+  border: 1px solid #000;
+  cursor: pointer;
+}
+
+.black-key {
+  width: 30px;
+  height: 80px;
+  background: black;
+  color: white;
+  margin-left: -15px;
+  margin-right: -15px;
+  z-index: 2;
+  cursor: pointer;
+}

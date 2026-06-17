@@ -130,7 +130,9 @@ describe('Tarea API', () => {
   describe('GET /tareas/:id', () => {
     it('should get tarea by id', async () => {
       const mockTarea = { _id: 'tarea1', titulo: 'Test Tarea' };
-      Tarea.findById.mockResolvedValue(mockTarea);
+      Tarea.findById.mockReturnValue({
+        populate: jest.fn().mockResolvedValue(mockTarea)
+      });
 
       const response = await request(app).get('/tareas/tarea1');
 
@@ -139,7 +141,9 @@ describe('Tarea API', () => {
     });
 
     it('should return 404 if tarea not found', async () => {
-      Tarea.findById.mockResolvedValue(null);
+      Tarea.findById.mockReturnValue({
+        populate: jest.fn().mockResolvedValue(null)
+      });
 
       const response = await request(app).get('/tareas/tarea2');
 

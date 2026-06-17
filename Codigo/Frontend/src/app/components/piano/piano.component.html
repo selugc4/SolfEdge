@@ -1,0 +1,7 @@
+<div class="piano-container">
+  @for(n of notes; track n.freq) {
+    <button [class]="n.note.includes('#') ? 'black-key' : 'white-key'" (click)="playNote(n.freq)">
+      {{n.note}}
+    </button>
+  }
+</div>

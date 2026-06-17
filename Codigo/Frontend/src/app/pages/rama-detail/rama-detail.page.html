@@ -86,13 +86,23 @@
         </ion-card>
 
         @if (ramaNombre === 'Ritmo' && !isProfessor) {
-          <app-metronome></app-metronome>
+          <div style="padding: 0 16px;">
+            <app-metronome></app-metronome>
+          </div>
+        }
+        @if (ramaNombre === 'Audición' && !isProfessor) {
+          <div style="padding: 0 16px;">
+            <app-piano></app-piano>
+          </div>
         }
         @if(isTeoria){
-        <ion-item>
-          <ion-toggle [(ngModel)]="useCuestionarios" justify="space-between" color="medium">Usar Cuestionarios</ion-toggle>
-        </ion-item>
+          <div style="padding: 0 16px;">
+            <ion-item lines="full">
+              <ion-toggle [(ngModel)]="useCuestionarios" justify="space-between" color="medium">Usar Cuestionarios</ion-toggle>
+            </ion-item>
+          </div>
         }
+
         @if(!useCuestionarios){
           <ion-card>
             <ion-card-header>

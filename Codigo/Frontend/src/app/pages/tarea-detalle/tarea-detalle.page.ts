@@ -8,11 +8,12 @@ import { CommonModule, DatePipe, Location } from '@angular/common';
 import { TareaStateService } from 'src/app/services/tarea-state.service';
 import { TareaService } from 'src/app/services/tarea.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ModalController, ToastController, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonCardHeader, IonCard, IonCardTitle, IonCardContent, IonButton, IonList, IonItem, IonLabel, IonBadge, IonListHeader, IonIcon } from '@ionic/angular/standalone';
+import { ModalController, ToastController, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonCardHeader, IonCard, IonCardTitle, IonCardContent, IonButton, IonList, IonItem, IonLabel, IonBadge, IonListHeader, IonIcon, AlertController } from '@ionic/angular/standalone';
 import { Calificacion } from 'src/app/models/calificacion.model';
 import { CalificarModalComponent } from 'src/app/components/calificar-modal/calificar-modal.component';
 import { Filesystem, Directory } from '@capacitor/filesystem';
 import { FileOpener } from '@capacitor-community/file-opener';
+import { Capacitor } from '@capacitor/core';
 import { addIcons } from 'ionicons';
 import { trashOutline, closeCircleOutline, documentTextOutline } from 'ionicons/icons';
 @Component({
@@ -29,6 +30,7 @@ export class TareaDetallePage implements OnInit {
   profesorNombre: string | undefined;
   isProfessor: boolean = false;
   isMobile = false;
+  isAudio: boolean = false;
   private tareaService: TareaService = inject(TareaService);
   private usuarioService: UsuarioService = inject(UsuarioService);
   private authService: AuthService = inject(AuthService);
@@ -37,6 +39,7 @@ export class TareaDetallePage implements OnInit {
   private sanitizer: DomSanitizer = inject(DomSanitizer);
   private toastController: ToastController = inject(ToastController);
   private modalCtrl: ModalController = inject(ModalController);
+  private alertController: AlertController = inject(AlertController);
   private tareaStateService: TareaStateService = inject(TareaStateService);
   private location: Location = inject(Location);
   private nonSafeUrl: string = '';
@@ -76,20 +79,26 @@ export class TareaDetallePage implements OnInit {
         ? this.tarea.materialDeApoyo.split(',')[1]
         : this.tarea.materialDeApoyo;
 
-      const fileName = `material-apoyo-${this.tarea._id || 'tarea'}.pdf`;
+      if (Capacitor.getPlatform() === 'web') {
+        const blob = this.b64toBlob(base64, 'application/pdf');
+        const url = URL.createObjectURL(blob);
+        window.open(url, '_blank');
+      } else {
+        const fileName = `material-apoyo-${this.tarea._id || 'tarea'}.pdf`;
 
-      const result = await Filesystem.writeFile({
-        path: fileName,
-        data: base64,
-        directory: Directory.Cache,
-        recursive: true,
-      });
+        const result = await Filesystem.writeFile({
+          path: fileName,
+          data: base64,
+          directory: Directory.Cache,
+          recursive: true,
+        });
 
-      await FileOpener.open({
-        filePath: result.uri,
-        contentType: 'application/pdf',
-        openWithDefault: true,
-      });
+        await FileOpener.open({
+          filePath: result.uri,
+          contentType: 'application/pdf',
+          openWithDefault: true,
+        });
+      }
 
     } catch (e) {
       console.error(e);
@@ -100,7 +109,6 @@ export class TareaDetallePage implements OnInit {
     this.tareaService.getTareaById(tareaId).subscribe({
       next: (tarea) => {
         this.tarea = tarea;
-        console.log('Tarea recibida:', tarea); // Debug
         if (this.isProfessor) {
           this.loadEntregas(tareaId);
         }
@@ -117,10 +125,8 @@ export class TareaDetallePage implements OnInit {
         }
 
         if (this.tarea.materialDeApoyo) {
-            // Now rama is populated, we can access rama.nombre
-            const ramaNombre = (this.tarea.rama as any).nombre;
-            const isAudio = ramaNombre && ramaNombre.includes('Entonación');
-            const mimeType = isAudio ? 'audio/mpeg' : 'application/pdf';
+            const mimeType = this.getMimeType(this.tarea.materialDeApoyo);
+            this.isAudio = mimeType.startsWith('audio');
             
             const blob = this.b64toBlob(this.tarea.materialDeApoyo, mimeType);
             this.nonSafeUrl = URL.createObjectURL(blob);
@@ -132,6 +138,21 @@ export class TareaDetallePage implements OnInit {
         this.router.navigate(['/tabs/tab1']);
       }
     });
+  }
+
+  getMimeType(base64: string): string {
+    const data = base64.split(',')[1] || base64;
+    const binary = atob(data);
+    
+    // Check for MP3 ID3 header or Mpeg frame sync
+    // ID3 tag
+    if (binary.startsWith('ID3')) return 'audio/mpeg';
+    
+    // Check for PDF signature
+    if (binary.startsWith('%PDF')) return 'application/pdf';
+    
+    // If we can't identify, default to PDF to maintain previous functionality
+    return 'application/pdf';
   }
 
   loadEntregas(tareaId: string) {

@@ -30,7 +30,7 @@
                   <ion-badge slot="end" [color]="entrega.nota >= 5 ? 'success' : 'danger'">{{ entrega.nota }}</ion-badge>
                 }
                 @if(entrega.nota === null){
-                  <ion-button slot="end" (click)="openCalificarModal(entrega)">Calificar</ion-button>
+                  <ion-button slot="end" color="medium" (click)="openCalificarModal(entrega)">Calificar</ion-button>
                 }
               </ion-item>
             }
@@ -43,7 +43,7 @@
         }
 
         @if(pdfUrl){
-          @if(tarea.rama && tarea.rama === 'Entonación'){
+          @if(isAudio){
             <div class="audio-player-container">
               <h3>Material de Apoyo (Audio)</h3>
               <audio controls [src]="pdfUrl" style="width: 100%"></audio>
@@ -56,13 +56,16 @@
               </div>
             }
             @else {
-              <ion-button color="medium"expand="block" (click)="openPdf()">
+              <ion-button color="medium" expand="block" (click)="openPdf()">
                 <ion-icon name="document-text-outline" slot="start"></ion-icon>
                 Abrir PDF
               </ion-button>
             }
           }
         }
+
+
+
         @if(!pdfUrl && tarea.materialDeApoyo){
           <div>
             <p>No se pudo cargar el PDF o el formato no es compatible.</p>
