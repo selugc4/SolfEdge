@@ -37,11 +37,6 @@ jest.mock('../models/tarea.model');
 jest.mock('../models/cuestionario.model');
 jest.mock('../models/ramaConfig.model');
 
-jest.mock('bcryptjs', () => ({
-  compare: jest.fn(),
-  hash: jest.fn(),
-}));
-
 const request = require('supertest');
 const express = require('express');
 const usuarioRouter = require('../routes/usuario.routes');
@@ -62,7 +57,6 @@ const mongoose = require('mongoose');
 const grupoController = require('../controllers/grupo.controller');
 const emailController = require('../controllers/email.controller');
 const { parse } = require('csv-parse/sync');
-const bcrypt = require('bcryptjs');
 
 const usuarioController = require('../controllers/usuario.controller');
 
@@ -193,13 +187,11 @@ describe('Usuario API', () => {
         _id: userId,
         email: 'test@test.com',
         username: 'testuser',
-        password: 'hashedOldPassword',
+        password: 'oldPassword',
         save: jest.fn().mockResolvedValue({}),
       };
 
       Usuario.findById.mockResolvedValue(mockUser);
-      bcrypt.compare.mockResolvedValue(true);
-      bcrypt.hash.mockResolvedValue('hashedNewPassword');
       emailController.enviarEmailCambioContrasena.mockResolvedValue({ message: 'Correo enviado correctamente.' });
 
       const response = await request(app)
@@ -211,14 +203,13 @@ describe('Usuario API', () => {
 
       expect(response.status).toBe(200);
       expect(response.body.message).toBe('Contraseña cambiada satisfactoriamente.');
-      expect(mockUser.password).toBe('hashedNewPassword');
+      expect(mockUser.password).toBe('NewPass1!');
       expect(mockUser.save).toHaveBeenCalled();
       expect(emailController.enviarEmailCambioContrasena).toHaveBeenCalledWith('test@test.com', 'testuser');
     });
 
     it('should return 400 for weak new password', async () => {
-      Usuario.findById.mockResolvedValue({ password: 'hashedOld' });
-      bcrypt.compare.mockResolvedValue(true);
+      Usuario.findById.mockResolvedValue({ password: 'oldPassword' });
 
       const response = await request(app)
         .post('/usuarios/cambiar-contrasena')
@@ -232,8 +223,7 @@ describe('Usuario API', () => {
     });
 
     it('should return 401 for wrong old password', async () => {
-      Usuario.findById.mockResolvedValue({ password: 'hashedOld' });
-      bcrypt.compare.mockResolvedValue(false);
+      Usuario.findById.mockResolvedValue({ password: 'oldPassword' });
 
       const response = await request(app)
         .post('/usuarios/cambiar-contrasena')

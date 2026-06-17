@@ -57,3 +57,19 @@ exports.verifySession = (token) => {
         return { status: 401, body: { error: 'Token no válido o expirado.' } };
     }
 };
+
+exports.verifySession = (token) => {
+    if (!token) {
+        return { status: 401, body: { error: 'No se proporcionó token.' } };
+    }
+
+    try {
+        const decoded = jwt.verify(token, JWT_SECRET);
+        if ((decoded.username || '').toLowerCase() === 'sistema') {
+        return { status: 401, body: { error: 'Sesión no permitida.' } };
+        }
+        return { status: 200, body: { sessionData: decoded } };
+    } catch (error) {
+        return { status: 401, body: { error: 'Token no válido o expirado.' } };
+    }
+};

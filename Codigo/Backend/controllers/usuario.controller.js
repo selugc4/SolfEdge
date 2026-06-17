@@ -483,7 +483,6 @@ exports.deleteUsuario = async (id, userId) => {
   }
 };
 
-const bcrypt = require('bcryptjs');
 
 const validarContrasena = (password) => {
   const minLength = 8;
@@ -509,8 +508,7 @@ exports.cambiarContrasena = async (userId, body) => {
       return { status: 404, body: { error: 'Usuario no encontrado.' } };
     }
 
-    const isMatch = await bcrypt.compare(antiguaContrasena, usuario.password);
-    if (!isMatch) {
+    if (antiguaContrasena !== usuario.password) {
       return { status: 401, body: { error: 'La contraseña actual es incorrecta.' } };
     }
 
@@ -519,7 +517,7 @@ exports.cambiarContrasena = async (userId, body) => {
       return { status: 400, body: { error: errorValidacion } };
     }
 
-    usuario.password = await bcrypt.hash(nuevaContrasena, 10);
+    usuario.password = nuevaContrasena;
     await usuario.save();
 
     await emailController.enviarEmailCambioContrasena(usuario.email, usuario.username);
