@@ -10,7 +10,13 @@ const validateFile = (req, res, next) => {
     upload.single('materialDeApoyo')(req, res, (err) => {
         if (err) return res.status(400).json({ error: err.message });
         
-        const taskData = JSON.parse(req.body.taskData || '{}');
+        let taskData;
+        try {
+            taskData = JSON.parse(req.body.taskData || '{}');
+        } catch (e) {
+            return res.status(400).json({ error: 'Invalid taskData JSON' });
+        }
+        
         const file = req.file;
 
         if (file) {

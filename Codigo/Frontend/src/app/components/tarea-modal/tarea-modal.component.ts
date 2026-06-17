@@ -97,7 +97,7 @@ export class TareaModalComponent implements OnInit {
     this.selectedStudentsFromGroups = event.detail.value;
   }
 
-  get acceptedFileTypes(): string {
+  public get acceptedFileTypes(): string {
     return this.rama === 'Entonación' ? '.pdf, .mp3' : '.pdf';
   }
 

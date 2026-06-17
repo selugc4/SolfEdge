@@ -71,26 +71,52 @@ describe('Tarea API', () => {
       expect(response.body.error).toBe('Usuario no es un profesor válido.');
     });
 
-    it('should return 400 if file buffer missing', async () => {
+    it('should return 400 if file is not PDF for non-Entonación rama', async () => {
+      const taskData = { rama: 'Ritmo' };
+      const taskDataJson = JSON.stringify(taskData);
+      
+      const response = await request(app)
+        .post('/tareas')
+        .field('taskData', taskDataJson)
+        .attach('materialDeApoyo', Buffer.from('test'), 'test.txt');
+
+      expect(response.status).toBe(400);
+      expect(response.body.error).toBe('Solo se permiten archivos PDF.');
+    });
+
+    it('should return 400 if file is not PDF or MP3 for Entonación rama', async () => {
+      const taskData = { rama: 'Entonación' };
+      const taskDataJson = JSON.stringify(taskData);
+      
+      const response = await request(app)
+        .post('/tareas')
+        .field('taskData', taskDataJson)
+        .attach('materialDeApoyo', Buffer.from('test'), 'test.txt');
+
+      expect(response.status).toBe(400);
+      expect(response.body.error).toBe('Solo se permiten PDF o MP3 para la rama Entonación.');
+    });
+
+    it('should accept MP3 for Entonación rama', async () => {
       const taskData = {
         titulo: 'Test Tarea',
         descripcion: 'Desc',
-        rama: 'rama1',
+        rama: 'Entonación',
         alumnos: ['alumno1']
       };
       const taskDataJson = JSON.stringify(taskData);
-
+      
       Usuario.findById.mockResolvedValue({ _id: 'profesor1', role: 'profesor' });
-
-      // Simulate file without buffer
-      const file = { buffer: null };
-
-      // Directly call controller to test file validation
+      // Mock crearTarea to avoid DB calls
       const tareaController = require('../controllers/tarea.controller');
-      const result = await tareaController.crearTarea(taskDataJson, file, 'profesor1');
+      tareaController.crearTarea = jest.fn().mockResolvedValue({ status: 201, body: { _id: 't1' } });
 
-      expect(result.status).toBe(400);
-      expect(result.body.error).toBe('File buffer is missing.');
+      const response = await request(app)
+        .post('/tareas')
+        .field('taskData', taskDataJson)
+        .attach('materialDeApoyo', Buffer.from('audio-data'), 'test.mp3');
+
+      expect(response.status).toBe(201);
     });
   });
 

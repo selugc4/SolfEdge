@@ -1,83 +1,61 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { CalificacionGeneralModalComponent } from '../calificacion-general-modal/calificacion-general-modal.component';
-import { ModalController, ToastController } from '@ionic/angular/standalone';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TareaModalComponent } from './tarea-modal.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { of } from 'rxjs';
-import { CalificacionGeneralService } from '../../services/calificacion-general.service';
+import { ModalController, ToastController } from '@ionic/angular/standalone';
 import { AuthService } from '../../services/auth.service';
+import { of } from 'rxjs';
 
-describe('CalificacionGeneralModalComponent', () => {
-  let component: CalificacionGeneralModalComponent;
-  let fixture: ComponentFixture<CalificacionGeneralModalComponent>;
-  let modalController: ModalController;
+describe('TareaModalComponent', () => {
+  let component: TareaModalComponent;
+  let fixture: ComponentFixture<TareaModalComponent>;
 
-  const modalControllerMock = {
-    create: jasmine.createSpy('create').and.returnValue(
-      Promise.resolve({
-        present: jasmine.createSpy('present'),
-        onWillDismiss: jasmine
-          .createSpy('onWillDismiss')
-          .and.returnValue(Promise.resolve({ role: 'cancel' }))
-      })
-    ),
-    dismiss: jasmine.createSpy('dismiss').and.returnValue(Promise.resolve(true))
-  };
+  const authServiceMock = { currentUserValue: { _id: 'prof1' } };
+  const toastControllerMock = { create: jasmine.createSpy('create').and.returnValue(Promise.resolve({ present: jasmine.createSpy('present') })) };
+  const modalControllerMock = { dismiss: jasmine.createSpy('dismiss') };
 
-  const toastControllerMock = {
-    create: jasmine
-      .createSpy('create')
-      .and.returnValue(Promise.resolve({ present: jasmine.createSpy('present') }))
-  };
-
-  const calificacionGeneralServiceMock = {
-    getCalificacionesByAlumnoAndGrupo: jasmine
-      .createSpy('getCalificacionesByAlumnoAndGrupo')
-      .and.returnValue(of([]))
-  };
-
-  // Asegurar que currentUser emite y completa
-  const authServiceMock = {
-    currentUser: of({ _id: 'profesor123' })
-  };
-
-  beforeEach(waitForAsync(async () => {
+  beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        CalificacionGeneralModalComponent,
-        ReactiveFormsModule
-      ],
+      imports: [TareaModalComponent, ReactiveFormsModule],
       providers: [
-        { provide: ModalController, useValue: modalControllerMock },
+        { provide: AuthService, useValue: authServiceMock },
         { provide: ToastController, useValue: toastControllerMock },
-        { provide: CalificacionGeneralService, useValue: calificacionGeneralServiceMock },
-        { provide: AuthService, useValue: authServiceMock }
+        { provide: ModalController, useValue: modalControllerMock }
       ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(CalificacionGeneralModalComponent);
+    fixture = TestBed.createComponent(TareaModalComponent);
     component = fixture.componentInstance;
-    modalController = TestBed.inject(ModalController);
-
-    component.grupoId = 'grupo123';
-
-    modalControllerMock.dismiss.calls.reset();
-    modalControllerMock.create.calls.reset();
-    toastControllerMock.create.calls.reset();
-
     fixture.detectChanges();
-    await fixture.whenStable();
-  }));
+  });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should have an invalid form on creation', () => {
-    expect(component.form.valid).toBeFalse();
+  it('should accept PDF for any branch', () => {
+    component.rama = 'Ritmo';
+    const mockFile = new File([''], 'test.pdf', { type: 'application/pdf' });
+    const event = { target: { files: [mockFile] } };
+    
+    component.onFileSelected(event);
+    expect(component.selectedFile).toBe(mockFile);
   });
 
-  it('should call dismiss on cancel', async () => {
-    await component.cancel();
-    expect(modalController.dismiss).toHaveBeenCalledWith(null, 'cancel');
+  it('should accept MP3 for Entonación branch', () => {
+    component.rama = 'Entonación';
+    const mockFile = new File([''], 'test.mp3', { type: 'audio/mpeg' });
+    const event = { target: { files: [mockFile] } };
+    
+    component.onFileSelected(event);
+    expect(component.selectedFile).toBe(mockFile);
+  });
+
+  it('should reject MP3 for Ritmo branch', () => {
+    component.rama = 'Ritmo';
+    const mockFile = new File([''], 'test.mp3', { type: 'audio/mpeg' });
+    const event = { target: { files: [mockFile] } };
+    
+    component.onFileSelected(event);
+    expect(component.selectedFile).toBeNull();
   });
 });
