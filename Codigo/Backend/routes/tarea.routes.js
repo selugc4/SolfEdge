@@ -6,6 +6,32 @@ const multer = require('multer');
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
+const validateFile = (req, res, next) => {
+    upload.single('materialDeApoyo')(req, res, (err) => {
+        if (err) return res.status(400).json({ error: err.message });
+        
+        const taskData = JSON.parse(req.body.taskData || '{}');
+        const file = req.file;
+
+        if (file) {
+            const isEntonacion = taskData.rama === 'Entonación';
+            const isPdf = file.mimetype === 'application/pdf';
+            const isMp3 = file.mimetype === 'audio/mpeg';
+
+            if (isEntonacion) {
+                if (!isPdf && !isMp3) {
+                    return res.status(400).json({ error: 'Solo se permiten PDF o MP3 para la rama Entonación.' });
+                }
+            } else {
+                if (!isPdf) {
+                    return res.status(400).json({ error: 'Solo se permiten archivos PDF.' });
+                }
+            }
+        }
+        next();
+    });
+};
+
 /**
  * @swagger
  * /tareas:
@@ -44,7 +70,7 @@ const upload = multer({ storage: storage });
  *       500:
  *         description: Error interno del servidor.
  */
-router.post('/', upload.single('materialDeApoyo'), async (req, res) => {
+router.post('/', validateFile, async (req, res) => {
         // req.body.taskData will be the JSON string of task data
         // req.file will be the uploaded file (if any)
         const result = await tareaController.crearTarea(req.body.taskData, req.file, req.user.id);

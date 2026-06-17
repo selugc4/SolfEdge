@@ -38,16 +38,16 @@
     </ion-list>
 
     <div class="file-section ion-margin-top">
-      <input type="file" #fileInput (change)="onFileSelected($event)" accept="application/pdf" style="display: none;">
+      <input type="file" #fileInput (change)="onFileSelected($event)" [accept]="acceptedFileTypes" style="display: none;">
       <ion-button expand="block" (click)="fileInput.click()" color="medium" fill="outline">
         <ion-icon slot="start" name="document-attach-outline"></ion-icon>
-        {{ (selectedFile || (tarea && tarea.materialDeApoyo)) ? 'Sustituir PDF' : 'Subir Archivo (PDF)' }}
+        {{ (selectedFile || (tarea && tarea.materialDeApoyo)) ? 'Sustituir Archivo' : 'Subir Archivo (' + (rama === 'Entonación' ? 'PDF/MP3' : 'PDF') + ')' }}
       </ion-button>
       <div class="file-status ion-padding-top ion-text-center">
         @if(selectedFile) {
           <span class="file-selected">Archivo Seleccionado: {{ selectedFile.name }}</span>
         } @else if (tarea && tarea.materialDeApoyo) {
-          <span class="file-selected">La tarea ya tiene PDF</span>
+          <span class="file-selected">La tarea ya tiene archivo</span>
         } @else {
           <span class="no-file">Ningún archivo seleccionado</span>
         }

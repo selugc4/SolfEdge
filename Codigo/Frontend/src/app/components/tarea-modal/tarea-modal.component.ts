@@ -97,14 +97,30 @@ export class TareaModalComponent implements OnInit {
     this.selectedStudentsFromGroups = event.detail.value;
   }
 
+  get acceptedFileTypes(): string {
+    return this.rama === 'Entonación' ? '.pdf, .mp3' : '.pdf';
+  }
+
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
-    if (file && file.type === 'application/pdf') {
+    if (!file) return;
+
+    const isPdf = file.type === 'application/pdf';
+    const isMp3 = file.type === 'audio/mpeg';
+
+    const isAllowed = this.rama === 'Entonación' ? (isPdf || isMp3) : isPdf;
+
+    if (isAllowed) {
       this.selectedFile = file;
-      this.presentToast('Archivo PDF seleccionado.', 'success');
+      this.presentToast(`Archivo ${file.type} seleccionado.`, 'success');
     } else {
       this.selectedFile = null;
-      this.presentToast('Por favor, selecciona un archivo PDF.', 'danger');
+      this.presentToast(
+        this.rama === 'Entonación' 
+          ? 'Por favor, selecciona un archivo PDF o MP3.' 
+          : 'Por favor, selecciona un archivo PDF.', 
+        'danger'
+      );
     }
   }
 
