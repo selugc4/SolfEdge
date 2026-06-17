@@ -567,7 +567,7 @@ router.get('/profesores/all', authMiddleware.verifyToken, async (req, res) => {
  *       500:
  *         description: Error interno del servidor.
  */
-router.post('/cambiar-contrasena', async (req, res) => {
+router.post('/cambiar-contrasena', authMiddleware.verifyToken, async (req, res) => {
   const result = await usuarioController.cambiarContrasena(req.user.id, req.body);
   res.status(result.status).json(result.body);
 });
