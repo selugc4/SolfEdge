@@ -8,7 +8,7 @@ import { Usuario } from '../models/usuario.model';
 import { PerfilCalificacion } from '../models/perfil-calificacion.model';
 import { CalificacionGeneral } from '../models/calificacionGeneral.model';
 import { FormsModule } from '@angular/forms';
-import { IonButtons, IonMenuButton, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonItem, IonLabel, IonText, IonList, IonSpinner, IonSegment, IonSegmentButton, IonListHeader, IonNote, ToastController, ModalController } from '@ionic/angular/standalone';
+import { IonButtons, IonMenuButton, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonItem, IonLabel, IonText, IonList, IonSpinner, IonSegment, IonSegmentButton, IonListHeader, IonNote, ToastController, ModalController, IonButton } from '@ionic/angular/standalone';
 import { MensajeService } from '../services/mensaje.service';
 import { Mensaje } from '../models/mensaje.model';
 import { ribbonOutline, sendOutline, peopleOutline } from 'ionicons/icons';
@@ -18,19 +18,20 @@ import { Grupo } from '../models/grupo.model';
 import { MensajeModalComponent } from '../components/mensaje-modal/mensaje-modal.component';
 import { CalificacionGeneralModalComponent } from '../components/calificacion-general-modal/calificacion-general-modal.component';
 import { GestionGrupoModalComponent } from '../components/gestion-grupo-modal/gestion-grupo-modal.component';
+import { CambiarContrasenaModalComponent } from '../components/cambiar-contrasena-modal/cambiar-contrasena-modal.component';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-tab5',
   templateUrl: 'tab5.page.html',
   styleUrls: ['tab5.page.scss'],
-  standalone: true,
   imports: [
     CommonModule, FormsModule, IonButtons, IonMenuButton, IonHeader,
     IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader,
     IonCardTitle, IonCardContent, IonItem, IonLabel, IonText,
     IonList, IonSpinner, IonSegment, IonSegmentButton,
     IonListHeader, IonNote,
+    IonButton
 ]
 })
 export class Tab5Page implements OnInit {
@@ -95,7 +96,16 @@ export class Tab5Page implements OnInit {
   segmentChanged(event: any) {
     this.segmentoSeleccionado = event.detail.value;
   }
+
+  async presentCambiarContrasenaModal() {
+    const modal = await this.modalController.create({
+      component: CambiarContrasenaModalComponent,
+    });
+    await modal.present();
+  }
+
   async presentToast(message: string, color: string = 'success') {
+
     const toast = await this.toastController.create({ message, duration: 3000, color });
     toast.present();
   }

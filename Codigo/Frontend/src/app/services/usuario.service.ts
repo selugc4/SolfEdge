@@ -56,6 +56,13 @@ export class UsuarioService {
     return this.http.get<Usuario[]>(`${this.apiUrl}/profesores/all`);
   }
 
+  /**
+   * Cambia la contraseña del usuario autenticado.
+   */
+  cambiarContrasena(antiguaContrasena: string, nuevaContrasena: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/cambiar-contrasena`, { antiguaContrasena, nuevaContrasena });
+  }
+
   // Aquí se podrían añadir más métodos para gestionar usuarios (obtener, eliminar, etc.)
 
   /**

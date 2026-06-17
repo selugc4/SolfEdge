@@ -10,6 +10,7 @@ import { CalificacionGeneralService } from '../services/calificacion-general.ser
 import { MensajeService } from '../services/mensaje.service';
 import { GrupoStateService } from '../services/grupo-state.service';
 import { ActivatedRoute } from '@angular/router';
+import { CambiarContrasenaModalComponent } from '../components/cambiar-contrasena-modal/cambiar-contrasena-modal.component';
 
 describe('Tab5Page', () => {
   let component: Tab5Page;
@@ -69,5 +70,12 @@ describe('Tab5Page', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should present cambiar contrasena modal', async () => {
+    await component.presentCambiarContrasenaModal();
+    expect(modalControllerMock.create).toHaveBeenCalledWith({
+      component: CambiarContrasenaModalComponent,
+    });
   });
 });
