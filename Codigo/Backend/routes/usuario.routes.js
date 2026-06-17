@@ -533,4 +533,43 @@ router.get('/profesores/all', authMiddleware.verifyToken, async (req, res) => {
   res.status(result.status).json(result.body);
 });
 
+/**
+ * @swagger
+ * /usuarios/cambiar-contrasena:
+ *   post:
+ *     summary: Cambia la contraseña del usuario autenticado.
+ *     tags: [Usuarios]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - antiguaContrasena
+ *               - nuevaContrasena
+ *             properties:
+ *               antiguaContrasena:
+ *                 type: string
+ *               nuevaContrasena:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Contraseña cambiada satisfactoriamente.
+ *       400:
+ *         description: Error de validación de contraseña.
+ *       401:
+ *         description: Contraseña actual incorrecta o no autenticado.
+ *       404:
+ *         description: Usuario no encontrado.
+ *       500:
+ *         description: Error interno del servidor.
+ */
+router.post('/cambiar-contrasena', authMiddleware.verifyToken, async (req, res) => {
+  const result = await usuarioController.cambiarContrasena(req.user.id, req.body);
+  res.status(result.status).json(result.body);
+});
+
 module.exports = router;

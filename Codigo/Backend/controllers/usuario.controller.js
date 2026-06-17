@@ -482,3 +482,50 @@ exports.deleteUsuario = async (id, userId) => {
     return { status: 500, body: { error: `Error interno del servidor: ${error.message}` } };
   }
 };
+
+const bcrypt = require('bcryptjs');
+
+const validarContrasena = (password) => {
+  const minLength = 8;
+  const hasUpperCase = /[A-Z]/.test(password);
+  const hasLowerCase = /[a-z]/.test(password);
+  const hasNumbers = /\d/.test(password);
+  const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+  if (password.length < minLength) return 'La contraseña debe tener al menos 8 caracteres.';
+  if (!hasUpperCase) return 'La contraseña debe contener al menos una letra mayúscula.';
+  if (!hasLowerCase) return 'La contraseña debe contener al menos una letra minúscula.';
+  if (!hasNumbers) return 'La contraseña debe contener al menos un número.';
+  if (!hasSpecialChar) return 'La contraseña debe contener al menos un carácter especial.';
+  return null;
+};
+
+exports.cambiarContrasena = async (userId, body) => {
+  try {
+    const { antiguaContrasena, nuevaContrasena } = body;
+
+    const usuario = await Usuario.findById(userId);
+    if (!usuario) {
+      return { status: 404, body: { error: 'Usuario no encontrado.' } };
+    }
+
+    const isMatch = await bcrypt.compare(antiguaContrasena, usuario.password);
+    if (!isMatch) {
+      return { status: 401, body: { error: 'La contraseña actual es incorrecta.' } };
+    }
+
+    const errorValidacion = validarContrasena(nuevaContrasena);
+    if (errorValidacion) {
+      return { status: 400, body: { error: errorValidacion } };
+    }
+
+    usuario.password = await bcrypt.hash(nuevaContrasena, 10);
+    await usuario.save();
+
+    await emailController.enviarEmailCambioContrasena(usuario.email, usuario.username);
+
+    return { status: 200, body: { message: 'Contraseña cambiada satisfactoriamente.' } };
+  } catch (error) {
+    return { status: 500, body: { error: `Error interno del servidor: ${error.message}` } };
+  }
+};
