@@ -25,6 +25,7 @@ jest.mock('../controllers/grupo.controller', () => ({
 jest.mock('../controllers/email.controller', () => ({
   enviarEmailCredenciales: jest.fn(),
   enviarEmailCredencialesOlvidadas: jest.fn(),
+  enviarEmailCambioContrasena: jest.fn(),
 }));
 
 jest.mock('../models/usuario.model');
@@ -35,6 +36,11 @@ jest.mock('../models/grupo.model');
 jest.mock('../models/tarea.model');
 jest.mock('../models/cuestionario.model');
 jest.mock('../models/ramaConfig.model');
+
+jest.mock('bcryptjs', () => ({
+  compare: jest.fn(),
+  hash: jest.fn(),
+}));
 
 const request = require('supertest');
 const express = require('express');
@@ -56,6 +62,7 @@ const mongoose = require('mongoose');
 const grupoController = require('../controllers/grupo.controller');
 const emailController = require('../controllers/email.controller');
 const { parse } = require('csv-parse/sync');
+const bcrypt = require('bcryptjs');
 
 const usuarioController = require('../controllers/usuario.controller');
 
@@ -176,6 +183,67 @@ describe('Usuario API', () => {
       expect(mockUser.password).toBe('new-password');
       expect(mockUser.save).toHaveBeenCalled();
       expect(emailController.enviarEmailCredencialesOlvidadas).toHaveBeenCalled();
+    });
+  });
+
+  describe('POST /usuarios/cambiar-contrasena', () => {
+    it('should change password successfully', async () => {
+      const userId = 'user123';
+      const mockUser = {
+        _id: userId,
+        email: 'test@test.com',
+        username: 'testuser',
+        password: 'hashedOldPassword',
+        save: jest.fn().mockResolvedValue({}),
+      };
+
+      Usuario.findById.mockResolvedValue(mockUser);
+      bcrypt.compare.mockResolvedValue(true);
+      bcrypt.hash.mockResolvedValue('hashedNewPassword');
+      emailController.enviarEmailCambioContrasena.mockResolvedValue({ message: 'Correo enviado correctamente.' });
+
+      const response = await request(app)
+        .post('/usuarios/cambiar-contrasena')
+        .send({
+          antiguaContrasena: 'oldPassword',
+          nuevaContrasena: 'NewPass1!',
+        });
+
+      expect(response.status).toBe(200);
+      expect(response.body.message).toBe('Contraseña cambiada satisfactoriamente.');
+      expect(mockUser.password).toBe('hashedNewPassword');
+      expect(mockUser.save).toHaveBeenCalled();
+      expect(emailController.enviarEmailCambioContrasena).toHaveBeenCalledWith('test@test.com', 'testuser');
+    });
+
+    it('should return 400 for weak new password', async () => {
+      Usuario.findById.mockResolvedValue({ password: 'hashedOld' });
+      bcrypt.compare.mockResolvedValue(true);
+
+      const response = await request(app)
+        .post('/usuarios/cambiar-contrasena')
+        .send({
+          antiguaContrasena: 'oldPassword',
+          nuevaContrasena: 'weak',
+        });
+
+      expect(response.status).toBe(400);
+      expect(response.body.error).toBeDefined();
+    });
+
+    it('should return 401 for wrong old password', async () => {
+      Usuario.findById.mockResolvedValue({ password: 'hashedOld' });
+      bcrypt.compare.mockResolvedValue(false);
+
+      const response = await request(app)
+        .post('/usuarios/cambiar-contrasena')
+        .send({
+          antiguaContrasena: 'wrongPassword',
+          nuevaContrasena: 'NewPass1!',
+        });
+
+      expect(response.status).toBe(401);
+      expect(response.body.error).toBe('La contraseña actual es incorrecta.');
     });
   });
 

@@ -40,13 +40,13 @@ describe('RamaConfig API', () => {
             expect(response.headers['content-type']).toBe('application/pdf');
         });
 
-        it('should return 404 if pdf not found', async () => {
+        it('should return 204 if pdf not found', async () => {
             RamaConfig.findById.mockReturnValue({ select: jest.fn().mockResolvedValue(null) });
 
             const response = await request(app).get('/ramas/rama1/pdf');
 
-            expect(response.status).toBe(404);
-            expect(response.body).toEqual({ error: "PDF no encontrado para la rama con ID 'rama1'." });
+            expect(response.status).toBe(204);
+            expect(response.body).toEqual({});
         });
     });
 
