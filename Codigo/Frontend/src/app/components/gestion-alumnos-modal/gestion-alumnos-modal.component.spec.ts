@@ -5,6 +5,8 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { of, throwError } from 'rxjs';
 import { Usuario } from 'src/app/models/usuario.model';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 describe('GestionAlumnosModalComponent', () => {
   let component: GestionAlumnosModalComponent;
@@ -60,6 +62,8 @@ describe('GestionAlumnosModalComponent', () => {
         { provide: AlertController, useValue: alertControllerSpy },
         { provide: UsuarioService, useValue: usuarioServiceSpy },
         { provide: AuthService, useValue: authServiceSpy },
+        provideHttpClient(),
+        provideHttpClientTesting(),
       ],
     }).compileComponents();
 

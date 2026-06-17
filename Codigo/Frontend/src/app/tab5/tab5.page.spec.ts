@@ -70,22 +70,4 @@ describe('Tab5Page', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  it('should present mensaje modal', async () => {
-    await component.presentMensajeModal();
-    expect(modalController.create).toHaveBeenCalled();
-  });
-
-  it('should present calificacion general modal if a group is selected', async () => {
-    component.selectedGrupo = { _id: 'grupo123', nombre: 'Test Grupo', profesor: { _id: 'prof123' }, alumnos: [] };
-    await component.presentCalificacionGeneralModal();
-    expect(modalController.create).toHaveBeenCalled();
-  });
-
-  it('should not present calificacion general modal if no group is selected', async () => {
-    (modalController.create as jasmine.Spy).calls.reset();
-    component.selectedGrupo = null;
-    await component.presentCalificacionGeneralModal();
-    expect(modalController.create).not.toHaveBeenCalled();
-  });
 });

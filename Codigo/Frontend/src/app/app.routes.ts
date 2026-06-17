@@ -2,9 +2,15 @@ import { Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
 import { AdminGuard } from './guards/admin.guard';
 import { LoginGuard } from './guards/login.guard';
+import { WelcomeGuard } from './guards/welcome.guard';
 import { AdminContentComponent } from './pages/admin/admin-content.component';
 
 export const routes: Routes = [
+  {
+    path: 'welcome',
+    loadComponent: () => import('./pages/welcome/welcome.page').then( m => m.WelcomePage),
+    canActivate: [WelcomeGuard]
+  },
   {
     path: 'Login',
     loadComponent: () => import('./auth/login/login.page').then( m => m.LoginPage),
@@ -42,7 +48,7 @@ export const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'Login',
+    redirectTo: 'welcome',
     pathMatch: 'full'
   },
   {

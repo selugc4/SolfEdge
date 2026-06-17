@@ -8,7 +8,7 @@ import { Usuario } from '../models/usuario.model';
 import { PerfilCalificacion } from '../models/perfil-calificacion.model';
 import { CalificacionGeneral } from '../models/calificacionGeneral.model';
 import { FormsModule } from '@angular/forms';
-import { IonButtons, IonMenuButton, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonItem, IonLabel, IonText, IonList, IonSpinner, IonSegment, IonSegmentButton, IonListHeader, IonNote, IonButton, IonIcon, ToastController, ModalController } from '@ionic/angular/standalone';
+import { IonButtons, IonMenuButton, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonItem, IonLabel, IonText, IonList, IonSpinner, IonSegment, IonSegmentButton, IonListHeader, IonNote, ToastController, ModalController } from '@ionic/angular/standalone';
 import { MensajeService } from '../services/mensaje.service';
 import { Mensaje } from '../models/mensaje.model';
 import { ribbonOutline, sendOutline, peopleOutline } from 'ionicons/icons';
@@ -31,8 +31,6 @@ import { ActivatedRoute, Router } from '@angular/router';
     IonCardTitle, IonCardContent, IonItem, IonLabel, IonText,
     IonList, IonSpinner, IonSegment, IonSegmentButton,
     IonListHeader, IonNote,
-    IonButton,
-    IonIcon
 ]
 })
 export class Tab5Page implements OnInit {

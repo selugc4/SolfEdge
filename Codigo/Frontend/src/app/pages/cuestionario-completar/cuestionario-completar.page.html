@@ -29,6 +29,7 @@
 
               <ion-button
                 fill="clear"
+                color="medium"
                 size="small"
                 style="min-width: 32px; height: 32px; padding: 0;"
                 (click)="onHintClick(i); $event.preventDefault(); $event.stopPropagation()"
@@ -101,7 +102,7 @@
                   <ion-item lines="none">
                     <ion-label>
                       Recurso adjunto:
-                      <ion-text color="primary">
+                      <ion-text>
                         {{ pregunta.recursoAudicion }}
                       </ion-text>
                     </ion-label>
@@ -131,6 +132,7 @@
       }
 
       <ion-button
+        color="medium"
         expand="block"
         type="submit"
         [disabled]="form.invalid"

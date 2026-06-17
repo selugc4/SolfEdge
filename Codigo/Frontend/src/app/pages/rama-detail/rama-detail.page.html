@@ -85,7 +85,7 @@
         </ion-card>
         @if(isTeoria){
         <ion-item>
-          <ion-toggle [(ngModel)]="useCuestionarios" justify="space-between" color="">Usar Cuestionarios</ion-toggle>
+          <ion-toggle [(ngModel)]="useCuestionarios" justify="space-between" color="medium">Usar Cuestionarios</ion-toggle>
         </ion-item>
         }
         @if(!useCuestionarios){
@@ -112,7 +112,7 @@
                       <div slot="end" (click)="$event.stopPropagation()">
                         @if(!isProfessor && !isTareaClosed(tarea)){
                           <ion-button fill="clear" (click)="presentEntregarTareaModal(tarea._id)">
-                            <ion-icon name="document-text-outline"></ion-icon>
+                            <ion-icon color= "medium"name="document-text-outline"></ion-icon>
                           </ion-button>
                         }
                         @if(isProfessor) {
@@ -177,7 +177,7 @@
                       </ion-label>
                       @if(!isProfessor && !isCuestionarioClosed(cuestionario)){
                         <ion-button fill="clear" slot="end" (click)="presentCompletarCuestionarioModal(cuestionario._id)">
-                          <ion-icon name="checkmark-circle-outline"></ion-icon>
+                          <ion-icon color="medium" name="checkmark-circle-outline"></ion-icon>
                         </ion-button>
                       }
                       @if(isProfessor) {

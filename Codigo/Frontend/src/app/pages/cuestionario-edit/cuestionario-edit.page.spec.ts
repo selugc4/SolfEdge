@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { CuestionarioEditPage } from './cuestionario-edit.page';
-import { ToastController } from '@ionic/angular/standalone';
+import { ToastController, ModalController } from '@ionic/angular/standalone';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ActivatedRoute } from '@angular/router';
@@ -40,6 +40,12 @@ describe('CuestionarioEditPage', () => {
   const grupoServiceMock = { getGrupoById: jasmine.createSpy('getGrupoById').and.returnValue(of(mockGrupo)) };
   const authServiceMock = { currentUserValue: { _id: 'prof1' } };
   const toastControllerMock = { create: jasmine.createSpy('create').and.returnValue(Promise.resolve({ present: jasmine.createSpy('present').and.returnValue(Promise.resolve()) })) };
+  const modalControllerMock = {
+    create: jasmine.createSpy('create').and.returnValue(Promise.resolve({
+        present: jasmine.createSpy('present').and.returnValue(Promise.resolve()),
+        onDidDismiss: jasmine.createSpy('onDidDismiss').and.returnValue(Promise.resolve({ data: null, role: null }))
+    }))
+  };
   // Aquí hacemos back un spy para poder usar .calls.reset()
   const locationMock = { back: jasmine.createSpy('back') };
   const cuestionarioStateServiceMock = { touch: jasmine.createSpy('touch') };
@@ -61,6 +67,7 @@ describe('CuestionarioEditPage', () => {
         { provide: GrupoService, useValue: grupoServiceMock },
         { provide: AuthService, useValue: authServiceMock },
         { provide: ToastController, useValue: toastControllerMock },
+        { provide: ModalController, useValue: modalControllerMock },
         { provide: Location, useValue: locationMock },
         { provide: CuestionarioStateService, useValue: cuestionarioStateServiceMock },
         provideHttpClient(),

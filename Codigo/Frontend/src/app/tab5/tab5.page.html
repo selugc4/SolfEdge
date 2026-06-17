@@ -44,12 +44,12 @@
     <ion-card-header>
       <ion-card-title>Mis Calificaciones</ion-card-title>
     </ion-card-header>
-    <ion-segment (ionChange)="segmentChanged($event)" [(ngModel)]="segmentoSeleccionado">
+    <ion-segment color="medium" (ionChange)="segmentChanged($event)" [(ngModel)]="segmentoSeleccionado">
       <ion-segment-button value="continuas">
-        <ion-label>Continuas</ion-label>
+        <ion-label color="medium">Continuas</ion-label>
       </ion-segment-button>
       <ion-segment-button value="generales">
-        <ion-label>Generales</ion-label>
+        <ion-label color="medium">Generales</ion-label>
       </ion-segment-button>
     </ion-segment>
     <ion-card-content>

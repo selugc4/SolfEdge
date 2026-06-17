@@ -39,7 +39,12 @@ describe('ProfessorAdminPage', () => {
     currentUser: of({ _id: 'prof1', role: 'profesor' })
   };
 
-  const grupoStateServiceMock = {};
+  const grupoStateServiceMock = {
+    selectedGrupo$: of(null),
+    grupos$: of([]),
+    refreshGrupos: jasmine.createSpy('refreshGrupos'),
+    setSelectedGrupo: jasmine.createSpy('setSelectedGrupo')
+  };
   const calificacionGeneralServiceMock = {};
 
 
@@ -84,21 +89,32 @@ describe('ProfessorAdminPage', () => {
     expect(component.isLoading).toBe(false);
   });
 
-  it('should navigate to calificaciones', () => {
-    const navigateSpy = spyOn(router, 'navigate');
-    component.navegarACalificaciones();
-    expect(navigateSpy).toHaveBeenCalledWith(
-      ['/Areas/Perfil'],
-      { queryParams: { tool: 'calificaciones' } }
-    );
+  it('should present mensaje modal', async () => {
+    modalControllerMock.create.and.returnValue(Promise.resolve({
+      present: jasmine.createSpy('present'),
+      onWillDismiss: jasmine.createSpy('onWillDismiss').and.returnValue(Promise.resolve({ role: 'cancel' }))
+    }));
+    await component.presentMensajeModal();
+    expect(modalControllerMock.create).toHaveBeenCalled();
   });
 
-  it('should navigate to mensajes', () => {
-    const navigateSpy = spyOn(router, 'navigate');
-    component.navegarAMensajes();
-    expect(navigateSpy).toHaveBeenCalledWith(
-      ['/Areas/Perfil'],
-      { queryParams: { tool: 'mensajes' } }
-    );
+  it('should present calificacion general modal if a group is selected', async () => {
+    component.selectedGrupo = { _id: 'grupo1', nombre: 'Test', profesor: { _id: 'prof1' }, alumnos: [] };
+    modalControllerMock.create.and.returnValue(Promise.resolve({
+      present: jasmine.createSpy('present'),
+      onWillDismiss: jasmine.createSpy('onWillDismiss').and.returnValue(Promise.resolve({ role: 'cancel' }))
+    }));
+    await component.presentCalificacionGeneralModal();
+    expect(modalControllerMock.create).toHaveBeenCalled();
+  });
+
+  it('should present gestion grupo modal if a group is selected', async () => {
+    component.selectedGrupo = { _id: 'grupo1', nombre: 'Test', profesor: { _id: 'prof1' }, alumnos: [] };
+    modalControllerMock.create.and.returnValue(Promise.resolve({
+      present: jasmine.createSpy('present'),
+      onWillDismiss: jasmine.createSpy('onWillDismiss').and.returnValue(Promise.resolve({ role: 'cancel' }))
+    }));
+    await component.presentGestionGrupoModal();
+    expect(modalControllerMock.create).toHaveBeenCalled();
   });
 });
