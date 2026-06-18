@@ -113,7 +113,8 @@ exports.deleteGrupoById = async (id) => {
         const cuestionarios = await Cuestionario.find({ rama: { $in: ramaIds } });
         const cuestionarioIds = cuestionarios.map(c => c._id);
 
-        await Calificacion.deleteMany({ $or: [{ tarea: { $in: tareaIds } }, { cuestionario: { $in: cuestionarioIds } }] });
+        // Delete ratings for tasks (questionnaire ratings are handled by Cuestionario hooks)
+        await Calificacion.deleteMany({ tarea: { $in: tareaIds } });
         
         await CalificacionGeneral.deleteMany({ grupo: id });
 

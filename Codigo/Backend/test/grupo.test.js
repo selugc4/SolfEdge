@@ -124,7 +124,8 @@ describe('getGrupoById', () => {
             expect(RamaConfig.find).toHaveBeenCalledWith({ grupo: 'grupo1' });
             expect(Tarea.find).toHaveBeenCalledWith({ rama: { $in: ['rama1', 'rama2'] } });
             expect(Cuestionario.find).toHaveBeenCalledWith({ rama: { $in: ['rama1', 'rama2'] } });
-            expect(Calificacion.deleteMany).toHaveBeenCalledWith({ $or: [{ tarea: { $in: ['tarea1'] } }, { cuestionario: { $in: ['cuestionario1'] } }] });
+            // Updated to only expect tarea ratings
+            expect(Calificacion.deleteMany).toHaveBeenCalledWith({ tarea: { $in: ['tarea1'] } });
             expect(CalificacionGeneral.deleteMany).toHaveBeenCalledWith({ grupo: 'grupo1' });
             expect(Tarea.deleteMany).toHaveBeenCalledWith({ _id: { $in: ['tarea1'] } });
             expect(Cuestionario.deleteMany).toHaveBeenCalledWith({ _id: { $in: ['cuestionario1'] } });

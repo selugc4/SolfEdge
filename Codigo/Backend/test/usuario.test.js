@@ -279,19 +279,52 @@ describe('Usuario API', () => {
       });
 
       Usuario.findById.mockResolvedValueOnce({ _id: alumnoId, role: 'alumno', profesorId: profesorId });
+      // Add a mock group the student belongs to
+      Grupo.find.mockResolvedValueOnce([{ _id: 'grupo123', alumnos: [alumnoId] }]);
+      // Mock findById for the group check (returning non-empty to skip auto-delete in this test)
+      Grupo.findById.mockResolvedValueOnce({ _id: 'grupo123', alumnos: ['otroAlumno'] });
 
       const response = await request(app).delete(`/usuarios/${alumnoId}`);
 
       expect(response.status).toBe(200);
       expect(response.body.message).toBe('Usuario y todos sus datos asociados eliminados correctamente.');
       expect(Usuario.findById).toHaveBeenCalledWith(alumnoId);
-      expect(Mensaje.deleteMany).toHaveBeenCalledWith({ $or: [{ emisor: alumnoId }, { receptores: alumnoId }] });
+      
+      // Updated message cleanup expectations
+      expect(Mensaje.updateMany).toHaveBeenCalledWith(
+        { 'destinatarios.usuario': alumnoId },
+        { $pull: { destinatarios: { usuario: alumnoId } } }
+      );
+      expect(Mensaje.deleteMany).toHaveBeenCalledWith({ destinatarios: { $size: 0 } });
+
       expect(Calificacion.deleteMany).toHaveBeenCalledWith({ alumno: alumnoId });
       expect(CalificacionGeneral.deleteMany).toHaveBeenCalledWith({ alumno: alumnoId });
       expect(Grupo.updateMany).toHaveBeenCalledWith({ alumnos: alumnoId }, { $pull: { alumnos: alumnoId } });
       expect(Tarea.updateMany).toHaveBeenCalledWith({ alumnos: alumnoId }, { $pull: { alumnos: alumnoId } });
       expect(Cuestionario.updateMany).toHaveBeenCalledWith({ alumnos: alumnoId }, { $pull: { alumnos: alumnoId } });
       expect(Usuario.findByIdAndDelete).toHaveBeenCalledWith(alumnoId);
+    });
+
+    it('should delete a student and auto-delete group if it becomes empty', async () => {
+      authMiddleware.verifyToken.mockImplementationOnce((req, res, next) => {
+        req.user = { id: adminId };
+        next();
+      });
+
+      Usuario.findById.mockResolvedValueOnce({ _id: alumnoId, role: 'alumno', profesorId: profesorId });
+      Usuario.findById.mockResolvedValueOnce({ _id: adminId, role: 'administrador' });
+      
+      // Mock group that will become empty
+      const mockGrupo = { _id: 'grupoEmpty', alumnos: [] };
+      Grupo.find.mockResolvedValueOnce([mockGrupo]);
+      Grupo.findById.mockResolvedValueOnce(mockGrupo);
+      
+      grupoController.deleteGrupoById = jest.fn().mockResolvedValue({ status: 200 });
+
+      const response = await request(app).delete(`/usuarios/${alumnoId}`);
+
+      expect(response.status).toBe(200);
+      expect(grupoController.deleteGrupoById).toHaveBeenCalledWith('grupoEmpty');
     });
 
     it('should delete a student and associated data successfully by admin', async () => {
@@ -302,6 +335,7 @@ describe('Usuario API', () => {
 
       Usuario.findById.mockResolvedValueOnce({ _id: alumnoId, role: 'alumno', profesorId: profesorId });
       Usuario.findById.mockResolvedValueOnce({ _id: adminId, role: 'administrador' });
+      Grupo.find.mockResolvedValueOnce([]); // No groups
 
       const response = await request(app).delete(`/usuarios/${alumnoId}`);
 
@@ -362,9 +396,16 @@ describe('Usuario API', () => {
       expect(Grupo.deleteMany).toHaveBeenCalledWith({ profesor: profesorId });
       expect(RamaConfig.deleteMany).toHaveBeenCalledWith({ grupo: { $in: ['grupo1'] } });
       expect(Calificacion.deleteMany).toHaveBeenCalledWith({ tarea: { $in: ['tarea1'] } });
-      expect(Calificacion.deleteMany).toHaveBeenCalledWith({ cuestionario: { $in: ['cuestionario1'] } });
       expect(CalificacionGeneral.deleteMany).toHaveBeenCalledWith({ profesor: profesorId });
-      expect(Mensaje.deleteMany).toHaveBeenCalledWith({ $or: [{ emisor: profesorId }, { receptores: profesorId }] });
+      
+      // Updated message cleanup for professor
+      expect(Mensaje.deleteMany).toHaveBeenCalledWith({ remitente: profesorId });
+      expect(Mensaje.updateMany).toHaveBeenCalledWith(
+        { 'destinatarios.usuario': profesorId },
+        { $pull: { destinatarios: { usuario: profesorId } } }
+      );
+      expect(Mensaje.deleteMany).toHaveBeenCalledWith({ destinatarios: { $size: 0 } });
+
       expect(Usuario.deleteMany).toHaveBeenCalledWith({ profesorId: profesorId, role: 'alumno' });
       expect(Usuario.findByIdAndDelete).toHaveBeenCalledWith(profesorId);
     });

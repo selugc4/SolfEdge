@@ -447,15 +447,12 @@ exports.deleteUsuario = async (id, userId) => {
       await Calificacion.deleteMany({ tarea: { $in: tareaIdsProfesor } });
       await Tarea.deleteMany({ profesor: id });
 
-      const cuestionariosProfesor = await Cuestionario.find({ profesor: id });
-      const cuestionarioIdsProfesor = cuestionariosProfesor.map((c) => c._id);
-      await Calificacion.deleteMany({ cuestionario: { $in: cuestionarioIdsProfesor } });
-      await Cuestionario.deleteMany({ profesor: id });
-
       const gruposProfesor = await Grupo.find({ profesor: id });
       const grupoIdsProfesor = gruposProfesor.map((g) => g._id);
       await RamaConfig.deleteMany({ grupo: { $in: grupoIdsProfesor } });
       await Grupo.deleteMany({ profesor: id });
+
+      await Cuestionario.deleteMany({ profesor: id });
 
       await CalificacionGeneral.deleteMany({ profesor: id });
       await Usuario.deleteMany({ profesorId: id, role: 'alumno' });

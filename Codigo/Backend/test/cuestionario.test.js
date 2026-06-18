@@ -453,15 +453,13 @@ describe('Cuestionario Controller', () => {
   });
 
   describe('deleteCuestionario', () => {
-    it('elimina cuestionario y calificaciones asociadas', async () => {
+    it('elimina cuestionario correctamente', async () => {
       Cuestionario.findByIdAndDelete.mockResolvedValue({ _id: 'c1' });
-      Calificacion.deleteMany.mockResolvedValue({ deletedCount: 3 });
 
       const res = await cuestionarioController.deleteCuestionario('c1');
 
       expect(res.status).toBe(200);
       expect(Cuestionario.findByIdAndDelete).toHaveBeenCalledWith('c1');
-      expect(Calificacion.deleteMany).toHaveBeenCalledWith({ cuestionario: 'c1', tarea: null });
     });
 
     it('retorna 404 si no existe', async () => {

@@ -197,8 +197,6 @@ exports.deleteCuestionario = async (cuestionarioId) => {
     try {
         const cuestionario = await Cuestionario.findByIdAndDelete(cuestionarioId);
         if (!cuestionario) return { status: 404, body: { error: 'Cuestionario no encontrado.' } };
-        await Calificacion.deleteMany({ cuestionario: cuestionarioId, tarea: null });
-        await SuitePistas.deleteOne({ cuestionario: cuestionarioId });
         return { status: 200, body: cuestionario };
     } catch (error) {
         return { status: 500, body: { error: error.message } };
