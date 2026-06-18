@@ -105,6 +105,7 @@ export const enviarEmailCredencialesOlvidadas = async (destinatario, username, p
               <li><strong>Usuario:</strong> ${username}</li>
               <li><strong>Contraseña:</strong> ${password}</li>
             </ul>
+            <p><strong>Esta contraseña no es segura, se recomienda encarecidamente cambiarla</strong></p>
           `,
         },
       ],

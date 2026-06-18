@@ -23,6 +23,7 @@
             slot="start"
             [checked]="isAlumnoSelected(alumno)"
             (ionChange)="toggleAlumnoSelection(alumno)"
+            color="medium"
           ></ion-checkbox>
           <ion-label>
             <h2>{{ alumno.username }}</h2>
@@ -40,7 +41,7 @@
         }
         @for(alumno of filteredAlumnos; track $index) {
           <ion-item>
-            <ion-radio class="listPadding" [value]="alumno" slot="start"></ion-radio>
+            <ion-radio color="medium"class="listPadding" [value]="alumno" slot="start"></ion-radio>
             <ion-label>
               <h2>{{ alumno.username }}</h2>
               <p>{{ alumno.email }}</p>

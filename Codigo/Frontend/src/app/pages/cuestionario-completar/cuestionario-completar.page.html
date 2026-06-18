@@ -118,6 +118,7 @@
               @for (respuesta of pregunta.posiblesRespuestas; track j; let j = $index) {
                 <ion-item [class.margin-top]="j === 0">
                   <ion-radio
+                    color="medium"
                     [value]="j"
                     labelPlacement="end"
                   >

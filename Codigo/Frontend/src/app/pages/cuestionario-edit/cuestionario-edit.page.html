@@ -18,7 +18,7 @@
       <ion-label>Alumnos</ion-label>
       <ion-note slot="end">{{ selectedAlumnos.length > 0 ? selectedAlumnos.length + ' seleccionados' : 'Seleccionar alumnos' }}</ion-note>
     </ion-item>
-    
+
     @if(selectedAlumnos.length > 0) {
       <ion-item lines="none">
         <ion-label>Seleccionados: {{ selectedUsernamesString }}</ion-label>
@@ -137,7 +137,7 @@
               <div formArrayName="posiblesRespuestas">
                 @for(respuestaGroup of getPosiblesRespuestas(i).controls; track j; let j = $index){
                   <ion-item [formGroupName]="j">
-                    <ion-radio [value]="j.toString()" slot="start"></ion-radio>
+                    <ion-radio color="medium" [value]="j.toString()" slot="start"></ion-radio>
                     <ion-input formControlName="texto" placeholder="Texto de la respuesta"></ion-input>
                     @if(getPosiblesRespuestas(i).length > 2){
                       <ion-button (click)="removeRespuesta(i, j)" color="danger" fill="clear" slot="end">
