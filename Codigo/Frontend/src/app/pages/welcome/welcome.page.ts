@@ -12,10 +12,10 @@ import { rocketOutline } from 'ionicons/icons';
         <ion-title>SolfEdge</ion-title>
       </ion-toolbar>
     </ion-header>
-    <ion-content class="ion-padding">
-      <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; text-align: center;">
+    <ion-content class="ion-padding" style="--padding-bottom: env(safe-area-inset-bottom);">
+      <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; text-align: center; padding-bottom: 20px;">
         <h1>Bienvenido a SolfEdge</h1>
-        <p>Esta aplicación te ayudará a gestionar tu aprendizaje musical.</p>
+        <p>Desde aquí podrás gestionar tu aprendizaje musical interactuando con el material didáctico de las asignaturas como los libros del curso, las tareas o los cuestionarios asignados así como revisar tus calificaciones y mensajes.</p>
         <ion-button (click)="proceedToLogin()" color="medium">
           <ion-icon slot="start" name="rocket-outline"></ion-icon>
           ¿Empezamos?

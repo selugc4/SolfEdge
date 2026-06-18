@@ -13,7 +13,15 @@
           <div slot="end">{{ selectedGrupo?.nombre }}</div>
         </ion-item>
       }
-      <ion-select #groupSelect [(ngModel)]="selectedGrupo" (ionChange)="onGrupoChange($event)" [compareWith]="compareGrupos" style="display: none;" [interfaceOptions]="groupSelectInterfaceOptions">
+      <ion-select #groupSelect 
+                  interface="alert" 
+                  okText="Aplicar" 
+                  cancelText="Cancelar" 
+                  [(ngModel)]="selectedGrupo" 
+                  (ionChange)="onGrupoChange($event)" 
+                  [compareWith]="compareGrupos" 
+                  style="display: none;" 
+                  [interfaceOptions]="groupSelectInterfaceOptions">
         @for(grupo of grupos; track i; let i = $index){
           <ion-select-option [value]="grupo">{{ grupo.nombre }}</ion-select-option>
         }

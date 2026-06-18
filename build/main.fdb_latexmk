@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex build/main"] 1769650786.8387 "build/main.aux" "build/main.bbl" "build/main" 1769650840.3592 0
+["bibtex build/main"] 1781743741.49768 "build/main.aux" "build/main.bbl" "build/main" 1781746940.41502 0
   "./referencias.bib" 1768341688 8575 a67fb25dbab791c0104ec88df754e269 ""
   "C:/Users/jl444/AppData/Local/Programs/MiKTeX/bibtex/bst/ieeetran/IEEEtran.bst" 1440622569 57748 7c8250ecf02814ce6ddc0cdbb63df1dd ""
-  "build/main.aux" 1769650839 36942 b8067351974f0464de6c05aa02bf8d11 "pdflatex"
+  "build/main.aux" 1781746939 37282 6e0c3ed107f4c2f64536cb82c25afc45 "pdflatex"
   (generated)
   "build/main.bbl"
   "build/main.blg"
   (rewritten before read)
-["pdflatex"] 1769650830.52343 "c:/Users/jl444/OneDrive/Escritorio/TFG/main.tex" "build/main.pdf" "main" 1769650840.35989 0
+["pdflatex"] 1781746930.45705 "c:/Users/jl444/OneDrive/Escritorio/TFG/main.tex" "build/main.pdf" "main" 1781746940.41574 0
   "C:/Users/jl444/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1768187338 82705 9cc9f144eacd499bc23a611703921467 ""
   "C:/Users/jl444/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1727437875 11948238 b6ce6b25c84fe590f9e001dfe8e4c19e ""
   "C:/Users/jl444/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc" 1458473887 4993 80dc9bab7f31fb78a000ccfed0e27cab ""
@@ -254,7 +254,7 @@
   "C:/Users/jl444/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "C:/Users/jl444/AppData/Local/Programs/MiKTeX/tex/latex/wrapfig/wrapfig.sty" 1044403200 26220 3701aebf80ccdef248c0c20dd062fea9 ""
   "C:/Users/jl444/AppData/Local/Programs/MiKTeX/tex/latex/xcolor/xcolor.sty" 1700127522 55487 80a65caedd3722f4c20a14a69e785d8f ""
-  "Figuras/DCU.png" 1767817127 56132 d2fc82992266218defae8c90db612759 ""
+  "Figuras/DCU.png" 1781746754 98787 2113b600436fc4e41a62868276927ab0 ""
   "Figuras/angular_logo.png" 1767886542 4266 a99cdb5fa43e61a83b3691f35e33fbb3 ""
   "Figuras/api_logo.png" 1767886821 23236 7d203a769526fcefd6a4ea6bcc3f493d ""
   "Figuras/ci_cd_backend_build.png" 1768156662 35156 7760c2397e64939a423d5186e90ccc6a ""
@@ -303,15 +303,15 @@
   "Figuras/swagger_demo.png" 1768153534 80658 4c4619476569d763bcd953d0a7f0b852 ""
   "Figuras/swagger_logo.png" 1767887599 11447 e54857f110d7f10a9e2af263b3c1e2ff ""
   "UAL.sty" 1767801254 11174 6dc851311fc03402687a0e89ef3fae0b ""
-  "build/main.aux" 1769650839 36942 b8067351974f0464de6c05aa02bf8d11 "pdflatex"
-  "build/main.bbl" 1769650787 6523 814e3df75b20ea92c23f7a01ff5c2756 "bibtex build/main"
-  "build/main.lof" 1769650839 3452 ab632c63b5c4ef18c668cef45653d542 "pdflatex"
-  "build/main.lot" 1769650839 7547 29a8b75b7c3beee1a44047ec80929ad4 "pdflatex"
-  "build/main.out" 1769650839 21503 df06bad7c18295a09454025cb2227b82 "pdflatex"
-  "build/main.toc" 1769650839 9657 71519ae7ee694844846215c6a935460a "pdflatex"
+  "build/main.aux" 1781746939 37282 6e0c3ed107f4c2f64536cb82c25afc45 "pdflatex"
+  "build/main.bbl" 1781743741 6523 814e3df75b20ea92c23f7a01ff5c2756 "bibtex build/main"
+  "build/main.lof" 1781746939 3454 d5e103378da39cfb4cf6b6574b68438d "pdflatex"
+  "build/main.lot" 1781746939 7547 c68ddfccea6077f5fed2c4df4350a2d4 "pdflatex"
+  "build/main.out" 1781746939 22058 9aa68540bf46675682ab79a9fb1fd315 "pdflatex"
+  "build/main.toc" 1781746939 9866 83ec87df842aba2d4218c11045575181 "pdflatex"
   "c:/Users/jl444/OneDrive/Escritorio/TFG/main.tex" 1768334042 3708 d8d430fc730e3cb43d90b684d6a4fbee ""
   "codigo.sty" 1714653225 5598 b84ac9747489d86fc617488abd4340b9 ""
-  "contenido.tex" 1769650829 199996 c7455402f3bdb4909fa92b9b04657bd2 ""
+  "contenido.tex" 1781746929 205190 904e19c1445a5ab07e26d3e28268084f ""
   "contra.tex" 1768275889 650 6bfe39e583c10cca89601d4669a0d21e ""
   "dedicatoria.tex" 1768333761 1538 e5053f55ac79541f6620cdc35a9286bf ""
   "indicesyrefe.tex" 1768275331 887 9dcf581b2c0195dced1d8f6c98438967 ""

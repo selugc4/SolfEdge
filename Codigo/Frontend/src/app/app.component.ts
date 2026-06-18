@@ -38,7 +38,21 @@ export class AppComponent implements OnInit {
     header: 'Seleccionar Grupo',
     subHeader: '',
     message: '',
-    cssClass: 'group-select-alert'
+    cssClass: 'group-select-alert',
+    buttons: [
+      {
+        text: 'Cancelar',
+        role: 'cancel',
+        cssClass: 'alert-button-medium'
+      },
+      {
+        text: 'Aplicar',
+        role: 'confirm',
+        cssClass: 'alert-button-medium'
+      }
+    ],
+    okText: 'Aplicar',
+    cancelText: 'Cancelar'
   };
 
   constructor() {
@@ -81,7 +95,22 @@ export class AppComponent implements OnInit {
       header: 'Seleccionar Grupo',
       subHeader: this.grupos.length === 0 ? 'No hay grupos disponibles' : '',
       message: this.grupos.length === 0 ? 'Por favor cree un grupo' : '',
-      cssClass: 'group-select-alert'
+      cssClass: 'group-select-alert',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'alert-button-medium'
+        },
+        {
+          text: 'Aplicar',
+          role: 'confirm',
+          cssClass: 'alert-button-medium'
+        }
+      ],
+      // Fallbacks
+      okText: 'Aplicar',
+      cancelText: 'Cancelar'
     };
   }
 
@@ -90,6 +119,7 @@ export class AppComponent implements OnInit {
   }
 
   openGroupSelect() {
+    this.updateGroupSelectInterfaceOptions();
     this.groupSelect.open();
   }
 

@@ -301,15 +301,33 @@ ion-card {
 
 /* Alert Buttons Customization */
 .alert-wrapper {
-  .alert-button.alert-cancel-button {
+  --ion-color-primary: var(--ion-color-medium) !important;
+  --ion-color-primary-rgb: var(--ion-color-medium-rgb) !important;
+
+  .alert-button {
     color: var(--ion-color-medium) !important;
   }
-  .alert-button.alert-delete-button {
-    color: var(--ion-color-danger) !important;
-    font-weight: bold !important;
+  .alert-button.alert-button-medium {
+    color: var(--ion-color-medium) !important;
   }
-  .alert-button.alert-warning-button {
-    color: var(--ion-color-warning) !important;
-    font-weight: bold !important;
+  .alert-radio-icon {
+    border-color: var(--ion-color-medium) !important;
+  }
+  .alert-radio-inner {
+    background-color: var(--ion-color-medium) !important;
+  }
+  .alert-radio-label {
+    color: var(--ion-color-dark) !important;
+  }
+  [aria-checked=true] .alert-radio-label {
+    color: var(--ion-color-medium) !important;
+    font-weight: bold;
+  }
+}
+
+/* Group Select Alert Customization */
+.group-select-alert {
+  .alert-button-group {
+    justify-content: flex-end;
   }
 }

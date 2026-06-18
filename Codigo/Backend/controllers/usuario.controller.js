@@ -469,9 +469,22 @@ exports.deleteUsuario = async (id, userId) => {
       await Calificacion.deleteMany({ alumno: id });
       await CalificacionGeneral.deleteMany({ alumno: id });
 
+      // Identify groups the alumno belongs to
+      const gruposDelAlumno = await Grupo.find({ alumnos: id });
+
+      // Remove alumno from groups, tasks and questionnaires
       await Grupo.updateMany({ alumnos: id }, { $pull: { alumnos: id } });
       await Tarea.updateMany({ alumnos: id }, { $pull: { alumnos: id } });
       await Cuestionario.updateMany({ alumnos: id }, { $pull: { alumnos: id } });
+
+      // For each group the alumno was in, check if it's now empty
+      for (const grupo of gruposDelAlumno) {
+        const updatedGrupo = await Grupo.findById(grupo._id);
+        if (updatedGrupo && updatedGrupo.alumnos.length === 0) {
+          // Use the controller's delete operation to clean up everything (tasks, questionnaires, ratings, etc.)
+          await grupoController.deleteGrupoById(grupo._id);
+        }
+      }
     }
 
     await Usuario.findByIdAndDelete(id);
