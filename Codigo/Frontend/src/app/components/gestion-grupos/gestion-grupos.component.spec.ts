@@ -92,10 +92,10 @@ describe('GestionGruposComponent', () => {
 
   it('should sanitize and limit nombreGrupo input correctly', () => {
     component.onNombreGrupoInput({ target: { value: 'GrupoConNombreMuyLargo' } } as any);
-    expect(component.nombreGrupo.length).toBe(20);
-    expect(component.nombreGrupo).toBe('GrupoConNombreMuyLar');
-    component.onNombreGrupoInput({ target: { value: 'Grupo!!@@##123' } } as any);
-    expect(component.nombreGrupo).toBe('Grupo123');
+    expect(component.nombreGrupo.length).toBe(5);
+    expect(component.nombreGrupo).toBe('Grupo');
+    component.onNombreGrupoInput({ target: { value: 'Gr!!@@##123' } } as any);
+    expect(component.nombreGrupo).toBe('Gr123');
   });
 
   it('should open modal and update selectedAlumnos on confirm', async () => {
