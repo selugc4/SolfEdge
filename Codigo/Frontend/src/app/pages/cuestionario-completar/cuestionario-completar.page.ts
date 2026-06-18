@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { CommonModule, Location } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Cuestionario } from '../../models/cuestionario.model';
@@ -8,11 +8,11 @@ import { TareaStateService } from '../../services/tarea-state.service';
 import {
   IonHeader, IonToolbar, IonTitle, IonButton, IonButtons, IonContent, IonCard, IonCardHeader, IonCardTitle,
   IonCardContent, IonItem, IonRadio, IonRadioGroup, ToastController, IonBackButton, IonListHeader, IonLabel, IonText,
-  IonIcon
+  IonIcon, NavController
 } from "@ionic/angular/standalone";
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { addIcons } from 'ionicons';
-import { helpCircleOutline, sendOutline } from 'ionicons/icons';
+import { helpCircleOutline, sendOutline, closeCircleOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-cuestionario-completar',
@@ -30,7 +30,7 @@ import { helpCircleOutline, sendOutline } from 'ionicons/icons';
 })
 export class CuestionarioCompletarPage implements OnInit {
   private route = inject(ActivatedRoute);
-  private location = inject(Location);
+  private navCtrl = inject(NavController);
   private fb = inject(FormBuilder);
   private cuestionarioService = inject(CuestionarioService);
   private tareaStateService = inject(TareaStateService);
@@ -48,7 +48,7 @@ export class CuestionarioCompletarPage implements OnInit {
 
   constructor() {
     this.form = this.fb.group({});
-    addIcons({ helpCircleOutline, sendOutline });
+    addIcons({ helpCircleOutline, sendOutline, closeCircleOutline });
   }
 
   ngOnInit() {
@@ -72,12 +72,12 @@ export class CuestionarioCompletarPage implements OnInit {
         },
         error: () => {
           this.presentToast('Error cargando cuestionario.', 'danger');
-          this.location.back();
+          this.goBack();
         }
       });
     } else {
       this.presentToast('ID de cuestionario no proporcionado.', 'danger');
-      this.location.back();
+      this.goBack();
     }
   }
 
@@ -90,6 +90,10 @@ export class CuestionarioCompletarPage implements OnInit {
     this.pistas = [];
     this.hintLoading = [];
     this.hintErrors = [];
+  }
+
+  goBack() {
+    this.navCtrl.back();
   }
 
   async onHintClick(index: number) {
@@ -173,7 +177,7 @@ export class CuestionarioCompletarPage implements OnInit {
       next: (calificacion) => {
         this.presentToast(`Cuestionario entregado. Tu nota es: ${calificacion.nota!.toFixed(2)}`, 'success');
         this.tareaStateService.touch();
-        this.location.back();
+        this.goBack();
       },
       error: (err) => {
         this.presentToast(`Error al entregar: ${err?.error?.message || err?.error?.error || 'Error desconocido'}`, 'danger');

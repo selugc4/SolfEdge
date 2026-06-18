@@ -16,10 +16,10 @@
 
     <ion-item (click)="openSelectAlumnosModal()" button>
       <ion-label>Alumnos</ion-label>
-      <ion-note slot="end">{{ selectedAlumnos.length > 0 ? selectedAlumnos.length + ' seleccionados' : 'Seleccionar alumnos' }}</ion-note>
+      <ion-note slot="end">{{ form.get('alumnos')?.value?.length > 0 ? form.get('alumnos')?.value?.length + ' seleccionados' : 'Seleccionar alumnos' }}</ion-note>
     </ion-item>
 
-    @if(selectedAlumnos.length > 0) {
+    @if(form.get('alumnos')?.value?.length > 0) {
       <ion-item lines="none">
         <ion-label>Seleccionados: {{ selectedUsernamesString }}</ion-label>
       </ion-item>

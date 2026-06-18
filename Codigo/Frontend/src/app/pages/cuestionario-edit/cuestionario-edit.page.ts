@@ -61,10 +61,15 @@ export class CuestionarioEditPage implements OnInit {
   }
 
   get selectedUsernamesString(): string {
-    return this.selectedAlumnos.map(a => a.username).join(', ');
+    const selectedIds = this.form.get('alumnos')?.value || [];
+    return this.alumnos
+      .filter(a => selectedIds.includes(a._id))
+      .map(a => a.username)
+      .join(', ');
   }
 
   async openSelectAlumnosModal() {
+    this.syncSelectedAlumnos();
     const modal = await this.modalCtrl.create({
       component: SelectAlumnosModalComponent,
       componentProps: {
@@ -99,6 +104,7 @@ export class CuestionarioEditPage implements OnInit {
             this.pageTitle = 'Editar Cuestionario';
             this.cuestionarioService.getCuestionarioById(this.cuestionarioId!).subscribe(cuestionario => {
                 this.setupForm(cuestionario);
+                this.syncSelectedAlumnos();
             });
         } else {
             this.pageTitle = 'Crear Cuestionario';
@@ -122,6 +128,11 @@ export class CuestionarioEditPage implements OnInit {
       cuestionario.preguntas.forEach(pregunta => {
         this.addPregunta(pregunta);
       });
+  }
+
+  private syncSelectedAlumnos() {
+    const alumnoIds = this.form.get('alumnos')?.value || [];
+    this.selectedAlumnos = this.alumnos.filter(a => alumnoIds.includes(a._id!)) as Usuario[];
   }
 
   get preguntas() {
