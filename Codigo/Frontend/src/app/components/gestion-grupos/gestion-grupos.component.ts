@@ -52,12 +52,11 @@ export class GestionGruposComponent implements OnInit {
   removeAlumno(alumnoToRemove: Usuario) {
     this.selectedAlumnos = this.selectedAlumnos.filter(alumno => alumno._id !== alumnoToRemove._id);
   }
-
   onNombreGrupoInput(event: any) {
     let input = event.target.value;
     input = input.replace(/[^a-zA-Z0-9_-]/g, '');
-    if (input.length > 20) {
-      input = input.substring(0, 20);
+    if (input.length > 5) {
+      input = input.substring(0, 5);
     }
     this.nombreGrupo = input;
   }
