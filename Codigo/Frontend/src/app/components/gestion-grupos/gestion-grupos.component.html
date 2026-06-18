@@ -4,7 +4,8 @@
   </ion-card-header>
   <ion-card-content>
     <ion-item>
-      <ion-input label="Nombre del Grupo" labelPlacement="floating" [(ngModel)]="nombreGrupo" type="text" pattern="^[a-zA-Z0-9_-]*$" (ionInput)="onNombreGrupoInput($event)" maxlength="5"></ion-input>
+      <ion-label position="floating">Nombre del grupo</ion-label>
+      <ion-input color="medium" [(ngModel)]="nombreGrupo" type="text" pattern="^[a-zA-Z0-9_-]*$" (ionInput)="onNombreGrupoInput($event)" maxlength="5"></ion-input>
     </ion-item>
 
     <ion-button expand="block" class="ion-margin-top" (click)="openSelectAlumnosModal()" color="medium">

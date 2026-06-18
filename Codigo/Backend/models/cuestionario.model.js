@@ -81,4 +81,28 @@ cuestionarioSchema.path('alumnos').validate(function (value) {
 cuestionarioSchema.path('preguntas').validate(function (value) {
   return value.length > 0 && value.length <= 20;
 }, 'El mensaje debe tener al menos un destinatario.');
+
+// Hook para eliminar en cascada cuando se borra un cuestionario individualmente (findByIdAndDelete)
+cuestionarioSchema.pre('findOneAndDelete', async function (next) {
+  const query = this.getQuery();
+  const doc = await this.model.findOne(query);
+  if (doc) {
+    await mongoose.model('SuitePistas').deleteMany({ cuestionario: doc._id });
+    await mongoose.model('Calificacion').deleteMany({ cuestionario: doc._id });
+  }
+  next();
+});
+
+// Hook para eliminar en cascada cuando se borran varios cuestionarios (deleteMany)
+cuestionarioSchema.pre('deleteMany', async function (next) {
+  const filter = this.getFilter();
+  const docs = await this.model.find(filter).select('_id');
+  const ids = docs.map((d) => d._id);
+  if (ids.length > 0) {
+    await mongoose.model('SuitePistas').deleteMany({ cuestionario: { $in: ids } });
+    await mongoose.model('Calificacion').deleteMany({ cuestionario: { $in: ids } });
+  }
+  next();
+});
+
 module.exports = mongoose.model('Cuestionario', cuestionarioSchema);
