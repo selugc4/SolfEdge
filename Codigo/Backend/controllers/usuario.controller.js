@@ -461,9 +461,19 @@ exports.deleteUsuario = async (id, userId) => {
       await Usuario.deleteMany({ profesorId: id, role: 'alumno' });
     }
 
-    await Mensaje.deleteMany({
-      $or: [{ emisor: id }, { receptores: id }]
-    });
+    if (usuarioAEliminar.role === 'profesor') {
+      // Si es profesor, eliminamos todos los mensajes que haya enviado (remitente)
+      await Mensaje.deleteMany({ remitente: id });
+    }
+
+    // Quitamos al usuario de la lista de destinatarios (donde destinatarios es un array de objetos con campo 'usuario')
+    await Mensaje.updateMany(
+      { 'destinatarios.usuario': id },
+      { $pull: { destinatarios: { usuario: id } } }
+    );
+
+    // Eliminamos los mensajes que se hayan quedado sin ningún destinatario
+    await Mensaje.deleteMany({ destinatarios: { $size: 0 } });
 
     if (usuarioAEliminar.role === 'alumno') {
       await Calificacion.deleteMany({ alumno: id });
