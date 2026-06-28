@@ -219,18 +219,27 @@ exports.entregarTarea = async (tareaId, alumnoId, submissionData, file) => {
         }
 
         const calificacionExistente = await Calificacion.findOne({ tarea: tareaId, alumno: alumnoId });
+
         if (calificacionExistente) {
+            if (calificacionExistente.nota !== null && calificacionExistente.nota !== undefined) {
+                return {
+                    status: 400,
+                    body: { error: 'No puedes modificar la entrega porque ya ha sido calificada.' }
+                };
+            }
+
             calificacionExistente.respuestaTexto = submissionData.respuestaTexto || '';
             calificacionExistente.fechaEntrega = new Date();
+
             if (file) {
                 calificacionExistente.respuestaArchivo = file.buffer.toString('base64');
                 calificacionExistente.nombreArchivo = file.originalname;
                 calificacionExistente.tipoArchivo = file.mimetype;
             }
+
             await calificacionExistente.save();
             return { status: 200, body: calificacionExistente };
         }
-
 
         const nuevaEntrega = new Calificacion({
             alumno: alumnoId,
@@ -246,6 +255,7 @@ exports.entregarTarea = async (tareaId, alumnoId, submissionData, file) => {
         }
 
         await nuevaEntrega.save();
+
         await tarea.populate({
             path: 'rama',
             select: 'nombre grupo',
@@ -254,22 +264,27 @@ exports.entregarTarea = async (tareaId, alumnoId, submissionData, file) => {
                 select: 'nombre'
             }
         });
+
         await nuevaEntrega.populate({
             path: 'alumno',
             select: 'username'
         });
+
         const sistemaUser = await Usuario.findOne({ username: 'sistema' });
         const nombreRama = tarea.rama?.nombre ?? 'rama desconocida';
         const nombreGrupo = tarea.rama?.grupo?.nombre ?? 'grupo desconocido';
         const asunto = 'Nueva entrega disponible';
         const texto = `Tienes pendiente la correción de una nueva entrega del alumno "${nuevaEntrega.alumno.username}" del grupo "${nombreGrupo}" en la tarea "${tarea.titulo}" de la rama "${nombreRama}"`;
-        await mensajeController.crearMensaje(sistemaUser._id, asunto, texto, [tarea.profesor]);        
+
+        await mensajeController.crearMensaje(sistemaUser._id, asunto, texto, [tarea.profesor]);
+
         return { status: 201, body: nuevaEntrega };
 
     } catch (error) {
         if (error.name === 'ValidationError') {
             return { status: 400, body: { error: error.message } };
         }
+
         return { status: 500, body: { error: `Error interno del servidor: ${error.message}` } };
     }
 };

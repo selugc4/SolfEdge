@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterModule, Router } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { AlertController, IonButtons, IonMenuButton, ModalController, ToastController, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonList, IonItem, IonLabel, IonIcon, IonToggle, IonSpinner, IonFab, IonFabButton, ActionSheetController } from '@ionic/angular/standalone';
+import { AlertController, IonButtons, IonMenuButton, ModalController, ToastController, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonList, IonItem, IonLabel, IonIcon, IonToggle, IonSpinner, IonFab, IonFabButton, ActionSheetController, IonBadge } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { add, addCircleOutline, cloudUploadOutline, createOutline, documentTextOutline, ribbonOutline, trashOutline, checkmarkCircleOutline, closeCircleOutline, ellipsisVertical, closeOutline, eyeOutline } from 'ionicons/icons';
 
@@ -34,7 +34,7 @@ import { FileOpener } from '@capacitor-community/file-opener';
   templateUrl: './rama-detail.page.html',
   styleUrls: ['./rama-detail.page.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, IonButtons, IonMenuButton, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonIcon, IonList, IonItem, IonLabel, IonButtons, RouterModule, IonToggle, IonSpinner, IonFab, IonFabButton, MetronomeComponent, PianoComponent]
+  imports: [CommonModule, FormsModule, IonButtons, IonMenuButton, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonIcon, IonList, IonItem, IonLabel, IonButtons, RouterModule, IonToggle, IonSpinner, IonFab, IonFabButton, MetronomeComponent, PianoComponent, IonBadge]
   })
 
 export class RamaDetailPage implements OnDestroy {
@@ -205,7 +205,11 @@ async openPdf(): Promise<void> {
       reader.readAsDataURL(blob);
     });
   }
+  getNotaTarea(tarea: any): number | null {
+    const nota = tarea.calificacion?.nota ?? tarea.entrega?.nota ?? tarea.nota;
 
+    return nota !== null && nota !== undefined ? Number(nota) : null;
+  }
   async openCuestionarioMenu(cuestionario: any) {
     const buttons: any[] = [
       {

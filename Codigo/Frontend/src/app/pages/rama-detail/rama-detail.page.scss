@@ -69,7 +69,11 @@ ion-list ion-item > div[slot="end"] {
 ion-button {
   margin-top: 10px;
 }
-
+.nota-badge {
+  font-size: 0.9rem;
+  padding: 6px 10px;
+  border-radius: 12px;
+}
 .empty-state {
   text-align: center;
   padding: 40px;
