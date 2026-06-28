@@ -11,20 +11,18 @@ import { CuestionarioService } from '../../services/cuestionario.service';
 import { GrupoService } from '../../services/grupo.service';
 import { AuthService } from '../../services/auth.service';
 import { CuestionarioStateService } from '../../services/cuestionario-state.service';
-import { IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonItem, IonLabel, IonSelect, IonSelectOption, IonListHeader, IonIcon, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonInput, IonTextarea, ToastController, IonRadioGroup, IonRadio, IonText, IonNote, NavController } from "@ionic/angular/standalone";
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonItem, IonLabel, IonSelect, IonSelectOption, IonListHeader, IonIcon, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonInput, IonTextarea, ToastController, IonRadioGroup, IonRadio, IonText, IonNote, NavController } from "@ionic/angular/standalone";import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { addIcons } from 'ionicons';
 import { addCircleOutline, trashOutline, musicalNotesOutline, closeCircleOutline, checkmarkCircleOutline } from 'ionicons/icons';
 import { ModalController } from "@ionic/angular/standalone";
 import { SelectAlumnosModalComponent } from '../../components/select-alumnos-modal/select-alumnos-modal.component';
-
+import { CalificacionService } from '../../services/calificacion.service';
 @Component({
   selector: 'app-cuestionario-edit',
   templateUrl: './cuestionario-edit.page.html',
   styleUrls: ['./cuestionario-edit.page.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonItem, IonLabel, IonListHeader, IonIcon, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonInput, IonTextarea, IonRadioGroup, IonRadio, IonText, IonNote]
-})
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonItem, IonLabel, IonListHeader, IonIcon, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonInput, IonTextarea, IonRadioGroup, IonRadio, IonText, IonNote]})
 export class CuestionarioEditPage implements OnInit {
   private route = inject(ActivatedRoute);
   private location = inject(Location);
@@ -45,10 +43,11 @@ export class CuestionarioEditPage implements OnInit {
   grupoId: string | null = null;
   alumnos: Partial<Usuario>[] = [];
   selectedAlumnos: Usuario[] = [];
+  private calificacionService = inject(CalificacionService);
   pageTitle = 'Crear Cuestionario';
   minDate: string;
   private today = new Date();
-
+  entregasCuestionario: any[] = [];
   constructor() {
     this.today.setDate(this.today.getDate() + 1);
     this.minDate = this.today.toISOString().split('T')[0];
@@ -114,7 +113,17 @@ export class CuestionarioEditPage implements OnInit {
         }
     });
   }
-
+  loadEntregasCuestionario(cuestionarioId: string) {
+    this.cuestionarioService.getCalificacionesByCuestionario(cuestionarioId).subscribe({
+      next: (entregas) => {
+        this.entregasCuestionario = entregas;
+      },
+      error: (err) => {
+        console.error('Error cargando entregas del cuestionario:', err);
+        this.entregasCuestionario = [];
+      }
+    });
+  }
   setupForm(cuestionario: Cuestionario) {
       this.form.patchValue({
         nombre: cuestionario.nombre,

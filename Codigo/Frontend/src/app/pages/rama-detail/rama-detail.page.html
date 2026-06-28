@@ -130,18 +130,17 @@
                           <ion-icon name="eye-outline" color="medium"></ion-icon>
                         </ion-button>
 
-                      @if(!isProfessor && getNotaTarea(tarea) !== null){
-                        <ion-badge class="nota-badge" [color]="getNotaTarea(tarea)! >= 5 ? 'success' : 'danger'">
-                          {{ getNotaTarea(tarea) }}
-                        </ion-badge>
-                      }
+                        @if(!isProfessor && getNotaTarea(tarea) !== null){
+                          <ion-badge class="nota-badge" [color]="getNotaTarea(tarea)! >= 5 ? 'success' : 'danger'">
+                            {{ getNotaTarea(tarea) }}
+                          </ion-badge>
+                        }
 
-                      @if(!isProfessor && getNotaTarea(tarea) === null && !isTareaClosed(tarea)){
-                        <ion-button fill="clear" (click)="presentEntregarTareaModal(tarea._id)">
-                          <ion-icon color="medium" name="document-text-outline"></ion-icon>
-                        </ion-button>
-                      }
-
+                        @if(!isProfessor && getNotaTarea(tarea) === null && !isTareaClosed(tarea)){
+                          <ion-button fill="clear" (click)="presentEntregarTareaModal(tarea._id)">
+                            <ion-icon color="medium" name="document-text-outline"></ion-icon>
+                          </ion-button>
+                        }
                         @if(isProfessor) {
                           <div class="professor-actions desktop-only">
                             <ion-button fill="clear" (click)="presentTareaModal(tarea)">
@@ -202,11 +201,19 @@
                         <h2>{{ cuestionario.nombre }}</h2>
                         <p>Preguntas: {{ cuestionario.preguntas.length }}</p>
                       </ion-label>
-                      @if(!isProfessor && !isCuestionarioClosed(cuestionario)){
-                        <ion-button fill="clear" slot="end" (click)="presentCompletarCuestionarioModal(cuestionario._id)">
-                          <ion-icon color="medium" name="checkmark-circle-outline"></ion-icon>
-                        </ion-button>
-                      }
+                      <div slot="end">
+                        @if(!isProfessor && getNotaCuestionario(cuestionario) !== null){
+                          <ion-badge class="nota-badge" [color]="getNotaCuestionario(cuestionario)! >= 5 ? 'success' : 'danger'">
+                            {{ getNotaCuestionario(cuestionario) }}
+                          </ion-badge>
+                        }
+
+                        @if(!isProfessor && !isCuestionarioClosed(cuestionario)){
+                          <ion-button fill="clear" (click)="presentCompletarCuestionarioModal(cuestionario._id)">
+                            <ion-icon color="medium" name="checkmark-circle-outline"></ion-icon>
+                          </ion-button>
+                        }
+                      </div>
                       @if(isProfessor) {
                         <div class="professor-actions desktop-only" slot="end">
                           <ion-button fill="clear" (click)="presentCuestionarioModal(cuestionario)">

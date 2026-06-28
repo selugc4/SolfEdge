@@ -61,7 +61,34 @@ function preguntaSignature(p) {
 
   return JSON.stringify({ texto, recurso, respuestas });
 }
+exports.getCalificacionesByCuestionario = async (cuestionarioId, profesorId) => {
+    try {
+        const cuestionario = await Cuestionario.findById(cuestionarioId);
 
+        if (!cuestionario) {
+            return { status: 404, body: { error: 'Cuestionario no encontrado.' } };
+        }
+
+        if (cuestionario.profesor.toString() !== profesorId) {
+            return {
+                status: 403,
+                body: { error: 'No tienes permiso para ver las entregas de este cuestionario.' }
+            };
+        }
+
+        const calificaciones = await Calificacion.find({ cuestionario: cuestionarioId })
+            .populate('alumno', 'username')
+            .sort({ fechaEntrega: -1 });
+
+        return { status: 200, body: calificaciones };
+
+    } catch (error) {
+        return {
+            status: 500,
+            body: { error: `Error interno del servidor: ${error.message}` }
+        };
+    }
+};
 exports.updateCuestionario = async (cuestionarioId, cuestionarioData, profesorId) => {
   try {
     const cuestionario = await Cuestionario.findById(cuestionarioId);

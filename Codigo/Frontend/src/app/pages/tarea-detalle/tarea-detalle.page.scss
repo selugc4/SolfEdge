@@ -7,7 +7,7 @@ ion-content {
     border: 1px solid var(--ion-color-medium);
     border-radius: 8px;
     overflow: hidden;
-  
+
     h3 {
       padding: 10px;
       margin: 0;
@@ -16,7 +16,7 @@ ion-content {
       font-size: 1.1em;
       border-bottom: 1px solid var(--ion-color-medium);
     }
-  
+
     iframe {
       display: block;
       width: 100%;
@@ -24,12 +24,21 @@ ion-content {
       border: none;
     }
   }
-  
+
   ion-card-content ul {
     padding-left: 20px;
   }
-  
+
   ion-card-content li {
     list-style-type: disc;
   }
-  
+.nota-final-container {
+  display: flex;
+  justify-content: center;
+}
+
+.nota-final-badge {
+  font-size: 1rem;
+  padding: 10px 16px;
+  border-radius: 14px;
+}

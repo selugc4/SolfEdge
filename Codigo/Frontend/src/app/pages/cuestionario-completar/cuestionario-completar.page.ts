@@ -13,6 +13,7 @@ import {
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { addIcons } from 'ionicons';
 import { helpCircleOutline, sendOutline, closeCircleOutline } from 'ionicons/icons';
+import { CuestionarioStateService } from 'src/app/services/cuestionario-state.service';
 
 @Component({
   selector: 'app-cuestionario-completar',
@@ -29,6 +30,7 @@ import { helpCircleOutline, sendOutline, closeCircleOutline } from 'ionicons/ico
   ]
 })
 export class CuestionarioCompletarPage implements OnInit {
+  private readonly cuestionarioStateService: CuestionarioStateService = inject(CuestionarioStateService);
   private route = inject(ActivatedRoute);
   private navCtrl = inject(NavController);
   private fb = inject(FormBuilder);
@@ -94,6 +96,7 @@ export class CuestionarioCompletarPage implements OnInit {
   }
 
   goBack() {
+    this.cuestionarioStateService.touch();
     this.router.navigate(['/Areas', 'Teoria']);
   }
 

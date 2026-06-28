@@ -74,4 +74,7 @@ export class CuestionarioService {
       `${this.apiUrl}/${cuestionarioId}/preguntas/${preguntaIndex}/pista`
     );
   }
+  getCalificacionesByCuestionario(cuestionarioId: string) {
+    return this.http.get<any[]>(`${this.apiUrl}/cuestionarios/${cuestionarioId}/calificaciones`);
+  }
 }

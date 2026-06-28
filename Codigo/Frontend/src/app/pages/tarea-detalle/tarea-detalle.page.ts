@@ -44,6 +44,8 @@ export class TareaDetallePage implements OnInit {
   private tareaStateService: TareaStateService = inject(TareaStateService);
   private location: Location = inject(Location);
   private nonSafeUrl: string = '';
+  userId: string = '';
+  miEntrega: Calificacion | null = null;
   constructor() {
     addIcons({ 'trash-outline': trashOutline, 'close-circle-outline': closeCircleOutline, 'document-text-outline': documentTextOutline });
   }
@@ -52,6 +54,7 @@ export class TareaDetallePage implements OnInit {
     this.authService.currentUser.subscribe(user => {
       if (user) {
         this.isProfessor = user.role === 'profesor';
+        this.userId = user._id;
       }
     });
     this.checkIsMobile();
@@ -88,6 +91,7 @@ export class TareaDetallePage implements OnInit {
       this.tareaStateService.touch();
     }
   }
+
   private checkIsMobile(): void {
     this.isMobile = window.matchMedia('(max-width: 1368px)').matches;
   }
@@ -124,12 +128,33 @@ export class TareaDetallePage implements OnInit {
       this.presentToast('No se pudo abrir el PDF en este dispositivo.', 'danger');
     }
   }
+  loadMiEntrega(tareaId: string) {
+    this.tareaService.getEntregasPorTarea(tareaId).subscribe({
+      next: (entregas) => {
+        this.miEntrega = entregas.find(
+          (entrega: any) =>
+            entrega.alumno === this.userId || entrega.alumno?._id === this.userId
+        ) || null;
+      },
+      error: (err) => {
+        console.error('Error cargando mi entrega:', err);
+        this.miEntrega = null;
+      }
+    });
+  }
+  getNotaAlumno(): number | null {
+    const nota = this.miEntrega?.nota;
+
+    return nota !== null && nota !== undefined ? Number(nota) : null;
+  }
   loadTareaDetalle(tareaId: string) {
     this.tareaService.getTareaById(tareaId).subscribe({
       next: (tarea) => {
         this.tarea = tarea;
         if (this.isProfessor) {
           this.loadEntregas(tareaId);
+        } else {
+          this.loadMiEntrega(tareaId);
         }
         if (this.tarea.profesor) {
           this.usuarioService.getUsuarioById(this.tarea.profesor).subscribe({

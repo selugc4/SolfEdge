@@ -14,7 +14,7 @@ import { CuestionarioService } from '../../services/cuestionario.service';
 import { AuthService } from '../../services/auth.service';
 import { GrupoStateService } from '../../services/grupo-state.service';
 import { TareaStateService } from '../../services/tarea-state.service';
-import { Subscription, Subject, forkJoin, of } from 'rxjs';
+import { Subject, forkJoin, of } from 'rxjs';
 
 import { RamaConfig } from '../../models/rama-config.model';
 import { Tarea } from '../../models/tarea.model';
@@ -28,7 +28,7 @@ import { PianoComponent } from '../../components/piano/piano.component';
 import { finalize, switchMap, tap, take, takeUntil } from 'rxjs/operators';
 import { Filesystem, Directory } from '@capacitor/filesystem';
 import { FileOpener } from '@capacitor-community/file-opener';
-
+import { CalificacionService } from '../../services/calificacion.service';
 @Component({
   selector: 'app-rama-detail',
   templateUrl: './rama-detail.page.html',
@@ -52,12 +52,14 @@ export class RamaDetailPage implements OnDestroy {
   loadingGroup: string | null = null;
   pdfUrl: SafeResourceUrl | null = null;
   hasLibroDeApoyo = false;
+  calificaciones: any[] = [];
   useCuestionarios = false;
   isLoading: boolean = true; // Added isLoading
   private libroBlob: Blob | null = null;
   private readonly route: ActivatedRoute = inject(ActivatedRoute);
   private readonly ramaConfigService: RamaConfigService = inject(RamaConfigService);
   private readonly tareaService: TareaService = inject(TareaService);
+  private readonly calificacionService: CalificacionService = inject(CalificacionService);
   private readonly cuestionarioService: CuestionarioService = inject(CuestionarioService);
   private readonly authService: AuthService = inject(AuthService);
   private readonly toastController: ToastController = inject(ToastController);
@@ -93,9 +95,11 @@ export class RamaDetailPage implements OnDestroy {
     this.tareaStateService.tareaModified$.pipe(takeUntil(this.destroy$)).subscribe(() => {
       this.loadTareas().subscribe();
     });
-
-    this.cuestionarioStateService.cuestionarioModified$.pipe(takeUntil(this.destroy$)).subscribe(() => {
-      this.loadCuestionarios().subscribe();
+    this.cuestionarioStateService.cuestionarioModified$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.loadCuestionarios().subscribe();
+        this.loadCalificacionesAlumno().subscribe();
     });
   }
   ngOnInit(){
@@ -206,9 +210,13 @@ async openPdf(): Promise<void> {
     });
   }
   getNotaTarea(tarea: any): number | null {
-    const nota = tarea.calificacion?.nota ?? tarea.entrega?.nota ?? tarea.nota;
+    const calificacion = this.calificaciones?.find(
+      (c: any) => c.tarea === tarea._id || c.tarea?._id === tarea._id
+    );
 
-    return nota !== null && nota !== undefined ? Number(nota) : null;
+    return calificacion?.nota !== null && calificacion?.nota !== undefined
+      ? Number(calificacion.nota)
+      : null;
   }
   async openCuestionarioMenu(cuestionario: any) {
     const buttons: any[] = [
@@ -274,7 +282,8 @@ async openPdf(): Promise<void> {
               switchMap(() =>
                 forkJoin([
                   this.loadTareas(),
-                  this.isTeoria ? this.loadCuestionarios() : of([])
+                  this.isTeoria ? this.loadCuestionarios() : of([]),
+                  this.loadCalificacionesAlumno()
                 ])
               ),
               finalize(() => {
@@ -347,7 +356,18 @@ async openPdf(): Promise<void> {
       })
     );
   }
+  loadCalificacionesAlumno() {
+    if (!this.userId || !this.selectedGrupo?._id) {
+      this.calificaciones = [];
+      return of([]);
+    }
 
+    return this.calificacionService.getCalificacionesByAlumno(this.userId, this.selectedGrupo._id).pipe(
+      tap(calificaciones => {
+        this.calificaciones = calificaciones;
+      })
+    );
+  }
   loadCuestionarios() {
     if (!this.userId) return of([]);
     return this.cuestionarioService.getCuestionariosByUsuarioAndRama(this.userId, this.ramaConfig!._id).pipe(
@@ -613,9 +633,20 @@ async openPdf(): Promise<void> {
     const { role } = await modal.onWillDismiss();
     if (role === 'confirm') {
       this.loadTareas().subscribe();
+      this.loadCalificacionesAlumno().subscribe();
     }
   }
+  getNotaCuestionario(cuestionario: any): number | null {
+    const calificacion = this.calificaciones?.find(
+      (c: any) =>
+        c.cuestionario === cuestionario._id ||
+        c.cuestionario?._id === cuestionario._id
+    );
 
+    return calificacion?.nota !== null && calificacion?.nota !== undefined
+      ? Number(calificacion.nota)
+      : null;
+  }
   async presentCompletarCuestionarioModal(cuestionarioId: string) {
     this.router.navigate(['/Cuestionario-completar', cuestionarioId]);
   }

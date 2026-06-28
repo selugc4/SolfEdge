@@ -607,6 +607,45 @@ router.get(
 );
 /**
  * @swagger
+ * /cuestionarios/{id}/calificaciones:
+ *   get:
+ *     summary: Obtiene todas las calificaciones de un cuestionario.
+ *     tags: [Cuestionarios]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID del cuestionario.
+ *     responses:
+ *       200:
+ *         description: Lista de calificaciones del cuestionario.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/CalificacionCuestionario'
+ *       403:
+ *         description: No tienes permiso para ver las entregas de este cuestionario.
+ *       404:
+ *         description: Cuestionario no encontrado.
+ *       500:
+ *         description: Error interno del servidor.
+ */
+router.get('/:id/calificaciones', authMiddleware.verifyToken, async (req, res) => {
+    const result = await cuestionarioController.getCalificacionesByCuestionario(
+        req.params.id,
+        req.user.id
+    );
+
+    res.status(result.status).json(result.body);
+});
+/**
+ * @swagger
  * components:
  *   schemas:
  *     Pregunta:
