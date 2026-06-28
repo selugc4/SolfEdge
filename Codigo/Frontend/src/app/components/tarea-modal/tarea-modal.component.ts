@@ -27,6 +27,7 @@ export class TareaModalComponent implements OnInit {
   form: FormGroup;
   selectedFile: File | null = null;
   minDate: string;
+  selectedStudentsText = '';
   modalCtrl: ModalController = inject(ModalController);
   toastCtrl: ToastController = inject(ToastController);
   ramaConfigService: RamaConfigService = inject(RamaConfigService);
@@ -92,7 +93,14 @@ export class TareaModalComponent implements OnInit {
       this.form.patchValue({ rama: this.rama });
     }
   }
+  getSelectedStudentsText(): string {
+    const selectedIds = this.form.get('selectedStudentsFromGroups')?.value || [];
 
+    return this.studentsInSelectedGroups
+      .filter((alumno: any) => selectedIds.includes(alumno._id))
+      .map((alumno: any) => alumno.username)
+      .join(', ');
+  }
   onStudentsFromGroupsChange(event: any) {
     this.selectedStudentsFromGroups = event.detail.value;
   }
@@ -116,9 +124,9 @@ export class TareaModalComponent implements OnInit {
     } else {
       this.selectedFile = null;
       this.presentToast(
-        this.rama === 'Entonación' 
-          ? 'Por favor, selecciona un archivo PDF o MP3.' 
-          : 'Por favor, selecciona un archivo PDF.', 
+        this.rama === 'Entonación'
+          ? 'Por favor, selecciona un archivo PDF o MP3.'
+          : 'Por favor, selecciona un archivo PDF.',
         'danger'
       );
     }

@@ -7,13 +7,13 @@
   --padding-bottom: 8px;
   margin: 8px;
   height: auto; /* Ensure it expands to content */
-  
+
   ion-label {
     font-weight: 600;
     color: var(--ion-color-dark);
     margin-bottom: 4px; /* Space between label and select */
   }
-  
+
   ion-select {
     width: 100%;
     /* Remove fixed height to allow dynamic sizing */
@@ -43,4 +43,19 @@ ion-textarea {
   color: var(--ion-color-medium);
   font-style: italic;
   display: block;
+}
+.students-list ion-item {
+  --padding-start: 0;
+}
+
+.students-list h2 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.students-list p {
+  font-size: 13px;
+  margin: 4px 0 0;
+  color: var(--ion-color-medium);
 }

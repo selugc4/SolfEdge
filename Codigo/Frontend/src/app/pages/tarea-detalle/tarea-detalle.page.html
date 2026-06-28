@@ -76,7 +76,14 @@
             <p>No hay material de apoyo asociado a esta tarea.</p>
           </div>
         }
-
+        @if(!isProfessor && tarea && !isTareaClosed(tarea)){
+          <div class="ion-margin-top">
+            <ion-button expand="block" color="medium" (click)="presentEntregarTareaModal()">
+              <ion-icon name="document-text-outline" slot="start"></ion-icon>
+              Entregar tarea
+            </ion-button>
+          </div>
+        }
         @if(isProfessor && tarea && !isTareaClosed(tarea)){
           <div class="ion-margin-top">
             <ion-button expand="block" color="warning" (click)="closeTarea()">

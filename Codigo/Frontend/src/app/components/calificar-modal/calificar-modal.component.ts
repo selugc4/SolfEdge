@@ -21,7 +21,12 @@ export class CalificarModalComponent implements OnInit {
 
   constructor() {
     this.form = new FormGroup({
-      nota: new FormControl(null, [Validators.required, Validators.min(0), Validators.max(10)])
+      nota: new FormControl(null, [
+        Validators.required,
+        Validators.min(0),
+        Validators.max(10),
+        Validators.pattern(/^\d{1,2}([.,]\d{0,2})?$/)
+      ])
     });
   }
 
@@ -30,8 +35,25 @@ export class CalificarModalComponent implements OnInit {
       this.form.patchValue({ nota: this.entrega.nota });
     }
   }
+  limitLength(event: any) {
+    let value = event.detail.value ?? '';
 
-  cancel() {
+    value = value.toString().replace(',', '.');
+
+    const regex = /^\d{0,2}(\.\d{0,2})?$/;
+
+    if (!regex.test(value)) {
+      value = value.slice(0, -1);
+    }
+
+    if (Number(value) > 10) {
+      value = '10';
+    }
+
+    event.target.value = value;
+    this.form.patchValue({ nota: value });
+  }
+    cancel() {
     return this.modalCtrl.dismiss(null, 'cancel');
   }
 

@@ -62,7 +62,10 @@ ion-card {
     }
   }
 }
-
+ion-list ion-item > div[slot="end"] {
+  display: flex;
+  align-items: center;
+}
 ion-button {
   margin-top: 10px;
 }

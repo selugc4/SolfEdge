@@ -5,7 +5,7 @@ import { ActivatedRoute, RouterModule, Router } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { AlertController, IonButtons, IonMenuButton, ModalController, ToastController, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonList, IonItem, IonLabel, IonIcon, IonToggle, IonSpinner, IonFab, IonFabButton, ActionSheetController } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { add, addCircleOutline, cloudUploadOutline, createOutline, documentTextOutline, ribbonOutline, trashOutline, checkmarkCircleOutline, closeCircleOutline, ellipsisVertical, closeOutline } from 'ionicons/icons';
+import { add, addCircleOutline, cloudUploadOutline, createOutline, documentTextOutline, ribbonOutline, trashOutline, checkmarkCircleOutline, closeCircleOutline, ellipsisVertical, closeOutline, eyeOutline } from 'ionicons/icons';
 
 import { RamaConfigService } from '../../services/rama-config.service';
 import { TareaService } from '../../services/tarea.service';
@@ -34,7 +34,7 @@ import { FileOpener } from '@capacitor-community/file-opener';
   templateUrl: './rama-detail.page.html',
   styleUrls: ['./rama-detail.page.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, IonButtons, IonMenuButton, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonIcon, IonList, IonItem, IonLabel, IonButtons, RouterModule, IonToggle, IonSpinner, IonFab, IonFabButton, MetronomeComponent, PianoComponent] 
+  imports: [CommonModule, FormsModule, IonButtons, IonMenuButton, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonIcon, IonList, IonItem, IonLabel, IonButtons, RouterModule, IonToggle, IonSpinner, IonFab, IonFabButton, MetronomeComponent, PianoComponent]
   })
 
 export class RamaDetailPage implements OnDestroy {
@@ -86,7 +86,8 @@ export class RamaDetailPage implements OnDestroy {
       checkmarkCircleOutline,
       closeCircleOutline,
       ellipsisVertical,
-      closeOutline
+      closeOutline,
+      eyeOutline
     });
 
     this.tareaStateService.tareaModified$.pipe(takeUntil(this.destroy$)).subscribe(() => {
@@ -503,8 +504,17 @@ async openPdf(): Promise<void> {
     }
 
     const allAlumnos = this.selectedGrupo.alumnos;
-    const uniqueAlumnos = [...new Map(allAlumnos.map(item => [item['_id'], item])).values()];
 
+    const uniqueAlumnos = [
+      ...new Map(
+        allAlumnos.map((alumno: any) => [
+          alumno._id || alumno,
+          typeof alumno === 'string'
+            ? { _id: alumno, email: alumno }
+            : alumno
+        ])
+      ).values()
+    ];
     const modal = await this.modalController.create({
       component: TareaModalComponent,
       componentProps: {

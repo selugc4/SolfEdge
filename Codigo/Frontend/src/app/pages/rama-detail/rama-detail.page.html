@@ -119,17 +119,23 @@
               @if(tareas.length > 0){
                 <ion-list>
                   @for(tarea of tareas; track i; let i = $index) {
-                    <ion-item (click)="navigateToTask(tarea._id)" [detail]="true">
+                    <ion-item>
                       <ion-label>
                         <h2>{{ tarea.titulo }}</h2>
                         <p>{{ tarea.descripcion }}</p>
                       </ion-label>
-                      <div slot="end" (click)="$event.stopPropagation()">
+
+                      <div slot="end">
+                        <ion-button fill="clear" (click)="navigateToTask(tarea._id)">
+                          <ion-icon name="eye-outline" color="medium"></ion-icon>
+                        </ion-button>
+
                         @if(!isProfessor && !isTareaClosed(tarea)){
                           <ion-button fill="clear" (click)="presentEntregarTareaModal(tarea._id)">
-                            <ion-icon color= "medium"name="document-text-outline"></ion-icon>
+                            <ion-icon color="medium" name="document-text-outline"></ion-icon>
                           </ion-button>
                         }
+
                         @if(isProfessor) {
                           <div class="professor-actions desktop-only">
                             <ion-button fill="clear" (click)="presentTareaModal(tarea)">
@@ -146,12 +152,12 @@
                               <ion-icon name="trash-outline" color="danger"></ion-icon>
                             </ion-button>
                           </div>
+
                           <div class="professor-actions mobile-only">
                             <ion-button fill="clear" (click)="openProfessorMenu(tarea)" color="medium">
                               <ion-icon name="ellipsis-vertical"></ion-icon>
                             </ion-button>
                           </div>
-
                         }
                       </div>
                     </ion-item>

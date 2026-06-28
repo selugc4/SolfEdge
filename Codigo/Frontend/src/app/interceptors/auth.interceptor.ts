@@ -23,7 +23,9 @@ export const AuthInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next: 
       if (error.status === 401) {
         console.log('401 Unauthorized error caught by interceptor. Logging out and redirecting to login.');
         authService.logout();
-        router.navigate(['/Login']);
+        router.navigate(['/Login']).then(() => {
+          window.location.reload();
+        });
       }
       return throwError(() => error);
     })

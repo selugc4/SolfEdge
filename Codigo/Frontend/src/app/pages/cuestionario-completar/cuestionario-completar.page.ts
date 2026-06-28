@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Cuestionario } from '../../models/cuestionario.model';
 import { CuestionarioService } from '../../services/cuestionario.service';
 import { TareaStateService } from '../../services/tarea-state.service';
@@ -32,6 +32,7 @@ export class CuestionarioCompletarPage implements OnInit {
   private route = inject(ActivatedRoute);
   private navCtrl = inject(NavController);
   private fb = inject(FormBuilder);
+  private router = inject(Router);
   private cuestionarioService = inject(CuestionarioService);
   private tareaStateService = inject(TareaStateService);
   private toastCtrl = inject(ToastController);
@@ -93,7 +94,7 @@ export class CuestionarioCompletarPage implements OnInit {
   }
 
   goBack() {
-    this.navCtrl.back();
+    this.router.navigate(['/Areas', 'Teoria']);
   }
 
   async onHintClick(index: number) {

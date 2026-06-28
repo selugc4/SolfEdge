@@ -14,6 +14,7 @@ import { CalificarModalComponent } from 'src/app/components/calificar-modal/cali
 import { Filesystem, Directory } from '@capacitor/filesystem';
 import { FileOpener } from '@capacitor-community/file-opener';
 import { Capacitor } from '@capacitor/core';
+import { EntregarTareaModalComponent } from '../../components/entregar-tarea-modal/entregar-tarea-modal.component';
 import { addIcons } from 'ionicons';
 import { trashOutline, closeCircleOutline, documentTextOutline } from 'ionicons/icons';
 @Component({
@@ -68,7 +69,25 @@ export class TareaDetallePage implements OnInit {
   onResize() {
     this.checkIsMobile();
   }
+  async presentEntregarTareaModal() {
+    if (!this.tarea?._id) return;
 
+    const modal = await this.modalCtrl.create({
+      component: EntregarTareaModalComponent,
+      componentProps: {
+        tareaId: this.tarea._id
+      }
+    });
+
+    await modal.present();
+
+    const { role } = await modal.onWillDismiss();
+
+    if (role === 'confirm') {
+      this.presentToast('Tarea entregada con éxito.');
+      this.tareaStateService.touch();
+    }
+  }
   private checkIsMobile(): void {
     this.isMobile = window.matchMedia('(max-width: 1368px)').matches;
   }
@@ -127,7 +146,7 @@ export class TareaDetallePage implements OnInit {
         if (this.tarea.materialDeApoyo) {
             const mimeType = this.getMimeType(this.tarea.materialDeApoyo);
             this.isAudio = mimeType.startsWith('audio');
-            
+
             const blob = this.b64toBlob(this.tarea.materialDeApoyo, mimeType);
             this.nonSafeUrl = URL.createObjectURL(blob);
             this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.nonSafeUrl);
@@ -143,14 +162,14 @@ export class TareaDetallePage implements OnInit {
   getMimeType(base64: string): string {
     const data = base64.split(',')[1] || base64;
     const binary = atob(data);
-    
+
     // Check for MP3 ID3 header or Mpeg frame sync
     // ID3 tag
     if (binary.startsWith('ID3')) return 'audio/mpeg';
-    
+
     // Check for PDF signature
     if (binary.startsWith('%PDF')) return 'application/pdf';
-    
+
     // If we can't identify, default to PDF to maintain previous functionality
     return 'application/pdf';
   }

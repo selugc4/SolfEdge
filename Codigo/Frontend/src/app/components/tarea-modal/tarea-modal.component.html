@@ -28,9 +28,16 @@
       @if(currentGroup && studentsInSelectedGroups.length > 0){
         <ion-item class="custom-input ion-margin-top">
           <ion-label position="stacked">Alumnos del Grupo</ion-label>
-          <ion-select multiple="true" formControlName="selectedStudentsFromGroups" (ionChange)="onStudentsFromGroupsChange($event)">
-            @for(alumno of studentsInSelectedGroups; track i; let i = $index) {
-              <ion-select-option [value]="alumno._id">{{ alumno.username }}</ion-select-option>
+          <ion-select
+            multiple="true"
+            formControlName="selectedStudentsFromGroups"
+            [selectedText]="getSelectedStudentsText()"
+            (ionChange)="onStudentsFromGroupsChange($event)">
+
+            @for(alumno of studentsInSelectedGroups; track alumno._id) {
+              <ion-select-option [value]="alumno._id">
+                {{ alumno.username }} - {{ alumno.email }}
+              </ion-select-option>
             }
           </ion-select>
         </ion-item>

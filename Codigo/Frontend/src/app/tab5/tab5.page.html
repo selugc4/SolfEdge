@@ -94,25 +94,25 @@
         <ion-item>
           <ion-label>Primer Trimestre</ion-label>
           <ion-note slot="end" [color]="(getNotaPorTipo('Q1') ?? 0) < 5 ? 'danger' : 'success'">
-            {{ getNotaPorTipo('Q1') ?? 'Aun no calificado' }}
+            {{ getNotaPorTipo('Q1') ?? 'Aún no calificado' }}
           </ion-note>
         </ion-item>
         <ion-item>
           <ion-label>Segundo Trimestre</ion-label>
           <ion-note slot="end" [color]="(getNotaPorTipo('Q2') ?? 0) < 5 ? 'danger' : 'success'">
-            {{ getNotaPorTipo('Q2') ?? 'Aun no calificado' }}
+            {{ getNotaPorTipo('Q2') ?? 'Aún no calificado' }}
           </ion-note>
         </ion-item>
         <ion-item>
           <ion-label>Tercer Trimestre</ion-label>
           <ion-note slot="end" [color]="(getNotaPorTipo('Q3') ?? 0) < 5 ? 'danger' : 'success'">
-            {{ getNotaPorTipo('Q3') ?? 'Aun no calificado' }}
+            {{ getNotaPorTipo('Q3') ?? 'Aún no calificado' }}
           </ion-note>
         </ion-item>
         <ion-item>
           <ion-label>Ordinaria</ion-label>
           <ion-note slot="end" [color]="(getNotaPorTipo('Ordinaria') ?? 0) < 5 ? 'danger' : 'success'">
-            {{ getNotaPorTipo('Ordinaria') ?? 'Aun no calificado' }}
+            {{ getNotaPorTipo('Ordinaria') ?? 'Aún no calificado' }}
           </ion-note>
         </ion-item>
         <ion-item>
@@ -121,7 +121,7 @@
             <ion-note slot="end" color="success">¡Felicidades, no tienes que presentarte a la extraordinaria!</ion-note>
           } @else {
             <ion-note slot="end" [color]="(getNotaPorTipo('Extraordinaria') ?? 0) < 5 ? 'danger' : 'success'">
-              {{ getNotaPorTipo('Extraordinaria') ?? 'Aun no calificado' }}
+              {{ getNotaPorTipo('Extraordinaria') ?? 'Aún no calificado' }}
             </ion-note>
           }
         </ion-item>

@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { forkJoin, of, Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { Cuestionario } from '../../models/cuestionario.model';
@@ -11,11 +11,10 @@ import { CuestionarioService } from '../../services/cuestionario.service';
 import { GrupoService } from '../../services/grupo.service';
 import { AuthService } from '../../services/auth.service';
 import { CuestionarioStateService } from '../../services/cuestionario-state.service';
-import { IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonItem, IonLabel, IonSelect, IonSelectOption, IonListHeader, IonIcon, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonInput, IonTextarea, ToastController, IonRadioGroup, IonRadio, IonText, IonNote } from "@ionic/angular/standalone";
+import { IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonItem, IonLabel, IonSelect, IonSelectOption, IonListHeader, IonIcon, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonInput, IonTextarea, ToastController, IonRadioGroup, IonRadio, IonText, IonNote, NavController } from "@ionic/angular/standalone";
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { addIcons } from 'ionicons';
 import { addCircleOutline, trashOutline, musicalNotesOutline, closeCircleOutline, checkmarkCircleOutline } from 'ionicons/icons';
-
 import { ModalController } from "@ionic/angular/standalone";
 import { SelectAlumnosModalComponent } from '../../components/select-alumnos-modal/select-alumnos-modal.component';
 
@@ -37,6 +36,8 @@ export class CuestionarioEditPage implements OnInit {
   private cuestionarioStateService = inject(CuestionarioStateService);
   private domSanitizer: DomSanitizer = inject(DomSanitizer);
   private modalCtrl = inject(ModalController);
+  private router = inject(Router);
+  private navCtrl = inject(NavController);
   form: FormGroup;
   isEditMode = false;
   cuestionarioId: string | null = null;
@@ -262,7 +263,7 @@ export class CuestionarioEditPage implements OnInit {
   }
 
   goBack() {
-    this.location.back();
+    this.router.navigate(['/Areas', 'Teoria']);
   }
 
   private handleAudioUploads(cuestionarioId: string): Observable<any> {

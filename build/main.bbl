@@ -28,53 +28,6 @@
   \url{https://universidadeuropea.com/blog/lenguaje-musical/}
 \BIBentrySTDinterwordspacing
 
-\bibitem{EstudioMusicaWeb}
-\BIBentryALTinterwordspacing
-{Estudio Música}, ``Estudio música.'' [Online]. Available:
-  \url{https://estudiomusica.com/}
-\BIBentrySTDinterwordspacing
-
-\bibitem{RodriguezHeras2022}
-\BIBentryALTinterwordspacing
-I.~{Rodríguez Heras}, ``{El lenguaje musical a través de las TIC en
-  Educación Primaria},'' 2022. [Online]. Available:
-  \url{https://uvadoc.uva.es/bitstream/handle/10324/56944/TFG-G5671.pdf}
-\BIBentrySTDinterwordspacing
-
-\bibitem{Gorbunova2019}
-\BIBentryALTinterwordspacing
-I.~Gorbunova and H.~Hiner, ``{Music Computer Technologies and Interactive
-  Systems of Education in Digital Age School},'' in \emph{Proceedings of the
-  International Conference Communicative Strategies of Information Society
-  (CSIS 2018)}, 2019. [Online]. Available:
-  \url{https://www.atlantis-press.com/proceedings/csis-18/55913802}
-\BIBentrySTDinterwordspacing
-
-\bibitem{GarciaAguirre2017}
-\BIBentryALTinterwordspacing
-M.~{García Aguirre}, ``{Aplicación informática para la introducción del
-  lenguaje musical (LeeMúsica) en dispositivos móviles. Niveles 1 y 2 (3
-  años)},'' 2017. [Online]. Available:
-  \url{https://uvadoc.uva.es/bitstream/10324/22384/1/TFG-G2315.pdf}
-\BIBentrySTDinterwordspacing
-
-\bibitem{Maric2015}
-\BIBentryALTinterwordspacing
-S.~Mari{\'c}, ``{Online gaming to learn music and English language in music and
-  ballet school solfeggio education},'' \emph{Hellenic Journal of Music,
-  Education and Culture}, vol.~6, no.~2, p.~54, 2015. [Online]. Available:
-  \url{https://hejmec.eu/journal/index.php/HeJMEC/article/view/58/54}
-\BIBentrySTDinterwordspacing
-
-\bibitem{LifeSciJournal2014}
-\BIBentryALTinterwordspacing
-L.~Parshina, ``{Multimedia technologies as a tool for teaching supervision over
-  the students' skills (within the course on {``}music theory training{''})},''
-  \emph{Life Science Journal}, vol.~11, no.~6, pp. 547--551, 2014. [Online].
-  Available:
-  \url{https://www.lifesciencesite.com/lsj/life1106/081_24754life110614_547_551.pdf}
-\BIBentrySTDinterwordspacing
-
 \bibitem{IonicDocs}
 \BIBentryALTinterwordspacing
 {Ionic Team}, ``{Ionic Framework Documentation}.'' [Online]. Available:
@@ -170,6 +123,53 @@ L.~Parshina, ``{Multimedia technologies as a tool for teaching supervision over
 \BIBentryALTinterwordspacing
 {Render}, ``{Render Documentation}.'' [Online]. Available:
   \url{https://render.com/docs}
+\BIBentrySTDinterwordspacing
+
+\bibitem{EstudioMusicaWeb}
+\BIBentryALTinterwordspacing
+{Estudio Música}, ``Estudio música.'' [Online]. Available:
+  \url{https://estudiomusica.com/}
+\BIBentrySTDinterwordspacing
+
+\bibitem{RodriguezHeras2022}
+\BIBentryALTinterwordspacing
+I.~{Rodríguez Heras}, ``{El lenguaje musical a través de las TIC en
+  Educación Primaria},'' 2022. [Online]. Available:
+  \url{https://uvadoc.uva.es/bitstream/handle/10324/56944/TFG-G5671.pdf}
+\BIBentrySTDinterwordspacing
+
+\bibitem{Gorbunova2019}
+\BIBentryALTinterwordspacing
+I.~Gorbunova and H.~Hiner, ``{Music Computer Technologies and Interactive
+  Systems of Education in Digital Age School},'' in \emph{Proceedings of the
+  International Conference Communicative Strategies of Information Society
+  (CSIS 2018)}, 2019. [Online]. Available:
+  \url{https://www.atlantis-press.com/proceedings/csis-18/55913802}
+\BIBentrySTDinterwordspacing
+
+\bibitem{GarciaAguirre2017}
+\BIBentryALTinterwordspacing
+M.~{García Aguirre}, ``{Aplicación informática para la introducción del
+  lenguaje musical (LeeMúsica) en dispositivos móviles. Niveles 1 y 2 (3
+  años)},'' 2017. [Online]. Available:
+  \url{https://uvadoc.uva.es/bitstream/10324/22384/1/TFG-G2315.pdf}
+\BIBentrySTDinterwordspacing
+
+\bibitem{Maric2015}
+\BIBentryALTinterwordspacing
+S.~Mari{\'c}, ``{Online gaming to learn music and English language in music and
+  ballet school solfeggio education},'' \emph{Hellenic Journal of Music,
+  Education and Culture}, vol.~6, no.~2, p.~54, 2015. [Online]. Available:
+  \url{https://hejmec.eu/journal/index.php/HeJMEC/article/view/58/54}
+\BIBentrySTDinterwordspacing
+
+\bibitem{LifeSciJournal2014}
+\BIBentryALTinterwordspacing
+L.~Parshina, ``{Multimedia technologies as a tool for teaching supervision over
+  the students' skills (within the course on {``}music theory training{''})},''
+  \emph{Life Science Journal}, vol.~11, no.~6, pp. 547--551, 2014. [Online].
+  Available:
+  \url{https://www.lifesciencesite.com/lsj/life1106/081_24754life110614_547_551.pdf}
 \BIBentrySTDinterwordspacing
 
 \end{thebibliography}

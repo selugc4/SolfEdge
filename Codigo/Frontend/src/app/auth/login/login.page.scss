@@ -1,12 +1,18 @@
 .error-message {
-  color: var(--ion-color-danger);
-  font-size: 0.8em;
+  display: block;
   padding-left: 16px;
+  margin-bottom: 20px;
+  font-size: 0.85rem;
+}
+
+ion-button[type="submit"] {
+  margin-top: 20px;
 }
 
 ion-title {
-    font-weight: bold;
+  font-weight: bold;
 }
+
 ion-content {
   --padding-bottom: env(safe-area-inset-bottom);
 }

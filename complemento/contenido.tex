@@ -1,6 +1,65 @@
+\chapter{Introducción}
+\label{chap:introduccion}
+
+\section{Introducción}
+
+El presente trabajo constituye un \textbf{complemento y una evolución directa del Trabajo Fin de Grado} desarrollado previamente, en el que se diseñó, implementó y validó una aplicación destinada a facilitar la enseñanza y el aprendizaje del lenguaje musical mediante una plataforma web basada en una arquitectura cliente-servidor. En dicho proyecto se realizó un estudio completo de la problemática existente en este ámbito, comenzando con un marco teórico sobre la enseñanza del lenguaje musical y continuando con una investigación apoyada en encuestas y entrevistas a alumnado y profesorado. Este análisis permitió identificar las principales necesidades presentes en el proceso de enseñanza, así como las limitaciones de las herramientas digitales disponibles, sirviendo de base para la definición de los requisitos y el posterior desarrollo de una solución informática.
+
+Como resultado de aquel trabajo se obtuvo una aplicación funcional capaz de gestionar usuarios con distintos roles, grupos de clase, materiales docentes, tareas, cuestionarios, calificaciones y un sistema de comunicación interna, todo ello apoyado por una arquitectura basada en una API REST, una interfaz híbrida desarrollada con Ionic y Angular, una base de datos MongoDB y diferentes mecanismos destinados a garantizar la seguridad, la calidad del software y la automatización del despliegue.
+
+No obstante, tanto durante el desarrollo del proyecto como tras la validación de la aplicación se identificaron diferentes líneas de mejora que no pudieron abordarse dentro del alcance temporal del Trabajo Fin de Grado. La experiencia adquirida durante la implementación puso de manifiesto que, aunque la plataforma cumplía con los objetivos inicialmente planteados y demostraba la viabilidad de la propuesta, todavía existía un importante margen de evolución para convertirla en una herramienta más completa, robusta y preparada para ser utilizada en un contexto educativo real.
+
+Este complemento nace precisamente con ese propósito. En lugar de desarrollar una nueva aplicación o replantear la solución existente, el trabajo parte de una base completamente funcional y centra sus esfuerzos en su evolución. Se mantiene la arquitectura, la metodología de desarrollo y las principales decisiones de diseño adoptadas durante el Trabajo Fin de Grado, aprovechando el trabajo ya realizado para ampliar las capacidades del sistema y aumentar su grado de madurez.
+Por tanto, el objetivo de este complemento no consiste únicamente en incorporar nuevas funcionalidades, sino en consolidar la aplicación como un proyecto con continuidad, abordando aspectos que trascienden al propio desarrollo software y que resultan imprescindibles cuando una aplicación deja de ser un prototipo académico para acercarse a un escenario de utilización real. En este sentido, además de la evolución funcional de la plataforma, el trabajo estudia aquellos elementos técnicos, organizativos y de seguridad necesarios para facilitar una futura implantación en centros educativos, sentando así las bases para las siguientes fases de desarrollo del proyecto.
+
+\section{La aplicación desarrollada}
+
+La aplicación sobre la que se desarrolla este complemento mantiene la filosofía y la arquitectura definidas en el Trabajo Fin de Grado, preservando una estructura cliente-servidor basada en una API REST y un frontend híbrido desarrollado con Ionic y Angular. Esta continuidad tecnológica permite que todas las mejoras incorporadas se integren sobre una base consolidada, evitando modificaciones estructurales innecesarias y garantizando la reutilización del trabajo previamente realizado.
+
+Desde el punto de vista funcional, el trabajo se centra, en primer lugar, en la mejora y refinamiento de las funcionalidades ya existentes. Se revisan diferentes módulos de la aplicación con el objetivo de optimizar su funcionamiento, mejorar la experiencia de usuario y adaptar determinados procesos a las necesidades detectadas durante el desarrollo inicial. Estas mejoras permiten incrementar la estabilidad del sistema, facilitar la interacción de los distintos tipos de usuarios y aumentar la coherencia general de la plataforma.
+
+Junto a esta evolución de los módulos existentes, el proyecto incorpora nuevas funcionalidades que amplían el alcance de la aplicación y enriquecen las posibilidades que ofrece tanto al profesorado como al alumnado. Estas nuevas capacidades se integran respetando la arquitectura original y siguiendo los mismos principios de modularidad, reutilización y separación de responsabilidades empleados durante el desarrollo del proyecto base.
+
+Una de las principales novedades introducidas en esta fase es la integración de un servicio externo de inteligencia artificial mediante la API de Groq. Esta incorporación permite que la aplicación pueda consumir servicios de inferencia basados en modelos de lenguaje sin necesidad de desplegar infraestructura propia para ello. La integración se realiza desde el backend, manteniendo completamente desacoplada la lógica de negocio del servicio de inteligencia artificial y permitiendo que dicho proveedor pueda ser sustituido en el futuro sin afectar al resto del sistema. Con ello se dota a la plataforma de nuevas posibilidades de interacción y generación de contenido, manteniendo al mismo tiempo la coherencia arquitectónica del proyecto.
+
+Otra de las líneas de evolución más relevantes consiste en ampliar el alcance de la aplicación más allá del entorno web. Aprovechando la naturaleza híbrida del frontend desarrollado con Ionic y Angular, se incorpora Capacitor como puente entre la aplicación y el sistema operativo móvil, permitiendo generar una versión instalable para dispositivos Android sin necesidad de desarrollar una nueva aplicación nativa. Esta adaptación mantiene una única base de código para todas las plataformas, favoreciendo la mantenibilidad del proyecto y garantizando una experiencia homogénea para los usuarios.
+
+Como complemento a esta adaptación, también se incorpora Android Studio como entorno de construcción, empaquetado, depuración y validación de la aplicación móvil. De esta manera, el proyecto no solamente demuestra la viabilidad de la plataforma en un navegador web, sino también su capacidad para ejecutarse como una aplicación instalada en dispositivos móviles, ampliando considerablemente las posibilidades de utilización en un entorno educativo.
+
+Finalmente, todas estas mejoras se desarrollan respetando la arquitectura tecnológica existente, manteniendo el uso de MongoDB como sistema de persistencia, JWT para la autenticación y autorización de usuarios, Swagger como herramienta de documentación de la API, los distintos sistemas de pruebas automatizadas y el flujo de integración y despliegue continuo mediante GitHub Actions, Render y GitHub Pages. Gracias a ello, la evolución de la aplicación se produce de forma controlada, manteniendo la escalabilidad, la mantenibilidad y la calidad técnica alcanzadas durante el proyecto original.
+\section{Estructura de la memoria}
+
+La presente memoria se organiza en varios capítulos que describen de forma progresiva el desarrollo realizado durante este complemento del Trabajo Fin de Grado. Cada uno de ellos aborda una fase concreta del proyecto, desde la contextualización inicial hasta la valoración final de los resultados obtenidos.
+
+\begin{itemize}
+
+    \item \textbf{Introducción.}  
+    Presenta el propósito del complemento, su relación con el Trabajo Fin de Grado original y ofrece una visión general tanto de la evolución de la aplicación como de la organización de la memoria.
+
+    \item \textbf{Objetivos.}  
+    Define el objetivo general del proyecto y los objetivos específicos que orientan esta nueva fase de desarrollo. Asimismo, se incluye la planificación seguida durante la realización del complemento, mostrando la continuidad respecto al proyecto base.
+
+    \item \textbf{Análisis, definición y arquitectura.}  
+    Constituye el núcleo técnico de la memoria. En este capítulo se analizan las necesidades abordadas durante esta fase del proyecto, se describen las mejoras realizadas sobre las funcionalidades existentes y las nuevas capacidades incorporadas a la aplicación, así como las decisiones arquitectónicas y tecnológicas adoptadas para su integración, manteniendo la coherencia con la solución desarrollada previamente.
+
+    \item \textbf{Flujo de trabajo.}  
+    Muestra el funcionamiento de la aplicación a través de los principales flujos de uso. Mediante distintos ejemplos se describe cómo interactúan los diferentes tipos de usuarios con la plataforma, ilustrando el comportamiento de las funcionalidades más relevantes y permitiendo comprender el funcionamiento global del sistema desde un punto de vista práctico.
+
+    \item \textbf{Plan de implantación.}  
+    Estudia los aspectos necesarios para facilitar una futura implantación de la aplicación en centros educativos. Se analizan cuestiones relacionadas con la infraestructura necesaria, la seguridad, la gestión de usuarios y datos, el despliegue de la plataforma, el mantenimiento y otros factores organizativos que condicionan la utilización de la aplicación en un entorno real.
+
+    \item \textbf{Conclusiones y líneas de trabajo futuro.}  
+    Recoge una valoración global del proyecto, analizando el grado de cumplimiento de los objetivos planteados y los resultados obtenidos. Finalmente, se presentan las principales líneas de evolución que permitirán continuar ampliando las capacidades de la aplicación y avanzar progresivamente hacia su implantación en entornos educativos reales.
+
+\end{itemize}
+
+
+
 \chapter{Contexto del proyecto y punto de partida}
 \label{chap:contexto}
-El presente proyecto se concibe como una extensión y evolución directa del Trabajo Fin de Grado desarrollado previamente, en el que se abordó el diseño, desarrollo y validación de una solución informática orientada a la enseñanza del lenguaje musical mediante una aplicación web con arquitectura cliente-servidor.
+El desarrollo de este complemento parte de una solución previamente diseñada e implementada durante el Trabajo Fin de Grado. Dicha solución constituye el punto de partida sobre el que se construye la evolución presentada en esta memoria y proporciona tanto la base tecnológica como el análisis previo que justifican las decisiones adoptadas en esta nueva fase del proyecto.
+
+Por este motivo, antes de describir las ampliaciones realizadas, resulta conveniente resumir los aspectos más relevantes del proyecto original que sirven de contexto para comprender la evolución desarrollada en este complemento.
 \section{Marco teórico, investigación y estudio previo}
 En el proyecto original se estableció, en primer lugar, un marco teórico que permitió contextualizar el lenguaje musical como disciplina educativa, analizando su papel dentro de la formación musical y las dificultades habituales asociadas a su aprendizaje y enseñanza. Este marco teórico puso de manifiesto una serie de problemáticas recurrentes, tales como la falta de recursos digitales específicos, la escasa adaptación de las herramientas existentes a las dinámicas reales del aula y la dificultad para realizar un seguimiento individualizado del alumnado en este ámbito.
 
@@ -15,22 +74,209 @@ No obstante, tanto las conclusiones del proyecto como la experiencia práctica d
 En este contexto, el presente proyecto no pretende repetir ni reformular el marco teórico ni los estudios ya realizados, sino apoyarse en ellos como base validada para dar un paso adicional. El foco se desplaza desde el desarrollo inicial de la solución hacia su extensión funcional y su preparación para una implantación realista y sostenible, considerando aspectos técnicos, organizativos y de seguridad que resultan fundamentales en un escenario de uso continuado.
 
 De este modo, este trabajo se plantea como una continuación natural y coherente del proyecto previo, orientada a consolidar la solución desarrollada y a sentar las bases necesarias para su evolución e implantación efectiva en centros educativos, manteniendo la alineación con la problemática detectada y con los principios pedagógicos que motivaron el trabajo previo.
+\section{Tecnologías y arquitectura de la solución extendida}
+\label{sec:tecnologias_ext}
+
+La solución extendida mantiene la arquitectura global cliente-servidor basada en una API REST y una organización inspirada en el patrón MVC (Modelo-Vista-Controlador) idéntica en su planteamiento a la versión inicial. Esta continuidad tecnológica no es accidental: la pila original proporciona un equilibrio adecuado entre modularidad, escalabilidad y facilidad de mantenimiento, lo que permite incorporar nuevas capacidades sin necesidad de reestructurar el sistema ni introducir deuda técnica.
+
+\subsection{Pila tecnológica heredada del proyecto base}
+
+El proyecto se apoya en un conjunto de tecnologías consolidadas que cubren de manera eficaz las necesidades de una aplicación educativa con múltiples roles, gestión de contenidos multimedia y comunicación bidireccional:
+
+\begin{itemize}
+    \item \textbf{Ionic + Angular (Frontend).}  
+    Se mantiene un frontend híbrido desarrollado con Ionic y Angular, que permite construir una interfaz responsive y reutilizable tanto en entorno web como móvil.  
+    Angular aporta una estructura basada en componentes, servicios y módulos que facilita la organización del código, la reutilización de lógica y la separación entre presentación y lógica de negocio, mientras que Ionic proporciona componentes visuales optimizados para dispositivos táctiles y móviles.
+\newpage
+    \item \textbf{Node.js + Express (Backend).}  
+    El backend continúa implementándose mediante un servidor Node.js con Express, exponiendo una API REST encargada de centralizar la lógica de negocio, la validación de datos y la aplicación de reglas de acceso.  
+    Esta combinación ofrece un entorno ligero y flexible, adecuado para aplicaciones con múltiples operaciones CRUD y consumo intensivo de recursos multimedia.
+
+    \item \textbf{MongoDB (Persistencia).}  
+    Se mantiene una base de datos documental MongoDB para almacenar los datos que requieren de persistencia.  
+    El modelo no relacional facilita la evolución del esquema de datos y permite representar relaciones entre entidades educativas sin penalizar la flexibilidad, algo especialmente relevante en un sistema que crece de forma incremental. También se hace uso de MongoDB Atlas, un servicio gestionado en la nube que ofrece una solución escalable y segura.
+
+    \item \textbf{JWT (Autenticación y autorización).}  
+    La autenticación se sigue gestionando mediante JSON Web Tokens, permitiendo un control claro de sesiones y permisos en función del rol del usuario.  
+    Este enfoque se adapta bien a una arquitectura REST y evita mantener estado de sesión en el servidor.
+
+    \item \textbf{Swagger / OpenAPI (Documentación).}  
+    La documentación de la API se mantiene mediante Swagger, proporcionando una especificación clara y verificable de los endpoints disponibles, útil tanto para pruebas como para mantenimiento futuro.
+
+    \item \textbf{Testing (Jest/Supertest y Jasmine/Karma).}  
+    Se conserva el uso de Jest y Supertest para pruebas del backend, y Jasmine/Karma para el frontend, permitiendo validar de manera automatizada el comportamiento del sistema y reducir regresiones durante la evolución del proyecto.
+    
+    \item \textbf{Integración y despliegue continuo (Render, GitHub Actions y Pages).}
+    Se continúa ejecutando el flujo de integración y despliegue continuo en GitHub Actions para automatizar el testing y el despliegue, que será realizado en Render para el backend y GitHub Pages para el frontend.
+\end{itemize}
+
+\subsection{Tecnologías incorporadas en la solución extendida}
+
+La extensión del sistema introduce nuevas tecnologías que amplían las capacidades técnicas de la aplicación sin modificar su arquitectura base ni los principios de diseño definidos en el trabajo previo. Estas tecnologías se integran como componentes complementarios, manteniendo el desacoplamiento y la coherencia estructural del sistema.
+
+\subsubsection{Servicio de inferencia externa mediante Groq}
+
+Se incorpora un servicio de inferencia externa utilizando Groq \cite{groq_docs} como proveedor, haciendo uso de su API pública para el envío de peticiones desde el backend del sistema. En este contexto, Groq actúa como un servicio externo capaz de procesar \textit{prompts} de inteligencia artificial y devolver respuestas generadas a partir de modelos de lenguaje, sin que dichos modelos formen parte de la infraestructura propia de la aplicación.
+\newpage
+Desde un punto de vista tecnológico, la utilización de la API de Groq implica la integración de un servicio HTTP externo que recibe solicitudes estructuradas, incluyendo el contenido del \textit{prompt}, y devuelve una respuesta generada en un formato estándar (por ejemplo, JSON). Esta aproximación permite tratar el sistema de inferencia como un recurso remoto, consumido de forma análoga a cualquier otro servicio web.
+
+El uso de una API de inferencia externa presenta varias implicaciones técnicas relevantes:
+\begin{itemize}
+    \item Permite externalizar el procesamiento asociado a modelos de lenguaje, evitando la necesidad de desplegar, mantener o escalar infraestructura específica para inferencia.
+    \item Facilita el control del flujo de peticiones, ya que las llamadas a la API pueden regularse, validarse y encapsularse desde el backend.
+    \item Aísla la lógica de generación de contenido del resto del sistema, permitiendo modificar el proveedor o el modelo utilizado sin afectar a la arquitectura interna.
+\end{itemize}
+
+Desde el punto de vista del diseño software, la integración mediante una API externa refuerza el desacoplamiento del sistema, ya que el servicio de inferencia se consume como una dependencia claramente delimitada, manteniendo la coherencia con la arquitectura por capas adoptada en el proyecto.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[height=2cm]{Figuras/logos/groq.png}
+    \caption{Groq}
+    \label{fig:logo_groq}
+\end{figure}
+
+\subsubsection{Capacitor como evolución del soporte móvil híbrido}
+
+El uso de Ionic junto con Angular permite abordar el desarrollo multiplataforma mediante una única base de código. Este enfoque resuelve gran parte de los problemas asociados a la portabilidad de la interfaz y de la lógica de la aplicación, tanto en entorno web como en dispositivos móviles. No obstante, el desarrollo puramente web presenta una limitación clara: existen funcionalidades propias del sistema operativo móvil que no pueden ser gestionadas directamente desde el navegador.
+
+\textbf{Primeros intentos de integración nativa.}  
+Para cubrir esta necesidad surgió Cordova \cite{cordova_docs}, cuya función principal era actuar como un puente entre la aplicación web y el dispositivo. Gracias a esta tecnología fue posible acceder desde JavaScript a funcionalidades nativas, permitiendo que las aplicaciones híbridas pudieran comportarse como aplicaciones móviles instaladas. En su contexto histórico, Cordova supuso un avance clave para validar el modelo híbrido.
+
+Sin embargo, Cordova respondía a una etapa temprana de esta evolución. A medida que las aplicaciones comenzaron a requerir mayor control y personalización del entorno móvil, sus limitaciones se hicieron evidentes.
+\newpage
+\textbf{Evolución hacia un modelo más flexible.}  
+Capacitor \cite{capacitor_docs} aparece como la evolución natural de este enfoque, manteniendo la reutilización del código web, pero adaptándolo a las necesidades actuales del desarrollo móvil. La diferencia entre ambos modelos puede resumirse claramente en los siguientes puntos:
+
+\begin{itemize}
+    \item \textbf{Relación con el código nativo}: Cordova ocultaba en gran medida la capa nativa, mientras que Capacitor la integra como parte explícita del proyecto.
+    \item \textbf{Configuración del sistema}: En Cordova, los ajustes específicos resultaban complejos y poco transparentes; Capacitor facilita configuraciones controladas y mantenibles.
+    \item \textbf{Evolución y mantenimiento}: Capacitor se alinea mejor con las herramientas y prácticas actuales del desarrollo móvil, favoreciendo la sostenibilidad del proyecto.
+\end{itemize}
+
+\textbf{Papel actual de Capacitor en el proyecto.}  
+En la actualidad, Capacitor no se limita únicamente al empaquetado de la aplicación y a su ejecución como aplicación instalada, funciones que ya desempeñaba Cordova. Su principal aportación es actuar como una capa de integración que permite extender el frontend híbrido con capacidades propias del entorno móvil cuando el proyecto lo requiere.
+
+En el contexto de este proyecto, Capacitor resulta especialmente relevante porque:
+\begin{itemize}
+    \item Permite generar una aplicación móvil instalable a partir del frontend híbrido existente.
+    \item Mantiene una única base de código, garantizando coherencia funcional entre la versión web y la versión móvil.
+    \item Facilita la incorporación de funcionalidades y configuraciones específicas del dispositivo sin alterar la arquitectura del sistema.
+\end{itemize}
+
+De este modo, Capacitor se incorpora como un elemento habilitador que amplía el alcance de la solución, facilitando su implantación real en dispositivos móviles y manteniendo los principios de reutilización, modularidad y separación de responsabilidades definidos en el proyecto.
+\begin{figure}[H]
+    \centering
+    \includegraphics[height=3cm]{Figuras/logos/Capacitor.png}
+    \caption{Capacitor}
+    \label{fig:logo_Capacitor}
+\end{figure}
+\newpage
+\subsubsection{Android Studio y entorno de construcción móvil}
+
+La tercera tecnología incorporada es Android Studio \cite{android_studio_docs}, utilizado como entorno de construcción, empaquetado y validación de la aplicación en dispositivos Android. Su inclusión se apoya en el carácter híbrido del frontend, que permite reutilizar la misma base de código web para generar una aplicación instalable.
+
+Desde el punto de vista tecnológico, el uso de Android Studio implica:
+\begin{itemize}
+    \item La integración con la cadena de herramientas oficial de Android para la compilación, firma y despliegue de aplicaciones.
+    \item La generación de un contenedor nativo que encapsula la aplicación híbrida, permitiendo su ejecución como aplicación instalada.
+    \item El acceso a herramientas de depuración, emulación y análisis propias del ecosistema Android.
+\end{itemize}
+
+Este enfoque no introduce una nueva base de código ni una bifurcación tecnológica, sino que extiende el alcance del sistema aprovechando el diseño \textit{responsive} existente. De este modo, la portabilidad se aborda como una extensión técnica natural del frontend híbrido, sin duplicar lógica ni comprometer la consistencia del sistema.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[height=3cm]{Figuras/logos/android_studio.png}
+    \caption{Android Studio.}
+    \label{fig:logo_android_studio}
+\end{figure}
+
+En conjunto, las tecnologías incorporadas refuerzan la arquitectura existente, ampliando las capacidades del sistema desde un punto de vista estrictamente técnico y manteniendo los principios de modularidad, reutilización y separación de responsabilidades definidos en el trabajo previo.
+
+A nivel conceptual, la arquitectura global permanece idéntica. Se incluye a continuación el diagrama original para facilitar la lectura del documento sin obligar a consultar constantemente la versión original.
+
+\tikzstyle{block} = [rectangle, draw, node distance=4.5cm,
+    text width=6em, text centered, rounded corners, minimum height=3em, fill=blue!10]
+\tikzstyle{line} = [draw, -latex']
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+    \node [block] (Frontend) {Frontend \\ (Ionic + Angular)};
+    \node [block, below of=Frontend, node distance=5cm] (Backend) {Backend REST \\ (Node.js + Express)};
+    \node [block, below of=Backend, node distance=5cm] (DB) {Base de datos \\ (MongoDB)};
+    \node [block, left of=Backend, node distance=7.2cm] (External) {Servicios externos};
+    \node [block, right of=Backend, node distance=6.3cm] (CI) {CI/CD \\ (GitHub Actions + Render)};
+    \path [line] ([xshift=-1.5mm]Frontend.south) -- node[left] {Solicitudes API} ([xshift=-1.5mm]Backend.north);
+    \path [line] ([xshift=1.5mm]Backend.north) -- node[right] {Respuestas API} ([xshift=1.5mm]Frontend.south);
+    \path [line] ([xshift=-1.5mm]Backend.south) -- ([xshift=-1.5mm]DB.north);
+    \path [line] ([xshift=1.5mm]DB.north) -- ([xshift=1.5mm]Backend.south);
+    \path [line] (Backend.west) -- (External.east);
+    \path [line] (CI) -- (Backend);
+    \path [line] (CI) to[bend right=20] (Frontend);
+\end{tikzpicture}
+\caption{Arquitectura global de la aplicación (sin cambios respecto al proyecto base)}
+\label{fig:arquitectura_global_ext}
+\end{figure}
+
+Con esta arquitectura, la solución extendida queda descrita con el mismo enfoque de la primera versión: continuidad en arquitectura y metodología, y ampliación funcional bien acotada, verificable y orientada a la implantación real.
+
 
 \chapter{Objetivos del proyecto}
 \label{chap:objetivos}
 
-El objetivo general de este proyecto consiste en extender la solución informática desarrollada en el Trabajo Fin de Grado realizado y prepararla para su uso en entornos educativos reales, llevándola así a un nivel superior.
+En este capítulo se presentan los objetivos que guían el desarrollo del presente trabajo, concebido como una ampliación y evolución de la aplicación desarrollada previamente en el Trabajo Fin de Grado. En primer lugar, se define el objetivo general, que establece la finalidad principal de esta nueva fase del proyecto. Posteriormente, se detallan los objetivos específicos cuya consecución permitirá incrementar las capacidades de la aplicación y prepararla para un escenario de utilización más próximo a un entorno educativo real.
 
-A partir de este objetivo general, se definen los siguientes subobjetivos específicos:
+\section{Objetivo general}
+
+El objetivo general de este proyecto consiste en \textbf{extender y consolidar la solución informática desarrollada en el Trabajo Fin de Grado, incorporando nuevas funcionalidades, mejorando las ya existentes y preparándola para su futura implantación en centros educativos reales}.
+
+Partiendo de una aplicación funcional desarrollada durante el proyecto inicial, esta nueva fase tiene como finalidad aumentar su grado de madurez, mejorando tanto sus prestaciones como su calidad técnica. Para ello, no solo se pretende ampliar las funcionalidades disponibles, sino también optimizar aquellas ya implementadas, adaptar la aplicación a nuevos entornos de ejecución y definir los aspectos necesarios para que pueda evolucionar desde un prototipo funcional hacia una herramienta preparada para un uso real.
+
+Asimismo, este proyecto busca mantener la coherencia con la arquitectura y las decisiones de diseño adoptadas en el Trabajo Fin de Grado, aprovechando la base ya desarrollada para incorporar nuevas capacidades sin comprometer la mantenibilidad ni la escalabilidad de la aplicación.
+
+\section{Objetivos específicos}
+
+Con el fin de alcanzar el objetivo general, se han definido los siguientes objetivos específicos:
 
 \begin{itemize}
-    \item \textbf{Mejorar y refinar funcionalidades ya existentes en la aplicación}, optimizando su usabilidad y adecuación a las necesidades detectadas en el contexto educativo.
-    \item \textbf{Diseñar e incorporar nuevas funcionalidades innovadoras} que amplíen el alcance de la aplicación y aporten un valor añadido respecto a la versión inicial.
-    \item \textbf{Aprovechar el diseño responsive y la arquitectura híbrida de la aplicación para facilitar su adaptación y despliegue en sistemas móviles}, permitiendo su ejecución en dispositivos Android e iOS sin necesidad de desarrollar una base de código independiente, y garantizando una experiencia de usuario coherente y optimizada en distintos tamaños de pantalla.    
-    \item \textbf{Definir un plan de implantación detallado} que contemple la adaptación tecnológica del sistema, la mejora de aspectos de seguridad, la gestión de archivos y datos, así como la viabilidad de su despliegue en centros educativos reales.
+
+\item \textbf{Mejorar y refinar las funcionalidades existentes de la aplicación.}
+
+Este objetivo persigue revisar las funcionalidades implementadas durante el Trabajo Fin de Grado con el propósito de optimizar su funcionamiento, mejorar la experiencia de usuario y adaptar la aplicación a las necesidades detectadas tras el desarrollo inicial. Se pretende aumentar la usabilidad, la estabilidad y la coherencia de la interfaz, facilitando su utilización en un contexto educativo.
+\newpage
+\item \textbf{Diseñar e incorporar nuevas funcionalidades innovadoras.}
+
+La ampliación de la aplicación requiere el desarrollo de nuevos módulos y herramientas que complementen las capacidades existentes y aporten un valor añadido respecto a la versión inicial. Estas nuevas funcionalidades estarán orientadas a enriquecer la experiencia de aprendizaje, ampliar las posibilidades de interacción y responder a necesidades que no pudieron abordarse durante el desarrollo del proyecto base.
+
+\item \textbf{Facilitar el despliegue de la aplicación en dispositivos móviles aprovechando su arquitectura híbrida.}
+
+Se pretende adaptar la aplicación para que pueda ejecutarse de forma nativa en dispositivos Android utilizando la misma base de código desarrollada para la versión web. Para ello, se aprovechará el diseño responsive y las tecnologías híbridas empleadas, garantizando una experiencia de usuario homogénea y optimizada en distintos tamaños de pantalla y favoreciendo el acceso a la plataforma desde cualquier dispositivo.
+
+\item \textbf{Definir un plan de implantación orientado a centros educativos reales.}
+
+Además del desarrollo técnico, resulta necesario establecer las bases que permitan una futura implantación de la aplicación en un entorno educativo. Este objetivo contempla el estudio de los requisitos tecnológicos necesarios, la mejora de aspectos relacionados con la seguridad, la gestión de archivos y datos, la administración de usuarios y la planificación del despliegue, con el propósito de evaluar la viabilidad de la solución en escenarios reales.
+
 \end{itemize}
 
-Estos objetivos se plantean manteniendo la coherencia con el proyecto base y aprovechando las conclusiones extraídas del proceso de investigación y desarrollo previo.
+La consecución de estos objetivos permitirá evolucionar la aplicación desarrollada en el Trabajo Fin de Grado hacia una solución más completa, robusta y preparada para afrontar futuras fases de implantación, manteniendo la continuidad del proyecto original y ampliando significativamente sus capacidades.
+\section{Planificación del proyecto}
+\label{chap:planificacion}
+
+La planificación de este proyecto de complemento se concibe como una continuación directa de la planificación establecida en el proyecto original, manteniendo sus mismos principios de organización, seguimiento y control temporal. Dado que la arquitectura base y las funcionalidades nucleares del sistema ya se encontraban definidas e implementadas, no ha sido necesario replantear el cronograma global, sino ampliarlo de forma coherente para dar cabida a las nuevas tareas derivadas de la evolución funcional, tecnológica y operativa de la solución.
+
+En este contexto, la planificación se ha centrado específicamente en estructurar y calendarizar las actividades asociadas a la mejora de funcionalidades existentes, la incorporación de nuevas capacidades, la adaptación a entornos móviles y la integración de servicios externos. Estas tareas adicionales se han integrado respetando la secuencia lógica del trabajo previo y garantizando la continuidad del proceso de desarrollo, evitando solapamientos innecesarios y manteniendo una progresión ordenada.
+\newpage
+El diagrama de planificación presentado refleja exclusivamente la parte correspondiente a este complemento, destacando las nuevas tareas y sub-tareas incorporadas respecto al cronograma original. Esta representación parcial permite visualizar con claridad el alcance real del trabajo adicional realizado, sin introducir redundancias documentales ni repetir información ya detallada en el proyecto base. Para facilitar su interpretación, se ha empleado un código visual diferenciado que identifica las actividades propias de esta fase de ampliación.
+
+En conjunto, esta planificación actúa como un marco de referencia operativo que ha guiado la ejecución de la fase de evolución del proyecto, aportando una estructura clara, flexible y coherente con los objetivos planteados, y adaptada a las particularidades del contexto académico en el que se ha desarrollado.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Figuras/planificacion_extendida.png}
+    \caption{Planificación del proyecto con nuevas tareas destacadas}
+\end{figure}
 
 \chapter{Definición de la solución extendida}
 \label{chap:solucion}
@@ -85,19 +331,18 @@ El sistema dispondrá de un área denominada administración en la que estarán 
 
 Fuera de esta sección, la aplicación contará con cuatro apartados denominados \textbf{Ritmo, Entonación, Audición y Teoría}. Cada apartado estará compuesto por dos secciones diferenciadas:
 \begin{enumerate}
-\item \textbf{Libro del curso}: Permitirá al profesor subir un único archivo en formato PDF correspondiente al grupo seleccionado. Si se sube un nuevo archivo, el anterior será sustituido. El profesor podrá eliminar o reemplazar el archivo en cualquier momento.
-
-\item \textbf{Tareas a realizar}: Permitirá al profesor crear tareas asociadas a un grupo determinado. Cada tarea constará de una descripción y, opcionalmente, de un material de apoyo en formato PDF, MP3 o MP4. También se definirá una fecha límite de entrega. Las tareas podrán calificarse individualmente, modificarse y/o eliminarse en cualquier momento, pero no se eliminarán automáticamente al llegar la fecha de entrega. En el apartado de Teoría, las tareas podrán sustituirse (o no) por un cuestionario tipo test. Dicho cuestionario permitirá la creación de preguntas con opciones de respuesta, y cada pregunta podrá ir acompañada de un archivo en formato MP3.
+\item \textbf{Libro del curso}: Permitirá al profesor subir un único archivo en formato PDF correspondiente al curso seleccionado. Si se sube un nuevo archivo, el anterior será sustituido. El profesor podrá eliminar o reemplazar el archivo en cualquier momento.
+\item \textbf{Tareas a realizar}: Permitirá al profesor crear tareas asociadas a un curso determinado. Cada tarea constará de una descripción y, opcionalmente, de un material de apoyo en formato PDF (o mp3 en caso de estar en la rama de entonación). También se definirá una fecha límite de entrega. Las tareas podrán calificarse individualmente, modificarse y/o eliminarse en cualquier momento, pero no se eliminarán automáticamente al llegar la fecha de entrega; se mantendrán hasta la finalización del curso. En el apartado de Teoría, las tareas podrán sustituirse (o no) por un cuestionario tipo test. Dicho cuestionario permitirá la creación de preguntas con opciones de respuesta, y cada pregunta podrá ir acompañada de un archivo en formato MP3.
 \end{enumerate}
 
-Asimismo, los alumnos podrán acceder a los mismos cuatro apartados (Ritmo, Entonación, Audición y Teoría). En cada apartado se mostrarán las mismas dos secciones:
+Asimismo, los alumnos podrán acceder a los mismos cuatro apartados (Ritmo, Entonación, Audición y Teoría). En cada apartado se mostrarán las mismas dos secciones, y en algunos casos tres:
 \begin{itemize}
 \item En la sección Libro del curso, los alumnos podrán visualizar el archivo PDF correspondiente y descargarlo, pero no modificarlo.
-
 \item En la sección Tareas a realizar, los alumnos podrán consultar la lista de tareas disponibles y realizar las entregas correspondientes. Los formatos permitidos serán PDF, MP3 o MP4, y/o bien un comentario textual dentro de la propia aplicación. En el caso de los cuestionarios, el alumno podrá acceder de forma específica a cada uno para completarlos \nuevo{apoyándose, si lo desea, en solo una pista por cada pregunta}. El cuestionario no se considerará entregado hasta que el alumno pulse expresamente el botón de envío.
+\item Esta sección es solo visible por los alumnos y cambiará en función de la rama. En la rama de entonación aparecerá una funcionalidad tipo metrónomo y en la rama de audición aparecerá un pequeño piano virtual. Esta sección no aparecerá en las otras dos ramas
 \end{itemize}
 
-Los alumnos y profesores dispondrán de un área específica de mensajes. En ella recibirán avisos cuando se cree, se modifique, se califique (alumno) o se entregue (profesor) una tarea o cuestionario, cuando reciban una calificación general (mensajes del sistema) o un mensaje del profesor.
+Los alumnos y profesores dispondrán de un área específica de mensajes. En ella recibirán avisos cuando se cree, se modifique, se califique (alumno) o se entregue (profesor) una tarea o cuestionario, cuando reciban una calificación general (mensajes del sistema) o un mensaje del profesor. Por último, ambos perfiles de usuario podrán cambiar su contraseña desde la aplicación.
 \section{Objetivos funcionales del sistema extendido}
 \label{sec:objetivos_funcionales_ext}
 
@@ -108,7 +353,7 @@ Los objetivos funcionales descritos en la versión inicial se mantienen, ya que 
   \item Completar la gestión del ciclo de vida tanto de los usuarios (alumnos y profesores), agregando la posibilidad de revisarlos y eliminarlos, como de los grupos, permitiendo su eliminación.
   \item Incorporar mecanismos de apoyo al alumno durante la realización de cuestionarios para mejorar la experiencia de aprendizaje en actividades evaluables.
 \end{itemize}
-
+\newpage
 \section{Diagrama UML de casos de uso del sistema extendido}
 \label{sec:dcu_extendido}
 
@@ -142,7 +387,7 @@ Como se detalló en el trabajo previo, el diagrama ofrece una visión objetiva p
 \textbf{Nombre} & {\textbf{\nuevo{Importar usuarios y grupos desde archivo formateado}}} \\ \hline
 \textbf{Descripción} & Permitir al administrador crear usuarios y/o grupos mediante la carga de un fichero formateado, aplicando validaciones y creando relaciones de pertenencia según el contenido del archivo. \\ \hline
 \textbf{Actor} & ACT-2 \\ \hline
-\textbf{Requisitos funcionales} & RF-31 \\ \hline
+\textbf{Requisitos funcionales} & RF-35 \\ \hline
 \end{tabularx}
 \caption{Caso de uso: Importar usuarios y grupos desde archivo formateado}
 \end{table}
@@ -157,7 +402,7 @@ Como se detalló en el trabajo previo, el diagrama ofrece una visión objetiva p
 \textbf{Nombre} & {\textbf{\cambiado{Gestionar profesores}}} \\ \hline
 \textbf{Descripción} & Permitir al administrador crear\nuevo{, revisar y eliminar} usuarios con el rol de profesor en el sistema, proporcionando los datos necesarios y validando la información. \\ \hline
 \textbf{Actor} & ACT-2 \\ \hline
-\textbf{Requisitos funcionales} & RF-03 RF-04 \nuevo{RF-32} \nuevo{RF-33} \\ \hline
+\textbf{Requisitos funcionales} & RF-03 RF-04 \nuevo{RF-36} \nuevo{RF-37} \\ \hline
 \end{tabularx}
 \caption{Caso de uso: Gestionar profesores}
 \end{table}
@@ -172,7 +417,7 @@ Como se detalló en el trabajo previo, el diagrama ofrece una visión objetiva p
 \textbf{Nombre} & {\textbf{\cambiado{Gestionar alumnos}}} \\ \hline
 \textbf{Descripción} & Permitir al profesor crear\nuevo{, revisar y eliminar} usuarios con el rol de alumno en el sistema, proporcionando los datos necesarios y validando la información.\\ \hline
 \textbf{Actor} & ACT-3 \\ \hline
-\textbf{Requisitos funcionales} & RF-05 RF-04 \nuevo{RF-34} \nuevo{RF-35} \\ \hline
+\textbf{Requisitos funcionales} & RF-05 RF-04 \nuevo{RF-38} \nuevo{RF-39} \\ \hline
 \end{tabularx}
 \caption{Caso de uso: Gestionar alumnos}
 \end{table}
@@ -187,7 +432,7 @@ Como se detalló en el trabajo previo, el diagrama ofrece una visión objetiva p
 \textbf{Nombre} & {\textbf{Gestionar grupos}} \\ \hline
 \textbf{Descripción} & Permitir al profesor crear nuevos grupos, revisar los que ha creado y elegir un grupo para trabajar con él \nuevo{o eliminarlo}. \\ \hline
 \textbf{Actor} & ACT-3 \\ \hline
-\textbf{Requisitos funcionales} & RF-06 RF-07 RF-08 \nuevo{RF-36} \\ \hline
+\textbf{Requisitos funcionales} & RF-06 RF-07 RF-08 \nuevo{RF-40} \\ \hline
 \end{tabularx}
 \caption{Caso de uso: Gestionar grupos}
 \end{table}
@@ -201,7 +446,7 @@ Como se detalló en el trabajo previo, el diagrama ofrece una visión objetiva p
 \textbf{Nombre} & {\textbf{Interactuar con cuestionarios}} \\ \hline
 \textbf{Descripción} & Permitir al alumno interactuar con los cuestionarios. \\ \hline
 \textbf{Actor} & ACT-4 \\ \hline
-\textbf{Requisitos funcionales} & RF-18 RF-30 \nuevo{RF-37} \\ \hline
+\textbf{Requisitos funcionales} & RF-18 RF-30 \nuevo{RF-41} \\ \hline
 \end{tabularx}
 \caption{Caso de uso: Interactuar con cuestionarios}
 \end{table}
@@ -217,7 +462,7 @@ En coherencia con el documento original, los identificadores continúan a partir
   |>{\centering\arraybackslash}l
   |>{\centering\arraybackslash}X|}
 \hline
-\textbf{RF-31} & \textbf{Importar usuarios y grupos desde archivo formateado} \\ \hline
+\textbf{RF-35} & \textbf{Importar usuarios y grupos desde archivo formateado} \\ \hline
 \textbf{Descripción} & Permitir al administrador crear usuarios y/o grupos mediante la carga de un fichero formateado, aplicando validaciones y creando relaciones de pertenencia según el contenido del archivo. \\ \hline
 \textbf{Precondición} & El administrador debe estar autenticado y disponer de un fichero válido según el formato establecido. \\ \hline
 \textbf{Secuencia de pasos} &
@@ -237,7 +482,7 @@ En coherencia con el documento original, los identificadores continúan a partir
   \item Problemas de conexión con la base de datos.
 \end{itemize} \\ \hline
 \end{tabularx}
-\caption{{Requisito funcional: RF-31 Importar usuarios y grupos desde archivo formateado}}
+\caption{{Requisito funcional: RF-35 Importar usuarios y grupos desde archivo formateado}}
 \end{table}
 
 \begin{table}[H]
@@ -246,7 +491,7 @@ En coherencia con el documento original, los identificadores continúan a partir
   |>{\centering\arraybackslash}l
   |>{\centering\arraybackslash}X|}
 \hline
-\textbf{RF-32} & \textbf{Revisar profesores} \\ \hline
+\textbf{RF-36} & \textbf{Revisar profesores} \\ \hline
 \textbf{Descripción} & Permitir al administrador visualizar la lista de profesores registrados en el sistema y acceder a su información básica para su gestión. \\ \hline
 \textbf{Precondición} & El administrador debe estar autenticado y tener profesores creados. \\ \hline
 \textbf{Secuencia de pasos} &
@@ -261,7 +506,7 @@ En coherencia con el documento original, los identificadores continúan a partir
   \item Problemas de conexión a la base de datos.
 \end{itemize} \\ \hline
 \end{tabularx}
-\caption{Requisito funcional: RF-32 Revisar profesores}
+\caption{Requisito funcional: RF-36 Revisar profesores}
 \end{table}
 
 \begin{table}[H]
@@ -270,7 +515,7 @@ En coherencia con el documento original, los identificadores continúan a partir
   |>{\centering\arraybackslash}l
   |>{\centering\arraybackslash}X|}
 \hline
-\textbf{RF-33} & \textbf{Eliminar profesor} \\ \hline
+\textbf{RF-37} & \textbf{Eliminar profesor} \\ \hline
 \textbf{Descripción} & Permitir al administrador eliminar un profesor del sistema, eliminando todo su material asociado (tareas, cuestionarios, ramas, entregas y
 calificaciones), sus grupos y los alumnos creados bajo su responsabilidad, evitando referencias huérfanas o inconsistencias. \\ \hline
 \textbf{Precondición} & El administrador debe estar autenticado y el profesor a eliminar debe existir. \\ \hline
@@ -290,7 +535,7 @@ calificaciones), sus grupos y los alumnos creados bajo su responsabilidad, evita
   \item Problemas de conexión a la base de datos.
 \end{itemize} \\ \hline
 \end{tabularx}
-\caption{Requisito funcional: RF-33 Eliminar profesor}
+\caption{Requisito funcional: RF-37 Eliminar profesor}
 \end{table}
 
 \begin{table}[H]
@@ -299,7 +544,7 @@ calificaciones), sus grupos y los alumnos creados bajo su responsabilidad, evita
   |>{\centering\arraybackslash}l
   |>{\centering\arraybackslash}X|}
 \hline
-\textbf{RF-34} & \textbf{Revisar alumnos} \\ \hline
+\textbf{RF-38} & \textbf{Revisar alumnos} \\ \hline
 \textbf{Descripción} & Permitir al profesor visualizar la lista de alumnos creados por él y acceder a su información básica para su gestión. \\ \hline
 \textbf{Precondición} & El profesor debe estar autenticado y tener alumnos creados. \\ \hline
 \textbf{Secuencia de pasos} &
@@ -314,7 +559,7 @@ calificaciones), sus grupos y los alumnos creados bajo su responsabilidad, evita
   \item Problemas de conexión a la base de datos.
 \end{itemize} \\ \hline
 \end{tabularx}
-\caption{Requisito funcional: RF-34 Revisar alumnos}
+\caption{Requisito funcional: RF-38 Revisar alumnos}
 \end{table}
 
 \begin{table}[H]
@@ -323,7 +568,7 @@ calificaciones), sus grupos y los alumnos creados bajo su responsabilidad, evita
   |>{\centering\arraybackslash}l
   |>{\centering\arraybackslash}X|}
 \hline
-\textbf{RF-35} & \textbf{Eliminar alumno} \\ \hline
+\textbf{RF-39} & \textbf{Eliminar alumno} \\ \hline
 \textbf{Descripción} & Permitir al profesor eliminar un alumno creado por él, garantizando que el sistema gestiona de forma consistente la información asociada exclusivamente al alumno (calificaciones y entregas). \\ \hline
 \textbf{Precondición} & El profesor debe estar autenticado y el alumno a eliminar debe haber sido creado previamente por el profesor. \\ \hline
 \textbf{Secuencia de pasos} &
@@ -342,7 +587,7 @@ calificaciones), sus grupos y los alumnos creados bajo su responsabilidad, evita
   \item {Problemas de conexión a la base de datos.}
 \end{itemize} \\ \hline
 \end{tabularx}
-\caption{Requisito funcional: RF-35 Eliminar alumno}
+\caption{Requisito funcional: RF-39 Eliminar alumno}
 \end{table}
 
 \begin{table}[H]
@@ -351,7 +596,7 @@ calificaciones), sus grupos y los alumnos creados bajo su responsabilidad, evita
   |>{\centering\arraybackslash}l
   |>{\centering\arraybackslash}X|}
 \hline
-\textbf{RF-36} & \textbf{Eliminar grupo} \\ \hline
+\textbf{RF-40} & \textbf{Eliminar grupo} \\ \hline
 \textbf{Descripción} & Permitir al profesor eliminar un grupo creado por él, gestionando de forma consistente todo el material asociado (tareas, cuestionarios, ramas, entregas y calificaciones). \\ \hline
 \textbf{Precondición} & El profesor debe estar autenticado y el grupo a eliminar debe haber sido creado previamente por el profesor. \\ \hline
 \textbf{Secuencia de pasos} &
@@ -370,7 +615,7 @@ calificaciones), sus grupos y los alumnos creados bajo su responsabilidad, evita
   \item Problemas de conexión a la base de datos.
 \end{itemize} \\ \hline
 \end{tabularx}
-\caption{Requisito funcional: RF-36 Eliminar grupo}
+\caption{Requisito funcional: RF-40 Eliminar grupo}
 \end{table}
 
 \begin{table}[H]
@@ -379,7 +624,7 @@ calificaciones), sus grupos y los alumnos creados bajo su responsabilidad, evita
   |>{\centering\arraybackslash}l
   |>{\centering\arraybackslash}X|}
 \hline
-\textbf{RF-37} & \textbf{Solicitar pista durante un cuestionario} \\ \hline
+\textbf{RF-41} & \textbf{Solicitar pista durante un cuestionario} \\ \hline
 \textbf{Descripción} & Permitir al alumno solicitar solo una pista asociada a una pregunta concreta durante la realización de un cuestionario, recibiendo una orientación limitada que facilite el razonamiento sin revelar la respuesta. \\ \hline
 \textbf{Precondición} & El alumno debe estar autenticado, haber accedido a un cuestionario activo y encontrarse en el proceso de respuesta. \\ \hline
 \textbf{Secuencia de pasos} &
@@ -398,7 +643,7 @@ calificaciones), sus grupos y los alumnos creados bajo su responsabilidad, evita
   \item Problemas de conexión a la base de datos.
 \end{itemize} \\ \hline
 \end{tabularx}
-\caption{Requisito funcional: RF-37 Solicitar pista durante un cuestionario}
+\caption{Requisito funcional: RF-41 Solicitar pista durante un cuestionario}
 \end{table}
 
 \section{Requisitos no funcionales nuevos}
@@ -420,187 +665,29 @@ El proyecto original definía un requisito de portabilidad (RNF-04) orientado a 
 \caption{Requisito no funcional: RNF-08 Portabilidad a Android}
 \end{table}
 
-\section{Tecnologías y arquitectura de la solución extendida}
-\label{sec:tecnologias_ext}
+\section{Arquitectura e implementación de la solución}
+\label{sec:arquitectura_implementacion}
 
-La solución extendida mantiene la arquitectura global cliente-servidor basada en una API REST y una organización inspirada en el patrón MVC (Modelo-Vista-Controlador) idéntica en su planteamiento a la versión inicial. Esta continuidad tecnológica no es accidental: la pila original proporciona un equilibrio adecuado entre modularidad, escalabilidad y facilidad de mantenimiento, lo que permite incorporar nuevas capacidades sin necesidad de reestructurar el sistema ni introducir deuda técnica.
+Una vez definida la solución extendida desde el punto de vista funcional, resulta necesario describir cómo se han materializado técnicamente las nuevas capacidades incorporadas durante este complemento. Para ello, se mantiene como punto de partida la arquitectura desarrollada en el Trabajo Fin de Grado, evitando replantear una solución que ya había sido validada y centrando el esfuerzo en su evolución controlada.
 
-\subsection{Pila tecnológica heredada del proyecto base}
+La aplicación conserva una arquitectura cliente-servidor basada en una \textbf{API REST}, con un backend desarrollado mediante \textbf{Node.js} y \textbf{Express}, un frontend híbrido construido con \textbf{Ionic} y \textbf{Angular}, y una base de datos documental \textbf{MongoDB}. Esta continuidad tecnológica permite integrar las nuevas funcionalidades sin alterar la estructura general del sistema, manteniendo los principios de modularidad, separación de responsabilidades y escalabilidad definidos en la versión base.
 
-El proyecto se apoya en un conjunto de tecnologías consolidadas que cubren de manera eficaz las necesidades de una aplicación educativa con múltiples roles, gestión de contenidos multimedia y comunicación bidireccional:
+Dentro de esta evolución técnica se distinguen tres ámbitos principales. En primer lugar, el backend se amplía para soportar nuevas operaciones de gestión, importación masiva de datos, eliminaciones consistentes e integración con servicios externos. En segundo lugar, el frontend se adapta para incorporar las nuevas funcionalidades y mejorar su comportamiento en dispositivos móviles. Finalmente, el despliegue se extiende para contemplar no solo la versión web, sino también la generación de una aplicación instalable en Android.
 
-\begin{itemize}
-    \item \textbf{Ionic + Angular (Frontend).}  
-    Se mantiene un frontend híbrido desarrollado con Ionic y Angular, que permite construir una interfaz responsive y reutilizable tanto en entorno web como móvil.  
-    Angular aporta una estructura basada en componentes, servicios y módulos que facilita la organización del código, la reutilización de lógica y la separación entre presentación y lógica de negocio, mientras que Ionic proporciona componentes visuales optimizados para dispositivos táctiles y móviles.
+\subsection{Implementación del backend}
+\label{sec:backend_impl}
 
-    \item \textbf{Node.js + Express (Backend).}  
-    El backend continúa implementándose mediante un servidor Node.js con Express, exponiendo una API REST encargada de centralizar la lógica de negocio, la validación de datos y la aplicación de reglas de acceso.  
-    Esta combinación ofrece un entorno ligero y flexible, adecuado para aplicaciones con múltiples operaciones CRUD y consumo intensivo de recursos multimedia.
+El backend de la solución extendida se apoya directamente en la base implementada en la versión inicial, manteniendo la misma pila tecnológica: \textbf{Node.js} como entorno de ejecución y \textbf{Express} como framework para exponer una \textbf{API REST}. A nivel de organización interna, se conserva la separación de responsabilidades típica de la versión anterior, con una estructura inspirada en \textbf{MVC adaptado a backend} sin capa de interfaz: \textbf{modelos} para la persistencia y el esquema de datos, \textbf{controladores} para la lógica de operaciones y \textbf{rutas} como capa de entrada a los endpoints.
 
-    \item \textbf{MongoDB (Persistencia).}  
-    Se mantiene una base de datos documental MongoDB para almacenar los datos que requieren de persistencia.  
-    El modelo no relacional facilita la evolución del esquema de datos y permite representar relaciones entre entidades educativas sin penalizar la flexibilidad, algo especialmente relevante en un sistema que crece de forma incremental. También se hace uso de MongoDB Atlas, un servicio gestionado en la nube que ofrece una solución escalable y segura.
+En esta fase del complemento, la evolución del backend no se centra únicamente en añadir operaciones CRUD aisladas, sino en reforzar funcionalidades necesarias en un uso real de la aplicación. Las nuevas capacidades requieren mayor validación, limpieza de relaciones, control de errores y coherencia en operaciones que afectan a varias entidades del sistema.
 
-    \item \textbf{JWT (Autenticación y autorización).}  
-    La autenticación se sigue gestionando mediante JSON Web Tokens, permitiendo un control claro de sesiones y permisos en función del rol del usuario.  
-    Este enfoque se adapta bien a una arquitectura REST y evita mantener estado de sesión en el servidor.
+Además, se incorpora una pieza nueva dentro de la organización del backend: la capa de \textbf{servicios}. Esta capa se utiliza para encapsular integraciones externas, como la comunicación con la \textbf{API de Groq}, evitando mezclar la lógica de negocio propia de la aplicación con dependencias externas y facilitando así el mantenimiento futuro.
 
-    \item \textbf{Swagger / OpenAPI (Documentación).}  
-    La documentación de la API se mantiene mediante Swagger, proporcionando una especificación clara y verificable de los endpoints disponibles, útil tanto para pruebas como para mantenimiento futuro.
+\subsubsection{Modelado de datos}
 
-    \item \textbf{Testing (Jest/Supertest y Jasmine/Karma).}  
-    Se conserva el uso de Jest y Supertest para pruebas del backend, y Jasmine/Karma para el frontend, permitiendo validar de manera automatizada el comportamiento del sistema y reducir regresiones durante la evolución del proyecto.
-    
-    \item \textbf{Integración y despliegue continuo (Render, GitHub Actions y Pages).}
-    Se continúa ejecutando el flujo de integración y despliegue continuo en GitHub Actions para automatizar el testing y el despliegue, que será realizado en Render para el backend y GitHub Pages para el frontend.
-\end{itemize}
-
-\subsection{Tecnologías incorporadas en la solución extendida}
-
-La extensión del sistema introduce nuevas tecnologías que amplían las capacidades técnicas de la aplicación sin modificar su arquitectura base ni los principios de diseño definidos en el trabajo previo. Estas tecnologías se integran como componentes complementarios, manteniendo el desacoplamiento y la coherencia estructural del sistema.
-
-\subsubsection{Servicio de inferencia externa mediante Groq}
-
-Se incorpora un servicio de inferencia externa utilizando Groq \cite{groq_docs} como proveedor, haciendo uso de su API pública para el envío de peticiones desde el backend del sistema. En este contexto, Groq actúa como un servicio externo capaz de procesar \textit{prompts} de inteligencia artificial y devolver respuestas generadas a partir de modelos de lenguaje, sin que dichos modelos formen parte de la infraestructura propia de la aplicación.
-
-Desde un punto de vista tecnológico, la utilización de la API de Groq implica la integración de un servicio HTTP externo que recibe solicitudes estructuradas, incluyendo el contenido del \textit{prompt}, y devuelve una respuesta generada en un formato estándar (por ejemplo, JSON). Esta aproximación permite tratar el sistema de inferencia como un recurso remoto, consumido de forma análoga a cualquier otro servicio web.
-
-El uso de una API de inferencia externa presenta varias implicaciones técnicas relevantes:
-\begin{itemize}
-    \item Permite externalizar el procesamiento asociado a modelos de lenguaje, evitando la necesidad de desplegar, mantener o escalar infraestructura específica para inferencia.
-    \item Facilita el control del flujo de peticiones, ya que las llamadas a la API pueden regularse, validarse y encapsularse desde el backend.
-    \item Aísla la lógica de generación de contenido del resto del sistema, permitiendo modificar el proveedor o el modelo utilizado sin afectar a la arquitectura interna.
-\end{itemize}
-
-Desde el punto de vista del diseño software, la integración mediante una API externa refuerza el desacoplamiento del sistema, ya que el servicio de inferencia se consume como una dependencia claramente delimitada, manteniendo la coherencia con la arquitectura por capas adoptada en el proyecto.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[height=2cm]{Figuras/logos/groq.png}
-    \caption{Groq}
-    \label{fig:logo_groq}
-\end{figure}
-
-\subsubsection{Capacitor como evolución del soporte móvil híbrido}
-
-El uso de Ionic junto con Angular permite abordar el desarrollo multiplataforma mediante una única base de código. Este enfoque resuelve gran parte de los problemas asociados a la portabilidad de la interfaz y de la lógica de la aplicación, tanto en entorno web como en dispositivos móviles. No obstante, el desarrollo puramente web presenta una limitación clara: existen funcionalidades propias del sistema operativo móvil que no pueden ser gestionadas directamente desde el navegador.
-
-\textbf{Primeros intentos de integración nativa.}  
-Para cubrir esta necesidad surgió Cordova \cite{cordova_docs}, cuya función principal era actuar como un puente entre la aplicación web y el dispositivo. Gracias a esta tecnología fue posible acceder desde JavaScript a funcionalidades nativas, permitiendo que las aplicaciones híbridas pudieran comportarse como aplicaciones móviles instaladas. En su contexto histórico, Cordova supuso un avance clave para validar el modelo híbrido.
-
-Sin embargo, Cordova respondía a una etapa temprana de esta evolución. A medida que las aplicaciones comenzaron a requerir mayor control y personalización del entorno móvil, sus limitaciones se hicieron evidentes.
-
-\textbf{Evolución hacia un modelo más flexible.}  
-Capacitor \cite{capacitor_docs} aparece como la evolución natural de este enfoque, manteniendo la reutilización del código web, pero adaptándolo a las necesidades actuales del desarrollo móvil. La diferencia entre ambos modelos puede resumirse claramente en los siguientes puntos:
-
-\begin{itemize}
-    \item \textbf{Relación con el código nativo}: Cordova ocultaba en gran medida la capa nativa, mientras que Capacitor la integra como parte explícita del proyecto.
-    \item \textbf{Configuración del sistema}: En Cordova, los ajustes específicos resultaban complejos y poco transparentes; Capacitor facilita configuraciones controladas y mantenibles.
-    \item \textbf{Evolución y mantenimiento}: Capacitor se alinea mejor con las herramientas y prácticas actuales del desarrollo móvil, favoreciendo la sostenibilidad del proyecto.
-\end{itemize}
-
-\textbf{Papel actual de Capacitor en el proyecto.}  
-En la actualidad, Capacitor no se limita únicamente al empaquetado de la aplicación y a su ejecución como aplicación instalada, funciones que ya desempeñaba Cordova. Su principal aportación es actuar como una capa de integración que permite extender el frontend híbrido con capacidades propias del entorno móvil cuando el proyecto lo requiere.
-
-En el contexto de este proyecto, Capacitor resulta especialmente relevante porque:
-\begin{itemize}
-    \item Permite generar una aplicación móvil instalable a partir del frontend híbrido existente.
-    \item Mantiene una única base de código, garantizando coherencia funcional entre la versión web y la versión móvil.
-    \item Facilita la incorporación de funcionalidades y configuraciones específicas del dispositivo sin alterar la arquitectura del sistema.
-\end{itemize}
-
-De este modo, Capacitor se incorpora como un elemento habilitador que amplía el alcance de la solución, facilitando su implantación real en dispositivos móviles y manteniendo los principios de reutilización, modularidad y separación de responsabilidades definidos en el proyecto.
-\begin{figure}[H]
-    \centering
-    \includegraphics[height=3cm]{Figuras/logos/Capacitor.png}
-    \caption{Capacitor}
-    \label{fig:logo_Capacitor}
-\end{figure}
-\subsubsection{Android Studio y entorno de construcción móvil}
-
-La tercera tecnología incorporada es Android Studio \cite{android_studio_docs}, utilizado como entorno de construcción, empaquetado y validación de la aplicación en dispositivos Android. Su inclusión se apoya en el carácter híbrido del frontend, que permite reutilizar la misma base de código web para generar una aplicación instalable.
-
-Desde el punto de vista tecnológico, el uso de Android Studio implica:
-\begin{itemize}
-    \item La integración con la cadena de herramientas oficial de Android para la compilación, firma y despliegue de aplicaciones.
-    \item La generación de un contenedor nativo que encapsula la aplicación híbrida, permitiendo su ejecución como aplicación instalada.
-    \item El acceso a herramientas de depuración, emulación y análisis propias del ecosistema Android.
-\end{itemize}
-
-Este enfoque no introduce una nueva base de código ni una bifurcación tecnológica, sino que extiende el alcance del sistema aprovechando el diseño \textit{responsive} existente. De este modo, la portabilidad se aborda como una extensión técnica natural del frontend híbrido, sin duplicar lógica ni comprometer la consistencia del sistema.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[height=3cm]{Figuras/logos/android_studio.png}
-    \caption{Android Studio.}
-    \label{fig:logo_android_studio}
-\end{figure}
-
-En conjunto, las tecnologías incorporadas refuerzan la arquitectura existente, ampliando las capacidades del sistema desde un punto de vista estrictamente técnico y manteniendo los principios de modularidad, reutilización y separación de responsabilidades definidos en el trabajo previo.
-
-A nivel conceptual, la arquitectura global permanece idéntica. Se incluye a continuación el diagrama original para facilitar la lectura del documento sin obligar a consultar constantemente la versión original.
-
-\tikzstyle{block} = [rectangle, draw, node distance=4.5cm,
-    text width=6em, text centered, rounded corners, minimum height=3em, fill=blue!10]
-\tikzstyle{line} = [draw, -latex']
-
-\begin{figure}[H]
-\centering
-\begin{tikzpicture}
-    \node [block] (Frontend) {Frontend \\ (Ionic + Angular)};
-    \node [block, below of=Frontend, node distance=5cm] (Backend) {Backend REST \\ (Node.js + Express)};
-    \node [block, below of=Backend, node distance=5cm] (DB) {Base de datos \\ (MongoDB)};
-    \node [block, left of=Backend, node distance=7.2cm] (External) {Servicios externos};
-    \node [block, right of=Backend, node distance=6.3cm] (CI) {CI/CD \\ (GitHub Actions + Render)};
-    \path [line] ([xshift=-1.5mm]Frontend.south) -- node[left] {Solicitudes API} ([xshift=-1.5mm]Backend.north);
-    \path [line] ([xshift=1.5mm]Backend.north) -- node[right] {Respuestas API} ([xshift=1.5mm]Frontend.south);
-    \path [line] ([xshift=-1.5mm]Backend.south) -- ([xshift=-1.5mm]DB.north);
-    \path [line] ([xshift=1.5mm]DB.north) -- ([xshift=1.5mm]Backend.south);
-    \path [line] (Backend.west) -- (External.east);
-    \path [line] (CI) -- (Backend);
-    \path [line] (CI) to[bend right=20] (Frontend);
-\end{tikzpicture}
-\caption{Arquitectura global de la aplicación (sin cambios respecto al proyecto base)}
-\label{fig:arquitectura_global_ext}
-\end{figure}
-
-Con esta definición, la solución extendida queda descrita con el mismo enfoque de la primera versión: continuidad en arquitectura y metodología, y ampliación funcional bien acotada, verificable y orientada a la implantación real.
-
-\chapter{Planificación del proyecto}
-\label{chap:planificacion}
-
-La planificación de este proyecto de complemento se concibe como una continuación directa de la planificación establecida en el proyecto original, manteniendo sus mismos principios de organización, seguimiento y control temporal. Dado que la arquitectura base y las funcionalidades nucleares del sistema ya se encontraban definidas e implementadas, no ha sido necesario replantear el cronograma global, sino ampliarlo de forma coherente para dar cabida a las nuevas tareas derivadas de la evolución funcional, tecnológica y operativa de la solución.
-
-En este contexto, la planificación se ha centrado específicamente en estructurar y calendarizar las actividades asociadas a la mejora de funcionalidades existentes, la incorporación de nuevas capacidades, la adaptación a entornos móviles, la integración de servicios externos y la definición del plan de implantación. Estas tareas adicionales se han integrado respetando la secuencia lógica del trabajo previo y garantizando la continuidad del proceso de desarrollo, evitando solapamientos innecesarios y manteniendo una progresión ordenada.
-
-El diagrama de planificación presentado refleja exclusivamente la parte correspondiente a este complemento, destacando las nuevas tareas y sub-tareas incorporadas respecto al cronograma original. Esta representación parcial permite visualizar con claridad el alcance real del trabajo adicional realizado, sin introducir redundancias documentales ni repetir información ya detallada en el proyecto base. Para facilitar su interpretación, se ha empleado un código visual diferenciado que identifica las actividades propias de esta fase de ampliación.
-
-En conjunto, esta planificación actúa como un marco de referencia operativo que ha guiado la ejecución de la fase de evolución del proyecto, aportando una estructura clara, flexible y coherente con los objetivos planteados, y adaptada a las particularidades del contexto académico en el que se ha desarrollado.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{Figuras/planificacion_extendida.png}
-    \caption{Planificación del proyecto con nuevas tareas destacadas}
-\end{figure}
-\newpage
-Por último, también se añade la planificación de las tareas principales en horas.
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{Figuras/cronograma_horas.png}
-    \caption{Planificación de las tareas principales en horas}
-    \label{fig:planificacion_horas}
-\end{figure}
-\chapter{Desarrollo de la aplicación backend}
-\label{chap:desarrollo_backend}
-
-El backend de este complemento se apoya directamente en la base implementada en versión inicial, manteniendo la misma pila tecnológica: \textbf{Node.js} como entorno de ejecución y \textbf{Express} como framework para exponer una \textbf{API REST}. A nivel de organización interna, se conserva la separación de responsabilidades típica de la versión anterior, con una estructura inspirada en \textbf{MVC adaptado a backend} (sin capa de interfaz): \textbf{modelos} para persistencia y esquema de datos, \textbf{controladores} para la lógica de operaciones y \textbf{rutas} como capa de entrada a los endpoints.
-
-En esta fase del complemento, la mayor diferencia no está en “hacer un CRUD nuevo”, sino en reforzar operaciones de uso real (revisiones, eliminaciones y altas masivas) que requieren más validación, limpieza de relaciones y control de errores. Además, aparece una pieza nueva dentro del backend: \textbf{Servicios}, usados para encapsular integraciones externas como la comunicación con la \textbf{API de Groq}, lo que facilita mantener la lógica de negocio aislada de dependencias externas.
-\section{Modelado de datos}
 Con el objetivo de proporcionar una visión global de la estructura de la información manejada por el sistema, se elaboró en el sistema base un modelo conceptual de datos que identifica las principales entidades del dominio y las relaciones existentes entre ellas. Este modelo permite comprender de forma clara cómo se organiza la información dentro de la aplicación y sirve como referencia para la posterior implementación de la persistencia de datos en el backend.
 
-Es importante recordar que el diagrama presentado no corresponde a un diagrama Entidad-Relación (ER) en sentido estricto, en su lugar, se adopta un enfoque conceptual que refleja la estructura lógica de los datos y sus relaciones semánticas, independientemente de su implementación física.
+Es importante recordar que el diagrama presentado no corresponde a un diagrama Entidad-Relación en sentido estricto. En su lugar, se adopta un enfoque conceptual que refleja la estructura lógica de los datos y sus relaciones semánticas, independientemente de su implementación física.
 
 La figura~\ref{fig:modelo_conceptual} muestra el modelo conceptual de datos del sistema, proporcionando una visión estructural que complementa la definición funcional y arquitectónica presentada en los apartados anteriores.
 
@@ -610,15 +697,20 @@ La figura~\ref{fig:modelo_conceptual} muestra el modelo conceptual de datos del 
     \caption{Modelo conceptual de datos del sistema}
     \label{fig:modelo_conceptual}
 \end{figure}
+
 \newpage
-\section{Implementación}
-\label{sec:backend_impl}
 
-\subsection{Operaciones lógicas (revisión y eliminación)}
+\subsubsection{Implementación}
 
-Las operaciones de revisión (listados y consultas) reutilizan el mismo patrón del trabajo previo: filtrado por rol, respuesta en JSON y acceso a través de controladores. En cambio, las eliminaciones se han ampliado para contemplar el efecto real en otras colecciones (por ejemplo: al eliminar un grupo se eliminan también tareas, cuestionarios, entregas y calificaciones asociadas).
+La implementación del backend se centra en materializar las nuevas funcionalidades definidas previamente, manteniendo la arquitectura ya existente y ampliando únicamente aquellos elementos necesarios para dar soporte a los nuevos requisitos. En concreto, las principales actuaciones realizadas se agrupan en tres bloques: operaciones lógicas de revisión y eliminación, importación masiva desde CSV e integración con servicios externos de inteligencia artificial.
 
-Se incluye un ejemplo representativo (el resto de eliminaciones sigue una estructura muy similar):
+\paragraph{Operaciones lógicas de revisión y eliminación}
+
+Las operaciones de revisión, como listados y consultas, reutilizan el mismo patrón del trabajo previo: filtrado por rol, respuesta en formato JSON y acceso a través de controladores. En cambio, las eliminaciones se han ampliado para contemplar el efecto real que estas operaciones tienen sobre otras colecciones relacionadas.
+
+Por ejemplo, al eliminar un grupo no basta con borrar el documento principal correspondiente, ya que dicho grupo puede tener asociadas tareas, cuestionarios, entregas y calificaciones. Por tanto, la operación debe garantizar que el sistema no conserva referencias huérfanas ni información inconsistente.
+
+Se incluye a continuación un ejemplo representativo. El resto de eliminaciones sigue una estructura muy similar, adaptando la limpieza de relaciones a cada entidad concreta.
 
 \begin{Verbatim}[frame=single, fontsize=\small, xleftmargin=10pt, xrightmargin=10pt]
 // Ejemplo representativo: eliminar un grupo y limpiar datos asociados
@@ -647,16 +739,18 @@ async function eliminarGrupo(groupId, profesorId) {
 }
 \end{Verbatim}
 
-\subsection{Importación masiva desde CSV (normalización, validación y creación)}
+Este planteamiento permite que las operaciones destructivas se ejecuten de manera controlada, respetando los permisos del usuario autenticado y garantizando la coherencia de los datos almacenados.
+
+\paragraph{Importación masiva desde CSV: normalización, validación y creación}
 
 La importación masiva desde CSV introduce un flujo distinto al alta individual, ya que los datos provienen de una fuente externa y pueden contener errores, duplicados o referencias inconsistentes. Por este motivo, el proceso se ha diseñado siguiendo un enfoque estrictamente controlado, dividido en dos fases claramente diferenciadas.
 
 \begin{itemize}
-  \item \textbf{Validación completa previa}: El archivo CSV se parsea y se recorren todas las filas sin crear ningún elemento en la base de datos. Durante esta fase se validan campos obligatorios, duplicados internos, referencias cruzadas entre usuarios y grupos, y se comprueba la coherencia con las reglas de negocio del sistema.
-  \item \textbf{Creación atómica}: Únicamente si la validación finaliza sin errores, se procede a la creación de usuarios y grupos dentro de una transacción de Mongoose, garantizando que el proceso se complete íntegramente o se revierta completamente en caso de fallo.
+  \item \textbf{Validación completa previa}: el archivo CSV se parsea y se recorren todas las filas sin crear ningún elemento en la base de datos. Durante esta fase se validan campos obligatorios, duplicados internos, referencias cruzadas entre usuarios y grupos, y se comprueba la coherencia con las reglas de negocio del sistema.
+  \item \textbf{Creación atómica}: únicamente si la validación finaliza sin errores, se procede a la creación de usuarios y grupos dentro de una transacción de Mongoose, garantizando que el proceso se complete íntegramente o se revierta completamente en caso de fallo.
 \end{itemize}
 
-Además, se aplica una regla del sistema clave en este complemento: \textbf{un alumno pertenece a un único profesor}. Esto se comprueba antes de crear los grupos: si un grupo de un profesor intenta incluir un alumno asignado a otro profesor, se detiene la importación.
+Además, se aplica una regla del sistema clave en este complemento: \textbf{un alumno pertenece a un único profesor}. Esto se comprueba antes de crear los grupos; si un grupo de un profesor intenta incluir un alumno asignado a otro profesor, se detiene la importación.
 
 Este enfoque permite detectar todos los errores del CSV de forma anticipada y evita la creación parcial de datos, asegurando la consistencia del sistema incluso ante archivos mal formateados o incompletos. Dado que la implementación completa de este proceso resulta extensa y muy dependiente de detalles técnicos, se ha optado por presentar un código conceptual que resume el flujo principal, facilitando su comprensión sin perder el significado funcional.
 
@@ -691,18 +785,25 @@ func importarDesdeCSV(archivoCSV):
   devolver resultado de éxito
 \end{Verbatim}
 
-\subsection{Servicio de IA con Groq (integración por API y capa de servicios)}
+La división del proceso en una fase de validación y otra de creación permite que la importación funcione como una operación segura y predecible. De esta forma, se reduce la carga administrativa asociada al alta manual de usuarios y grupos, pero sin comprometer la integridad de la información almacenada en la base de datos.
 
-En el proyecto base, la lógica se repartía principalmente entre \textbf{rutas}, \textbf{controladores} y \textbf{modelos}. En este complemento se introduce además una \textbf{capa de servicios} para encapsular integraciones externas. Groq se integra mediante su \textbf{API pública}, y en la práctica el backend envía \textbf{prompts} (texto estructurado con instrucciones y contexto) y recibe una respuesta generada. Separarlo en un servicio evita mezclar esta comunicación externa con la lógica interna del sistema.
+\paragraph{Integración del servicio de inteligencia artificial mediante Groq}
+
+Una de las principales novedades incorporadas en este complemento es la integración de un servicio externo de inteligencia artificial capaz de generar pistas para las preguntas de los cuestionarios. Esta funcionalidad responde al objetivo de ofrecer al alumnado un mecanismo de ayuda durante la realización de actividades evaluables sin comprometer el carácter formativo de las mismas.
+
+Desde el punto de vista arquitectónico, esta integración no se incorpora directamente en los controladores, sino que se implementa mediante una capa específica de \textbf{servicios}. Esta decisión permite desacoplar completamente la lógica de negocio propia de la aplicación de la comunicación con proveedores externos, facilitando el mantenimiento del sistema y permitiendo sustituir el servicio utilizado en el futuro sin afectar al resto de la arquitectura.
+
+La comunicación con Groq se realiza mediante su API pública. El backend construye dinámicamente un \textit{prompt} que incluye la pregunta, las posibles respuestas y una serie de restricciones destinadas a evitar que el modelo revele directamente la solución. Una vez recibida la respuesta, esta es validada, procesada y enviada al frontend como una pista contextual para el alumno.
+
+A continuación se muestra el fragmento principal encargado de generar dichas pistas.
 
 \begin{Verbatim}[frame=single, fontsize=\small, xleftmargin=10pt, xrightmargin=10pt]
-
 // Importación del SDK oficial de Groq para realizar peticiones
 // al servicio de inferencia mediante su API
 const Groq = require('groq-sdk');
 
 // Inicialización del cliente de Groq utilizando la clave
-// de API definida en las variables de entorno 
+// de API definida en las variables de entorno
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
 // Función asíncrona encargada de generar una pista teórica
@@ -728,11 +829,8 @@ async function generarPistaTeoria({
         .join('\n')
     : '';
 
-  // Definición del contenido que se enviará al modelo.
-  // Incluye la pregunta, las opciones y una serie de
-  // restricciones para controlar el tipo de respuesta
   const userContent =
-`Genera UNA pista breve para ayudar a responder esta pregunta tipo test 
+`Genera UNA pista breve para ayudar a responder esta pregunta tipo test
 sin revelar la respuesta.
 
 Pregunta:
@@ -749,261 +847,225 @@ Requisitos:
 - No des la solución ni pasos completos
 - No menciones "IA" ni "modelo"`;
 
-  // Envío de la petición al servicio de Groq indicando
-  // el modelo, los mensajes de contexto y los parámetros
-  // que controlan la generación de la respuesta
   const completion = await groq.chat.completions.create({
     model: 'llama-3.3-70b-versatile',
     messages: [
-      { role: 'system', content: 'Eres un tutor de música. 
-      Das pistas breves y seguras.' },
-      { role: 'user',   content: userContent }
+      { role: 'system',
+        content: 'Eres un tutor de música. Das pistas breves y seguras.' },
+      { role: 'user',
+        content: userContent }
     ],
     temperature: 0.2,
     max_tokens: 90
   });
 
-  // Extracción segura del contenido generado por el modelo.
-  // Se utiliza encadenamiento opcional para evitar errores
-  // si la respuesta no tiene la estructura esperada
   const hint =
     completion?.choices?.[0]?.message?.content?.trim();
 
-  // Validación final para asegurar que se ha generado una pista
   if (!hint) throw new Error('No se pudo generar pista');
 
-  // Limpieza del texto devuelto antes de retornarlo,
-  // eliminando comillas o espacios sobrantes
   return hint
     .replace(/^["'\s]+|["'\s]+$/g, '')
     .trim();
 }
 
-// Exportación de la función para su reutilización
-// desde otras partes del backend
 module.exports = { generarPistaTeoria };
 \end{Verbatim}
 
+La utilización de una capa de servicios permite encapsular toda la comunicación con el modelo de inteligencia artificial en un único punto del sistema. De esta forma, el resto de componentes del backend únicamente solicitan una pista cuando la necesitan, permaneciendo completamente independientes de la tecnología utilizada para generarla.
 
-\section{Testing}
-\label{sec:backend_testing}
+\subsubsection{Testing}
 
-El backend mantiene el enfoque de testing definido en el proyecto base, utilizando \textbf{Jest} como framework de pruebas unitarias y \textbf{Supertest} como herramienta para la validación de endpoints HTTP. Tal como se describió previamente en el proyecto base, esta combinación permite comprobar sistemáticamente la correcta implementación de la lógica de negocio, la validez de las respuestas REST y el cumplimiento de las reglas funcionales del sistema.
+El backend mantiene el enfoque de pruebas definido en el proyecto base, utilizando \textbf{Jest} como framework de testing unitario y \textbf{Supertest} para la validación de los distintos endpoints de la API REST. Esta combinación permite comprobar tanto la correcta implementación de la lógica de negocio como el comportamiento observable desde el punto de vista del cliente.
 
-Sobre esta base consolidada, la solución extendida refuerza el conjunto de pruebas automatizadas con nuevos escenarios derivados de las funcionalidades incorporadas, prestando especial atención a aquellos flujos que presentan una mayor complejidad lógica o impacto sobre la integridad de los datos.
+Sobre esta base consolidada, la solución extendida incorpora nuevos escenarios de prueba derivados de las funcionalidades añadidas durante este complemento. En particular, se presta especial atención a aquellos procesos que presentan una mayor complejidad lógica o que afectan directamente a la consistencia de la información almacenada.
 
-En particular, se ha puesto el foco en validar:
+Las pruebas desarrolladas verifican, entre otros aspectos:
 
 \begin{itemize}
-  \item Que los procesos de importación masiva desde CSV detecten correctamente los errores de formato, referencias inconsistentes y violaciones de reglas de negocio, sin generar datos parciales;
-  \item Que las importaciones válidas produzcan la creación íntegra y coherente de usuarios y grupos;
-  \item Que las operaciones sensibles, como la eliminación de usuarios o la generación de pistas mediante servicios externos, respondan adecuadamente según el contexto, los permisos y el estado del sistema.
+    \item El correcto funcionamiento del proceso de importación masiva desde archivos CSV, validando tanto los casos de éxito como los distintos escenarios de error derivados de datos inconsistentes o referencias inválidas.
+    \item La correcta ejecución de las operaciones de eliminación, garantizando que los datos relacionados sean eliminados de forma coherente y no permanezcan referencias huérfanas en el sistema.
+    \item La integración con el servicio de inteligencia artificial encargado de generar pistas para los cuestionarios, comprobando tanto el funcionamiento normal como las situaciones de indisponibilidad del servicio externo.
 \end{itemize}
 
-Este enfoque garantiza que la ampliación funcional no comprometa la estabilidad global del backend y que los nuevos flujos queden correctamente integrados dentro de la arquitectura existente.
+Para ello, se mantiene la estrategia de aislamiento empleada en la versión inicial mediante el uso de \textit{mocks} y \textit{spies}, permitiendo simular de forma controlada tanto el acceso a la base de datos como el comportamiento de servicios externos. Asimismo, Supertest facilita la ejecución de peticiones HTTP reales contra la aplicación, verificando los códigos de estado y el contenido de las respuestas devueltas.
 
-Para ello, se mantiene la estrategia de aislamiento descrita en la versión inicial del proyecto, mediante el uso intensivo de \textit{mocks} y \textit{spies}, lo que permite simular de forma controlada la interacción con servicios externos, controladores internos y acceso a base de datos. Asimismo, el uso de Supertest facilita la ejecución de peticiones HTTP reales contra la aplicación, permitiendo validar tanto los códigos de estado como el contenido completo de las respuestas.
+Como ejemplo representativo se presenta el conjunto de pruebas desarrollado para el endpoint encargado de obtener una pista asociada a una pregunta concreta, accesible mediante la ruta 
 
-Como fragmento representativo, se presenta a continuación el conjunto de pruebas desarrollado para el endpoint encargado de devolver una pista asociada a una pregunta concreta, accesible mediante la ruta \texttt{GET /cuestionarios/:id/preguntas/:index/pista}. Este endpoint introduce un nuevo flujo funcional basado en la integración con un servicio externo de inferencia, por lo que resulta especialmente relevante validar tanto los escenarios normales como las situaciones de error controlado.
-\newpage
+\texttt{GET /cuestionarios/:id/preguntas/:index/pista}. 
+
+Este endpoint resulta especialmente interesante debido a que combina la lógica propia del backend con la interacción con un servicio externo de inteligencia artificial.
+
 \begin{Verbatim}[frame=single, fontsize=\small, xleftmargin=10pt, xrightmargin=10pt]
 // Bloque de pruebas para el endpoint encargado de
 // devolver una pista asociada a una pregunta concreta
 describe('GET /cuestionarios/:id/preguntas/:index/pista', () => {
 
-  // Caso de éxito: la petición es válida y se devuelve
-  // una pista correctamente generada
   it('200 - devuelve pista', async () => {
 
-    // Simulación del comportamiento del controlador para
-    // evitar dependencias externas durante el test
     jest.spyOn(cuestionarioController, 'getPistaPregunta')
       .mockResolvedValue({
         status: 200,
         body: { pista: 'PISTA', cached: true }
       });
 
-    // Ejecución de la petición HTTP contra la aplicación
-    // utilizando Supertest
     const res = await request(app)
       .get('/cuestionarios/c1/preguntas/0/pista');
 
-    // Verificación del código de estado y del contenido
-    // de la respuesta
     expect(res.status).toBe(200);
     expect(res.body.pista).toBe('PISTA');
   });
 
-  // Caso de error: el índice de la pregunta no es válido
-  // y no puede ser interpretado como un número
   it('400 - preguntaIndex inválido', async () => {
 
-    // Petición con un índice incorrecto para comprobar
-    // la validación de parámetros en la ruta
     const res = await request(app)
       .get('/cuestionarios/c1/preguntas/abc/pista');
 
-    // Se espera una respuesta de error por parte del servidor
     expect(res.status).toBe(400);
   });
 
-  // Caso de error controlado: el servicio de generación
-  // de pistas no está disponible temporalmente
   it('503 - mantenimiento', async () => {
 
-    // Simulación de una respuesta del controlador que
-    // indica indisponibilidad del servicio externo
     jest.spyOn(cuestionarioController, 'getPistaPregunta')
       .mockResolvedValue({
         status: 503,
         body: { error: 'Pistas en mantenimiento.' }
       });
 
-    // Ejecución de la petición en un escenario de
-    // mantenimiento del servicio
     const res = await request(app)
       .get('/cuestionarios/c1/preguntas/0/pista');
 
-    // Comprobación de que el código de estado refleje
-    // correctamente la situación de error
     expect(res.status).toBe(503);
   });
 });
 
 \end{Verbatim}
 
-Este conjunto de pruebas permite validar de manera precisa el correcto funcionamiento del endpoint bajo distintos escenarios, asegurando una integración fiable con el servicio externo de inferencia y una gestión coherente de los errores. De este modo, se refuerza la robustez del backend y se garantiza que la nueva funcionalidad se incorpora sin comprometer la estabilidad global del sistema.
+Este conjunto de pruebas permite comprobar de forma sistemática el comportamiento del nuevo servicio de generación de pistas tanto en condiciones normales como ante situaciones de error. Con ello se garantiza que la incorporación de esta nueva funcionalidad no compromete la estabilidad del backend y mantiene el mismo nivel de calidad y fiabilidad alcanzado en la versión inicial del proyecto.
 
-
-
-\chapter{Desarrollo de la aplicación frontend}
-\label{chap:desarrollo_frontend}
-
-El frontend del complemento se mantiene sobre la pila original: \textbf{Angular} + \textbf{Ionic}. Angular aporta la estructura modular basada en \textbf{componentes}, \textbf{servicios} y \textbf{módulos}, mientras que Ionic proporciona componentes visuales pensados para interfaz táctil y ejecución híbrida.
-
-A nivel de patrón, el desarrollo sigue el esquema habitual de Angular (frecuentemente descrito como un \textbf{MVC/MVVM práctico}): los \textbf{componentes} gestionan estado y renderizado de la vista, los \textbf{servicios} encapsulan lógica reutilizable y comunicación HTTP, y la “capa modelo” se representa mediante interfaces/DTOs y estructuras que viajan entre frontend y backend.
-
-En este complemento, aunque se han añadido pantallas y funcionalidades, el cambio más visible y relevante en frontend es la \textbf{exportación real a Android} y los ajustes necesarios para que la aplicación se comporte bien como app instalada.
-
-\section{Implementación}
+\subsection{Implementación del frontend}
 \label{sec:frontend_impl}
 
-\subsection{Exportación a Android con Capacitor}
+La implementación del frontend mantiene la pila tecnológica definida en el proyecto original, basada en \textbf{Angular} e \textbf{Ionic}. Angular continúa proporcionando una arquitectura modular organizada mediante componentes, servicios y módulos, mientras que Ionic aporta una biblioteca de componentes orientada al desarrollo de interfaces adaptables tanto a navegadores como a dispositivos móviles.
 
-La exportación a móvil se realiza con \textbf{Capacitor}, que actúa como puente entre el proyecto web y el proyecto nativo Android. A nivel práctico:
+Desde el punto de vista arquitectónico, se conserva el esquema empleado en la versión inicial, en el que los componentes son responsables de la gestión del estado y la interacción con el usuario, los servicios encapsulan la comunicación con la API REST y la lógica reutilizable, y las interfaces representan las estructuras de datos intercambiadas entre el frontend y el backend.
+
+Las nuevas funcionalidades incorporadas durante este complemento se integran sobre esta arquitectura sin introducir cambios estructurales. La principal evolución del frontend se centra en dos aspectos: la incorporación de las nuevas funcionalidades definidas en la solución extendida y la adaptación de la aplicación para su ejecución como aplicación instalada en dispositivos Android.
+
+\subsubsection{Exportación a Android mediante Capacitor}
+
+La principal ampliación realizada sobre el frontend consiste en la incorporación de \textbf{Capacitor} como puente entre la aplicación web y el sistema operativo móvil. Gracias a esta herramienta, la aplicación desarrollada con Ionic y Angular puede ejecutarse como una aplicación instalada, reutilizando completamente el código existente y evitando desarrollar una aplicación nativa independiente.
+
+Desde el punto de vista práctico, Capacitor permite:
+
 \begin{itemize}
-  \item Genera un contenedor Android para ejecutar la app como instalada,
-  \item Permite usar plugins para acceder a capacidades del dispositivo,
-  \item Facilita ajustes que en navegador (PC) no son necesarios.
+    \item Generar un contenedor Android para ejecutar la aplicación como software instalado.
+    \item Acceder a funcionalidades propias del dispositivo mediante plugins nativos.
+    \item Adaptar determinados comportamientos de la interfaz que difieren respecto a la ejecución en un navegador web.
 \end{itemize}
 
-\subsubsection{Ajuste de menús del sistema}
+Esta aproximación mantiene una única base de código para ambas plataformas, reduciendo el esfuerzo de mantenimiento y garantizando una experiencia homogénea para todos los usuarios.
 
-En sistemas móviles pueden aparecer solapes con algunos menús nativos como la barra de estado superior. Actualmente, Capacitor en combinación con Ionic, ofrece una solución para ello bastante sencilla gracias a su conjunto de plugins, además también se aplican soluciones de padding para no solapar con otros menús como la botonera inferior del sistema nativo.
+\paragraph{Adaptación a los elementos propios del sistema operativo}
+
+Uno de los primeros ajustes realizados consiste en adaptar correctamente la interfaz a los elementos propios del sistema operativo móvil, como la barra superior de estado o la barra de navegación inferior.
+
+Para ello se utilizan los plugins proporcionados por Capacitor, permitiendo controlar el comportamiento de la barra de estado y evitando que ésta se superponga sobre la interfaz desarrollada con Ionic.
 
 \begin{Verbatim}[frame=single, fontsize=\small, xleftmargin=10pt, xrightmargin=10pt]
-// Platform, servicio Standalone de Ionic 
-// que detecta si el entorno en ejecución es web o móvil (Android o iOS)
-if (this.platform.is('capacitor')) { 
-  // StatusBar, plugin de Capacitor que permite modificar 
-  // el manejo de la barra de estado.
-  // En este caso, se establece en que no debe superponerse con la app.
+if (this.platform.is('capacitor')) {
+
   await StatusBar.setOverlaysWebView({ overlay: false });
-  // Y se implementa que su color debe seguir la temática de la app.
+
   await StatusBar.setStyle({ style: Style.Default });
 }
-
 \end{Verbatim}
 
-\begin{Verbatim}[frame=single, fontsize=\small, xleftmargin=10pt, xrightmargin=10pt]
+Como complemento, también se emplean las denominadas \textit{safe areas} proporcionadas por el propio sistema operativo. Estas variables permiten adaptar automáticamente los márgenes interiores de la aplicación en función del dispositivo utilizado, evitando solapes independientemente del tamaño de pantalla o de la presencia de menús propios del sistema.
 
-// Los safe-areas son unas variables que entrega 
-// el sistema operativo a la aplicación.
-// Estas variables representan las zonas que ocupan 
-// partes nativas del sistema 
-// (barra de estado o botonera inferior del sistema nativo).
-// De este modo, añadiendo padding en los cuatro lados
-// en estilos globales del desarrollo,
-// la aplicación se adaptará al tamaño de forma automática 
-// sin solapes, independientemente del menú que aparezca.
+\begin{Verbatim}[frame=single, fontsize=\small, xleftmargin=10pt, xrightmargin=10pt]
 body {
   padding-top: env(safe-area-inset-top);
   padding-bottom: env(safe-area-inset-bottom);
   padding-left: env(safe-area-inset-left);
   padding-right: env(safe-area-inset-right);
 }
-
 \end{Verbatim}
 
-\subsubsection{Apertura de PDFs en Android (FileSystem + FileOpener)}
+\paragraph{Gestión de documentos PDF}
 
-En navegador, incrustar un PDF con \texttt{iframe} suele funcionar bien, pero en Android el WebView puede dar problemas. La solución aplicada consiste en:
-\begin{enumerate}
-  \item Detectar que se está en sistema Android o iOS mediante el tamaño de pantalla.
-  \item Mostrar un botón \textit{Abrir PDF}.
-  \item Guardar temporalmente el archivo en el dispositivo.
-  \item Abrirlo con el visor nativo del sistema.
-\end{enumerate}
+Otra de las adaptaciones necesarias afecta a la visualización de documentos PDF.
 
-Un fragmento de código representativo es el que muestra el caso de los detalles de cada rama de la enseñanza, en el cual, puede haber un libro del curso. Este libro, proviene de la base de datos y aparece en pantalla (todo esto tratado en el proyecto original).
-La evolución a móvil impide la vista directamente ya que no hay un visor de PDF integrado en la app (lo cual sí que aparece en los navegadores), por lo tanto, es necesario abrirlo vía externa en el visor del sistema accediendo así a las funcionalidades nativas mediante los plugins de Capacitor, en concreto, se usarán FileSystem y FileOpener.
+Mientras que en un navegador web resulta habitual utilizar un elemento \texttt{iframe} para visualizar directamente el documento, este comportamiento no siempre está disponible cuando la aplicación se ejecuta dentro del WebView de Android.
+
+La solución adoptada consiste en almacenar temporalmente el documento mediante el plugin \texttt{Filesystem} y abrirlo posteriormente utilizando el visor PDF instalado en el propio dispositivo mediante el plugin \texttt{FileOpener}. De esta forma, el usuario obtiene una experiencia equivalente a la de cualquier otra aplicación móvil.
+
+El siguiente fragmento muestra el funcionamiento implementado para el libro del curso de cada rama.
+
 \begin{Verbatim}[frame=single, fontsize=\small, xleftmargin=10pt, xrightmargin=10pt]
-//Se comprueba al inicio si es pantalla reducida 
-(sistemas Android o iOS de tablet y móvil).
+//Se comprueba al inicio si es pantalla reducida
 @HostListener('window:resize')
 onResize() {
   this.checkIsMobile();
 }
+
 private checkIsMobile(): void {
   this.isMobile = window.matchMedia('(max-width: 1368px)').matches;
 }
-// Un botón solo accesible desde móvil acciona el método.
+
 async openPdf(): Promise<void> {
+
   try {
+
     if (!this.libroBlob) {
-      await this
-        .presentToast('No hay PDF disponible para abrir.', 'danger');
+      await this.presentToast(
+      'No hay PDF disponible para abrir.', 'danger');
       return;
     }
-    // En caso de haber libro, es necesario obtenerlo en base64 
-    // para poder construirlo fuera del dominio de la aplicación
+
     const base64 = await this.blobToBase64(this.libroBlob);
-    const fileName = 
+
+    const fileName =
     `libro-apoyo-${this.ramaConfig?._id || 'rama'}.pdf`;
-    // El plugin FileSystem construye el documento a partir 
-    // del código en base64 y lo guarda en memoria 
-    // generando así una URL real y accesible.
+
     const result = await Filesystem.writeFile({
       path: fileName,
       data: base64,
-      directory: Directory.Cache, // Guardado temporal
+      directory: Directory.Cache,
       recursive: true,
     });
-    // El plugin FileOpener le indica que tipo de formato tiene
-    // el archivo para que lo abra con la aplicación predeterminada 
-    // del sistema (en este caso PDF) y su URL para ubicarlo y abrirlo.
+
     await FileOpener.open({
       filePath: result.uri,
       contentType: 'application/pdf',
       openWithDefault: true,
     });
+
   } catch (e) {
+
     console.error(e);
-    await this.presentToast
-    ('No se pudo abrir el PDF en este dispositivo.', 'danger');
+
+    await this.presentToast(
+    'No se pudo abrir el PDF en este dispositivo.',
+    'danger');
+
   }
 }
 \end{Verbatim}
 
-\subsubsection{Estilos específicos para móvil}
+La utilización de estos plugins permite aprovechar las capacidades nativas del dispositivo manteniendo la lógica de negocio completamente compartida entre la versión web y la versión Android.
 
-Además de los cambios anteriores, se han aplicado ajustes menores de SCSS para algunas partes de la aplicación que, gracias a Ionic combinado con Capacitor, son muy ligeros. El ejemplo más elaborado es el cambio en el menú de botones que le aparecía al profesor en la lista de tareas creadas de cada rama, 
-en este caso, el menú de botones provocaba que en pantallas pequeñas no se llegara a ver, por tanto, se detecta el tamaño de pantalla que es y, en caso de tamaño pequeño manejado con @media, se pasa a un solo botón que ya, pulsándolo, despliega el resto de opciones.
+\paragraph{Adaptación de la interfaz a pantallas reducidas}
+
+La exportación a dispositivos móviles también ha requerido pequeños ajustes en determinados componentes visuales cuya disposición original estaba pensada para pantallas de mayor tamaño.
+
+Uno de los casos más representativos corresponde al conjunto de acciones disponibles para el profesorado en la gestión de tareas. En la versión web estos controles se muestran simultáneamente mediante varios botones, mientras que en dispositivos móviles pasan a agruparse en un único botón desplegable para preservar el espacio disponible.
+
+Esta adaptación se realiza mediante reglas CSS apoyadas en consultas \texttt{@media}, permitiendo que el propio navegador seleccione automáticamente la distribución adecuada.
 
 \begin{Verbatim}[frame=single, fontsize=\small, xleftmargin=10pt, xrightmargin=10pt]
-// En caso de tener un tamaño demasiado pequeño, esconde 
-// los tres botones y los encapsula en un único botón desplegable.
 @media (max-width: 767px) {
+
   .desktop-only {
     display: none;
   }
@@ -1011,8 +1073,9 @@ en este caso, el menú de botones provocaba que en pantallas pequeñas no se lle
   .mobile-only {
     display: flex;
   }
+
 }
-// En caso contrario, los muestra y esconde el botón único.
+
 .desktop-only {
   display: flex;
 }
@@ -1022,109 +1085,114 @@ en este caso, el menú de botones provocaba que en pantallas pequeñas no se lle
 }
 \end{Verbatim}
 
-\subsubsection{Ajustes finales en Android Studio (Iconos, Pantallas de carga y XML)}
+Este tipo de modificaciones resulta reducido gracias a la utilización conjunta de Ionic y Capacitor, ya que la mayor parte de los componentes proporcionan un comportamiento adaptativo de forma automática.
 
-Una vez compilado el proyecto Android, ciertos recursos visuales se terminan de ajustar desde \textbf{Android Studio}, como:
-\begin{itemize}
-  \item Iconos de la aplicación en vistas nativas.
-  \item Pantalla de carga.
-\end{itemize}
+\paragraph{Configuración final mediante Android Studio}
 
-Todo esto lo maneja Android Studio para cada aplicación mediante ficheros de configuración XML que contienen las referencias a los distintos logos y estilos usados, en concreto, AndroidManifest (donde se declara el nombre, icono y permisos) y splash.xml (pantalla de carga).
-\section{Diseño y experiencia de usuario (UX/UI)}
+Una vez generado el proyecto Android mediante Capacitor, Android Studio se emplea para realizar los ajustes finales específicos de la plataforma.
+
+Entre ellos destacan la configuración del icono de la aplicación, la personalización de la pantalla de carga, la definición de permisos y la edición de los archivos XML utilizados por Android para describir la aplicación instalada.
+
+Estos ajustes permiten que la aplicación presente un comportamiento y una apariencia completamente integrados con el sistema operativo, reforzando la percepción de producto final y mejorando la experiencia de usuario.
+
+\subsubsection{Diseño y experiencia de usuario (UX/UI)}
 \label{sec:frontend_diseno_ext}
 
-El diseño del frontend en la solución extendida se apoya directamente en la interfaz y los principios UX/UI definidos en la primera versión, descritos en el apartado correspondiente. En este complemento no se plantea un rediseño completo de la aplicación, sino una \textbf{adaptación visual y funcional al contexto móvil}, derivada de la exportación a Android mediante Capacitor y de los ajustes descritos en la sección~\ref{sec:frontend_impl}.
+La evolución del frontend no implica un rediseño completo de la interfaz desarrollada en el proyecto original. La identidad visual, la organización de la navegación y los principales patrones de interacción se mantienen, ya que fueron definidos específicamente para adaptarse al proceso de enseñanza del lenguaje musical y demostraron un comportamiento satisfactorio durante el desarrollo de la versión inicial.
 
-De este modo, el objetivo principal de esta sección es mostrar \textbf{cómo los cambios implementados se traducen en mejoras perceptibles para el usuario final}, garantizando una experiencia coherente, estable y visualmente consistente cuando la aplicación se ejecuta como app instalada.
+En este complemento, el trabajo realizado desde el punto de vista de la experiencia de usuario se centra en adaptar la interfaz al nuevo entorno de ejecución móvil y en garantizar que las nuevas funcionalidades incorporadas mantengan la misma coherencia visual que el resto del sistema.
 
-\subsection{Continuidad visual y coherencia de interacción}
+\paragraph{Continuidad visual entre plataformas}
 
-Tal y como se ha detallado en el apartado de implementación, la aplicación mantiene intacta la estructura de navegación, los patrones de interacción y la identidad visual definidos en el proyecto base. Esto permite que la experiencia de usuario sea continua entre la versión web y la versión móvil, evitando una curva de aprendizaje adicional.
+Uno de los principales objetivos perseguidos durante esta evolución ha sido preservar una experiencia homogénea independientemente del dispositivo utilizado. Gracias a la utilización conjunta de Angular, Ionic y Capacitor, la estructura general de navegación permanece inalterada tanto en la versión web como en la aplicación Android.
 
-En particular, gracias al uso de Ionic y a la correcta integración con Capacitor:
-
-\begin{itemize}
-    \item Se conserva la \textbf{organización funcional de pantallas}, manteniendo la separación entre navegación académica y navegación de gestión, como se aprecia en la vista principal mostrada en la figura~\ref{fig:menus}.
-    
-    \item Se mantienen los \textbf{patrones de interacción habituales}, como el uso de modales, listas dinámicas y formularios guiados garantizando una experiencia predecible y consistente.
-    
-    \item La aplicación presenta una \textbf{identidad gráfica homogénea} independientemente del dispositivo, reforzando la percepción de producto unificado.
-\end{itemize}
-
-\subsection{Efectos visibles de la adaptación a móvil}
-
-Tal y como se ha expuesto en la sección~\ref{sec:frontend_impl}, la exportación a Android ha requerido una serie de ajustes técnicos específicos. Desde el punto de vista del usuario, estas adaptaciones se traducen en mejoras directas en la experiencia visual y funcional:
+En consecuencia:
 
 \begin{itemize}
-    \item \textbf{Ausencia de solapes con elementos del sistema}: Gracias al uso de \textit{safe areas} y a la configuración del plugin \texttt{StatusBar}, la interfaz se adapta automáticamente a la presencia de la barra superior y la navegación inferior del sistema, garantizando una correcta visualización del contenido, como se observa en la figura~\ref{fig:ritmo}.
-    
-    \item \textbf{Gestión nativa de documentos PDF}: Los documentos PDF se abren mediante el visor nativo del sistema, proporcionando una lectura fluida y estable.
-    
-    \item \textbf{Reorganización adaptativa de controles}: En pantallas reducidas, algunos menús de acciones se condensan en botones desplegables, preservando la accesibilidad sin comprometer la claridad visual.
-    
-    \item \textbf{Ajustes de tamaño y posición}: Algunos elementos, al basarse en el porcentaje ocupado de la página para posicionarse y ocupar un tamaño, no ofrecían una buena experiencia de usuario en pantallas pequeñas, por tanto, también eso ha requerido de ajustes como se puede ver en la comparativa del tamaño del vídeo en los cuestionarios (tanto en edición como en creación y entrega) entre la versión web y la versión Android en la figura~\ref{fig:cuestionario}.
-    
-    \item \textbf{Percepción de aplicación instalada}: La configuración de iconos y pantallas de carga refuerza la sensación de aplicación nativa, como se aprecia en el logo de la aplicación representada en la figura~\ref{fig:splash_android}.
+    \item Se mantiene la organización funcional de la aplicación, diferenciando claramente las zonas de navegación académica y las tareas administrativas.
+    \item Se conservan los patrones de interacción empleados en la versión inicial, utilizando listas dinámicas, formularios, ventanas modales y notificaciones emergentes de manera consistente.
+    \item La identidad gráfica permanece unificada entre plataformas, reforzando la percepción de una única aplicación independientemente del entorno desde el que se utilice.
 \end{itemize}
 
-\subsection{Ejemplos visuales de la solución extendida}
-
-Las siguientes figuras ilustran los principales efectos visuales derivados de la implementación descrita previamente, mostrando la ejecución de la aplicación como app instalada en Android, la correcta adaptación al espacio disponible, la apertura de documentos PDF mediante el visor nativo y la personalización de los recursos visuales.
+La Figura~\ref{fig:menus} muestra la organización general de los menús de navegación utilizada en la aplicación.
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.3\textwidth]{Figuras/menus.png}
-  \caption{Menú doble (lateral e inferior)}
+  \caption{Menú principal de navegación de la aplicación.}
   \label{fig:menus}
 \end{figure}
+
+\paragraph{Adaptaciones derivadas de la ejecución en Android}
+
+Las modificaciones realizadas durante la implementación descrita anteriormente tienen una repercusión directa sobre la experiencia del usuario cuando la aplicación se ejecuta como software instalado.
+
+Entre las mejoras más relevantes pueden destacarse las siguientes:
+
+\begin{itemize}
+
+    \item La utilización de \textit{safe areas} y la configuración de la barra de estado permiten evitar solapes con los elementos propios del sistema operativo, garantizando una correcta visualización de toda la interfaz.
+
+    \item Los documentos PDF pasan a abrirse mediante el visor nativo del dispositivo, proporcionando una experiencia más estable y natural que la obtenida mediante un visor embebido.
+
+    \item Determinados conjuntos de acciones se reorganizan automáticamente en pantallas reducidas, preservando la accesibilidad sin comprometer la claridad visual de la interfaz.
+
+    \item Algunos componentes cuyo tamaño dependía del porcentaje de pantalla disponible han sido reajustados para mejorar su comportamiento en dispositivos móviles, especialmente en aquellos relacionados con la realización y edición de cuestionarios.
+
+    \item La configuración de iconos y pantallas de carga mediante Android Studio permite que la aplicación se perciba como una aplicación nativa integrada en el sistema operativo.
+
+\end{itemize}
+
+Las Figuras~\ref{fig:ritmo}, \ref{fig:cuestionario} y \ref{fig:splash_android} muestran algunos ejemplos representativos de estas adaptaciones.
+
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.7\textwidth]{Figuras/Ritmo_pc.png}
   \hfill
   \includegraphics[width=0.2\textwidth]{Figuras/Ritmo.png}
-  \caption{Vista de la rama de ritmo en versión web (izquierda) y Android (derecha).}
+  \caption{Vista de la rama de ritmo del profesor en la versión web (izquierda) y en Android (derecha).}
   \label{fig:ritmo}
 \end{figure}
+
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.7\textwidth]{Figuras/cuestionario_pc.png}
   \hfill
   \includegraphics[width=0.2\textwidth]{Figuras/cuestionario.png}
-  \caption{Vista de cuestionario en versión web (izquierda) y Android (derecha).}
+  \caption{Vista de un cuestionario en la versión web (izquierda) y en Android (derecha).}
   \label{fig:cuestionario}
 \end{figure}
+
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.3\textwidth]{Figuras/splash.png}
-  \caption{Icono desde vista nativa}
+  \caption{Icono y recursos gráficos utilizados por la aplicación Android.}
   \label{fig:splash_android}
 \end{figure}
 
-En conjunto, estos elementos reflejan cómo la implementación descrita previamente se traduce en una experiencia de usuario consistente, fluida y adaptada al entorno móvil, preservando la identidad visual y funcional del proyecto original.
+En conjunto, estas modificaciones permiten trasladar la aplicación al entorno móvil preservando la experiencia de uso definida originalmente y adaptándola a las características propias de este tipo de dispositivos.
 
-\section{Testing}
-\label{sec:frontend_testing}
+\subsubsection{Testing}
 
-El frontend mantiene el enfoque de testing definido en la versión inicial, utilizando \textbf{Jasmine} como framework de pruebas unitarias y \textbf{Karma} como entorno de ejecución. Como se expuso en el trabajo previo, esta combinación permite validar de forma sistemática la lógica interna de los componentes Angular y su correcta integración con los servicios y la interfaz de usuario.
+La estrategia de pruebas del frontend mantiene el enfoque establecido durante el proyecto original, utilizando \textbf{Jasmine} como framework de pruebas unitarias y \textbf{Karma} como entorno de ejecución. Esta combinación continúa proporcionando un mecanismo eficaz para validar la lógica implementada en los componentes Angular y comprobar su correcta interacción con los distintos servicios de la aplicación.
 
-Sobre esta base ya establecida, la solución extendida no introduce cambios estructurales en la metodología de pruebas, sino que amplía el conjunto de tests existentes para cubrir las nuevas funcionalidades incorporadas. En particular, se ha reforzado el testing en aquellos componentes que presentan una mayor complejidad lógica o que introducen flujos críticos de interacción, especialmente aquellos relacionados con la gestión administrativa del sistema.
+Las nuevas funcionalidades incorporadas durante este complemento hacen necesario ampliar el conjunto de pruebas existentes, especialmente en aquellos componentes relacionados con la administración del sistema y con las nuevas operaciones de gestión de usuarios.
 
-En este contexto, se ha desarrollado un conjunto específico de pruebas para el panel de gestión de profesores, accesible por el administrador, cuyo objetivo es permitir la revisión y eliminación controlada de usuarios con rol docente tal y como se establece en la definición del proyecto. Este componente introduce nuevas posibilidades que requieren ser verificadas mediante tests automatizados, tales como la confirmación explícita de acciones destructivas, la validación de identificadores y la correcta gestión de errores.
+En este sentido, se ha prestado especial atención al componente encargado de la gestión de profesores, ya que incorpora nuevos flujos de revisión y eliminación definidos durante la ampliación funcional del sistema.
 
-De manera concreta, los tests implementados persiguen los siguientes objetivos:
+Las pruebas desarrolladas permiten verificar, entre otros aspectos:
 
 \begin{itemize}
-  \item Verificar la correcta inicialización del componente y la carga inicial del listado de profesores desde el servicio backend.
-  \item Comprobar la correcta interacción con los servicios de negocio mediante la simulación controlada de respuestas.
-  \item Validar los flujos de interacción que requieren confirmación explícita por parte del usuario antes de ejecutar acciones irreversibles.
-  \item Garantizar la actualización coherente del estado interno del componente tras operaciones de eliminación.
-  \item Verificar el tratamiento de situaciones de error y su correcta notificación visual mediante alertas y mensajes emergentes.
+    \item La correcta inicialización del componente y la carga del listado de profesores.
+    \item La comunicación con los servicios responsables de recuperar y eliminar usuarios.
+    \item La aparición de confirmaciones antes de ejecutar operaciones irreversibles.
+    \item La actualización del estado interno del componente tras una eliminación satisfactoria.
+    \item El tratamiento adecuado de situaciones de error y la correspondiente notificación al usuario.
 \end{itemize}
-\newpage
-Para ello, se emplea el mismo enfoque de aislamiento descrito en el proyecto base, utilizando \textit{spies} de Jasmine sobre los controladores de Ionic y los servicios de negocio. Este mecanismo permite simular de modo controlado el comportamiento de dependencias externas, evitando efectos colaterales durante la ejecución de las pruebas. Asimismo, se utilizan herramientas específicas para el control del flujo asíncrono, lo que permite reproducir con precisión operaciones basadas en promesas y observables.
 
-A continuación se presenta un pseudocódigo estructurado que resume el comportamiento validado por los tests implementados para el componente de gestión de profesores. Se ha decidido usar esta representación porque mantiene un nivel de detalle cercano a la semántica real facilitando su comprensión y la implementación real resulta demasiado extensa y depende de detalles técnicos.
+Para ello se mantiene el uso de \textit{spies} sobre los servicios de Angular y los distintos controladores proporcionados por Ionic, permitiendo aislar completamente el comportamiento del componente durante la ejecución de las pruebas.
+
+Debido a la extensión del código generado, se presenta un pseudocódigo que resume el comportamiento validado por los distintos casos de prueba implementados.
 
 \begin{Verbatim}[frame=single, fontsize=\small, xleftmargin=10pt, xrightmargin=10pt]
 
@@ -1147,125 +1215,173 @@ Crear instancia del componente
 Ejecutar ciclo inicial (ngOnInit)
 
 TEST 1: Creación del componente
-  Verificar que la instancia se crea correctamente
 
 TEST 2: Carga inicial de profesores
-  Simular respuesta del servicio
-  Ejecutar ngOnInit
-  Verificar llamada al servicio y asignación interna
 
 TEST 3: Cierre del modal
-  Ejecutar dismissModal
-  Verificar invocación del ModalController
 
 TEST 4: Solicitud de eliminación
-  Ejecutar deleteProfesor(id)
-  Verificar aparición de alerta de confirmación
 
 TEST 5: ID inválido
-  Ejecutar deleteProfesor('')
-  Verificar aparición de toast de error
-  Comprobar que no se invoca deleteUsuario
 
 TEST 6: Confirmación de eliminación
-  Precargar lista interna
-  Confirmar eliminación
-  Verificar:
-    - llamada al servicio
-    - aparición de toast de éxito
-    - actualización correcta del listado
 
 TEST 7: Error en eliminación
-  Simular error del servicio
-  Confirmar eliminación
-  Verificar:
-    - aparición de toast de error
-    - no modificación del estado interno
 
 TEST 8: Cancelación
-  Abrir alerta
-  No confirmar eliminación
-  Verificar que no se invoca deleteUsuario
 
 \end{Verbatim}
 
-Este conjunto de pruebas permite validar sistemáticamente los principales flujos funcionales introducidos en la solución extendida, garantizando un comportamiento estable ante escenarios normales y situaciones de error. De este modo, se refuerza la fiabilidad global del frontend y se reduce el riesgo de regresiones durante la evolución futura del sistema.
-\chapter{Despliegue del sistema}
-\label{chap:despliegue}
+Mediante este conjunto de pruebas se valida el correcto funcionamiento de uno de los principales módulos administrativos incorporados durante este complemento, garantizando que la evolución funcional del frontend mantiene el mismo nivel de calidad, estabilidad y fiabilidad alcanzado en la versión inicial del proyecto.
 
-El despliegue del sistema mantiene la misma infraestructura y metodología establecidas en el proyecto original, basadas en un flujo de integración y entrega continua que garantiza la estabilidad, trazabilidad y fiabilidad del software. En este complemento, el objetivo no es redefinir dicho proceso, sino extenderlo con un nuevo escenario de despliegue: la generación de una aplicación móvil Android instalada.
+\subsection{Implementación del despliegue}
+\label{sec:despliegue_impl}
 
-De este modo, el despliegue web se conserva sin modificaciones relevantes, mientras que la principal aportación de esta fase se centra en la incorporación de un flujo específico para la construcción, empaquetado y validación de la versión móvil, apoyado en el uso de Capacitor y Android Studio, tal y como se ha descrito en la sección~\ref{sec:frontend_impl}.
+La implementación de la solución se completa con el proceso de despliegue, que mantiene la infraestructura y metodología definidas en el Trabajo Fin de Grado. En lugar de replantear el flujo existente, este complemento amplía el proceso incorporando un nuevo escenario de despliegue orientado a la generación de una aplicación móvil Android, manteniendo en todo momento una única base de código para las versiones web y móvil.
 
-\section{Despliegue web}
+De este modo, el despliegue web continúa realizándose mediante el flujo de integración y entrega continua previamente definido, mientras que la principal aportación de esta fase consiste en extender dicho proceso para permitir la construcción, empaquetado y validación de una aplicación Android instalada. Esta ampliación se apoya en la utilización conjunta de Capacitor y Android Studio, cuya integración con el frontend se ha descrito en la Sección~\ref{sec:frontend_impl}.
 
-Tal y como se detalla en el documento principal, el sistema se despliega mediante un flujo de integración y entrega continua basado en \textbf{GitHub Actions}, con publicación automática del backend en \textbf{Render} y del frontend web en \textbf{GitHub Pages}, apoyándose en una base de datos gestionada en la nube mediante \textbf{MongoDB Atlas}.
+\subsubsection{Despliegue de la aplicación web}
 
-Este enfoque permite automatizar la ejecución de pruebas, la construcción de artefactos y la publicación de nuevas versiones, garantizando estabilidad operativa, control de versiones y detección temprana de errores. Dado que este mecanismo no ha sufrido modificaciones en el presente complemento, no se reproduce aquí su descripción completa, remitiendo al lector al capítulo correspondiente del proyecto original.
+Tal y como se detalló en el proyecto original, la aplicación mantiene un flujo de integración y entrega continua basado en \textbf{GitHub Actions}, utilizando \textbf{Render} para la publicación automática del backend, \textbf{GitHub Pages} para el despliegue del frontend web y \textbf{MongoDB Atlas} como servicio de base de datos en la nube.
 
-\section{Despliegue móvil: generación de la aplicación Android}
+Este mecanismo automatiza la ejecución de pruebas, la construcción de los artefactos y la publicación de nuevas versiones, garantizando la estabilidad del sistema y facilitando el mantenimiento continuo del proyecto. Dado que este procedimiento no ha experimentado modificaciones durante el desarrollo del presente complemento, no se reproduce nuevamente su descripción detallada, remitiéndose al lector al documento correspondiente al Trabajo Fin de Grado.
 
-La principal novedad introducida en esta fase es la posibilidad de ejecutar la aplicación como una \textbf{app instalada en dispositivos Android}, partiendo directamente del frontend híbrido desarrollado con Ionic y Angular. Esta ampliación responde al objetivo de reforzar la portabilidad del sistema y facilitar su uso en contextos educativos reales, donde el acceso desde dispositivos móviles resulta especialmente relevante.
+\subsubsection{Despliegue de la aplicación Android}
 
-El proceso de despliegue móvil se apoya en dos herramientas principales:
+La principal ampliación realizada sobre el proceso de despliegue consiste en la posibilidad de distribuir la aplicación como una aplicación Android instalada, reutilizando íntegramente el frontend híbrido desarrollado con Ionic y Angular.
+
+Esta capacidad constituye uno de los objetivos principales de este complemento, ya que permite trasladar la plataforma a dispositivos móviles sin necesidad de desarrollar una segunda aplicación específica para este entorno.
+
+El proceso completo se apoya sobre dos herramientas principales:
 
 \begin{itemize}
-  \item \textbf{Capacitor}, como puente entre la aplicación web y el entorno nativo móvil.
-  \item \textbf{Android Studio}, como entorno oficial para la construcción, depuración y empaquetado de la aplicación Android.
+    \item \textbf{Capacitor}, encargado de encapsular la aplicación web y establecer la comunicación entre el código JavaScript y las funcionalidades nativas del sistema operativo.
+
+    \item \textbf{Android Studio}, utilizado como entorno oficial para la compilación, depuración y generación del paquete instalable.
 \end{itemize}
 
-\subsection{Generación del contenedor Android mediante Capacitor}
+\paragraph{Generación del contenedor Android}
 
-Capacitor permite encapsular la aplicación web en un contenedor nativo Android, proporcionando una capa de comunicación entre el código JavaScript y las funcionalidades propias del sistema operativo. Este mecanismo hace posible que la aplicación híbrida se comporte como una app instalada, manteniendo una única base de código para las versiones web y móvil.
+Capacitor permite transformar el frontend desarrollado con Ionic y Angular en un proyecto Android completamente funcional, manteniendo una única base de código para ambas plataformas.
 
-El flujo general seguido para la generación del proyecto Android es el siguiente:
+El flujo seguido durante este proceso puede resumirse en las siguientes etapas:
 
 \begin{enumerate}
-  \item Compilación del frontend Angular en modo producción.
-  \item Sincronización del proyecto web con Capacitor.
-  \item Generación automática de la estructura Android nativa.
-  \item Apertura del proyecto resultante en Android Studio.
+    \item Compilación del frontend Angular en modo producción.
+    \item Sincronización del proyecto mediante Capacitor.
+    \item Generación automática de la estructura nativa Android.
+    \item Apertura del proyecto generado en Android Studio.
 \end{enumerate}
 
-Este procedimiento permite reutilizar íntegramente la lógica y la interfaz desarrolladas, evitando duplicidades y manteniendo la coherencia funcional entre plataformas.
+Este procedimiento permite reutilizar tanto la lógica de negocio como la interfaz de usuario previamente desarrolladas, garantizando la coherencia funcional entre la versión web y la versión móvil.
 
-\subsection{Construcción y validación en Android Studio}
+\paragraph{Construcción y validación}
 
-Una vez generado el proyecto Android, Android Studio se utiliza como entorno principal para:
+Una vez generado el proyecto Android, Android Studio se emplea para completar las tareas específicas de la plataforma:
 
 \begin{itemize}
-  \item Gestionar dependencias nativas.
-  \item Compilar el contenedor Android junto con el WebView.
-  \item Ejecutar la aplicación en emuladores y dispositivos físicos.
-  \item Depurar errores específicos de plataforma.
-  \item Generar el paquete instalable (APK).
+    \item Gestión de dependencias nativas.
+    \item Compilación del proyecto Android.
+    \item Ejecución en emuladores y dispositivos físicos.
+    \item Depuración de incidencias específicas del entorno móvil.
+    \item Generación del paquete instalable (APK).
 \end{itemize}
 
-Este entorno permite además realizar los ajustes finales en recursos gráficos, configuración del manifiesto, permisos y pantallas de carga, tal y como se ha descrito en la sección~\ref{sec:frontend_impl}. De este modo, la aplicación adquiere una apariencia plenamente nativa, reforzando la percepción de producto final estable y profesional.
+Además, este entorno permite configurar los recursos gráficos propios de Android, los permisos de la aplicación, el archivo de manifiesto y la pantalla de inicio, aspectos que complementan las adaptaciones del frontend descritas en la Sección~\ref{sec:frontend_impl}. Gracias a ello, la aplicación presenta una apariencia completamente integrada con el sistema operativo.
 
-\subsection{Generación del paquete instalable}
+\paragraph{Generación del paquete instalable}
 
-El proceso culmina con la construcción de una \textbf{APK}, que permite instalar la aplicación directamente en dispositivos Android sin necesidad de pasar por tiendas de aplicaciones. Este paquete constituye un artefacto verificable que materializa la portabilidad efectiva del sistema, permitiendo evaluar su comportamiento en condiciones reales de uso.
+El proceso de despliegue culmina con la construcción de una \textbf{APK}, que constituye el artefacto final distribuible de la aplicación Android. Este paquete permite instalar directamente la aplicación en dispositivos físicos sin necesidad de recurrir a tiendas de aplicaciones, facilitando tanto las tareas de validación como futuras pruebas piloto en centros educativos.
 
 \begin{figure}[H]
-  \centering
-  \includegraphics[width=0.7\textwidth]{Figuras/apk_install.png}
-  \caption{Aplicación instalada en un dispositivo Android}
-  \label{fig:apk_install}
+    \centering
+    \includegraphics[width=0.7\textwidth]{Figuras/apk_install.png}
+    \caption{Aplicación instalada en un dispositivo Android.}
+    \label{fig:apk_install}
 \end{figure}
 
-\section{Valor añadido del despliegue móvil}
+\subsubsection{Valor aportado por el despliegue móvil}
 
-La incorporación del despliegue móvil aporta un valor añadido significativo al sistema, ya que:
+La incorporación del despliegue Android representa una evolución significativa respecto a la versión desarrollada en el Trabajo Fin de Grado, ampliando el alcance de la plataforma sin modificar su arquitectura fundamental.
+
+Entre las principales ventajas obtenidas pueden destacarse las siguientes:
 
 \begin{itemize}
-  \item Refuerza la accesibilidad para alumnado y profesorado.
-  \item Facilita el uso en entornos educativos reales.
-  \item Consolida la arquitectura híbrida adoptada.
-  \item Permite futuras extensiones a otras plataformas móviles sin cambios estructurales.
+    \item Mejora la accesibilidad para alumnado y profesorado al permitir el uso de la aplicación desde dispositivos móviles.
+    \item Facilita la utilización de la plataforma en contextos educativos reales, donde el teléfono móvil constituye uno de los principales dispositivos de acceso.
+    \item Consolida la arquitectura híbrida adoptada durante el desarrollo del proyecto.
+    \item Sienta las bases para futuras adaptaciones a otras plataformas móviles reutilizando la misma base de código.
 \end{itemize}
 
-De este modo, el despliegue móvil no se concibe como una mera adaptación técnica, sino como un paso estratégico hacia la implantación real del sistema, alineado con los objetivos definidos en el capítulo~\ref{chap:objetivos}.
+Con esta ampliación finaliza la implementación técnica de la solución extendida, completando la evolución de la arquitectura desarrollada en el Trabajo Fin de Grado y proporcionando una plataforma preparada para abordar las cuestiones relativas a su futura implantación en entornos educativos reales, que se analizarán en el capítulo siguiente.
+
+\chapter{Flujos de trabajo}
+\label{chap:flujo}
+
+Una vez descritas las principales decisiones de diseño e implementación de la solución extendida, este capítulo presenta el funcionamiento práctico de las nuevas funcionalidades incorporadas durante el desarrollo del complemento.
+
+A diferencia del Trabajo Fin de Grado, donde se describía el funcionamiento general de la aplicación, en esta memoria el objetivo no es volver a recorrer todas las funcionalidades existentes, sino mostrar aquellas que representan la evolución realizada sobre la versión inicial del sistema.
+
+Los flujos seleccionados corresponden a tres de las principales mejoras implementadas durante este complemento:
+
+\begin{itemize}
+    \item La eliminación de grupos desde la interfaz de administración.
+    \item La importación masiva de usuarios y grupos mediante archivos CSV.
+    \item La utilización de pistas generadas mediante inteligencia artificial durante la realización de cuestionarios.
+\end{itemize}
+
+Todas las capturas mostradas en este capítulo corresponden a la versión Android de la aplicación, demostrando que las funcionalidades implementadas mantienen el mismo comportamiento tanto en la versión web como en la aplicación instalada.
+
+\section{Eliminación de un grupo}
+
+La gestión de grupos constituye una de las tareas administrativas más habituales para el profesorado. Durante este complemento se ha ampliado esta funcionalidad incorporando una eliminación consistente de toda la información asociada al grupo, evitando que permanezcan tareas, cuestionarios o entregas huérfanas en el sistema.
+
+La Figura~\ref{fig:flujo_eliminar_grupo} muestra el proceso de eliminación de un grupo desde la aplicación móvil. Tras entrar en la la opción de gestión de grupos de la administración del profesor, habrá una nuevaopción para eliminar el grupo.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.32\textwidth]{Figuras/flujo_eliminar_grupo.png}
+    \caption{Proceso de eliminación de un grupo desde la aplicación Android.}
+    \label{fig:flujo_eliminar_grupo}
+\end{figure}
+
+Una vez confirmada la operación, el backend elimina de forma coordinada todas las entidades relacionadas con el grupo, preservando la integridad de la información almacenada en la base de datos.
+
+\section{Importación masiva mediante archivos CSV}
+
+Otra de las funcionalidades incorporadas durante este complemento permite automatizar la creación de usuarios y grupos a partir de un archivo CSV, reduciendo considerablemente el trabajo administrativo necesario al inicio de cada curso académico.
+
+La Figura~\ref{fig:flujo_csv} muestra la interfaz desde la que el profesorado puede seleccionar el archivo correspondiente e iniciar el proceso de importación.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.32\textwidth]{Figuras/flujo_importacion_csv.png}
+    \caption{Importación masiva de usuarios y grupos mediante un archivo CSV.}
+    \label{fig:flujo_csv}
+\end{figure}
+
+Una vez seleccionado el archivo, el backend realiza automáticamente todas las validaciones descritas en el capítulo anterior. Únicamente cuando la información es consistente se inicia la creación de usuarios y grupos, garantizando que el sistema nunca alcance estados parciales o inconsistentes.
+
+\section{Resolución de cuestionarios con asistencia mediante inteligencia artificial}
+
+La tercera funcionalidad incorporada corresponde a la generación automática de pistas para preguntas de cuestionarios utilizando un modelo de inteligencia artificial integrado mediante la API de Groq.
+
+Durante la realización de un cuestionario, el alumnado puede solicitar una pista cuando encuentre dificultades para responder una pregunta. El sistema genera entonces una ayuda contextual relacionada con el contenido de la cuestión, evitando revelar directamente la respuesta correcta y manteniendo el carácter formativo de la actividad.
+
+La Figura~\ref{fig:flujo_pistas} muestra un ejemplo de utilización de esta funcionalidad desde la aplicación Android.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.32\textwidth]{Figuras/flujo_pista_ia.png}
+    \caption{Solicitud de una pista generada mediante inteligencia artificial durante la realización de un cuestionario.}
+    \label{fig:flujo_pistas}
+\end{figure}
+
+La petición realizada por el usuario es procesada por el backend, que construye el \textit{prompt} correspondiente y consulta el servicio de Groq. La respuesta obtenida se devuelve posteriormente al dispositivo móvil en forma de una pista breve que ayuda al alumnado a razonar la respuesta sin proporcionarla explícitamente.
+
+Este flujo ilustra la integración práctica de la inteligencia artificial dentro de la aplicación y representa una de las principales aportaciones funcionales realizadas durante el presente complemento.
+
 \chapter{Plan de implantación}
 \label{chap:implantacion}
 

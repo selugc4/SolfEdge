@@ -285,27 +285,44 @@ exports.getEntregasPorTarea = async (tareaId) => {
 
 exports.calificarEntrega = async (calificacionId, nota, profesorId) => {
     try {
-        if (nota === null || nota < 0 || nota > 10) {
+        let finalNota = nota;
+
+        if (finalNota === null || finalNota === undefined || finalNota === '') {
+            return { status: 400, body: { error: 'La nota es obligatoria.' } };
+        }
+
+        if (typeof finalNota === 'string') {
+            finalNota = finalNota.replace(',', '.').trim();
+        }
+
+        if (!/^\d{1,2}(\.\d+)?$/.test(finalNota.toString())) {
+            return { status: 400, body: { error: 'Formato de nota inválido.' } };
+        }
+
+        finalNota = Number(finalNota);
+
+        if (Number.isNaN(finalNota) || finalNota < 0 || finalNota > 10) {
             return { status: 400, body: { error: 'La nota debe estar entre 0 y 10.' } };
         }
+
+        finalNota = Number(finalNota.toFixed(2));
 
         const calificacion = await Calificacion.findById(calificacionId).populate('tarea');
         if (!calificacion) {
             return { status: 404, body: { error: 'Entrega no encontrada.' } };
         }
 
-        // Security check: Ensure the professor grading is the one who created the task
         if (calificacion.tarea.profesor.toString() !== profesorId) {
             return { status: 403, body: { error: 'No tienes permiso para calificar esta entrega.' } };
         }
 
-        calificacion.nota = nota;
+        calificacion.nota = finalNota;
         await calificacion.save();
 
         const sistemaUser = await Usuario.findOne({ username: 'sistema' });
         if (sistemaUser) {
             const asunto = `Calificación de tarea (${calificacion.tarea.titulo})`;
-            const texto = `La calificación obtenida en ${calificacion.tarea.titulo} es ${nota}`;
+            const texto = `La calificación obtenida en ${calificacion.tarea.titulo} es ${finalNota}`;
             await mensajeController.crearMensaje(sistemaUser._id, asunto, texto, [calificacion.alumno]);
         }
 

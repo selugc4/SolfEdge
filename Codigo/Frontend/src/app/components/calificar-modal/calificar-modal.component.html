@@ -36,7 +36,15 @@
     <form [formGroup]="form" class="ion-margin-top">
       <ion-item>
         <ion-label position="floating">Nota (0-10)</ion-label>
-        <ion-input formControlName="nota" type="number" min="0" max="10"></ion-input>
+        <ion-input
+          type="number"
+          inputmode="decimal"
+          formControlName="nota"
+          min="0"
+          max="10"
+          step="0.01"
+          (ionInput)="limitLength($event)">
+        </ion-input>
       </ion-item>
     </form>
   }

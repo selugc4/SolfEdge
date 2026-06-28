@@ -2,27 +2,27 @@
 \babel@toc {spanish}{}\relax 
 \addvspace {10\p@ }
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Groq}}{7}{figure.caption.5}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Capacitor}}{8}{figure.caption.6}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Android Studio.}}{9}{figure.caption.7}%
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Arquitectura global de la aplicación (sin cambios respecto al proyecto base)}}{10}{figure.caption.8}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Diagrama UML de casos de uso del sistema extendido}}{8}{figure.caption.5}%
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Groq}}{16}{figure.caption.19}%
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Capacitor}}{18}{figure.caption.20}%
-\contentsline {figure}{\numberline {3.4}{\ignorespaces Android Studio.}}{18}{figure.caption.21}%
-\contentsline {figure}{\numberline {3.5}{\ignorespaces Arquitectura global de la aplicación (sin cambios respecto al proyecto base)}}{19}{figure.caption.22}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Planificación del proyecto con nuevas tareas destacadas}}{13}{figure.caption.9}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Planificación del proyecto con nuevas tareas destacadas}}{21}{figure.caption.23}%
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Planificación de las tareas principales en horas}}{22}{figure.caption.24}%
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Diagrama UML de casos de uso del sistema extendido}}{18}{figure.caption.10}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Modelo conceptual de datos del sistema}}{27}{figure.caption.24}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Menú principal de navegación de la aplicación.}}{39}{figure.caption.25}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Vista de la rama de ritmo del profesor en la versión web (izquierda) y en Android (derecha).}}{40}{figure.caption.26}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Vista de un cuestionario en la versión web (izquierda) y en Android (derecha).}}{40}{figure.caption.27}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Icono y recursos gráficos utilizados por la aplicación Android.}}{40}{figure.caption.28}%
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Aplicación instalada en un dispositivo Android.}}{44}{figure.caption.29}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Modelo conceptual de datos del sistema}}{24}{figure.caption.25}%
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Proceso de eliminación de un grupo desde la aplicación Android.}}{47}{figure.caption.30}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Importación masiva de usuarios y grupos mediante un archivo CSV.}}{48}{figure.caption.31}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Solicitud de una pista generada mediante inteligencia artificial durante la realización de un cuestionario.}}{49}{figure.caption.32}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {6.1}{\ignorespaces Menú doble (lateral e inferior)}}{37}{figure.caption.26}%
-\contentsline {figure}{\numberline {6.2}{\ignorespaces Vista de la rama de ritmo en versión web (izquierda) y Android (derecha).}}{38}{figure.caption.27}%
-\contentsline {figure}{\numberline {6.3}{\ignorespaces Vista de cuestionario en versión web (izquierda) y Android (derecha).}}{38}{figure.caption.28}%
-\contentsline {figure}{\numberline {6.4}{\ignorespaces Icono desde vista nativa}}{38}{figure.caption.29}%
-\addvspace {10\p@ }
-\contentsline {figure}{\numberline {7.1}{\ignorespaces Aplicación instalada en un dispositivo Android}}{44}{figure.caption.30}%
-\addvspace {10\p@ }
-\contentsline {figure}{\numberline {8.1}{\ignorespaces Microsoft Azure}}{54}{figure.caption.31}%
-\contentsline {figure}{\numberline {8.2}{\ignorespaces Firebase Storage}}{59}{figure.caption.32}%
-\contentsline {figure}{\numberline {8.3}{\ignorespaces Cronograma orientativo de implantación}}{64}{figure.caption.33}%
-\contentsline {figure}{\numberline {8.4}{\ignorespaces Demostración de la aplicación en un entorno real de aula}}{67}{figure.caption.34}%
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Microsoft Azure}}{59}{figure.caption.33}%
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Firebase Storage}}{64}{figure.caption.34}%
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Cronograma orientativo de implantación}}{69}{figure.caption.35}%
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Demostración de la aplicación en un entorno real de aula}}{72}{figure.caption.36}%
 \addvspace {10\p@ }

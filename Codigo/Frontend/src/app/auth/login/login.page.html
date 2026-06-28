@@ -6,33 +6,60 @@
 
 <ion-content class="ion-padding">
   <form [formGroup]="loginForm" (ngSubmit)="login()">
-    <ion-item>
-      <ion-label position="floating">Usuario</ion-label>
-      <ion-input formControlName="username" type="text" required style="--color: #333333;"></ion-input>
-    </ion-item>
-    @if(loginForm.get('username')?.invalid && loginForm.get('username')?.touched){
-      <div class="error-message">
-        El nombre de usuario es requerido.
-      </div>
-    }
 
-    <ion-item>
-      <ion-label position="floating">Contraseña</ion-label>
-      <ion-input formControlName="password" type="password" required></ion-input>
-    </ion-item>
-    @if(loginForm.get('password')?.invalid && loginForm.get('password')?.touched){
-      <div class="error-message">
-        La contraseña es requerida.
-      </div>
-    }
-    <ion-button expand="block" type="submit" [disabled]="loginForm.invalid" class="ion-margin-top" color="medium">
-      Entrar
+    <div class="field">
+      <ion-item>
+        <ion-label position="floating">Usuario</ion-label>
+        <ion-input
+          formControlName="username"
+          type="text"
+          required
+          style="--color: #333333;">
+        </ion-input>
+      </ion-item>
+
+      @if(loginForm.get('username')?.invalid && loginForm.get('username')?.touched){
+        <ion-note color="danger" class="error-message">
+          El nombre de usuario es requerido.
+        </ion-note>
+      }
+    </div>
+
+    <div class="field">
+      <ion-item>
+        <ion-label position="floating">Contraseña</ion-label>
+        <ion-input
+          formControlName="password"
+          type="password"
+          required>
+        </ion-input>
+      </ion-item>
+
+      @if(loginForm.get('password')?.invalid && loginForm.get('password')?.touched){
+        <ion-note color="danger" class="error-message">
+          La contraseña es requerida.
+        </ion-note>
+      }
+    </div>
+
+    <ion-button
+      expand="block"
+      type="submit"
+      [disabled]="loginForm.invalid"
+      color="medium">
       <ion-icon name="send-outline" slot="start"></ion-icon>
+      Entrar
     </ion-button>
+
   </form>
 
-  <ion-button expand="block" fill="clear" (click)="forgotPassword()" class="ion-margin-top" color ="medium">
-    ¿Has olvidado tu contraseña?
+  <ion-button
+    expand="block"
+    fill="clear"
+    (click)="forgotPassword()"
+    class="ion-margin-top"
+    color="medium">
     <ion-icon name="key-outline" slot="start"></ion-icon>
+    ¿Has olvidado tu contraseña?
   </ion-button>
 </ion-content>

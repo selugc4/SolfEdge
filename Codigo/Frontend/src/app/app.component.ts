@@ -130,6 +130,8 @@ export class AppComponent implements OnInit {
   logout() {
     this.authService.logout();
     this.grupoStateService.setSelectedGrupo(null);
-    this.router.navigate(['/Login']);
+    this.router.navigate(['/Login']).then(() => {
+      window.location.reload();
+    });
   }
 }
