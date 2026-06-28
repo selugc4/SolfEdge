@@ -223,8 +223,11 @@ export class TareaDetallePage implements OnInit {
 
     if (role === 'confirm' && data) {
       const index = this.entregas.findIndex(e => e._id === entrega._id);
+
       if (index !== -1) {
         this.entregas[index].nota = data.nota;
+        this.entregas[index].observaciones = data.observaciones ?? null;
+        this.entregas[index].updatedAt = data.updatedAt ?? new Date();
       }
     }
   }

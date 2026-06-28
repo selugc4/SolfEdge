@@ -47,6 +47,11 @@ export const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'Landing',
+    loadComponent: () =>
+    import('./pages/landing-page/landing-page.component').then(m => m.LandingPage)
+  },
+  {
     path: '',
     redirectTo: 'welcome',
     pathMatch: 'full'

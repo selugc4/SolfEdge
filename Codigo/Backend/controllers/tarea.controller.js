@@ -298,9 +298,10 @@ exports.getEntregasPorTarea = async (tareaId) => {
     }
 };
 
-exports.calificarEntrega = async (calificacionId, nota, profesorId) => {
+exports.calificarEntrega = async (calificacionId, nota, profesorId, observaciones = null) => {
     try {
         let finalNota = nota;
+        let finalObservaciones = observaciones;
 
         if (finalNota === null || finalNota === undefined || finalNota === '') {
             return { status: 400, body: { error: 'La nota es obligatoria.' } };
@@ -322,9 +323,25 @@ exports.calificarEntrega = async (calificacionId, nota, profesorId) => {
 
         finalNota = Number(finalNota.toFixed(2));
 
+        if (finalObservaciones !== null && finalObservaciones !== undefined) {
+            finalObservaciones = finalObservaciones.toString().trim();
+
+            if (finalObservaciones.length > 200) {
+                return { status: 400, body: { error: 'Las observaciones no pueden superar los 200 caracteres.' } };
+            }
+
+            if (finalObservaciones === '') {
+                finalObservaciones = null;
+            }
+        }
+
         const calificacion = await Calificacion.findById(calificacionId).populate('tarea');
         if (!calificacion) {
             return { status: 404, body: { error: 'Entrega no encontrada.' } };
+        }
+
+        if (!calificacion.tarea) {
+            return { status: 400, body: { error: 'Solo las tareas pueden tener observaciones.' } };
         }
 
         if (calificacion.tarea.profesor.toString() !== profesorId) {
@@ -332,12 +349,16 @@ exports.calificarEntrega = async (calificacionId, nota, profesorId) => {
         }
 
         calificacion.nota = finalNota;
+        calificacion.observaciones = finalObservaciones;
         await calificacion.save();
 
         const sistemaUser = await Usuario.findOne({ username: 'sistema' });
         if (sistemaUser) {
             const asunto = `Calificación de tarea (${calificacion.tarea.titulo})`;
-            const texto = `La calificación obtenida en ${calificacion.tarea.titulo} es ${finalNota}`;
+            const texto = finalObservaciones
+                ? `La calificación obtenida en ${calificacion.tarea.titulo} es ${finalNota}.\n\nObservaciones: ${finalObservaciones}`
+                : `La calificación obtenida en ${calificacion.tarea.titulo} es ${finalNota}`;
+
             await mensajeController.crearMensaje(sistemaUser._id, asunto, texto, [calificacion.alumno]);
         }
 

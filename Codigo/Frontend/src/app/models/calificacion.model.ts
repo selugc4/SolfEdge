@@ -5,6 +5,7 @@ export interface Calificacion {
   nota: number; // Can be null if not graded yet
   alumno: Usuario; // Populated from backend
   tarea?: string; // ID
+  observaciones?: string | null;
   cuestionario?: string; // ID
 
   // For Tarea submissions

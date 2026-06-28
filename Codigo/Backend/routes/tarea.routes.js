@@ -385,10 +385,21 @@ router.get('/:id/entregas', async (req, res) => {
  *         application/json:
  *           schema:
  *             type: object
+ *             required:
+ *               - nota
  *             properties:
  *               nota:
  *                 type: number
+ *                 minimum: 0
+ *                 maximum: 10
  *                 description: Nota de la entrega.
+ *                 example: 8.5
+ *               observaciones:
+ *                 type: string
+ *                 maxLength: 200
+ *                 nullable: true
+ *                 description: Observaciones del profesor sobre la tarea. Máximo 200 caracteres.
+ *                 example: Buen trabajo, aunque faltan algunos detalles en la explicación.
  *     responses:
  *       200:
  *         description: Entrega calificada con éxito.
@@ -397,7 +408,7 @@ router.get('/:id/entregas', async (req, res) => {
  *             schema:
  *               $ref: '#/components/schemas/Calificacion'
  *       400:
- *         description: El campo "nota" es requerido.
+ *         description: El campo "nota" es requerido o las observaciones superan los 200 caracteres.
  *       403:
  *         description: No tienes permiso para calificar esta entrega.
  *       404:
@@ -407,14 +418,20 @@ router.get('/:id/entregas', async (req, res) => {
  */
 router.put('/entregas/:calificacionId/calificar', async (req, res) => {
     const { calificacionId } = req.params;
-    const { nota } = req.body;
+    const { nota, observaciones } = req.body;
     const profesorId = req.user.id;
 
     if (nota === undefined) {
         return res.status(400).json({ error: 'El campo "nota" es requerido.' });
     }
 
-    const result = await tareaController.calificarEntrega(calificacionId, nota, profesorId);
+    const result = await tareaController.calificarEntrega(
+        calificacionId,
+        nota,
+        profesorId,
+        observaciones
+    );
+
     res.status(result.status).json(result.body);
 });
 

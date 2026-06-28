@@ -29,7 +29,34 @@
       <ion-label position="floating">Fecha de Cierre</ion-label>
       <ion-input type="date" formControlName="fechaCierre" [min]="minDate"></ion-input>
     </ion-item>
+      @if(isEditMode) {
+        <ion-list-header>
+          <ion-label>Entregas de Alumnos</ion-label>
+        </ion-list-header>
 
+        <ion-list>
+          @for(entrega of entregasCuestionario; track entrega._id) {
+            <ion-item>
+              <ion-label>
+                <h2>{{ entrega.alumno?.username }}</h2>
+                <p>Entregado: {{ entrega.fechaEntrega | date:'short' }}</p>
+              </ion-label>
+
+              @if(entrega.nota !== null && entrega.nota !== undefined) {
+                <ion-badge slot="end" [color]="entrega.nota >= 5 ? 'success' : 'danger'">
+                  {{ entrega.nota }}
+                </ion-badge>
+              }
+            </ion-item>
+          }
+
+          @if(entregasCuestionario.length === 0) {
+            <ion-item>
+              <ion-label>No hay entregas para este cuestionario todavía.</ion-label>
+            </ion-item>
+          }
+        </ion-list>
+      }
     <ion-list-header>
       <ion-label>Preguntas</ion-label>
       <ion-button color= "medium"(click)="addPregunta()" size="small" fill="outline">

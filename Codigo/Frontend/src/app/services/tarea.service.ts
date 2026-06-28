@@ -37,8 +37,8 @@ export class TareaService {
     return this.http.get<Calificacion[]>(`${this.apiUrl}/${tareaId}/entregas`);
   }
 
-  calificarEntrega(calificacionId: string, nota: number): Observable<Calificacion> {
-    return this.http.put<Calificacion>(`${this.apiUrl}/entregas/${calificacionId}/calificar`, { nota });
+  calificarEntrega(calificacionId: string, nota: number,   observaciones?: string): Observable<Calificacion> {
+    return this.http.put<Calificacion>(`${this.apiUrl}/entregas/${calificacionId}/calificar`, { nota, observaciones: observaciones ?? null });
   }
 
   entregarTarea(tareaId: string, formData: FormData): Observable<Calificacion> {

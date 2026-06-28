@@ -48,7 +48,7 @@ export class LoginPage implements OnInit {
             if (userRole === 'administrador') {
               this.router.navigate(['/Admin']);
             } else {
-              this.router.navigate(['/Areas']);
+              this.router.navigate(['/Landing']);
             }
             this.loginForm.reset();
           },

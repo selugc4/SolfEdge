@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-center">SolfEdge</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="landing-container">
+    <h1>¿Dónde quieres ir?</h1>
+
+    <div class="grid">
+      <ion-card button (click)="goTo('/Areas/Ritmo')">
+        <ion-card-content>
+          <ion-icon name="musical-notes-outline"></ion-icon>
+          <span>Ritmo</span>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card button (click)="goTo('/Areas/Entonación')">
+        <ion-card-content>
+          <ion-icon name="mic-outline"></ion-icon>
+          <span>Entonación</span>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card button (click)="goTo('/Areas/Audición')">
+        <ion-card-content>
+          <ion-icon name="ear-outline"></ion-icon>
+          <span>Audición</span>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card button (click)="goTo('/Areas/Teoria')">
+        <ion-card-content>
+          <ion-icon name="school-outline"></ion-icon>
+          <span>Teoría</span>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card button (click)="goTo('/Areas/Perfil')">
+        <ion-card-content>
+          <ion-icon name="person-circle-outline"></ion-icon>
+          <span>Perfil</span>
+        </ion-card-content>
+      </ion-card>
+
+      @if(isProfessor){
+        <ion-card button (click)="goTo('/Areas/Professor-admin')">
+          <ion-card-content>
+            <ion-icon name="settings-outline"></ion-icon>
+            <span>Administración</span>
+          </ion-card-content>
+        </ion-card>
+      }
+    </div>
+  </div>
+</ion-content>

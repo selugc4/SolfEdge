@@ -28,6 +28,13 @@
   \url{https://universidadeuropea.com/blog/lenguaje-musical/}
 \BIBentrySTDinterwordspacing
 
+\bibitem{Musicorcheas}
+\BIBentryALTinterwordspacing
+{Musicorcheas}, ``{Elementos básicos de una partitura},'' 2020. [Online].
+  Available:
+  \url{https://musicorcheas.blogspot.com/2020/09/elementos-basicos-de-una-partitura.html}
+\BIBentrySTDinterwordspacing
+
 \bibitem{IonicDocs}
 \BIBentryALTinterwordspacing
 {Ionic Team}, ``{Ionic Framework Documentation}.'' [Online]. Available:

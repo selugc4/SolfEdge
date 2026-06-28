@@ -167,12 +167,16 @@ async openPdf(): Promise<void> {
   async openProfessorMenu(tarea: any) {
     const buttons: any[] = [
       {
+        text: 'Ver detalles de tarea',
+        icon: 'eye-outline',
+        handler: () => this.navigateToTask(tarea._id)
+      },
+      {
         text: 'Editar tarea',
         icon: 'create-outline',
         handler: () => this.presentTareaModal(tarea)
-      }
+      },
     ];
-
     if (!this.isTareaClosed(tarea)) {
       buttons.push({
         text: 'Cerrar tarea',
@@ -222,7 +226,7 @@ async openPdf(): Promise<void> {
     const buttons: any[] = [
       {
         text: 'Editar cuestionario',
-        icon: 'create-outline',
+        cssClass: 'action-sheet-purple',
         handler: () => this.presentCuestionarioModal(cuestionario)
       }
     ];
@@ -231,6 +235,7 @@ async openPdf(): Promise<void> {
       buttons.push({
         text: 'Cerrar cuestionario',
         icon: 'close-circle-outline',
+        cssClass: 'action-sheet-purple',
         handler: () => this.closeCuestionario(cuestionario._id)
       });
     }
@@ -245,7 +250,8 @@ async openPdf(): Promise<void> {
       {
         text: 'Cancelar',
         role: 'cancel',
-        icon: 'close-outline'
+        icon: 'close-outline',
+        cssClass: 'action-sheet-purple'
       }
     );
 

@@ -26,13 +26,18 @@ export class CalificarModalComponent implements OnInit {
         Validators.min(0),
         Validators.max(10),
         Validators.pattern(/^\d{1,2}([.,]\d{0,2})?$/)
+      ]),
+      observaciones: new FormControl('', [
+        Validators.maxLength(200)
       ])
     });
   }
-
   ngOnInit() {
-    if (this.entrega && this.entrega.nota !== null) {
-      this.form.patchValue({ nota: this.entrega.nota });
+    if (this.entrega) {
+      this.form.patchValue({
+        nota: this.entrega.nota !== null ? this.entrega.nota : null,
+        observaciones: this.entrega.observaciones ?? ''
+      });
     }
   }
   limitLength(event: any) {
@@ -63,8 +68,15 @@ export class CalificarModalComponent implements OnInit {
       return;
     }
 
-    const { nota } = this.form.value;
-    this.tareaService.calificarEntrega(this.entrega._id, nota).subscribe({
+    const { nota, observaciones } = this.form.value;
+
+    const observacionesFinales = observaciones?.trim() || null;
+
+    this.tareaService.calificarEntrega(
+      this.entrega._id,
+      nota,
+      observacionesFinales
+    ).subscribe({
       next: (calificacionActualizada) => {
         this.presentToast('Calificación guardada con éxito.', 'success');
         this.modalCtrl.dismiss(calificacionActualizada, 'confirm');

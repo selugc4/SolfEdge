@@ -194,7 +194,7 @@ Este enfoque no introduce una nueva base de código ni una bifurcación tecnoló
 
 En conjunto, las tecnologías incorporadas refuerzan la arquitectura existente, ampliando las capacidades del sistema desde un punto de vista estrictamente técnico y manteniendo los principios de modularidad, reutilización y separación de responsabilidades definidos en el trabajo previo.
 
-A nivel conceptual, la arquitectura global permanece idéntica. Se incluye a continuación el diagrama original para facilitar la lectura del documento sin obligar a consultar constantemente la versión original.
+A nivel conceptual, la arquitectura global permanece idéntica. Se incluye a continuación, en la Figura \ref{fig:arquitectura_global_ext}, el diagrama original para facilitar la lectura del documento sin obligar a consultar constantemente la versión original.
 
 \tikzstyle{block} = [rectangle, draw, node distance=4.5cm,
     text width=6em, text centered, rounded corners, minimum height=3em, fill=blue!10]
@@ -268,7 +268,7 @@ La planificación de este proyecto de complemento se concibe como una continuaci
 
 En este contexto, la planificación se ha centrado específicamente en estructurar y calendarizar las actividades asociadas a la mejora de funcionalidades existentes, la incorporación de nuevas capacidades, la adaptación a entornos móviles y la integración de servicios externos. Estas tareas adicionales se han integrado respetando la secuencia lógica del trabajo previo y garantizando la continuidad del proceso de desarrollo, evitando solapamientos innecesarios y manteniendo una progresión ordenada.
 \newpage
-El diagrama de planificación presentado refleja exclusivamente la parte correspondiente a este complemento, destacando las nuevas tareas y sub-tareas incorporadas respecto al cronograma original. Esta representación parcial permite visualizar con claridad el alcance real del trabajo adicional realizado, sin introducir redundancias documentales ni repetir información ya detallada en el proyecto base. Para facilitar su interpretación, se ha empleado un código visual diferenciado que identifica las actividades propias de esta fase de ampliación.
+El diagrama de planificación presentado en la Figura \ref{fig:cronograma} refleja exclusivamente la parte correspondiente a este complemento, destacando las nuevas tareas y sub-tareas incorporadas respecto al cronograma original. Esta representación parcial permite visualizar con claridad el alcance real del trabajo adicional realizado, sin introducir redundancias documentales ni repetir información ya detallada en el proyecto base. Para facilitar su interpretación, se ha empleado un código visual diferenciado que identifica las actividades propias de cada fase de la ampliación
 
 En conjunto, esta planificación actúa como un marco de referencia operativo que ha guiado la ejecución de la fase de evolución del proyecto, aportando una estructura clara, flexible y coherente con los objetivos planteados, y adaptada a las particularidades del contexto académico en el que se ha desarrollado.
 
@@ -276,6 +276,7 @@ En conjunto, esta planificación actúa como un marco de referencia operativo qu
     \centering
     \includegraphics[width=0.8\textwidth]{Figuras/planificacion_extendida.png}
     \caption{Planificación del proyecto con nuevas tareas destacadas}
+    \label{fig:cronograma}
 \end{figure}
 
 \chapter{Definición de la solución extendida}
@@ -309,7 +310,7 @@ A partir de este análisis, se definen nuevas extensiones funcionales sobre la b
 \section{Especificación formal de la solución extendida}
 \label{sec:especificacion_formal_extendida}
 
-En esta sección se conserva la especificación formal descrita en el proyecto original, incorporando únicamente las ampliaciones necesarias para reflejar la evolución del sistema. El objetivo es mantener continuidad, evitar redundancias y, al mismo tiempo, dejar completamente claro qué aporta este complemento. Las partes incorporadas a la especificación en esta fase estarán destacadas en color rojo.
+En esta sección se conserva la especificación formal descrita en el proyecto original, incorporando únicamente las ampliaciones necesarias para reflejar la evolución del sistema. El objetivo es mantener continuidad, evitar redundancias y, al mismo tiempo, dejar completamente claro qué aporta este complemento.
 
 El sistema permitirá el acceso mediante un mecanismo de inicio de sesión en el que podrán autenticarse tres tipos de usuarios: administrador, profesor y alumno. Cada usuario tendrá acceso únicamente a las funcionalidades correspondientes a su rol, sin posibilidad de utilizar las funciones asignadas a otros.
 
@@ -317,13 +318,13 @@ No existirá un proceso de registro. El administrador será creado de forma auto
 
 En el proceso de creación, el sistema generará automáticamente un nombre de usuario a partir de la primera letra del nombre y de los apellidos. Por ejemplo, para un usuario denominado José Luis Garrido Castro, el identificador generado será jgc. En caso de que existan coincidencias con identificadores ya presentes en la base de datos, se añadirá un número consecutivo equivalente al total de usuarios con la misma raíz más uno, de modo que si ya existen 40 usuarios con identificadores iniciados en jgc, el nuevo identificador será jgc41. La contraseña será generada automáticamente mediante el uso de un servicio externo de generación de contraseñas seguras. Una vez creadas las credenciales, estas serán enviadas por correo electrónico al profesor.
 
-\nuevo{Del mismo modo, el administrador podrá revisar la lista de profesores creados y eliminarlos. La eliminación de un profesor implicará la eliminación de toda la información asociada creada bajo su responsabilidad (material, tareas, cuestionarios, grupos y alumnado asociado a dichos grupos).}
+Del mismo modo, el administrador podrá revisar la lista de profesores creados y eliminarlos. La eliminación de un profesor implicará la eliminación de toda la información asociada creada bajo su responsabilidad (material, tareas, cuestionarios, grupos y alumnado asociado a dichos grupos).
 
-\nuevo{Además, el sistema permitirá al administrador realizar la creación de usuarios y grupos de manera automatizada. El fichero contendrá la información necesaria para dar de alta profesores y/o alumnos y para asociarlos a grupos, aplicando las mismas validaciones de datos y unicidad ya establecidas para la creación manual.}
+Además, el sistema permitirá al administrador realizar la creación de usuarios y grupos de manera automatizada. El fichero contendrá la información necesaria para dar de alta profesores y/o alumnos y para asociarlos a grupos, aplicando las mismas validaciones de datos y unicidad ya establecidas para la creación manual.
 
-El profesor, a su vez, tendrá la capacidad de crear cuentas de alumnos mediante un procedimiento equivalente al descrito para la creación de profesores manual, \nuevo{revisar y eliminar a sus alumnos (eliminando así sus registros de entregas y calificaciones).}
+El profesor, a su vez, tendrá la capacidad de crear cuentas de alumnos mediante un procedimiento equivalente al descrito para la creación de profesores manual, revisar y eliminar a sus alumnos (eliminando así sus registros de entregas y calificaciones).
 
-Además, el profesor podrá crear grupos de clase, añadir alumnos a los mismos \nuevo{y eliminar cualquiera de los grupos que haya creado borrando también de forma sistemática el material que tenga asociado}. Un alumno podrá pertenecer a varios grupos de forma simultánea.
+Además, el profesor podrá crear grupos de clase, añadir alumnos a los mismos y eliminar cualquiera de los grupos que haya creado borrando también de forma sistemática el material que tenga asociado. Un alumno podrá pertenecer a varios grupos de forma simultánea.
 
 También podrá enviar mensajes a unos alumnos o grupos completos determinados y podrá adjuntar las calificaciones generales del curso seleccionando a un alumno en concreto.
 
@@ -338,7 +339,7 @@ Fuera de esta sección, la aplicación contará con cuatro apartados denominados
 Asimismo, los alumnos podrán acceder a los mismos cuatro apartados (Ritmo, Entonación, Audición y Teoría). En cada apartado se mostrarán las mismas dos secciones, y en algunos casos tres:
 \begin{itemize}
 \item En la sección Libro del curso, los alumnos podrán visualizar el archivo PDF correspondiente y descargarlo, pero no modificarlo.
-\item En la sección Tareas a realizar, los alumnos podrán consultar la lista de tareas disponibles y realizar las entregas correspondientes. Los formatos permitidos serán PDF, MP3 o MP4, y/o bien un comentario textual dentro de la propia aplicación. En el caso de los cuestionarios, el alumno podrá acceder de forma específica a cada uno para completarlos \nuevo{apoyándose, si lo desea, en solo una pista por cada pregunta}. El cuestionario no se considerará entregado hasta que el alumno pulse expresamente el botón de envío.
+\item En la sección Tareas a realizar, los alumnos podrán consultar la lista de tareas disponibles y realizar las entregas correspondientes. Los formatos permitidos serán PDF, MP3 o MP4, y/o bien un comentario textual dentro de la propia aplicación. En el caso de los cuestionarios, el alumno podrá acceder de forma específica a cada uno para completarlos apoyándose, si lo desea, en solo una pista por cada pregunta. El cuestionario no se considerará entregado hasta que el alumno pulse expresamente el botón de envío.
 \item Esta sección es solo visible por los alumnos y cambiará en función de la rama. En la rama de entonación aparecerá una funcionalidad tipo metrónomo y en la rama de audición aparecerá un pequeño piano virtual. Esta sección no aparecerá en las otras dos ramas
 \end{itemize}
 
@@ -357,7 +358,7 @@ Los objetivos funcionales descritos en la versión inicial se mantienen, ya que 
 \section{Diagrama UML de casos de uso del sistema extendido}
 \label{sec:dcu_extendido}
 
-La ampliación funcional se refleja en el diagrama general de casos de uso del sistema. Para evitar confusión y mantener continuidad con el documento original, el diagrama se presentará con las nuevas incorporaciones destacadas visualmente mediante un código de color:
+La ampliación funcional se refleja en el diagrama general de casos de uso del sistema de la Figura \ref{fig:dcu_extendido}. Para evitar confusión y mantener continuidad con el documento original, el diagrama se presentará con las nuevas incorporaciones destacadas visualmente mediante un código de color:
 \begin{itemize}
     \item \nuevo{Rojo: Caso de uso totalmente nuevo.}
     \item \cambiado{Azul: Caso de uso existente sustituido (cambio de nombre y/o alcance).}
@@ -689,7 +690,7 @@ Con el objetivo de proporcionar una visión global de la estructura de la inform
 
 Es importante recordar que el diagrama presentado no corresponde a un diagrama Entidad-Relación en sentido estricto. En su lugar, se adopta un enfoque conceptual que refleja la estructura lógica de los datos y sus relaciones semánticas, independientemente de su implementación física.
 
-La figura~\ref{fig:modelo_conceptual} muestra el modelo conceptual de datos del sistema, proporcionando una visión estructural que complementa la definición funcional y arquitectónica presentada en los apartados anteriores.
+La Figura~\ref{fig:modelo_conceptual} muestra el modelo conceptual de datos del sistema, proporcionando una visión estructural que complementa la definición funcional y arquitectónica presentada en los apartados anteriores.
 
 \begin{figure}[H]
     \centering
@@ -1387,7 +1388,7 @@ Este flujo ilustra la integración práctica de la inteligencia artificial dentr
 
 El presente capítulo describe un plan integral para la implantación progresiva de la solución desarrollada en un entorno educativo real. Aunque durante el desarrollo de este proyecto no se ha llevado a cabo una implantación completa siguiendo dicho plan, sí se ha realizado una validación preliminar en un centro educativo, mostrando el funcionamiento general de la aplicación y recogiendo observaciones directas del profesorado. Esta experiencia, descrita en el apartado~\ref{sec:validacion_preliminar}, ha permitido detectar mejoras relevantes y refuerza la necesidad de contar con un plan estructurado que guíe una futura implantación realista.
 
-El objetivo de este plan no es documentar un proceso ya ejecutado, sino establecer un marco estratégico, técnico y organizativo que permita, en un escenario real, desplegar la aplicación de forma segura, estable, escalable y sostenible, contemplando tanto los aspectos tecnológicos como los humanos y organizativos implicados. Este enfoque resulta coherente con la evolución funcional y tecnológica presentada en los capítulos~\ref{chap:desarrollo_backend} y~\ref{chap:desarrollo_frontend}.
+El objetivo de este plan no es documentar un proceso ya ejecutado, sino establecer un marco estratégico, técnico y organizativo que permita, en un escenario real, desplegar la aplicación de forma segura, estable, escalable y sostenible, contemplando tanto los aspectos tecnológicos como los humanos y organizativos implicados. Este enfoque resulta coherente con la evolución funcional y tecnológica presentada en los sección~\ref{sec:arquitectura_implementacion}.
 
 Además, cabe destacar que las decisiones técnicas adoptadas a lo largo del proyecto han favorecido de manera significativa su adaptación a un contexto real de implantación. Las tecnologías seleccionadas, aunque en su configuración actual priorizan el uso de recursos gratuitos y presentan limitaciones para un entorno productivo, ofrecen planes de escalado superiores o permiten una migración sencilla hacia infraestructuras de pago, sin necesidad de reestructurar la arquitectura del sistema. Asimismo, aunque se han identificado determinados aspectos susceptibles de mejora en materia de seguridad, estos quedan documentados como líneas de evolución futura, manteniendo la versión actual del sistema suficientemente preparada para asumir dichos cambios de forma progresiva y controlada.
 \section{Objetivos del plan de implantación}
@@ -1542,7 +1543,7 @@ Desde el punto de vista técnico, Azure App Service ofrece las siguientes capaci
     
     \item \textbf{Gestión automática de infraestructura}: Azure se encarga del aprovisionamiento, monitorización y recuperación ante fallos de las instancias, garantizando una elevada disponibilidad del servicio sin intervención manual.
     
-    \item \textbf{Integración nativa con CI/CD}: Azure App Service se integra de forma directa con GitHub Actions, facilitando la automatización completa del flujo de despliegue, tal y como se describe en el capítulo~\ref{chap:despliegue}. En consecuencia, todas las operaciones de la migración quedarán integradas de forma automática con tan solo unas líneas en el archivo \texttt{.YML} que lee GitHub Actions.
+    \item \textbf{Integración nativa con CI/CD}: Azure App Service se integra de forma directa con GitHub Actions, facilitando la automatización completa del flujo de despliegue, tal y como se describe en el la sección \ref{sec:despliegue_impl}. En consecuencia, todas las operaciones de la migración quedarán integradas de forma automática con tan solo unas líneas en el archivo \texttt{.YML} que lee GitHub Actions.
 \end{itemize}
 
 Este conjunto de características convierte a Azure App Service en una plataforma idónea para albergar tanto el backend Node.js como el frontend Angular/Ionic, permitiendo un despliegue coherente, altamente disponible y preparado para un crecimiento progresivo del número de usuarios.
@@ -2002,7 +2003,7 @@ Con el fin de operativizar la estrategia descrita en la sección~\ref{sec:estrat
 
 El cronograma propuesto se adapta a un centro educativo de tamaño medio y contempla una implantación progresiva en tres fases (piloto, parcial y completa), alineada con los tiempos ya establecidos en el propio plan: un piloto de cuatro a seis semanas, un despliegue parcial de dos a tres meses y una transición final hacia despliegue completo.
 
-La figura~\ref{fig:cronograma_implantacion} muestra el cronograma completo con la secuencia temporal de tareas y los hitos principales: preparación del entorno productivo, arranque del piloto, emisión del informe de validación, ampliación a despliegue parcial, consolidación operativa y paso a despliegue completo.
+La Figura \ref{fig:cronograma_implantacion} muestra el cronograma completo con la secuencia temporal de tareas y los hitos principales: preparación del entorno productivo, arranque del piloto, emisión del informe de validación, ampliación a despliegue parcial, consolidación operativa y paso a despliegue completo.
 
 \begin{figure}[H]
   \centering
@@ -2121,7 +2122,7 @@ Desde el punto de vista técnico, el plan define un proceso de migración hacia 
 
 En paralelo, se integra la seguridad como un proceso operativo de supervisión y cumplimiento (sección~\ref{sec:seguridad_implantacion}), y se incorpora un plan de adopción orientado a minimizar fricciones en el uso cotidiano del sistema (sección~\ref{sec:formacion_implantacion}). Aunque el plan no se ha ejecutado en su totalidad durante el desarrollo del proyecto, la validación práctica preliminar realizada (sección~\ref{sec:validacion_preliminar}) aporta evidencia empírica y refuerza la utilidad de estructurar una implantación en fases.
 
-En conjunto, este capítulo completa el ciclo de vida del proyecto más allá del desarrollo funcional descrito en los capítulos~\ref{chap:desarrollo_backend} y~\ref{chap:desarrollo_frontend}, demostrando una visión integral de despliegue, operación y evolución. De este modo, la solución no se presenta únicamente como un prototipo académico, sino como una plataforma con un plan realista de implantación y un potencial de impacto educativo sostenible.
+En conjunto, este capítulo completa el ciclo de vida del proyecto más allá del desarrollo funcional descrito en el apartado \ref{sec:arquitectura_implementacion}, demostrando una visión integral de despliegue, operación y evolución. De este modo, la solución no se presenta únicamente como un prototipo académico, sino como una plataforma con un plan realista de implantación y un potencial de impacto educativo sostenible.
 
 \chapter{Conclusiones y líneas de trabajo futuro}
 \label{chap:conclusiones_complemento}

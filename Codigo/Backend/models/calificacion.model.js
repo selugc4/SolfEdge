@@ -21,6 +21,12 @@ const calificacionSchema = new Schema({
     ref: 'Tarea',
     default: null
   },
+  observaciones: {
+    type: String,
+    trim: true,
+    maxlength: [200, 'Las observaciones no pueden superar los 200 caracteres.'],
+    default: null
+  },
   cuestionario: {
     type: Schema.Types.ObjectId,
     ref: 'Cuestionario',

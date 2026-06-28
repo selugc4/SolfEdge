@@ -46,6 +46,16 @@
           (ionInput)="limitLength($event)">
         </ion-input>
       </ion-item>
+      <ion-item class="ion-margin-top">
+        <ion-label position="floating">Observaciones</ion-label>
+        <ion-textarea
+          formControlName="observaciones"
+          maxlength="200"
+          counter="true"
+          rows="4"
+          placeholder="Añade observaciones para el alumno">
+        </ion-textarea>
+      </ion-item>
     </form>
   }
 </ion-content>
