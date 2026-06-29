@@ -125,20 +125,28 @@ Las credenciales del usuario administrador con el que se pueden probar las carga
 
 Administrador
 
-Usuario: admin
+
+Usuario: admin 
+
 Contraseña: owmJMhtR52kNe5HZ
+
 
 Además, si se prefiere directamente probar otras funcionalidades concretas se adjuntan las credenciales de un usuario de cada rol.
 
 Profesor
 
+
 Usuario: agr
+
 Contraseña: QF18yJZl39
 
 Alumno
 
+
 Usuario: lms
+
 Contraseña: 3TW6ZXniji
+
 
 ---
 
