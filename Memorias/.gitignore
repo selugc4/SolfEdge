@@ -1,0 +1,40 @@
+# Carpeta de compilación
+TFG/build/
+CTFG/build/
+# Archivos auxiliares
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.idx
+*.ilg
+*.ind
+*.lof
+*.log
+*.lot
+*.nav
+*.out
+*.run.xml
+*.snm
+*.synctex.gz
+*.toc
+*.vrb
+*.xdv
+*.dvi
+*.ps
+
+# Latexmk
+*.latexmk
+
+# Temporales
+*.bak
+*.tmp
+*.swp
+
+# MacOS
+.DS_Store
+
+# Windows
+Thumbs.db

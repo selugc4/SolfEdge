@@ -896,7 +896,7 @@ Para definir los casos de uso del sistema la mejor forma de hacerlo es, como en 
 
 \textbf{Descripción} & Permitir al profesor gestionar las entregas de las tareas de los alumnos. \\ \hline
 \textbf{Actor} & ACT-3\\ \hline
-\textbf{Requisitos funcionales} & RF-23 RF-24 RF-25\\ \hline
+\textbf{Requisitos funcionales} & RF-23 RF-24\\ \hline
 \end{tabularx}
 \caption{Caso de uso: Gestionar entregas}
 \end{table}
@@ -1299,7 +1299,7 @@ Para definir los casos de uso del sistema la mejor forma de hacerlo es, como en 
 
 \textbf{Secuencia de pasos} & 
 \begin{enumerate}
-  \item El profesor accede a administración o a perfil y entra en la herramienta de creación de mensajes.
+  \item El profesor accede a administración y entra en la herramienta de creación de mensajes.
   \item El profesor redacta el mensaje, el asunto y selecciona los alumnos del grupo seleccionado como destinatarios.
   \item El profesor envía el mensaje.
   \item El sistema valida los datos.
@@ -1767,7 +1767,7 @@ Para definir los casos de uso del sistema la mejor forma de hacerlo es, como en 
 \begin{enumerate}
   \item El profesor selecciona la rama de la asignatura.
   \item El profesor selecciona una tarea existente.
-  \item El sistema muestra la lista de entregas realizadas por los alumnos.
+  \item El sistema muestra la lista de entregas realizadas por los alumnos (y su calificación, si la tuviera).
   \item El profesor selecciona una entrega para visualizar su contenido.
 \end{enumerate} \\ \hline
 
@@ -1830,29 +1830,29 @@ Para definir los casos de uso del sistema la mejor forma de hacerlo es, como en 
   |>{\centering\arraybackslash}l
   |>{\centering\arraybackslash}X|}
 \hline
-\textbf{RF-25} & \textbf{Revisar calificaciones de entregas} \\ \hline
+\textbf{RF-25} & \textbf{Revisar calificaciones} \\ \hline
 
-\textbf{Descripción} & Permitir al profesor revisar las calificaciones asignadas a las entregas de una tarea específica. \\ \hline
+\textbf{Descripción} & Permitir al alumno revisar todas las calificaciones asignadas. \\ \hline
 
-\textbf{Precondición} & El profesor debe estar autenticado, debe de haber un grupo seleccionado y existir una entrega asociada a la tarea seleccionada. \\ \hline
+\textbf{Precondición} & El alumno debe estar autenticado, debe de haber un grupo seleccionado y existir una entrega asociada a la tarea seleccionada. \\ \hline
 
 \textbf{Secuencia de pasos} &
 \begin{enumerate}
-  \item El profesor selecciona la rama de la asignatura.
-  \item El profesor selecciona una tarea.
-  \item El sistema muestra la lista de entregas calificadas junto con sus calificaciones.
+  \item El alumno selecciona su perfil.
+  \item El alumno selecciona si quiere ver calificaciones generales o continuas.
+  \item El sistema muestra la lista de las calificaciones.
 \end{enumerate} \\ \hline
 
-\textbf{Postcondición} & El profesor visualiza correctamente las calificaciones asociadas a las entregas. \\ \hline
+\textbf{Postcondición} & El alumno visualiza correctamente las calificaciones. \\ \hline
 
 \textbf{Excepciones} &
 \begin{itemize}
-  \item No existen entregas calificadas para la tarea seleccionada.
+  \item No existen calificaciones y/o continuas.
   \item No se ha elegido ningún grupo.
   \item Problemas de conexión a la base de datos.
 \end{itemize} \\ \hline
 \end{tabularx}
-\caption{Requisito funcional: RF-25 Revisar calificaciones de entregas}
+\caption{Requisito funcional: RF-25 Revisar calificaciones}
 \label{tab:RF-25}
 \end{table}
 \begin{table}[H]
@@ -1863,20 +1863,20 @@ Para definir los casos de uso del sistema la mejor forma de hacerlo es, como en 
 \hline
 \textbf{RF-26} & \textbf{Revisar calificaciones generales del alumno} \\ \hline
 
-\textbf{Descripción} & Permitir al profesor o al alumno revisar las calificaciones generales obtenidas previamente por un alumno en el curso. \\ \hline
+\textbf{Descripción} & Permitir al profesor revisar las calificaciones generales obtenidas previamente por un alumno en el curso. \\ \hline
 
-\textbf{Precondición} & El profesor o el alumno deben de estar autenticados, tener un grupo seleccionado y que dicho alumno tenga calificaciones generales registradas en el sistema. \\ \hline
+\textbf{Precondición} & El profesor debe de estar autenticados, tener un grupo seleccionado y que el alumno tenga calificaciones generales registradas en el sistema. \\ \hline
 
 \textbf{Secuencia de pasos} &
 \begin{enumerate}
-  \item El usuario accede a perfil o a administración (esta última solo si es profesor).
-  \item Si el usuario es alumno, el sistema identifica automáticamente al alumno autenticado.
-  \item Si el usuario es profesor, el sistema requiere de la selección del alumno desde la herramienta de calificaciones generales.
+  \item El profesor accede a administración.
+  \item Si el profesor es alumno, el sistema identifica automáticamente al alumno autenticado.
+  \item Si el profesor es profesor, el sistema requiere de la selección del alumno desde la herramienta de calificaciones generales.
   \item El sistema muestra las calificaciones generales registradas para el alumno.
-  \item El usuario revisa el historial de calificaciones.
+  \item El profesor revisa el historial de calificaciones.
 \end{enumerate} \\ \hline
 
-\textbf{Postcondición} & El usuario visualiza correctamente las calificaciones generales del alumno. \\ \hline
+\textbf{Postcondición} & El profesor visualiza correctamente las calificaciones generales del alumno. \\ \hline
 
 \textbf{Excepciones} &
 \begin{itemize}
@@ -1902,7 +1902,7 @@ Para definir los casos de uso del sistema la mejor forma de hacerlo es, como en 
 
 \textbf{Secuencia de pasos} &
 \begin{enumerate}
-  \item El profesor selecciona el perfil o administración.
+  \item El profesor selecciona el perfil.
   \item El profesor accede a la herramienta de calificaciones generales.
   \item El profesor selecciona un alumno del listado.
   \item El sistema muestra las calificaciones generales actuales, si existen.
@@ -2501,6 +2501,7 @@ Crear o actualizar calificación general
 1. Validar los datos de entrada:
    - Tipo de calificación.
    - Rango permitido de la nota.
+   - Tamaño correcto del string de observaciones
    - Existencia del alumno, profesor y grupo.
 
 2. Si la calificación es extraordinaria:
@@ -2833,8 +2834,8 @@ La Figura~\ref{fig:login_responsive} muestra un ejemplo de esta adaptación util
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.2\textwidth]{Figuras/frontend_login_mobile.png}
-    \includegraphics[width=0.7\textwidth]{Figuras/frontend_login_desktop.png}
+    \includegraphics[width=0.3\textwidth]{Figuras/frontend_login_mobile.png}
+    \includegraphics[width=1\textwidth]{Figuras/frontend_login_desktop.png}
     \caption{Vista de inicio de sesión en dispositivos móviles y escritorio.}
     \label{fig:login_responsive}
 \end{figure}
@@ -2851,15 +2852,15 @@ Las Figuras~\ref{fig:navegacion_componentes}, \ref{fig:componentes_ion} y \ref{f
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.2\textwidth]{Figuras/frontend_menu_lateral.png}
-    \includegraphics[width=0.7\textwidth]{Figuras/frontend_barra_pestañas.png}
+    \includegraphics[width=0.15\textwidth]{Figuras/frontend_menu_lateral.png}
+    \includegraphics[width=0.8\textwidth]{Figuras/frontend_barra_pestañas.png}
     \caption{Menú lateral y barra de pestañas utilizadas en la aplicación.}
     \label{fig:navegacion_componentes}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{Figuras/frontend_calificaciones_ioncard.png}
+    \includegraphics[width=0.5\textwidth]{Figuras/frontend_calificaciones_ioncard.png}
     \caption{Ejemplo de utilización de componentes modales en la gestión de calificaciones.}
     \label{fig:componentes_ion}
 \end{figure}
@@ -2883,23 +2884,27 @@ Para ello se han utilizado las herramientas propias del ecosistema Angular:
 
 La combinación de ambas herramientas facilita la validación automática de los componentes desarrollados y permite detectar posibles regresiones conforme evoluciona la aplicación.
 
-Como ejemplo representativo se muestra el conjunto de pruebas desarrollado para el componente \texttt{Tab5Page}, encargado de gestionar distintas funcionalidades relacionadas con la interacción del usuario.
+Como ejemplo representativo se muestra el conjunto de pruebas desarrollado para el componente \texttt{ProfessorAdminpage}, encargado de gestionar distintas funcionalidades relacionadas con la interacción del usuario.
 
 \begin{Verbatim}[frame=single, fontsize=\small]
-Pruebas del componente Tab5Page
+Pruebas del componente ProfessorAdminPage
 
 1. Verificar la creación del componente.
 
-2. Abrir el modal de mensajes.
+2. Verificar la inicialización del usuario autenticado.
 
-3. Abrir el modal de calificaciones
-   cuando existe un grupo seleccionado.
+3. Verificar la finalización del estado de carga.
 
-4. Comprobar que el modal no se abre
-   si no existe un grupo activo.
+4. Verificar la apertura del modal de mensajes.
 
-5. Verificar la interacción
-   con los servicios simulados.
+5. Verificar la apertura del modal de calificación
+   general cuando existe un grupo seleccionado.
+
+6. Verificar la apertura del modal de gestión
+   de grupo cuando existe un grupo seleccionado.
+
+7. Verificar la interacción con los servicios
+   simulados y el controlador de modales.
 \end{Verbatim}
 
 Estas pruebas permiten comprobar tanto la correcta inicialización de los componentes como la interacción con los servicios utilizados por la aplicación, garantizando un comportamiento estable ante distintos escenarios de uso.
@@ -3017,7 +3022,7 @@ Los cuestionarios constituyen uno de los principales mecanismos de evaluación c
 
 El flujo completo comprende tres etapas claramente diferenciadas: la creación del cuestionario por parte del profesor, la realización del cuestionario por parte del alumno y la consulta de los resultados obtenidos una vez finalizada la actividad.
 
-Los requisitos implicados en este flujo son: RF19 (figura~\ref{tab:RF-19}), RF28 (figura~\ref{tab:RF-28}), RF30 (figura~\ref{tab:RF-30}) y RFT1 (figura~\ref{tab:RFT-1}), tal y como se ha descrito en el capítulo de análisis de requisitos.
+Los requisitos implicados en este flujo son: RF-19 (Figura~\ref{tab:RF-19}), RF-25 (Figura \ref{tab:RF-25}, RF-28 (Figura~\ref{tab:RF-28}), RF-30 (Figura~\ref{tab:RF-30}) y RFT1 (Figura~\ref{tab:RFT-1}), tal y como se ha descrito en el capítulo de análisis de requisitos.
 \subsection{Creación del cuestionario}
 
 El flujo comienza cuando el profesor accede al apartado de cuestionarios desde la aplicación. Desde esta sección dispone de la posibilidad de consultar los cuestionarios existentes, modificarlos, eliminarlos o crear uno nuevo.
@@ -3039,7 +3044,7 @@ Tras la creación del cuestionario, este pasa a estar disponible para todos los 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\textwidth]{Figuras/mensaje_creacion.png}
+    \includegraphics[width=0.9\textwidth]{Figuras/mensaje_creacion.png}
     \caption{Mensaje de notificación al alumno tras la creación del cuestionario.}
     \label{fig:mensaje-creacion-cuestionario}
 \end{figure}
@@ -3054,7 +3059,7 @@ El alumno puede avanzar entre las distintas preguntas hasta completar el cuestio
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.95\textwidth]{Figuras/resolver_cuestionario.png}
+    \includegraphics[width=1\textwidth]{Figuras/resolver_cuestionario.png}
     \caption{Resolución de un cuestionario por parte del alumno utilizando las pistas disponibles.}
     \label{fig:resolver-cuestionario}
 \end{figure}
@@ -3065,20 +3070,19 @@ Una vez enviado el cuestionario, como se ha mencionado anteriomente, el sistema 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.95\textwidth]{Figuras/revision_cuestionario.png}
+    \includegraphics[width=0.5\textwidth]{Figuras/revision_cuestionario.png}
     \caption{Consulta de un cuestionario realizado y revisión de las respuestas.}
     \label{fig:revision-cuestionario}
 \end{figure}
 
 Con este proceso finaliza el flujo completo asociado a la gestión de cuestionarios, quedando registradas las respuestas y la calificación obtenida por el alumno para su posterior consulta.
-\newpage
 \section{Flujo de trabajo de tareas}
 
 A diferencia de los cuestionarios, cuyo proceso de corrección es automático, las tareas permiten al profesorado plantear actividades que requieren una evaluación individualizada. De esta forma, el profesor puede valorar ejercicios cuya resolución no puede determinarse únicamente mediante respuestas cerradas, proporcionando además observaciones personalizadas que sirvan de orientación al alumnado.
 
 El flujo de trabajo de las tareas comprende cuatro fases principales: creación de la tarea, entrega por parte del alumno, evaluación realizada por el profesor y consulta de la calificación obtenida.
 
-Los requisitos implicados en este flujo son: RF-14 (figura ~\ref{tab:RF-14}), RF-23 (figura ~\ref{tab:RF-23}), RF-24 (figura ~\ref{tab:RF-24}), RF-25 (figura ~\ref{tab:RF-25}), RF-28 (figura ~\ref{tab:RF-28}), RF-29 (figura ~\ref{tab:RF-29}), y RFT-1 (figura ~\ref{tab:RFT-1}), tal y como se ha descrito en el capítulo de análisis de requisitos.
+Los requisitos implicados en este flujo son RF-14 (Figura ~\ref{tab:RF-14}), RF-23 (Figura ~\ref{tab:RF-23}), RF-24 (Figura ~\ref{tab:RF-24}), RF-25 (Figura ~\ref{tab:RF-25}), RF-28 (Figura ~\ref{tab:RF-28}), RF-29 (Figura ~\ref{tab:RF-29}), y RFT-1 (figura ~\ref{tab:RFT-1}), tal y como se ha descrito en el capítulo de análisis de requisitos.
 
 \subsection{Creación de la tarea}
 
@@ -3088,8 +3092,8 @@ Durante este proceso debe cumplimentar la información necesaria para su publica
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.4\textwidth]{Figuras/crear_tarea.png}
-    \includegraphics[width=1\textwidth]{Figuras/confirmacion_tarea.png}
+    \includegraphics[width=0.35\textwidth]{Figuras/crear_tarea.png}
+    \includegraphics[width=0.6\textwidth]{Figuras/confirmacion_tarea.png}
     \caption{Creación de una nueva tarea.}
     \label{fig:crear-tarea}
 \end{figure}
@@ -3098,7 +3102,7 @@ Una vez introducidos todos los datos, la plataforma valida la información propo
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\textwidth]{Figuras/mensaje_creacion_tarea.png}
+    \includegraphics[width=1\textwidth]{Figuras/mensaje_creacion_tarea.png}
     \caption{Confirmación de la creación de la tarea.}
     \label{fig:mensaje-creacion-tarea}
 \end{figure}
@@ -3124,7 +3128,7 @@ Tras completar el envío, el sistema muestra un mensaje confirmando que la entre
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{Figuras/mensaje_entrega.png}
+    \includegraphics[width=1\textwidth]{Figuras/mensaje_entrega.png}
     \caption{Mensaje de notificación al profesor tras la entrega de la tarea.}
     \label{fig:mensaje-entrega-tarea}
 \end{figure}
@@ -3135,7 +3139,7 @@ Una vez finalizado el plazo de entrega o cuando el profesor lo considere oportun
 
 Tras revisar la entrega, el profesor asigna una calificación numérica y, si lo considera necesario, incorpora observaciones o comentarios destinados a proporcionar una retroalimentación personalizada al alumno. Este mecanismo permite no solo evaluar el trabajo realizado, sino también orientar al alumnado acerca de los aspectos susceptibles de mejora.
 
-Cuando la evaluación finaliza, el sistema registra la información introducida y ya se puede comprobar las calificaciones desde la tarea.
+El sistema registra la información introducida y ya se puede comprobar las calificaciones desde la tarea.
 
 \begin{figure}[H]
     \centering
@@ -3146,7 +3150,7 @@ Cuando la evaluación finaliza, el sistema registra la información introducida 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\textwidth]{Figuras/calificaciones_tarea.png}
+    \includegraphics[width=0.6\textwidth]{Figuras/calificaciones_tarea.png}
     \caption{Calificaciones en detalles de tarea.}
     \label{fig:calificaciones-tarea}
 \end{figure}
@@ -3155,13 +3159,11 @@ Cuando la evaluación finaliza, el sistema registra la información introducida 
 
 Una vez corregida la tarea, el alumno puede acceder nuevamente a la actividad para consultar la evaluación realizada por el profesor.
 
-En esta pantalla la aplicación muestra la calificación obtenida junto con las observaciones introducidas durante el proceso de corrección, permitiendo al alumno conocer tanto el resultado alcanzado como los aspectos destacados por el profesor durante la evaluación.
-
-De esta forma, la funcionalidad de tareas no se limita únicamente al proceso de entrega, sino que proporciona un mecanismo completo de seguimiento del aprendizaje mediante la incorporación de comentarios personalizados.
+En esta pantalla la aplicación muestra la calificación obtenida durante el proceso de corrección, permitiendo al alumno conocer el resultado alcanzado durante la evaluación.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\textwidth]{Figuras/revision_tarea.png}
+    \includegraphics[width=0.6\textwidth]{Figuras/revision_tarea.png}
     \caption{Consulta de la tarea evaluada por parte del alumno.}
     \label{fig:revision-tarea}
 \end{figure}
@@ -3169,13 +3171,13 @@ De esta forma, la funcionalidad de tareas no se limita únicamente al proceso de
 Con esta última fase concluye el flujo de trabajo asociado a la gestión de tareas, quedando registrada tanto la entrega realizada como la evaluación efectuada por el profesor.
 
 
-\section{Flujo de trabajo de calificaciones}
+\section{Flujo de trabajo de calificaciones generales}
 
 Además de las evaluaciones individuales realizadas mediante cuestionarios y tareas, la aplicación incorpora un módulo específico destinado a la calificación general del alumno donde, además, se podrán revisar calificaciones generales anteriores.
 
 Este flujo comprende dos fases, la calificación general por parte del profesor y la consulta de las calificaciones por parte del alumno.
 
-Los requisitos implicados en este flujo son: RF-26 (figura ~\ref{tab:RF-26}), RF-27 (figura ~\ref{tab:RF-27}), RF-28 (figura ~\ref{tab:RF-28}) y RFT-1 (figura ~\ref{tab:RFT-1}), tal y como se ha descrito en el capítulo de análisis de requisitos.
+Los requisitos implicados en este flujo son RF-25 (Figura \ref{tab:RF-25}), RF-26 (Figura ~\ref{tab:RF-26}), RF-27 (Figura ~\ref{tab:RF-27}), RF-28 (Figura ~\ref{tab:RF-28}) y RFT-1 (Figura ~\ref{tab:RFT-1}), tal y como se ha descrito en el capítulo de análisis de requisitos.
 
 \subsection{Calificación general por parte del profesor}
 
@@ -3196,7 +3198,7 @@ Gracias a esta funcionalidad, el alumno dispone en todo momento de una visión c
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\textwidth]{Figuras/calificaciones_alumno.png}
+    \includegraphics[width=0.7\textwidth]{Figuras/calificaciones_alumno.png}
     \caption{Consulta de las calificaciones por parte del alumno.}
     \label{fig:calificaciones-alumno}
 \end{figure}
@@ -3358,13 +3360,13 @@ En este apartado se incluyen capturas adicionales de la aplicación en funcionam
     \centering
     \begin{subfigure}[b]{1\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{Figuras/frontend_rama.png}
+        \includegraphics[width=0.8\textwidth]{Figuras/frontend_rama.png}
         \caption{Vista de profesor con libro y tareas}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{1\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{Figuras/frontend_rama_vacia.png}
+        \includegraphics[width=0.6\textwidth]{Figuras/frontend_rama_vacia.png}
         \caption{Vista de alumno sin libro y sin tareas}
     \end{subfigure}
     \caption{Vista de cada rama de la aplicación}
@@ -3375,13 +3377,13 @@ En este apartado se incluyen capturas adicionales de la aplicación en funcionam
     \centering
     \begin{subfigure}[b]{1\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{Figuras/frontend_administracion.png}
+        \includegraphics[width=0.9\textwidth]{Figuras/frontend_administracion.png}
         \caption{Administración de administrador}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{1\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{Figuras/frontend_administracion_profesor.png}
+        \includegraphics[width=0.9\textwidth]{Figuras/frontend_administracion_profesor.png}
         \caption{Administración de profesor}
     \end{subfigure}
     \caption{Vista de administración}
@@ -3390,7 +3392,7 @@ En este apartado se incluyen capturas adicionales de la aplicación en funcionam
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\textwidth]{Figuras/frontend_mensajes.png}
+    \includegraphics[width=0.8\textwidth]{Figuras/frontend_mensajes.png}
     \caption{Vista de mensajería}
     \label{fig:mensajeria}
 \end{figure}
@@ -3424,7 +3426,6 @@ Para la gestión y exploración de la base de datos se ha utilizado \textbf{Mong
 \end{itemize}
 
 Cabe destacar que MongoDB Compass se ha empleado únicamente como herramienta de apoyo, sin formar parte del sistema en producción ni afectar a la lógica de la aplicación.
-\newpage
 \subsection{Herramientas de apoyo adicionales}
 
 Durante el desarrollo también se han utilizado otras herramientas auxiliares, entre ellas:

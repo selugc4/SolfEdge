@@ -798,79 +798,25 @@ La comunicación con Groq se realiza mediante su API pública. El backend constr
 
 A continuación se muestra el fragmento principal encargado de generar dichas pistas.
 
-\begin{Verbatim}[frame=single, fontsize=\small, xleftmargin=10pt, xrightmargin=10pt]
-// Importación del SDK oficial de Groq para realizar peticiones
-// al servicio de inferencia mediante su API
-const Groq = require('groq-sdk');
+\begin{Verbatim}[frame=single, fontsize=\small]
+Generación de una pista para preguntas de teoría
 
-// Inicialización del cliente de Groq utilizando la clave
-// de API definida en las variables de entorno
-const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
+1. Verificar que la clave de acceso a la API
+   está configurada.
 
-// Función asíncrona encargada de generar una pista teórica
-// breve para una pregunta tipo test
-async function generarPistaTeoria({
-  preguntaTexto,
-  posiblesRespuestas,
-  recursoAudicion
-}) {
+2. Obtener y formatear las opciones de respuesta.
 
-// Comprobación previa de la existencia de la clave de API.
-// Si no está configurada, se interrumpe la ejecución
-  if (!process.env.GROQ_API_KEY) {
-    throw new Error('GROQ_API_KEY no está configurada');
-  }
+3. Construir el mensaje con la pregunta,
+   las opciones y las instrucciones para
+   generar una pista.
 
-// Construcción del bloque de opciones en formato texto.
-// Se numeran las respuestas y se evita provocar errores
-// en caso de que algún elemento no tenga texto definido
-  const opciones = Array.isArray(posiblesRespuestas)
-    ? posiblesRespuestas
-        .map((r, i) => `${i + 1}) ${r?.texto ?? ''}`)
-        .join('\n')
-    : '';
+4. Enviar la petición al modelo de IA.
 
-  const userContent =
-`Genera UNA pista breve para ayudar a responder esta pregunta tipo test
-sin revelar la respuesta.
+5. Obtener la pista generada.
 
-Pregunta:
-${preguntaTexto}
+6. Verificar que la respuesta no está vacía.
 
-Opciones:
-${opciones}
-
-${recursoAudicion ? 'Hay un recurso de audición asociado.' : ''}
-
-Requisitos:
-- 1 o 2 frases máximo
-- No digas cuál es la opción correcta
-- No des la solución ni pasos completos
-- No menciones "IA" ni "modelo"`;
-
-  const completion = await groq.chat.completions.create({
-    model: 'llama-3.3-70b-versatile',
-    messages: [
-      { role: 'system',
-        content: 'Eres un tutor de música. Das pistas breves y seguras.' },
-      { role: 'user',
-        content: userContent }
-    ],
-    temperature: 0.2,
-    max_tokens: 90
-  });
-
-  const hint =
-    completion?.choices?.[0]?.message?.content?.trim();
-
-  if (!hint) throw new Error('No se pudo generar pista');
-
-  return hint
-    .replace(/^["'\s]+|["'\s]+$/g, '')
-    .trim();
-}
-
-module.exports = { generarPistaTeoria };
+7. Limpiar el texto y devolver la pista.
 \end{Verbatim}
 
 La utilización de una capa de servicios permite encapsular toda la comunicación con el modelo de inteligencia artificial en un único punto del sistema. De esta forma, el resto de componentes del backend únicamente solicitan una pista cuando la necesitan, permaneciendo completamente independientes de la tecnología utilizada para generarla.
@@ -897,49 +843,19 @@ Como ejemplo representativo se presenta el conjunto de pruebas desarrollado para
 
 Este endpoint resulta especialmente interesante debido a que combina la lógica propia del backend con la interacción con un servicio externo de inteligencia artificial.
 
-\begin{Verbatim}[frame=single, fontsize=\small, xleftmargin=10pt, xrightmargin=10pt]
-// Bloque de pruebas para el endpoint encargado de
-// devolver una pista asociada a una pregunta concreta
-describe('GET /cuestionarios/:id/preguntas/:index/pista', () => {
+\begin{Verbatim}[frame=single, fontsize=\small]
+Pruebas del endpoint GET
+/cuestionarios/:id/preguntas/:index/pista
 
-  it('200 - devuelve pista', async () => {
+1. Verificar que devuelve una pista
+   correctamente cuando la petición es válida.
 
-    jest.spyOn(cuestionarioController, 'getPistaPregunta')
-      .mockResolvedValue({
-        status: 200,
-        body: { pista: 'PISTA', cached: true }
-      });
+2. Verificar que devuelve un error 400
+   cuando el índice de la pregunta es inválido.
 
-    const res = await request(app)
-      .get('/cuestionarios/c1/preguntas/0/pista');
-
-    expect(res.status).toBe(200);
-    expect(res.body.pista).toBe('PISTA');
-  });
-
-  it('400 - preguntaIndex inválido', async () => {
-
-    const res = await request(app)
-      .get('/cuestionarios/c1/preguntas/abc/pista');
-
-    expect(res.status).toBe(400);
-  });
-
-  it('503 - mantenimiento', async () => {
-
-    jest.spyOn(cuestionarioController, 'getPistaPregunta')
-      .mockResolvedValue({
-        status: 503,
-        body: { error: 'Pistas en mantenimiento.' }
-      });
-
-    const res = await request(app)
-      .get('/cuestionarios/c1/preguntas/0/pista');
-
-    expect(res.status).toBe(503);
-  });
-});
-
+3. Verificar que devuelve un error 503
+   cuando el servicio de pistas se encuentra
+   en mantenimiento.
 \end{Verbatim}
 
 Este conjunto de pruebas permite comprobar de forma sistemática el comportamiento del nuevo servicio de generación de pistas tanto en condiciones normales como ante situaciones de error. Con ello se garantiza que la incorporación de esta nueva funcionalidad no compromete la estabilidad del backend y mantiene el mismo nivel de calidad y fiabilidad alcanzado en la versión inicial del proyecto.
@@ -1003,55 +919,24 @@ La solución adoptada consiste en almacenar temporalmente el documento mediante 
 
 El siguiente fragmento muestra el funcionamiento implementado para el libro del curso de cada rama.
 
-\begin{Verbatim}[frame=single, fontsize=\small, xleftmargin=10pt, xrightmargin=10pt]
-//Se comprueba al inicio si es pantalla reducida
-@HostListener('window:resize')
-onResize() {
-  this.checkIsMobile();
-}
+\begin{Verbatim}[frame=single, fontsize=\small]
+Apertura de un documento PDF
 
-private checkIsMobile(): void {
-  this.isMobile = window.matchMedia('(max-width: 1368px)').matches;
-}
+1. Detectar si el tamaño de la pantalla
+   corresponde a un dispositivo móvil.
 
-async openPdf(): Promise<void> {
+2. Verificar que existe un archivo PDF.
 
-  try {
+3. Convertir el archivo PDF al formato Base64.
 
-    if (!this.libroBlob) {
-      await this.presentToast(
-      'No hay PDF disponible para abrir.', 'danger');
-      return;
-    }
+4. Guardar temporalmente el archivo
+   en el dispositivo.
 
-    const base64 = await this.blobToBase64(this.libroBlob);
+5. Abrir el archivo PDF con la aplicación
+   predeterminada.
 
-    const fileName =
-    `libro-apoyo-${this.ramaConfig?._id || 'rama'}.pdf`;
-
-    const result = await Filesystem.writeFile({
-      path: fileName,
-      data: base64,
-      directory: Directory.Cache,
-      recursive: true,
-    });
-
-    await FileOpener.open({
-      filePath: result.uri,
-      contentType: 'application/pdf',
-      openWithDefault: true,
-    });
-
-  } catch (e) {
-
-    console.error(e);
-
-    await this.presentToast(
-    'No se pudo abrir el PDF en este dispositivo.',
-    'danger');
-
-  }
-}
+6. Mostrar un mensaje de error si el PDF
+   no existe o no puede abrirse.
 \end{Verbatim}
 
 La utilización de estos plugins permite aprovechar las capacidades nativas del dispositivo manteniendo la lógica de negocio completamente compartida entre la versión web y la versión Android.
@@ -1119,7 +1004,7 @@ La Figura~\ref{fig:menus} muestra la organización general de los menús de nave
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.3\textwidth]{Figuras/menus.png}
+  \includegraphics[width=0.2\textwidth]{Figuras/menus.png}
   \caption{Menú principal de navegación de la aplicación.}
   \label{fig:menus}
 \end{figure}
@@ -1148,7 +1033,7 @@ Las Figuras~\ref{fig:ritmo_pc}, \ref{fig:ritmo}, \ref{fig:cuestionario_pc}, \ref
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.7\textwidth]{Figuras/Ritmo_pc.png}
+  \includegraphics[width=1\textwidth]{Figuras/Ritmo_pc.png}
   \caption{Vista de la rama de ritmo del profesor en la versión web.}
   \label{fig:ritmo_pc}
 \end{figure}
@@ -1160,15 +1045,15 @@ Las Figuras~\ref{fig:ritmo_pc}, \ref{fig:ritmo}, \ref{fig:cuestionario_pc}, \ref
 \end{figure}
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.7\textwidth]{Figuras/cuestionario_pc.png}
-  \caption{Vista de un cuestionario en la versión web (izquierda) y en Android (derecha).}
+  \includegraphics[width=1\textwidth]{Figuras/cuestionario_pc.png}
+  \caption{Vista de un cuestionario en la versión web.}
   \label{fig:cuestionario_pc}
 \end{figure}
 \begin{figure}[H]
   \centering
 
-  \includegraphics[width=0.4\textwidth]{Figuras/cuestionario.png}
-  \caption{Vista de un cuestionario en la versión web (izquierda) y en Android (derecha).}
+  \includegraphics[width=0.3\textwidth]{Figuras/cuestionario.png}
+  \caption{Vista de un cuestionario en la versión en Android.}
   \label{fig:cuestionario}
 \end{figure}
 \begin{figure}[H]
@@ -1200,7 +1085,7 @@ Las pruebas desarrolladas permiten verificar, entre otros aspectos:
 
 Para ello se mantiene el uso de \textit{spies} sobre los servicios de Angular y los distintos controladores proporcionados por Ionic, permitiendo aislar completamente el comportamiento del componente durante la ejecución de las pruebas.
 
-Debido a la extensión del código generado, se presenta un pseudocódigo que resume el comportamiento validado por los distintos casos de prueba implementados.
+Se presenta un pseudocódigo que resume el comportamiento validado por los distintos casos de prueba implementados.
 
 \begin{Verbatim}[frame=single, fontsize=\small, xleftmargin=10pt, xrightmargin=10pt]
 
@@ -1629,86 +1514,33 @@ Este enfoque garantiza un despliegue reproducible, trazable y consistente, elimi
 A continuación se muestra un pipeline orientativo que ilustra el proceso completo de construcción, publicación y despliegue automático del sistema en Azure. Este pipeline se apoya en las fases previas de construcción y testeo ya descritas, adaptando únicamente la etapa final de despliegue al entorno cloud.
 \newpage
 \begin{Verbatim}[frame=single, fontsize=\small]
-push-and-deploy-frontend:
-  if: github.ref == 'refs/heads/main'
-  runs-on: ubuntu-latest
-  needs: build-frontend
+Despliegue continuo del frontend y backend
 
-  steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+1. Verificar que la ejecución se realiza
+   desde la rama principal.
 
-    - name: Login to Azure CLI
-      uses: azure/login@v1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
+2. Esperar a que finalice la fase de
+   construcción del proyecto.
 
-    - name: Download artifacts
-      uses: actions/download-artifact@v4
-      with: 
-        name: www
-        path: ./www
+3. Obtener el código fuente del repositorio.
 
-    - name: Build and push frontend Docker image to ACR
-      run: |
-        IMAGE_NAME=repodocker.azurecr.io/solfedge-frontend:
-        ${{ github.run_number }}
-        docker build -t $IMAGE_NAME ./frontend
-        echo ${{ secrets.AZURE_PASSWORD }} | docker login \
-        repodocker.azurecr.io -u ${{ secrets.AZURE_USERNAME }} \
-        --password-stdin
-        docker push $IMAGE_NAME
+4. Autenticarse en Azure.
 
-    - name: Deploy frontend to Azure Web App for Containers
-      run: |
-        IMAGE_NAME=repodocker.azurecr.io/solfedge-frontend:
-        ${{ github.run_number }}
-        az webapp config container set \
-          --docker-custom-image-name $IMAGE_NAME \
-          --docker-registry-server-password ${{ secrets.AZURE_PASSWORD }} \
-          --docker-registry-server-url https://repodocker.azurecr.io \
-          --docker-registry-server-user ${{ secrets.AZURE_USERNAME }} \
-          --name solfedge-frontend \
-          --resource-group RCPMA
+5. Descargar los artefactos generados
+   (solo para el frontend).
 
+6. Construir la imagen Docker de la
+   aplicación correspondiente.
 
-push-and-deploy-backend:
-  if: github.ref == 'refs/heads/main'
-  runs-on: ubuntu-latest
-  needs: build-backend
+7. Autenticarse en el registro de
+   contenedores de Azure.
 
-  steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+8. Publicar la imagen Docker en el
+   registro de contenedores.
 
-    - name: Login to Azure CLI
-      uses: azure/login@v1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-    - name: Build and push backend Docker image to ACR
-      run: |
-        IMAGE_NAME=repodocker.azurecr.io/solfedge-backend:
-        ${{ github.run_number }}
-        docker build -t $IMAGE_NAME ./backend
-        echo ${{ secrets.AZURE_PASSWORD }} | docker login \
-        repodocker.azurecr.io -u ${{ secrets.AZURE_USERNAME }} \
-        --password-stdin
-        docker push $IMAGE_NAME
-
-    - name: Deploy backend to Azure Web App for Containers
-      run: |
-        IMAGE_NAME=repodocker.azurecr.io/solfedge-backend:
-        ${{ github.run_number }}
-        az webapp config container set \
-          --docker-custom-image-name $IMAGE_NAME \
-          --docker-registry-server-password ${{ secrets.AZURE_PASSWORD }} \
-          --docker-registry-server-url https://repodocker.azurecr.io \
-          --docker-registry-server-user ${{ secrets.AZURE_USERNAME }} \
-          --name solfedge-backend \
-          --resource-group RCPMA
+9. Configurar y desplegar la nueva imagen
+   en Azure Web App for Containers.
 \end{Verbatim}
-
 Este pipeline proporciona un mecanismo de despliegue completamente automatizado, garantizando que cada nueva versión validada del código sea publicada de forma inmediata y coherente en el entorno productivo. La combinación de Docker, Azure App Service y GitHub Actions permite establecer un flujo DevOps moderno, escalable y alineado con las buenas prácticas actuales de despliegue continuo.
 
 \begin{figure}[H]
@@ -1717,7 +1549,7 @@ Este pipeline proporciona un mecanismo de despliegue completamente automatizado,
   \caption{Microsoft Azure}
   \label{fig:logo_azure}
 \end{figure}
-
+\newpage
 \subsection{Escalado de la base de datos de MongoDB Atlas}
 \label{sec:escalado_mongodb}
 
