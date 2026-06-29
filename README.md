@@ -123,7 +123,7 @@ No obstante, la aplicación ya dispone de una carga inicial de datos para que se
 
 Las credenciales del usuario administrador con el que se pueden probar las cargas de datos e ir creando el resto de elementos son las siguientes:
 
-Administrador
+**Administrador**
 
 
 Usuario: admin 
@@ -133,14 +133,14 @@ Contraseña: owmJMhtR52kNe5HZ
 
 Además, si se prefiere directamente probar otras funcionalidades concretas se adjuntan las credenciales de un usuario de cada rol.
 
-Profesor
+**Profesor**
 
 
 Usuario: agr
 
 Contraseña: QF18yJZl39
 
-Alumno
+**Alumno**
 
 
 Usuario: lms
