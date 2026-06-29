@@ -1,3 +1,7 @@
+![GitHub release](https://img.shields.io/github/v/release/selugc4/SolfEdge)
+![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Online-success)
+![License](https://img.shields.io/badge/license-Academic-blue)
+
 # SolfEdge
 
 SolfEdge es una aplicación web desarrollada como parte del Trabajo Fin de Grado en Ingeniería Informática, así como del complemento, cuyo objetivo es proporcionar una plataforma de apoyo para la enseñanza y el aprendizaje del lenguaje musical.
@@ -128,13 +132,13 @@ Además, si se prefiere directamente probar otras funcionalidades concretas se a
 
 Profesor
 
-Usuario: admin
-Contraseña: owmJMhtR52kNe5HZ
+Usuario: agr
+Contraseña: QF18yJZl39
 
 Alumno
 
-Usuario: admin
-Contraseña: owmJMhtR52kNe5HZ
+Usuario: lms
+Contraseña: 3TW6ZXniji
 
 ---
 
