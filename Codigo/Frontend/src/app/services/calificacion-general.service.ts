@@ -20,7 +20,6 @@ export class CalificacionGeneralService {
     profesorId?: string
   ): Observable<CalificacionGeneral> {
     const body = { alumnoId, grupoId, tipo, nota, profesorId };
-    console.log('Sending request to crearOActualizarCalificacion with body:', body);
     return this.http.post<CalificacionGeneral>(this.apiUrl, body);
   }
 

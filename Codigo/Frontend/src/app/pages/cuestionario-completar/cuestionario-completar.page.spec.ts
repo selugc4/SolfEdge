@@ -1,13 +1,13 @@
 import { ComponentFixture, TestBed, waitForAsync, fakeAsync, tick } from '@angular/core/testing';
 import { CuestionarioCompletarPage } from './cuestionario-completar.page';
-import { ToastController } from '@ionic/angular/standalone';
+import { ToastController, NavController } from '@ionic/angular/standalone';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { of, throwError } from 'rxjs';
-import { Location } from '@angular/common';
 import { CuestionarioService } from '../../services/cuestionario.service';
 import { TareaStateService } from '../../services/tarea-state.service';
+import { CuestionarioStateService } from 'src/app/services/cuestionario-state.service';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { Cuestionario } from 'src/app/models/cuestionario.model';
 
@@ -15,18 +15,21 @@ describe('CuestionarioCompletarPage', () => {
   let component: CuestionarioCompletarPage;
   let fixture: ComponentFixture<CuestionarioCompletarPage>;
   let cuestionarioService: jasmine.SpyObj<CuestionarioService>;
+  let routerMock: jasmine.SpyObj<Router>;
 
   const mockCuestionario: Cuestionario = {
     _id: 'cuestionario123',
     nombre: 'Test Cuestionario',
-    preguntas: [{
-      texto: 'Pregunta 1',
-      posiblesRespuestas: [
-        { texto: 'a', esCorrecta: true },
-        { texto: 'b', esCorrecta: false }
-      ],
-      recursoAudicion: ''
-    }],
+    preguntas: [
+      {
+        texto: 'Pregunta 1',
+        posiblesRespuestas: [
+          { texto: 'a', esCorrecta: true },
+          { texto: 'b', esCorrecta: false }
+        ],
+        recursoAudicion: ''
+      }
+    ],
     profesor: '',
     rama: '',
     cerrada: false,
@@ -42,11 +45,28 @@ describe('CuestionarioCompletarPage', () => {
     }
   };
 
-  const tareaStateServiceMock = { touch: jasmine.createSpy('touch') };
-  const toastControllerMock = {
-    create: jasmine.createSpy('create').and.returnValue(Promise.resolve({ present: jasmine.createSpy('present') }))
+  const tareaStateServiceMock = {
+    touch: jasmine.createSpy('touch')
   };
-  const locationMock = { back: jasmine.createSpy('back') };
+
+  const cuestionarioStateServiceMock = {
+    touch: jasmine.createSpy('touch')
+  };
+
+  const toastControllerMock = {
+    create: jasmine.createSpy('create').and.returnValue(
+      Promise.resolve({
+        present: jasmine.createSpy('present').and.returnValue(Promise.resolve())
+      })
+    )
+  };
+
+  const navControllerMock = {
+    navigateBack: jasmine.createSpy('navigateBack'),
+    navigateForward: jasmine.createSpy('navigateForward'),
+    navigateRoot: jasmine.createSpy('navigateRoot'),
+    back: jasmine.createSpy('back')
+  };
 
   beforeEach(waitForAsync(() => {
     const cuestionarioServiceSpy = jasmine.createSpyObj<CuestionarioService>('CuestionarioService', [
@@ -59,6 +79,9 @@ describe('CuestionarioCompletarPage', () => {
     cuestionarioServiceSpy.entregarCuestionario.and.returnValue(of({ nota: 10 } as any));
     cuestionarioServiceSpy.getPistaPregunta.and.returnValue(of({ pista: 'PISTA IA', cached: false }));
 
+    routerMock = jasmine.createSpyObj<Router>('Router', ['navigate']);
+    routerMock.navigate.and.returnValue(Promise.resolve(true));
+
     TestBed.configureTestingModule({
       imports: [
         CuestionarioCompletarPage,
@@ -66,10 +89,12 @@ describe('CuestionarioCompletarPage', () => {
       ],
       providers: [
         { provide: ActivatedRoute, useValue: activatedRouteMock },
+        { provide: Router, useValue: routerMock },
+        { provide: NavController, useValue: navControllerMock },
         { provide: CuestionarioService, useValue: cuestionarioServiceSpy },
         { provide: TareaStateService, useValue: tareaStateServiceMock },
+        { provide: CuestionarioStateService, useValue: cuestionarioStateServiceMock },
         { provide: ToastController, useValue: toastControllerMock },
-        { provide: Location, useValue: locationMock },
         FormBuilder,
         provideHttpClient(),
         provideHttpClientTesting()
@@ -78,7 +103,7 @@ describe('CuestionarioCompletarPage', () => {
 
     fixture = TestBed.createComponent(CuestionarioCompletarPage);
     component = fixture.componentInstance;
-    cuestionarioService = TestBed.inject(CuestionarioService) as any;
+    cuestionarioService = TestBed.inject(CuestionarioService) as jasmine.SpyObj<CuestionarioService>;
     fixture.detectChanges();
   }));
 
@@ -107,9 +132,14 @@ describe('CuestionarioCompletarPage', () => {
     component.onSubmit();
     tick();
 
-    expect(cuestionarioService.entregarCuestionario).toHaveBeenCalledWith('cuestionario123', ['0']);
+    expect(cuestionarioService.entregarCuestionario)
+      .toHaveBeenCalledWith('cuestionario123', ['0']);
+
     expect(tareaStateServiceMock.touch).toHaveBeenCalled();
-    expect(locationMock.back).toHaveBeenCalled();
+    expect(cuestionarioStateServiceMock.touch).toHaveBeenCalled();
+
+    expect(routerMock.navigate)
+      .toHaveBeenCalledWith(['/Areas', 'Teoria']);
   }));
 
   it('should identify youtube url', () => {

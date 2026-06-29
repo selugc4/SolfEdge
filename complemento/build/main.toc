@@ -50,71 +50,71 @@
 \contentsline {subsubsection}{\numberline {4.7.2.2}Diseño y experiencia de usuario (UX/UI)}{38}{subsubsection.4.7.2.2}%
 \contentsline {paragraph}{Continuidad visual entre plataformas}{38}{subsubsection.4.7.2.2}%
 \contentsline {paragraph}{Adaptaciones derivadas de la ejecución en Android}{39}{figure.caption.25}%
-\contentsline {subsubsection}{\numberline {4.7.2.3}Testing}{41}{subsubsection.4.7.2.3}%
-\contentsline {subsection}{\numberline {4.7.3}Implementación del despliegue}{42}{subsection.4.7.3}%
-\contentsline {subsubsection}{\numberline {4.7.3.1}Despliegue de la aplicación web}{43}{subsubsection.4.7.3.1}%
-\contentsline {subsubsection}{\numberline {4.7.3.2}Despliegue de la aplicación Android}{43}{subsubsection.4.7.3.2}%
-\contentsline {paragraph}{Generación del contenedor Android}{43}{subsubsection.4.7.3.2}%
-\contentsline {paragraph}{Construcción y validación}{44}{Item.39}%
-\contentsline {paragraph}{Generación del paquete instalable}{44}{Item.39}%
-\contentsline {subsubsection}{\numberline {4.7.3.3}Valor aportado por el despliegue móvil}{45}{subsubsection.4.7.3.3}%
-\contentsline {chapter}{\numberline {5}Flujos de trabajo}{46}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Eliminación de un grupo}{46}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Importación masiva mediante archivos CSV}{47}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Resolución de cuestionarios con asistencia mediante inteligencia artificial}{48}{section.5.3}%
-\contentsline {chapter}{\numberline {6}Plan de implantación}{50}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Objetivos del plan de implantación}{50}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Contexto de implantación en centros educativos}{51}{section.6.2}%
-\contentsline {section}{\numberline {6.3}Estrategia de implantación progresiva}{51}{section.6.3}%
-\contentsline {subsection}{\numberline {6.3.1}Fase 1: Despliegue piloto}{52}{subsection.6.3.1}%
-\contentsline {subsection}{\numberline {6.3.2}Fase 2: Despliegue parcial}{53}{subsection.6.3.2}%
-\contentsline {subsection}{\numberline {6.3.3}Fase 3: Despliegue completo}{53}{subsection.6.3.3}%
-\contentsline {section}{\numberline {6.4}Migración tecnológica hacia un entorno productivo}{54}{section.6.4}%
-\contentsline {subsection}{\numberline {6.4.1}Justificación de la migración}{54}{subsection.6.4.1}%
-\contentsline {subsection}{\numberline {6.4.2}Migración del backend y frontend a Microsoft Azure}{54}{subsection.6.4.2}%
-\contentsline {subsubsection}{\numberline {6.4.2.1}Azure App Service como plataforma de ejecución}{55}{subsubsection.6.4.2.1}%
-\contentsline {subsubsection}{\numberline {6.4.2.2}Arquitectura de despliegue propuesta}{55}{subsubsection.6.4.2.2}%
-\contentsline {subsubsection}{\numberline {6.4.2.3}Proceso de migración}{56}{subsubsection.6.4.2.3}%
-\contentsline {subsubsection}{\numberline {6.4.2.4}Pipeline de despliegue automatizado}{56}{subsubsection.6.4.2.4}%
-\contentsline {paragraph}{Configuración previa en Azure}{56}{subsubsection.6.4.2.4}%
-\contentsline {paragraph}{Flujo general de despliegue}{57}{subsubsection.6.4.2.4}%
-\contentsline {paragraph}{Pipeline de despliegue}{57}{Item.63}%
-\contentsline {subsection}{\numberline {6.4.3}Escalado de la base de datos de MongoDB Atlas}{60}{subsection.6.4.3}%
-\contentsline {subsubsection}{\numberline {6.4.3.1}Arquitectura de clúster y escalabilidad}{60}{subsubsection.6.4.3.1}%
-\contentsline {subsubsection}{\numberline {6.4.3.2}Plan de escalado progresivo}{60}{subsubsection.6.4.3.2}%
-\contentsline {subsubsection}{\numberline {6.4.3.3}Integración con la arquitectura global}{60}{subsubsection.6.4.3.3}%
-\contentsline {section}{\numberline {6.5}Publicación y distribución oficial de la aplicación móvil}{61}{section.6.5}%
-\contentsline {subsection}{\numberline {6.5.1}Justificación de la publicación en tienda oficial}{61}{subsection.6.5.1}%
-\contentsline {subsection}{\numberline {6.5.2}Preparación técnica para la publicación}{61}{subsection.6.5.2}%
-\contentsline {subsection}{\numberline {6.5.3}Generación del paquete Android App Bundle (AAB)}{62}{subsection.6.5.3}%
-\contentsline {subsection}{\numberline {6.5.4}Proceso de publicación en Google Play Console}{62}{subsection.6.5.4}%
-\contentsline {subsection}{\numberline {6.5.5}Integración en la estrategia de implantación}{62}{subsection.6.5.5}%
-\contentsline {section}{\numberline {6.6}Migración del sistema de almacenamiento de archivos}{63}{section.6.6}%
-\contentsline {section}{\numberline {6.7}Gestión profesional del correo electrónico}{64}{section.6.7}%
-\contentsline {section}{\numberline {6.8}Seguridad, protección de datos y cumplimiento normativo}{65}{section.6.8}%
-\contentsline {subsection}{\numberline {6.8.1}Plan operativo de seguridad}{65}{subsection.6.8.1}%
-\contentsline {subsection}{\numberline {6.8.2}Protección de datos personales y marco normativo}{65}{subsection.6.8.2}%
-\contentsline {subsection}{\numberline {6.8.3}Gestión de credenciales y control de accesos}{66}{subsection.6.8.3}%
-\contentsline {subsection}{\numberline {6.8.4}Integración de servicios externos (correo, contraseñas, IA)}{66}{subsection.6.8.4}%
-\contentsline {subsection}{\numberline {6.8.5}Protección frente a pérdida de información (backups)}{66}{subsection.6.8.5}%
-\contentsline {subsection}{\numberline {6.8.6}Seguridad en entorno móvil}{66}{subsection.6.8.6}%
-\contentsline {section}{\numberline {6.9}Formación de usuarios y adopción del sistema}{67}{section.6.9}%
-\contentsline {subsection}{\numberline {6.9.1}Formación del profesorado}{67}{subsection.6.9.1}%
-\contentsline {subsection}{\numberline {6.9.2}Formación del alumnado}{67}{subsection.6.9.2}%
-\contentsline {subsection}{\numberline {6.9.3}Documentación y recursos de apoyo}{67}{subsection.6.9.3}%
-\contentsline {section}{\numberline {6.10}Cronograma de implantación}{68}{section.6.10}%
-\contentsline {section}{\numberline {6.11}Validación práctica en entorno educativo real}{69}{section.6.11}%
-\contentsline {subsection}{\numberline {6.11.1}Contexto de la demostración}{70}{subsection.6.11.1}%
-\contentsline {subsection}{\numberline {6.11.2}Valoración del profesorado}{70}{subsection.6.11.2}%
-\contentsline {subsection}{\numberline {6.11.3}Reacciones del alumnado}{71}{subsection.6.11.3}%
-\contentsline {subsection}{\numberline {6.11.4}Problemas detectados y mejoras aplicadas}{71}{subsection.6.11.4}%
-\contentsline {subsection}{\numberline {6.11.5}Valor académico de la validación empírica}{72}{subsection.6.11.5}%
-\contentsline {section}{\numberline {6.12}Síntesis del plan de implantación}{73}{section.6.12}%
-\contentsline {chapter}{\numberline {7}Conclusiones y líneas de trabajo futuro}{74}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Conclusiones}{74}{section.7.1}%
-\contentsline {section}{\numberline {7.2}Líneas de trabajo futuro}{75}{section.7.2}%
-\contentsline {subsection}{\numberline {7.2.1}Ejecución completa del plan de implantación en un centro educativo}{75}{subsection.7.2.1}%
-\contentsline {subsection}{\numberline {7.2.2}Extensión continua de funcionalidades e innovación pedagógica}{76}{subsection.7.2.2}%
-\contentsline {subsection}{\numberline {7.2.3}Apertura del sistema a usuarios externos y acceso sin autenticación}{76}{subsection.7.2.3}%
-\contentsline {subsection}{\numberline {7.2.4}Tecnologías de mantenimiento, monitorización y gestión de logs}{76}{subsection.7.2.4}%
-\contentsline {subsection}{\numberline {7.2.5}Refuerzo de la seguridad y mejora en la gestión de credenciales}{77}{subsection.7.2.5}%
+\contentsline {subsubsection}{\numberline {4.7.2.3}Testing}{42}{subsubsection.4.7.2.3}%
+\contentsline {subsection}{\numberline {4.7.3}Implementación del despliegue}{44}{subsection.4.7.3}%
+\contentsline {subsubsection}{\numberline {4.7.3.1}Despliegue de la aplicación web}{44}{subsubsection.4.7.3.1}%
+\contentsline {subsubsection}{\numberline {4.7.3.2}Despliegue de la aplicación Android}{44}{subsubsection.4.7.3.2}%
+\contentsline {paragraph}{Generación del contenedor Android}{45}{subsubsection.4.7.3.2}%
+\contentsline {paragraph}{Construcción y validación}{45}{Item.39}%
+\contentsline {paragraph}{Generación del paquete instalable}{45}{Item.39}%
+\contentsline {subsubsection}{\numberline {4.7.3.3}Valor aportado por el despliegue móvil}{46}{subsubsection.4.7.3.3}%
+\contentsline {chapter}{\numberline {5}Flujos de trabajo}{47}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Eliminación de un grupo}{47}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Importación masiva mediante archivos CSV}{48}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Resolución de cuestionarios con asistencia mediante inteligencia artificial}{49}{section.5.3}%
+\contentsline {chapter}{\numberline {6}Plan de implantación}{51}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Objetivos del plan de implantación}{51}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Contexto de implantación en centros educativos}{52}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Estrategia de implantación progresiva}{52}{section.6.3}%
+\contentsline {subsection}{\numberline {6.3.1}Fase 1: Despliegue piloto}{53}{subsection.6.3.1}%
+\contentsline {subsection}{\numberline {6.3.2}Fase 2: Despliegue parcial}{54}{subsection.6.3.2}%
+\contentsline {subsection}{\numberline {6.3.3}Fase 3: Despliegue completo}{54}{subsection.6.3.3}%
+\contentsline {section}{\numberline {6.4}Migración tecnológica hacia un entorno productivo}{55}{section.6.4}%
+\contentsline {subsection}{\numberline {6.4.1}Justificación de la migración}{55}{subsection.6.4.1}%
+\contentsline {subsection}{\numberline {6.4.2}Migración del backend y frontend a Microsoft Azure}{55}{subsection.6.4.2}%
+\contentsline {subsubsection}{\numberline {6.4.2.1}Azure App Service como plataforma de ejecución}{56}{subsubsection.6.4.2.1}%
+\contentsline {subsubsection}{\numberline {6.4.2.2}Arquitectura de despliegue propuesta}{56}{subsubsection.6.4.2.2}%
+\contentsline {subsubsection}{\numberline {6.4.2.3}Proceso de migración}{57}{subsubsection.6.4.2.3}%
+\contentsline {subsubsection}{\numberline {6.4.2.4}Pipeline de despliegue automatizado}{57}{subsubsection.6.4.2.4}%
+\contentsline {paragraph}{Configuración previa en Azure}{57}{subsubsection.6.4.2.4}%
+\contentsline {paragraph}{Flujo general de despliegue}{58}{subsubsection.6.4.2.4}%
+\contentsline {paragraph}{Pipeline de despliegue}{58}{Item.63}%
+\contentsline {subsection}{\numberline {6.4.3}Escalado de la base de datos de MongoDB Atlas}{61}{subsection.6.4.3}%
+\contentsline {subsubsection}{\numberline {6.4.3.1}Arquitectura de clúster y escalabilidad}{61}{subsubsection.6.4.3.1}%
+\contentsline {subsubsection}{\numberline {6.4.3.2}Plan de escalado progresivo}{61}{subsubsection.6.4.3.2}%
+\contentsline {subsubsection}{\numberline {6.4.3.3}Integración con la arquitectura global}{61}{subsubsection.6.4.3.3}%
+\contentsline {section}{\numberline {6.5}Publicación y distribución oficial de la aplicación móvil}{62}{section.6.5}%
+\contentsline {subsection}{\numberline {6.5.1}Justificación de la publicación en tienda oficial}{62}{subsection.6.5.1}%
+\contentsline {subsection}{\numberline {6.5.2}Preparación técnica para la publicación}{62}{subsection.6.5.2}%
+\contentsline {subsection}{\numberline {6.5.3}Generación del paquete Android App Bundle (AAB)}{63}{subsection.6.5.3}%
+\contentsline {subsection}{\numberline {6.5.4}Proceso de publicación en Google Play Console}{63}{subsection.6.5.4}%
+\contentsline {subsection}{\numberline {6.5.5}Integración en la estrategia de implantación}{63}{subsection.6.5.5}%
+\contentsline {section}{\numberline {6.6}Migración del sistema de almacenamiento de archivos}{64}{section.6.6}%
+\contentsline {section}{\numberline {6.7}Gestión profesional del correo electrónico}{65}{section.6.7}%
+\contentsline {section}{\numberline {6.8}Seguridad, protección de datos y cumplimiento normativo}{66}{section.6.8}%
+\contentsline {subsection}{\numberline {6.8.1}Plan operativo de seguridad}{66}{subsection.6.8.1}%
+\contentsline {subsection}{\numberline {6.8.2}Protección de datos personales y marco normativo}{66}{subsection.6.8.2}%
+\contentsline {subsection}{\numberline {6.8.3}Gestión de credenciales y control de accesos}{67}{subsection.6.8.3}%
+\contentsline {subsection}{\numberline {6.8.4}Integración de servicios externos (correo, contraseñas, IA)}{67}{subsection.6.8.4}%
+\contentsline {subsection}{\numberline {6.8.5}Protección frente a pérdida de información (backups)}{67}{subsection.6.8.5}%
+\contentsline {subsection}{\numberline {6.8.6}Seguridad en entorno móvil}{67}{subsection.6.8.6}%
+\contentsline {section}{\numberline {6.9}Formación de usuarios y adopción del sistema}{68}{section.6.9}%
+\contentsline {subsection}{\numberline {6.9.1}Formación del profesorado}{68}{subsection.6.9.1}%
+\contentsline {subsection}{\numberline {6.9.2}Formación del alumnado}{68}{subsection.6.9.2}%
+\contentsline {subsection}{\numberline {6.9.3}Documentación y recursos de apoyo}{68}{subsection.6.9.3}%
+\contentsline {section}{\numberline {6.10}Cronograma de implantación}{69}{section.6.10}%
+\contentsline {section}{\numberline {6.11}Validación práctica en entorno educativo real}{70}{section.6.11}%
+\contentsline {subsection}{\numberline {6.11.1}Contexto de la demostración}{71}{subsection.6.11.1}%
+\contentsline {subsection}{\numberline {6.11.2}Valoración del profesorado}{71}{subsection.6.11.2}%
+\contentsline {subsection}{\numberline {6.11.3}Reacciones del alumnado}{72}{subsection.6.11.3}%
+\contentsline {subsection}{\numberline {6.11.4}Problemas detectados y mejoras aplicadas}{72}{subsection.6.11.4}%
+\contentsline {subsection}{\numberline {6.11.5}Valor académico de la validación empírica}{73}{subsection.6.11.5}%
+\contentsline {section}{\numberline {6.12}Síntesis del plan de implantación}{74}{section.6.12}%
+\contentsline {chapter}{\numberline {7}Conclusiones y líneas de trabajo futuro}{75}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Conclusiones}{75}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Líneas de trabajo futuro}{76}{section.7.2}%
+\contentsline {subsection}{\numberline {7.2.1}Ejecución completa del plan de implantación en un centro educativo}{76}{subsection.7.2.1}%
+\contentsline {subsection}{\numberline {7.2.2}Extensión continua de funcionalidades e innovación pedagógica}{77}{subsection.7.2.2}%
+\contentsline {subsection}{\numberline {7.2.3}Apertura del sistema a usuarios externos y acceso sin autenticación}{77}{subsection.7.2.3}%
+\contentsline {subsection}{\numberline {7.2.4}Tecnologías de mantenimiento, monitorización y gestión de logs}{77}{subsection.7.2.4}%
+\contentsline {subsection}{\numberline {7.2.5}Refuerzo de la seguridad y mejora en la gestión de credenciales}{78}{subsection.7.2.5}%

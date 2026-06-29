@@ -287,7 +287,7 @@ describe('Tarea API', () => {
       expect(mockCalificacion.nota).toBe(8);
     });
 
-    it('should round grades with more than two characters', async () => {
+    it('should keep grades with up to two decimals', async () => {
       const mockCalificacion = {
         _id: 'cal1',
         nota: 0,
@@ -308,9 +308,31 @@ describe('Tarea API', () => {
 
       expect(result.status).toBe(200);
       expect(mockCalificacion.save).toHaveBeenCalled();
-      expect(mockCalificacion.nota).toBe(9);
+      expect(mockCalificacion.nota).toBe(8.56);
     });
+    it('should round grades to two decimals', async () => {
+      const mockCalificacion = {
+        _id: 'cal1',
+        nota: 0,
+        tarea: { profesor: 'profesor1', titulo: 'Test Tarea' },
+        alumno: 'alumno1',
+        save: jest.fn().mockResolvedValue(),
+      };
 
+      Calificacion.findById.mockReturnValue({
+        populate: jest.fn().mockResolvedValue(mockCalificacion)
+      });
+
+      Usuario.findOne.mockResolvedValue({ _id: 'sistema-user' });
+      mensajeController.crearMensaje.mockResolvedValue();
+
+      const tareaController = require('../controllers/tarea.controller');
+      const result = await tareaController.calificarEntrega('cal1', 8.756, 'profesor1');
+
+      expect(result.status).toBe(200);
+      expect(mockCalificacion.save).toHaveBeenCalled();
+      expect(mockCalificacion.nota).toBe(8.76);
+    });
     it('should return 400 if nota out of range', async () => {
       const tareaController = require('../controllers/tarea.controller');
       const result = await tareaController.calificarEntrega('cal1', 15, 'profesor1');

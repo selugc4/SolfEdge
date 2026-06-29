@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.9.27)  28 JUN 2026 21:06
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.9.27)  29 JUN 2026 01:59
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1116,7 +1116,7 @@ LaTeX Font Info:    Font shape `T1/phv/b/sc' will be
 
 LaTeX Info: Redefining \. on input line 15.
 LaTeX Info: Redefining \% on input line 15.
-<Figuras/logos/escudoazul.png, id=621, 263.5446pt x 263.5446pt>
+<Figuras/logos/escudoazul.png, id=625, 263.5446pt x 263.5446pt>
 File: Figuras/logos/escudoazul.png Graphic file (type png)
 <use Figuras/logos/escudoazul.png>
 Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 15.
@@ -1186,7 +1186,7 @@ File: Figuras/logos/escudoazul.png Graphic file (type png)
 Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 120.
 (pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
 [6]
-<Figuras/logos/groq.png, id=651, 1284.8pt x 469.755pt>
+<Figuras/logos/groq.png, id=660, 1284.8pt x 469.755pt>
 File: Figuras/logos/groq.png Graphic file (type png)
 <use Figuras/logos/groq.png>
 Package pdftex.def Info: Figuras/logos/groq.png  used on input line 134.
@@ -1204,7 +1204,7 @@ File: Figuras/logos/escudoazul.png Graphic file (type png)
 Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 147.
 (pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
 [7 <./Figuras/logos/groq.png>]
-<Figuras/logos/Capacitor.png, id=660, 513.92pt x 513.92pt>
+<Figuras/logos/Capacitor.png, id=670, 513.92pt x 513.92pt>
 File: Figuras/logos/Capacitor.png Graphic file (type png)
 <use Figuras/logos/Capacitor.png>
 Package pdftex.def Info: Figuras/logos/Capacitor.png  used on input line 170.
@@ -1222,7 +1222,7 @@ File: Figuras/logos/escudoazul.png Graphic file (type png)
 Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 174.
 (pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
 [8 <./Figuras/logos/Capacitor.png>]
-<Figuras/logos/android_studio.png, id=668, 1204.5pt x 1204.5pt>
+<Figuras/logos/android_studio.png, id=678, 1204.5pt x 1204.5pt>
 File: Figuras/logos/android_studio.png Graphic file (type png)
 <use Figuras/logos/android_studio.png>
 Package pdftex.def Info: Figuras/logos/android_studio.png  used on input line 190.
@@ -1281,7 +1281,7 @@ File: Figuras/logos/escudoazul.png Graphic file (type png)
 Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 270.
 (pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
 [12]
-<Figuras/planificacion_extendida.png, id=690, 466.74374pt x 446.41782pt>
+<Figuras/planificacion_extendida.png, id=700, 466.74374pt x 446.41782pt>
 File: Figuras/planificacion_extendida.png Graphic file (type png)
 <use Figuras/planificacion_extendida.png>
 Package pdftex.def Info: Figuras/planificacion_extendida.png  used on input line 277.
@@ -1347,7 +1347,7 @@ File: Figuras/logos/escudoazul.png Graphic file (type png)
 Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 357.
 (pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
 [17]
-<Figuras/DCU_extendido.png, id=716, 833.1125pt x 515.9275pt>
+<Figuras/DCU_extendido.png, id=726, 833.1125pt x 515.9275pt>
 File: Figuras/DCU_extendido.png Graphic file (type png)
 <use Figuras/DCU_extendido.png>
 Package pdftex.def Info: Figuras/DCU_extendido.png  used on input line 369.
@@ -1449,7 +1449,7 @@ File: Figuras/logos/escudoazul.png Graphic file (type png)
 Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 691.
 (pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
 [25]
-<Figuras/modelo_Conceptual.png, id=785, 958.58125pt x 1176.395pt>
+<Figuras/modelo_Conceptual.png, id=797, 958.58125pt x 1176.395pt>
 File: Figuras/modelo_Conceptual.png Graphic file (type png)
 <use Figuras/modelo_Conceptual.png>
 Package pdftex.def Info: Figuras/modelo_Conceptual.png  used on input line 697.
@@ -1498,37 +1498,37 @@ Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 745.
 
 File: Figuras/logos/logo_peque_R.png Graphic file (type png)
 <use Figuras/logos/logo_peque_R.png>
-Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 779.
+Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 778.
 (pdftex.def)             Requested size: 91.04742pt x 34.84862pt.
-LaTeX Info: Redefining \. on input line 779.
-LaTeX Info: Redefining \% on input line 779.
+LaTeX Info: Redefining \. on input line 778.
+LaTeX Info: Redefining \% on input line 778.
 File: Figuras/logos/escudoazul.png Graphic file (type png)
 <use Figuras/logos/escudoazul.png>
-Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 779.
+Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 778.
 (pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
 [29]
 
 File: Figuras/logos/logo_peque_R.png Graphic file (type png)
 <use Figuras/logos/logo_peque_R.png>
-Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 813.
+Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 812.
 (pdftex.def)             Requested size: 91.04742pt x 34.84862pt.
-LaTeX Info: Redefining \. on input line 813.
-LaTeX Info: Redefining \% on input line 813.
+LaTeX Info: Redefining \. on input line 812.
+LaTeX Info: Redefining \% on input line 812.
 File: Figuras/logos/escudoazul.png Graphic file (type png)
 <use Figuras/logos/escudoazul.png>
-Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 813.
+Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 812.
 (pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
 [30]
 
 File: Figuras/logos/logo_peque_R.png Graphic file (type png)
 <use Figuras/logos/logo_peque_R.png>
-Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 858.
+Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 857.
 (pdftex.def)             Requested size: 91.04742pt x 34.84862pt.
-LaTeX Info: Redefining \. on input line 858.
-LaTeX Info: Redefining \% on input line 858.
+LaTeX Info: Redefining \. on input line 857.
+LaTeX Info: Redefining \% on input line 857.
 File: Figuras/logos/escudoazul.png Graphic file (type png)
 <use Figuras/logos/escudoazul.png>
-Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 858.
+Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 857.
 (pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
 [31]
 
@@ -1608,7 +1608,7 @@ File: Figuras/logos/escudoazul.png Graphic file (type png)
 Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1095.
 (pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
 [37]
-<Figuras/menus.png, id=839, 924.45375pt x 2055.68pt>
+<Figuras/menus.png, id=859, 924.45375pt x 2055.68pt>
 File: Figuras/menus.png Graphic file (type png)
 <use Figuras/menus.png>
 Package pdftex.def Info: Figuras/menus.png  used on input line 1122.
@@ -1626,273 +1626,286 @@ File: Figuras/logos/escudoazul.png Graphic file (type png)
 Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1126.
 (pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
 [38]
-<Figuras/Ritmo_pc.png, id=847, 1927.2pt x 985.43156pt>
+<Figuras/Ritmo_pc.png, id=869, 1927.2pt x 985.43156pt>
 File: Figuras/Ritmo_pc.png Graphic file (type png)
 <use Figuras/Ritmo_pc.png>
 Package pdftex.def Info: Figuras/Ritmo_pc.png  used on input line 1151.
 (pdftex.def)             Requested size: 318.66948pt x 162.93503pt.
-<Figuras/Ritmo.png, id=848, 1016.79875pt x 2055.68pt>
-File: Figuras/Ritmo.png Graphic file (type png)
-<use Figuras/Ritmo.png>
-Package pdftex.def Info: Figuras/Ritmo.png  used on input line 1153.
-(pdftex.def)             Requested size: 91.04742pt x 184.0622pt.
 
 
 File: Figuras/logos/logo_peque_R.png Graphic file (type png)
 <use Figuras/logos/logo_peque_R.png>
-Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 1156.
+Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 1154.
 (pdftex.def)             Requested size: 91.04742pt x 34.84862pt.
-LaTeX Info: Redefining \. on input line 1156.
-LaTeX Info: Redefining \% on input line 1156.
+LaTeX Info: Redefining \. on input line 1154.
+LaTeX Info: Redefining \% on input line 1154.
 File: Figuras/logos/escudoazul.png Graphic file (type png)
 <use Figuras/logos/escudoazul.png>
-Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1156.
+Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1154.
 (pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
 [39 <./Figuras/menus.png>]
-<Figuras/cuestionario_pc.png, id=853, 1894.07625pt x 985.43156pt>
+<Figuras/Ritmo.png, id=874, 1016.79875pt x 2055.68pt>
+File: Figuras/Ritmo.png Graphic file (type png)
+<use Figuras/Ritmo.png>
+Package pdftex.def Info: Figuras/Ritmo.png  used on input line 1157.
+(pdftex.def)             Requested size: 182.09486pt x 368.1244pt.
+<Figuras/cuestionario_pc.png, id=875, 1894.07625pt x 985.43156pt>
 File: Figuras/cuestionario_pc.png Graphic file (type png)
 <use Figuras/cuestionario_pc.png>
-Package pdftex.def Info: Figuras/cuestionario_pc.png  used on input line 1160.
+Package pdftex.def Info: Figuras/cuestionario_pc.png  used on input line 1163.
 (pdftex.def)             Requested size: 318.66948pt x 165.79196pt.
-<Figuras/cuestionario.png, id=854, 1013.7875pt x 2055.68pt>
+<Figuras/cuestionario.png, id=876, 1013.7875pt x 2055.68pt>
 File: Figuras/cuestionario.png Graphic file (type png)
 <use Figuras/cuestionario.png>
-Package pdftex.def Info: Figuras/cuestionario.png  used on input line 1162.
-(pdftex.def)             Requested size: 91.04742pt x 184.59544pt.
-<Figuras/splash.png, id=855, 327.2225pt x 256.96pt>
+Package pdftex.def Info: Figuras/cuestionario.png  used on input line 1170.
+(pdftex.def)             Requested size: 182.09486pt x 369.22226pt.
+
+
+File: Figuras/logos/logo_peque_R.png Graphic file (type png)
+<use Figuras/logos/logo_peque_R.png>
+Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 1173.
+(pdftex.def)             Requested size: 91.04742pt x 34.84862pt.
+LaTeX Info: Redefining \. on input line 1173.
+LaTeX Info: Redefining \% on input line 1173.
+File: Figuras/logos/escudoazul.png Graphic file (type png)
+<use Figuras/logos/escudoazul.png>
+Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1173.
+(pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
+[40 <./Figuras/Ritmo_pc.png> <./Figuras/Ritmo.png>]
+<Figuras/splash.png, id=882, 327.2225pt x 256.96pt>
 File: Figuras/splash.png Graphic file (type png)
 <use Figuras/splash.png>
-Package pdftex.def Info: Figuras/splash.png  used on input line 1169.
+Package pdftex.def Info: Figuras/splash.png  used on input line 1176.
 (pdftex.def)             Requested size: 136.57462pt x 107.24806pt.
 
 
 File: Figuras/logos/logo_peque_R.png Graphic file (type png)
 <use Figuras/logos/logo_peque_R.png>
-Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 1176.
+Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 1180.
 (pdftex.def)             Requested size: 91.04742pt x 34.84862pt.
-LaTeX Info: Redefining \. on input line 1176.
-LaTeX Info: Redefining \% on input line 1176.
+LaTeX Info: Redefining \. on input line 1180.
+LaTeX Info: Redefining \% on input line 1180.
 File: Figuras/logos/escudoazul.png Graphic file (type png)
 <use Figuras/logos/escudoazul.png>
-Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1176.
+Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1180.
 (pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
-[40 <./Figuras/Ritmo_pc.png> <./Figuras/Ritmo.png> <./Figuras/cuestionario_pc.png> <./Figuras/cuestionario.png> <./Figuras/splash.png>]
+[41 <./Figuras/cuestionario_pc.png> <./Figuras/cuestionario.png>]
 
 File: Figuras/logos/logo_peque_R.png Graphic file (type png)
 <use Figuras/logos/logo_peque_R.png>
-Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 1212.
+Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 1209.
 (pdftex.def)             Requested size: 91.04742pt x 34.84862pt.
-LaTeX Info: Redefining \. on input line 1212.
-LaTeX Info: Redefining \% on input line 1212.
+LaTeX Info: Redefining \. on input line 1209.
+LaTeX Info: Redefining \% on input line 1209.
 File: Figuras/logos/escudoazul.png Graphic file (type png)
 <use Figuras/logos/escudoazul.png>
-Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1212.
+Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1209.
 (pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
-[41]
+[42 <./Figuras/splash.png>]
 
 File: Figuras/logos/logo_peque_R.png Graphic file (type png)
 <use Figuras/logos/logo_peque_R.png>
-Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 1248.
+Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 1249.
 (pdftex.def)             Requested size: 91.04742pt x 34.84862pt.
-LaTeX Info: Redefining \. on input line 1248.
-LaTeX Info: Redefining \% on input line 1248.
+LaTeX Info: Redefining \. on input line 1249.
+LaTeX Info: Redefining \% on input line 1249.
 File: Figuras/logos/escudoazul.png Graphic file (type png)
 <use Figuras/logos/escudoazul.png>
-Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1248.
-(pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
-[42]
-
-File: Figuras/logos/logo_peque_R.png Graphic file (type png)
-<use Figuras/logos/logo_peque_R.png>
-Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 1285.
-(pdftex.def)             Requested size: 91.04742pt x 34.84862pt.
-LaTeX Info: Redefining \. on input line 1285.
-LaTeX Info: Redefining \% on input line 1285.
-File: Figuras/logos/escudoazul.png Graphic file (type png)
-<use Figuras/logos/escudoazul.png>
-Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1285.
+Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1249.
 (pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
 [43]
-<Figuras/apk_install.png, id=881, 1224.575pt x 1073.00874pt>
+
+File: Figuras/logos/logo_peque_R.png Graphic file (type png)
+<use Figuras/logos/logo_peque_R.png>
+Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 1276.
+(pdftex.def)             Requested size: 91.04742pt x 34.84862pt.
+LaTeX Info: Redefining \. on input line 1276.
+LaTeX Info: Redefining \% on input line 1276.
+File: Figuras/logos/escudoazul.png Graphic file (type png)
+<use Figuras/logos/escudoazul.png>
+Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1276.
+(pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
+[44]
+<Figuras/apk_install.png, id=903, 1224.575pt x 1073.00874pt>
 File: Figuras/apk_install.png Graphic file (type png)
 <use Figuras/apk_install.png>
-Package pdftex.def Info: Figuras/apk_install.png  used on input line 1300.
+Package pdftex.def Info: Figuras/apk_install.png  used on input line 1307.
 (pdftex.def)             Requested size: 318.66948pt x 279.22128pt.
 
 
 File: Figuras/logos/logo_peque_R.png Graphic file (type png)
 <use Figuras/logos/logo_peque_R.png>
-Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 1309.
+Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 1311.
 (pdftex.def)             Requested size: 91.04742pt x 34.84862pt.
-LaTeX Info: Redefining \. on input line 1309.
-LaTeX Info: Redefining \% on input line 1309.
+LaTeX Info: Redefining \. on input line 1311.
+LaTeX Info: Redefining \% on input line 1311.
 File: Figuras/logos/escudoazul.png Graphic file (type png)
 <use Figuras/logos/escudoazul.png>
-Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1309.
+Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1311.
 (pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
-[44 <./Figuras/apk_install.png>]
+[45]
 
 File: Figuras/logos/logo_peque_R.png Graphic file (type png)
 <use Figuras/logos/logo_peque_R.png>
-Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 1320.
+Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 1327.
 (pdftex.def)             Requested size: 91.04742pt x 34.84862pt.
-LaTeX Info: Redefining \. on input line 1320.
-LaTeX Info: Redefining \% on input line 1320.
+LaTeX Info: Redefining \. on input line 1327.
+LaTeX Info: Redefining \% on input line 1327.
 File: Figuras/logos/escudoazul.png Graphic file (type png)
 <use Figuras/logos/escudoazul.png>
-Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1320.
+Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1327.
 (pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
-[45]
+[46 <./Figuras/apk_install.png>]
  5.
-<Figuras/flujo_eliminar_grupo.png, id=891, 1224.575pt x 1462.46375pt>
+<Figuras/flujo_eliminar_grupo.png, id=917, 1224.575pt x 1462.46375pt>
 File: Figuras/flujo_eliminar_grupo.png Graphic file (type png)
 <use Figuras/flujo_eliminar_grupo.png>
-Package pdftex.def Info: Figuras/flujo_eliminar_grupo.png  used on input line 1345.
+Package pdftex.def Info: Figuras/flujo_eliminar_grupo.png  used on input line 1352.
 (pdftex.def)             Requested size: 145.68144pt x 173.97063pt.
 
 
-LaTeX Info: Redefining \. on input line 1349.
-LaTeX Info: Redefining \% on input line 1349.
+LaTeX Info: Redefining \. on input line 1356.
+LaTeX Info: Redefining \% on input line 1356.
 File: Figuras/logos/escudoazul.png Graphic file (type png)
 <use Figuras/logos/escudoazul.png>
-Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1349.
+Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1356.
 (pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
-[46
+[47
 
 ]
-<Figuras/flujo_importacion_csv.png, id=897, 1021.8175pt x 2055.68pt>
+<Figuras/flujo_importacion_csv.png, id=925, 1021.8175pt x 2055.68pt>
 File: Figuras/flujo_importacion_csv.png Graphic file (type png)
 <use Figuras/flujo_importacion_csv.png>
-Package pdftex.def Info: Figuras/flujo_importacion_csv.png  used on input line 1360.
+Package pdftex.def Info: Figuras/flujo_importacion_csv.png  used on input line 1367.
 (pdftex.def)             Requested size: 145.68144pt x 293.06291pt.
 
 
 File: Figuras/logos/logo_peque_R.png Graphic file (type png)
 <use Figuras/logos/logo_peque_R.png>
-Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 1364.
+Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 1371.
 (pdftex.def)             Requested size: 91.04742pt x 34.84862pt.
-LaTeX Info: Redefining \. on input line 1364.
-LaTeX Info: Redefining \% on input line 1364.
+LaTeX Info: Redefining \. on input line 1371.
+LaTeX Info: Redefining \% on input line 1371.
 File: Figuras/logos/escudoazul.png Graphic file (type png)
 <use Figuras/logos/escudoazul.png>
-Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1364.
+Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1371.
 (pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
-[47 <./Figuras/flujo_eliminar_grupo.png>]
-<Figuras/flujo_pista_ia.png, id=904, 1035.87pt x 2055.68pt>
+[48 <./Figuras/flujo_eliminar_grupo.png>]
+<Figuras/flujo_pista_ia.png, id=932, 1035.87pt x 2055.68pt>
 File: Figuras/flujo_pista_ia.png Graphic file (type png)
 <use Figuras/flujo_pista_ia.png>
-Package pdftex.def Info: Figuras/flujo_pista_ia.png  used on input line 1377.
+Package pdftex.def Info: Figuras/flujo_pista_ia.png  used on input line 1384.
 (pdftex.def)             Requested size: 145.68144pt x 289.07928pt.
 
 
 File: Figuras/logos/logo_peque_R.png Graphic file (type png)
 <use Figuras/logos/logo_peque_R.png>
-Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 1381.
+Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 1388.
 (pdftex.def)             Requested size: 91.04742pt x 34.84862pt.
-LaTeX Info: Redefining \. on input line 1381.
-LaTeX Info: Redefining \% on input line 1381.
+LaTeX Info: Redefining \. on input line 1388.
+LaTeX Info: Redefining \% on input line 1388.
 File: Figuras/logos/escudoazul.png Graphic file (type png)
 <use Figuras/logos/escudoazul.png>
-Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1381.
+Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1388.
 (pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
-[48 <./Figuras/flujo_importacion_csv.png>]
+[49 <./Figuras/flujo_importacion_csv.png>]
 
 File: Figuras/logos/logo_peque_R.png Graphic file (type png)
 <use Figuras/logos/logo_peque_R.png>
-Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 1386.
+Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 1393.
 (pdftex.def)             Requested size: 91.04742pt x 34.84862pt.
-LaTeX Info: Redefining \. on input line 1386.
-LaTeX Info: Redefining \% on input line 1386.
+LaTeX Info: Redefining \. on input line 1393.
+LaTeX Info: Redefining \% on input line 1393.
 File: Figuras/logos/escudoazul.png Graphic file (type png)
 <use Figuras/logos/escudoazul.png>
-Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1386.
+Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1393.
 (pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
-[49 <./Figuras/flujo_pista_ia.png>]
+[50 <./Figuras/flujo_pista_ia.png>]
  6.
 
 
-LaTeX Info: Redefining \. on input line 1403.
-LaTeX Info: Redefining \% on input line 1403.
+LaTeX Info: Redefining \. on input line 1410.
+LaTeX Info: Redefining \% on input line 1410.
 File: Figuras/logos/escudoazul.png Graphic file (type png)
 <use Figuras/logos/escudoazul.png>
-Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1403.
+Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1410.
 (pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
-[50
+[51
 
 ]
 
 File: Figuras/logos/logo_peque_R.png Graphic file (type png)
 <use Figuras/logos/logo_peque_R.png>
-Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 1433.
+Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 1440.
 (pdftex.def)             Requested size: 91.04742pt x 34.84862pt.
-LaTeX Info: Redefining \. on input line 1433.
-LaTeX Info: Redefining \% on input line 1433.
+LaTeX Info: Redefining \. on input line 1440.
+LaTeX Info: Redefining \% on input line 1440.
 File: Figuras/logos/escudoazul.png Graphic file (type png)
 <use Figuras/logos/escudoazul.png>
-Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1433.
-(pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
-[51]
-
-File: Figuras/logos/logo_peque_R.png Graphic file (type png)
-<use Figuras/logos/logo_peque_R.png>
-Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 1474.
-(pdftex.def)             Requested size: 91.04742pt x 34.84862pt.
-LaTeX Info: Redefining \. on input line 1474.
-LaTeX Info: Redefining \% on input line 1474.
-File: Figuras/logos/escudoazul.png Graphic file (type png)
-<use Figuras/logos/escudoazul.png>
-Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1474.
+Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1440.
 (pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
 [52]
 
 File: Figuras/logos/logo_peque_R.png Graphic file (type png)
 <use Figuras/logos/logo_peque_R.png>
-Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 1506.
+Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 1481.
 (pdftex.def)             Requested size: 91.04742pt x 34.84862pt.
-LaTeX Info: Redefining \. on input line 1506.
-LaTeX Info: Redefining \% on input line 1506.
+LaTeX Info: Redefining \. on input line 1481.
+LaTeX Info: Redefining \% on input line 1481.
 File: Figuras/logos/escudoazul.png Graphic file (type png)
 <use Figuras/logos/escudoazul.png>
-Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1506.
+Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1481.
 (pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
 [53]
 
 File: Figuras/logos/logo_peque_R.png Graphic file (type png)
 <use Figuras/logos/logo_peque_R.png>
-Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 1536.
+Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 1513.
 (pdftex.def)             Requested size: 91.04742pt x 34.84862pt.
-LaTeX Info: Redefining \. on input line 1536.
-LaTeX Info: Redefining \% on input line 1536.
+LaTeX Info: Redefining \. on input line 1513.
+LaTeX Info: Redefining \% on input line 1513.
 File: Figuras/logos/escudoazul.png Graphic file (type png)
 <use Figuras/logos/escudoazul.png>
-Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1536.
+Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1513.
 (pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
 [54]
 
 File: Figuras/logos/logo_peque_R.png Graphic file (type png)
 <use Figuras/logos/logo_peque_R.png>
-Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 1570.
+Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 1543.
 (pdftex.def)             Requested size: 91.04742pt x 34.84862pt.
-LaTeX Info: Redefining \. on input line 1570.
-LaTeX Info: Redefining \% on input line 1570.
+LaTeX Info: Redefining \. on input line 1543.
+LaTeX Info: Redefining \% on input line 1543.
 File: Figuras/logos/escudoazul.png Graphic file (type png)
 <use Figuras/logos/escudoazul.png>
-Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1570.
+Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1543.
 (pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
 [55]
 
 File: Figuras/logos/logo_peque_R.png Graphic file (type png)
 <use Figuras/logos/logo_peque_R.png>
-Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 1599.
+Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 1577.
 (pdftex.def)             Requested size: 91.04742pt x 34.84862pt.
-LaTeX Info: Redefining \. on input line 1599.
-LaTeX Info: Redefining \% on input line 1599.
+LaTeX Info: Redefining \. on input line 1577.
+LaTeX Info: Redefining \% on input line 1577.
 File: Figuras/logos/escudoazul.png Graphic file (type png)
 <use Figuras/logos/escudoazul.png>
-Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1599.
+Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1577.
 (pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
 [56]
-Overfull \hbox (20.13585pt too wide) in paragraph at lines 1599--1600
+
+File: Figuras/logos/logo_peque_R.png Graphic file (type png)
+<use Figuras/logos/logo_peque_R.png>
+Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 1606.
+(pdftex.def)             Requested size: 91.04742pt x 34.84862pt.
+LaTeX Info: Redefining \. on input line 1606.
+LaTeX Info: Redefining \% on input line 1606.
+File: Figuras/logos/escudoazul.png Graphic file (type png)
+<use Figuras/logos/escudoazul.png>
+Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1606.
+(pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
+[57]
+Overfull \hbox (20.13585pt too wide) in paragraph at lines 1606--1607
 \T1/ptm/m/it/10.95 App Ser-vi-ce for Con-tai-ners \T1/ptm/m/n/10.95 (so-bre sis-te-ma Li-nux), una des-ti-na-da al fron-tend (\T1/pcr/m/n/10.95 solfedge-frontend\T1/ptm/m/n/10.95 )
  []
 
@@ -1900,272 +1913,272 @@ Overfull \hbox (20.13585pt too wide) in paragraph at lines 1599--1600
 
 File: Figuras/logos/logo_peque_R.png Graphic file (type png)
 <use Figuras/logos/logo_peque_R.png>
-Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 1623.
+Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 1630.
 (pdftex.def)             Requested size: 91.04742pt x 34.84862pt.
-LaTeX Info: Redefining \. on input line 1623.
-LaTeX Info: Redefining \% on input line 1623.
+LaTeX Info: Redefining \. on input line 1630.
+LaTeX Info: Redefining \% on input line 1630.
 File: Figuras/logos/escudoazul.png Graphic file (type png)
 <use Figuras/logos/escudoazul.png>
-Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1623.
+Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1630.
 (pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
-[57]
+[58]
 
 File: Figuras/logos/logo_peque_R.png Graphic file (type png)
 <use Figuras/logos/logo_peque_R.png>
-Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 1672.
+Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 1679.
 (pdftex.def)             Requested size: 91.04742pt x 34.84862pt.
-LaTeX Info: Redefining \. on input line 1672.
-LaTeX Info: Redefining \% on input line 1672.
+LaTeX Info: Redefining \. on input line 1679.
+LaTeX Info: Redefining \% on input line 1679.
 File: Figuras/logos/escudoazul.png Graphic file (type png)
 <use Figuras/logos/escudoazul.png>
-Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1672.
+Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1679.
 (pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
-[58]
-<Figuras/logos/azure.png, id=993, 513.92pt x 513.92pt>
+[59]
+<Figuras/logos/azure.png, id=1024, 513.92pt x 513.92pt>
 File: Figuras/logos/azure.png Graphic file (type png)
 <use Figuras/logos/azure.png>
-Package pdftex.def Info: Figuras/logos/azure.png  used on input line 1709.
+Package pdftex.def Info: Figuras/logos/azure.png  used on input line 1716.
 (pdftex.def)             Requested size: 56.89993pt x 56.9055pt.
 
 
 File: Figuras/logos/logo_peque_R.png Graphic file (type png)
 <use Figuras/logos/logo_peque_R.png>
-Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 1718.
+Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 1725.
 (pdftex.def)             Requested size: 91.04742pt x 34.84862pt.
-LaTeX Info: Redefining \. on input line 1718.
-LaTeX Info: Redefining \% on input line 1718.
+LaTeX Info: Redefining \. on input line 1725.
+LaTeX Info: Redefining \% on input line 1725.
 File: Figuras/logos/escudoazul.png Graphic file (type png)
 <use Figuras/logos/escudoazul.png>
-Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1718.
+Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1725.
 (pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
-[59 <./Figuras/logos/azure.png>]
+[60 <./Figuras/logos/azure.png>]
 
 File: Figuras/logos/logo_peque_R.png Graphic file (type png)
 <use Figuras/logos/logo_peque_R.png>
-Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 1752.
+Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 1759.
 (pdftex.def)             Requested size: 91.04742pt x 34.84862pt.
-LaTeX Info: Redefining \. on input line 1752.
-LaTeX Info: Redefining \% on input line 1752.
+LaTeX Info: Redefining \. on input line 1759.
+LaTeX Info: Redefining \% on input line 1759.
 File: Figuras/logos/escudoazul.png Graphic file (type png)
 <use Figuras/logos/escudoazul.png>
-Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1752.
-(pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
-[60]
-
-File: Figuras/logos/logo_peque_R.png Graphic file (type png)
-<use Figuras/logos/logo_peque_R.png>
-Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 1782.
-(pdftex.def)             Requested size: 91.04742pt x 34.84862pt.
-LaTeX Info: Redefining \. on input line 1782.
-LaTeX Info: Redefining \% on input line 1782.
-File: Figuras/logos/escudoazul.png Graphic file (type png)
-<use Figuras/logos/escudoazul.png>
-Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1782.
+Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1759.
 (pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
 [61]
 
 File: Figuras/logos/logo_peque_R.png Graphic file (type png)
 <use Figuras/logos/logo_peque_R.png>
-Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 1813.
+Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 1789.
 (pdftex.def)             Requested size: 91.04742pt x 34.84862pt.
-LaTeX Info: Redefining \. on input line 1813.
-LaTeX Info: Redefining \% on input line 1813.
+LaTeX Info: Redefining \. on input line 1789.
+LaTeX Info: Redefining \% on input line 1789.
 File: Figuras/logos/escudoazul.png Graphic file (type png)
 <use Figuras/logos/escudoazul.png>
-Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1813.
+Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1789.
 (pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
 [62]
 
 File: Figuras/logos/logo_peque_R.png Graphic file (type png)
 <use Figuras/logos/logo_peque_R.png>
-Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 1852.
+Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 1820.
 (pdftex.def)             Requested size: 91.04742pt x 34.84862pt.
-LaTeX Info: Redefining \. on input line 1852.
-LaTeX Info: Redefining \% on input line 1852.
+LaTeX Info: Redefining \. on input line 1820.
+LaTeX Info: Redefining \% on input line 1820.
 File: Figuras/logos/escudoazul.png Graphic file (type png)
 <use Figuras/logos/escudoazul.png>
-Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1852.
+Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1820.
 (pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
 [63]
-<Figuras/logos/firebase.png, id=1046, 752.8125pt x 752.8125pt>
+
+File: Figuras/logos/logo_peque_R.png Graphic file (type png)
+<use Figuras/logos/logo_peque_R.png>
+Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 1859.
+(pdftex.def)             Requested size: 91.04742pt x 34.84862pt.
+LaTeX Info: Redefining \. on input line 1859.
+LaTeX Info: Redefining \% on input line 1859.
+File: Figuras/logos/escudoazul.png Graphic file (type png)
+<use Figuras/logos/escudoazul.png>
+Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1859.
+(pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
+[64]
+<Figuras/logos/firebase.png, id=1080, 752.8125pt x 752.8125pt>
 File: Figuras/logos/firebase.png Graphic file (type png)
 <use Figuras/logos/firebase.png>
-Package pdftex.def Info: Figuras/logos/firebase.png  used on input line 1864.
+Package pdftex.def Info: Figuras/logos/firebase.png  used on input line 1871.
 (pdftex.def)             Requested size: 56.895pt x 56.9055pt.
 
 
 File: Figuras/logos/logo_peque_R.png Graphic file (type png)
 <use Figuras/logos/logo_peque_R.png>
-Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 1882.
+Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 1889.
 (pdftex.def)             Requested size: 91.04742pt x 34.84862pt.
-LaTeX Info: Redefining \. on input line 1882.
-LaTeX Info: Redefining \% on input line 1882.
+LaTeX Info: Redefining \. on input line 1889.
+LaTeX Info: Redefining \% on input line 1889.
 File: Figuras/logos/escudoazul.png Graphic file (type png)
 <use Figuras/logos/escudoazul.png>
-Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1882.
+Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1889.
 (pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
-[64 <./Figuras/logos/firebase.png>]
+[65 <./Figuras/logos/firebase.png>]
 
 File: Figuras/logos/logo_peque_R.png Graphic file (type png)
 <use Figuras/logos/logo_peque_R.png>
-Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 1915.
+Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 1922.
 (pdftex.def)             Requested size: 91.04742pt x 34.84862pt.
-LaTeX Info: Redefining \. on input line 1915.
-LaTeX Info: Redefining \% on input line 1915.
+LaTeX Info: Redefining \. on input line 1922.
+LaTeX Info: Redefining \% on input line 1922.
 File: Figuras/logos/escudoazul.png Graphic file (type png)
 <use Figuras/logos/escudoazul.png>
-Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1915.
-(pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
-[65]
-
-File: Figuras/logos/logo_peque_R.png Graphic file (type png)
-<use Figuras/logos/logo_peque_R.png>
-Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 1962.
-(pdftex.def)             Requested size: 91.04742pt x 34.84862pt.
-LaTeX Info: Redefining \. on input line 1962.
-LaTeX Info: Redefining \% on input line 1962.
-File: Figuras/logos/escudoazul.png Graphic file (type png)
-<use Figuras/logos/escudoazul.png>
-Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1962.
+Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1922.
 (pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
 [66]
 
 File: Figuras/logos/logo_peque_R.png Graphic file (type png)
 <use Figuras/logos/logo_peque_R.png>
-Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 1994.
+Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 1969.
 (pdftex.def)             Requested size: 91.04742pt x 34.84862pt.
-LaTeX Info: Redefining \. on input line 1994.
-LaTeX Info: Redefining \% on input line 1994.
+LaTeX Info: Redefining \. on input line 1969.
+LaTeX Info: Redefining \% on input line 1969.
 File: Figuras/logos/escudoazul.png Graphic file (type png)
 <use Figuras/logos/escudoazul.png>
-Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1994.
+Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 1969.
 (pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
 [67]
-<Figuras/cronogramaImplantacion.png, id=1098, 1177.39874pt x 820.56563pt>
+
+File: Figuras/logos/logo_peque_R.png Graphic file (type png)
+<use Figuras/logos/logo_peque_R.png>
+Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 2001.
+(pdftex.def)             Requested size: 91.04742pt x 34.84862pt.
+LaTeX Info: Redefining \. on input line 2001.
+LaTeX Info: Redefining \% on input line 2001.
+File: Figuras/logos/escudoazul.png Graphic file (type png)
+<use Figuras/logos/escudoazul.png>
+Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 2001.
+(pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
+[68]
+<Figuras/cronogramaImplantacion.png, id=1132, 1177.39874pt x 820.56563pt>
 File: Figuras/cronogramaImplantacion.png Graphic file (type png)
 <use Figuras/cronogramaImplantacion.png>
-Package pdftex.def Info: Figuras/cronogramaImplantacion.png  used on input line 2010.
+Package pdftex.def Info: Figuras/cronogramaImplantacion.png  used on input line 2017.
 (pdftex.def)             Requested size: 455.24411pt x 317.27725pt.
 
 
 File: Figuras/logos/logo_peque_R.png Graphic file (type png)
 <use Figuras/logos/logo_peque_R.png>
-Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 2014.
+Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 2021.
 (pdftex.def)             Requested size: 91.04742pt x 34.84862pt.
-LaTeX Info: Redefining \. on input line 2014.
-LaTeX Info: Redefining \% on input line 2014.
+LaTeX Info: Redefining \. on input line 2021.
+LaTeX Info: Redefining \% on input line 2021.
 File: Figuras/logos/escudoazul.png Graphic file (type png)
 <use Figuras/logos/escudoazul.png>
-Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 2014.
+Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 2021.
 (pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
-[68]
+[69]
 
 File: Figuras/logos/logo_peque_R.png Graphic file (type png)
 <use Figuras/logos/logo_peque_R.png>
-Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 2024.
+Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 2031.
 (pdftex.def)             Requested size: 91.04742pt x 34.84862pt.
-LaTeX Info: Redefining \. on input line 2024.
-LaTeX Info: Redefining \% on input line 2024.
+LaTeX Info: Redefining \. on input line 2031.
+LaTeX Info: Redefining \% on input line 2031.
 File: Figuras/logos/escudoazul.png Graphic file (type png)
 <use Figuras/logos/escudoazul.png>
-Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 2024.
+Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 2031.
 (pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
-[69 <./Figuras/cronogramaImplantacion.png>]
+[70 <./Figuras/cronogramaImplantacion.png>]
 
 File: Figuras/logos/logo_peque_R.png Graphic file (type png)
 <use Figuras/logos/logo_peque_R.png>
-Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 2056.
+Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 2063.
 (pdftex.def)             Requested size: 91.04742pt x 34.84862pt.
-LaTeX Info: Redefining \. on input line 2056.
-LaTeX Info: Redefining \% on input line 2056.
+LaTeX Info: Redefining \. on input line 2063.
+LaTeX Info: Redefining \% on input line 2063.
 File: Figuras/logos/escudoazul.png Graphic file (type png)
 <use Figuras/logos/escudoazul.png>
-Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 2056.
-(pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
-[70]
-
-File: Figuras/logos/logo_peque_R.png Graphic file (type png)
-<use Figuras/logos/logo_peque_R.png>
-Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 2086.
-(pdftex.def)             Requested size: 91.04742pt x 34.84862pt.
-LaTeX Info: Redefining \. on input line 2086.
-LaTeX Info: Redefining \% on input line 2086.
-File: Figuras/logos/escudoazul.png Graphic file (type png)
-<use Figuras/logos/escudoazul.png>
-Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 2086.
+Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 2063.
 (pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
 [71]
-<Figuras/demostracion_aula_1.jpeg, id=1119, 2055.68pt x 1542.76375pt>
+
+File: Figuras/logos/logo_peque_R.png Graphic file (type png)
+<use Figuras/logos/logo_peque_R.png>
+Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 2093.
+(pdftex.def)             Requested size: 91.04742pt x 34.84862pt.
+LaTeX Info: Redefining \. on input line 2093.
+LaTeX Info: Redefining \% on input line 2093.
+File: Figuras/logos/escudoazul.png Graphic file (type png)
+<use Figuras/logos/escudoazul.png>
+Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 2093.
+(pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
+[72]
+<Figuras/demostracion_aula_1.jpeg, id=1153, 2055.68pt x 1542.76375pt>
 File: Figuras/demostracion_aula_1.jpeg Graphic file (type jpg)
 <use Figuras/demostracion_aula_1.jpeg>
-Package pdftex.def Info: Figuras/demostracion_aula_1.jpeg  used on input line 2109.
+Package pdftex.def Info: Figuras/demostracion_aula_1.jpeg  used on input line 2116.
 (pdftex.def)             Requested size: 218.51521pt x 163.98416pt.
-<Figuras/demostracion_aula_2.jpeg, id=1120, 2055.68pt x 1542.76375pt>
+<Figuras/demostracion_aula_2.jpeg, id=1154, 2055.68pt x 1542.76375pt>
 File: Figuras/demostracion_aula_2.jpeg Graphic file (type jpg)
 <use Figuras/demostracion_aula_2.jpeg>
-Package pdftex.def Info: Figuras/demostracion_aula_2.jpeg  used on input line 2110.
+Package pdftex.def Info: Figuras/demostracion_aula_2.jpeg  used on input line 2117.
 (pdftex.def)             Requested size: 218.51521pt x 163.98416pt.
 
 
 File: Figuras/logos/logo_peque_R.png Graphic file (type png)
 <use Figuras/logos/logo_peque_R.png>
-Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 2116.
+Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 2123.
 (pdftex.def)             Requested size: 91.04742pt x 34.84862pt.
-LaTeX Info: Redefining \. on input line 2116.
-LaTeX Info: Redefining \% on input line 2116.
+LaTeX Info: Redefining \. on input line 2123.
+LaTeX Info: Redefining \% on input line 2123.
 File: Figuras/logos/escudoazul.png Graphic file (type png)
 <use Figuras/logos/escudoazul.png>
-Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 2116.
+Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 2123.
 (pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
-[72 <./Figuras/demostracion_aula_1.jpeg> <./Figuras/demostracion_aula_2.jpeg>]
+[73 <./Figuras/demostracion_aula_1.jpeg> <./Figuras/demostracion_aula_2.jpeg>]
 
 File: Figuras/logos/logo_peque_R.png Graphic file (type png)
 <use Figuras/logos/logo_peque_R.png>
-Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 2127.
+Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 2134.
 (pdftex.def)             Requested size: 91.04742pt x 34.84862pt.
-LaTeX Info: Redefining \. on input line 2127.
-LaTeX Info: Redefining \% on input line 2127.
+LaTeX Info: Redefining \. on input line 2134.
+LaTeX Info: Redefining \% on input line 2134.
 File: Figuras/logos/escudoazul.png Graphic file (type png)
 <use Figuras/logos/escudoazul.png>
-Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 2127.
+Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 2134.
 (pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
-[73]
+[74]
  7.
 
 
-LaTeX Info: Redefining \. on input line 2147.
-LaTeX Info: Redefining \% on input line 2147.
+LaTeX Info: Redefining \. on input line 2154.
+LaTeX Info: Redefining \% on input line 2154.
 File: Figuras/logos/escudoazul.png Graphic file (type png)
 <use Figuras/logos/escudoazul.png>
-Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 2147.
+Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 2154.
 (pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
-[74
+[75
 
 ]
 
 File: Figuras/logos/logo_peque_R.png Graphic file (type png)
 <use Figuras/logos/logo_peque_R.png>
-Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 2173.
+Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 2180.
 (pdftex.def)             Requested size: 91.04742pt x 34.84862pt.
-LaTeX Info: Redefining \. on input line 2173.
-LaTeX Info: Redefining \% on input line 2173.
+LaTeX Info: Redefining \. on input line 2180.
+LaTeX Info: Redefining \% on input line 2180.
 File: Figuras/logos/escudoazul.png Graphic file (type png)
 <use Figuras/logos/escudoazul.png>
-Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 2173.
+Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 2180.
 (pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
-[75]
+[76]
 
 File: Figuras/logos/logo_peque_R.png Graphic file (type png)
 <use Figuras/logos/logo_peque_R.png>
-Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 2216.
+Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 2223.
 (pdftex.def)             Requested size: 91.04742pt x 34.84862pt.
-LaTeX Info: Redefining \. on input line 2216.
-LaTeX Info: Redefining \% on input line 2216.
+LaTeX Info: Redefining \. on input line 2223.
+LaTeX Info: Redefining \% on input line 2223.
 File: Figuras/logos/escudoazul.png Graphic file (type png)
 <use Figuras/logos/escudoazul.png>
-Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 2216.
+Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 2223.
 (pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
-[76]) (c:\Users\jl444\OneDrive\Escritorio\TFG\complemento\build\main.bbl
+[77]) (c:\Users\jl444\OneDrive\Escritorio\TFG\complemento\build\main.bbl
 
 File: Figuras/logos/logo_peque_R.png Graphic file (type png)
 <use Figuras/logos/logo_peque_R.png>
@@ -2177,18 +2190,40 @@ File: Figuras/logos/escudoazul.png Graphic file (type png)
 <use Figuras/logos/escudoazul.png>
 Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 2.
 (pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
-[77])
+[78]
+Underfull \hbox (badness 1521) in paragraph at lines 26--31
+[]\T1/ptm/m/n/10.95 A. S. Ta-nen-baum and M. van Steen, \T1/ptm/m/it/10.95 Dis-tri-bu-ted Sys-tems: Prin-ci-
+ []
 
+
+Underfull \hbox (badness 1163) in paragraph at lines 26--31
+\T1/ptm/m/it/10.95 ples and Pa-ra-digms\T1/ptm/m/n/10.95 , 2nd ed. Pren-ti-ce Hall, 2007. [On-li-ne]. Avai-la-
+ []
+
+
+
+LaTeX Info: Redefining \. on input line 118.
+LaTeX Info: Redefining \% on input line 118.
+File: Figuras/logos/escudoazul.png Graphic file (type png)
+<use Figuras/logos/escudoazul.png>
+Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 118.
+(pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
+[79
+
+])
+
+File: Figuras/logos/logo_peque_R.png Graphic file (type png)
+<use Figuras/logos/logo_peque_R.png>
+Package pdftex.def Info: Figuras/logos/logo_peque_R.png  used on input line 137.
+(pdftex.def)             Requested size: 91.04742pt x 34.84862pt.
 LaTeX Info: Redefining \. on input line 137.
 LaTeX Info: Redefining \% on input line 137.
 File: Figuras/logos/escudoazul.png Graphic file (type png)
 <use Figuras/logos/escudoazul.png>
 Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 137.
 (pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
-[78
-
-] (contra.tex
-<Figuras/logos/contraportadaCTFG.png, id=1184, 597.73312pt x 845.40843pt>
+[80] (contra.tex
+<Figuras/logos/contraportadaCTFG.png, id=1238, 597.73312pt x 845.40843pt>
 File: Figuras/logos/contraportadaCTFG.png Graphic file (type png)
 <use Figuras/logos/contraportadaCTFG.png>
 Package pdftex.def Info: Figuras/logos/contraportadaCTFG.png  used on input line 11.
@@ -2209,7 +2244,7 @@ File: Figuras/logos/escudoazul.png Graphic file (type png)
 <use Figuras/logos/escudoazul.png>
 Package pdftex.def Info: Figuras/logos/escudoazul.png  used on input line 141.
 (pdftex.def)             Requested size: 512.23297pt x 512.23297pt.
-[79
+[81
 
 
  <./Figuras/logos/contraportadaCTFG.png>] (c:\Users\jl444\OneDrive\Escritorio\TFG\complemento\build\main.aux
@@ -2226,17 +2261,17 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: ACF04CDA3F8935D50E81D783296FA3EA;26985.
  ) 
 Here is how much of TeX's memory you used:
- 32858 strings out of 473898
- 633581 string characters out of 5726479
- 1135273 words of memory out of 5000000
- 54752 multiletter control sequences out of 15000+600000
+ 32912 strings out of 473898
+ 634660 string characters out of 5726479
+ 1135272 words of memory out of 5000000
+ 54790 multiletter control sequences out of 15000+600000
  610065 words of font info for 93 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  103i,16n,106p,1002b,923s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/jl444/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrr8a.pfb><C:/Users/jl444/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Users/jl444/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/jl444/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/jl444/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
-Output written on c:\Users\jl444\OneDrive\Escritorio\TFG\complemento\build\main.pdf (87 pages, 3484429 bytes).
+Output written on c:\Users\jl444\OneDrive\Escritorio\TFG\complemento\build\main.pdf (89 pages, 3501078 bytes).
 PDF statistics:
- 1288 PDF objects out of 1440 (max. 8388607)
- 345 named destinations out of 1000 (max. 500000)
+ 1346 PDF objects out of 1440 (max. 8388607)
+ 361 named destinations out of 1000 (max. 500000)
  946 words of extra memory for PDF output out of 10000 (max. 10000000)
 

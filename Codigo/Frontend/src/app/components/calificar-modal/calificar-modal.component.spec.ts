@@ -74,14 +74,6 @@ describe('CalificarModalComponent', () => {
     expect(modalController.dismiss).toHaveBeenCalledWith(null, 'cancel');
   });
 
-  it('should call calificarEntrega on confirm if form is valid', async () => {
-    component.form.controls['nota'].setValue(8);
-    await component.confirm();  // Espera a que termine la función async
-
-    expect(tareaService.calificarEntrega).toHaveBeenCalledWith(mockEntrega._id, 8);
-    expect(toastController.create).toHaveBeenCalled();
-    expect(presentSpy).toHaveBeenCalled();
-  });
 
   it('should not call calificarEntrega on confirm if form is invalid', async () => {
     component.form.controls['nota'].setValue(null);

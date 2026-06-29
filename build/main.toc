@@ -25,7 +25,7 @@
 \contentsline {section}{\numberline {3.3}Planificación}{13}{section.3.3}%
 \contentsline {subsection}{\numberline {3.3.1}Metodología de trabajo}{13}{subsection.3.3.1}%
 \contentsline {subsection}{\numberline {3.3.2}Cronograma del proyecto}{14}{subsection.3.3.2}%
-\contentsline {chapter}{\numberline {4}Análisis, definición y arquitecturade la solución}{16}{chapter.4}%
+\contentsline {chapter}{\numberline {4}Análisis, definición y arquitectura de la solución}{16}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Investigación}{16}{section.4.1}%
 \contentsline {subsection}{\numberline {4.1.1}Introducción}{16}{subsection.4.1.1}%
 \contentsline {subsection}{\numberline {4.1.2}Análisis y comparación de las respuestas de los profesores}{17}{subsection.4.1.2}%

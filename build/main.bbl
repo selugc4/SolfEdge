@@ -21,6 +21,20 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
+\bibitem{Kodaly}
+\BIBentryALTinterwordspacing
+{UNIR}, ``Enseñar música con el método kodaly,'' 2021. [Online]. Available:
+  \url{https://www.unir.net/revista/musica/metodo-kodaly/}
+\BIBentrySTDinterwordspacing
+
+\bibitem{Pressman2010}
+\BIBentryALTinterwordspacing
+R.~S. Pressman, \emph{Software Engineering: A Practitioner's Approach},
+  7th~ed.\hskip 1em plus 0.5em minus 0.4em\relax McGraw-Hill, 2010. [Online].
+  Available:
+  \url{https://www.mlsu.ac.in/econtents/16_EBOOK-7th_ed_software_engineering_a_practitioners_approach_by_roger_s._pressman_.pdf}
+\BIBentrySTDinterwordspacing
+
 \bibitem{UE_LenguajeMusical2025}
 \BIBentryALTinterwordspacing
 {Universidad Europea}, ``Lenguaje musical: qué es, cómo enseñarlo y fichas
@@ -33,6 +47,65 @@
 {Musicorcheas}, ``{Elementos básicos de una partitura},'' 2020. [Online].
   Available:
   \url{https://musicorcheas.blogspot.com/2020/09/elementos-basicos-de-una-partitura.html}
+\BIBentrySTDinterwordspacing
+
+\bibitem{INTEF_LaboratorioMusica}
+\BIBentryALTinterwordspacing
+{Instituto Nacional de Tecnologías Educativas y de Formación del Profesorado
+  (INTEF)}, ``{Laboratorio de música. Creación de sintonías radiofónicas
+  con tecnologías digitales}.'' [Online]. Available:
+  \url{https://intef.es/experiencias_edu/laboratorio-de-musica/}
+\BIBentrySTDinterwordspacing
+
+\bibitem{UNIR_PedagogiaMusical}
+\BIBentryALTinterwordspacing
+{UNIR}, ``{La importancia de la pedagogía musical en el desarrollo del
+  alumnado},'' 2024. [Online]. Available:
+  \url{https://www.unir.net/revista/musica/pedagogo-musical/}
+\BIBentrySTDinterwordspacing
+
+\bibitem{MuseScoreHandbook}
+\BIBentryALTinterwordspacing
+{MuseScore}, ``{MuseScore Studio Handbook}.'' [Online]. Available:
+  \url{https://musescore.org/es/handbook}
+\BIBentrySTDinterwordspacing
+
+\bibitem{NoteflightGuide}
+\BIBentryALTinterwordspacing
+{Noteflight}, ``{Music Notation User Guide}.'' [Online]. Available:
+  \url{https://www.noteflight.com/guide}
+\BIBentrySTDinterwordspacing
+
+\bibitem{AudacityManual}
+\BIBentryALTinterwordspacing
+{Audacity Team}, ``{Audacity Manual}.'' [Online]. Available:
+  \url{https://manual.audacityteam.org/}
+\BIBentrySTDinterwordspacing
+
+\bibitem{KahootGuide}
+\BIBentryALTinterwordspacing
+{Kahoot!}, ``{Getting Started Guide}.'' [Online]. Available:
+  \url{https://kahoot.com/library/getting-started-guide/}
+\BIBentrySTDinterwordspacing
+
+\bibitem{EstudioMusicaWeb}
+\BIBentryALTinterwordspacing
+{Estudio Música}, ``Estudio música.'' [Online]. Available:
+  \url{https://estudiomusica.com/}
+\BIBentrySTDinterwordspacing
+
+\bibitem{Tanenbaum2007}
+\BIBentryALTinterwordspacing
+A.~S. Tanenbaum and M.~van Steen, \emph{Distributed Systems: Principles and
+  Paradigms}, 2nd~ed.\hskip 1em plus 0.5em minus 0.4em\relax Prentice Hall,
+  2007. [Online]. Available:
+  \url{https://vowi.fsinf.at/images/b/bc/TU_Wien-Verteilte_Systeme_VO_%28G%C3%B6schka%29_-_Tannenbaum-distributed_systems_principles_and_paradigms_2nd_edition.pdf}
+\BIBentrySTDinterwordspacing
+
+\bibitem{PostmanREST}
+\BIBentryALTinterwordspacing
+{Postman}, ``{What Is a REST API? Examples, Uses \& Challenges},'' 2025.
+  [Online]. Available: \url{https://blog.postman.com/rest-api-examples/}
 \BIBentrySTDinterwordspacing
 
 \bibitem{IonicDocs}
@@ -52,6 +125,12 @@
 {ESIC Business \& Marketing School}, ``{Modelo-Vista-Controlador: qué es,
   cómo funciona y ventajas},'' 2025. [Online]. Available:
   \url{https://www.esic.edu/rethink/tecnologia/modelo-vista-controlador-que-es-como-funciona-y-ventajas-c}
+\BIBentrySTDinterwordspacing
+
+\bibitem{W3C}
+\BIBentryALTinterwordspacing
+{World Wide Web Consortium (W3C)}, ``{World Wide Web Consortium}.'' [Online].
+  Available: \url{https://www.w3.org/}
 \BIBentrySTDinterwordspacing
 
 \bibitem{JasmineDocs}
@@ -82,6 +161,12 @@
 \BIBentryALTinterwordspacing
 {JWT.io}, ``{Introduction to JSON Web Tokens}.'' [Online]. Available:
   \url{https://www.jwt.io/introduction#what-is-json-web-token}
+\BIBentrySTDinterwordspacing
+
+\bibitem{OWASP}
+\BIBentryALTinterwordspacing
+{OWASP Foundation}, ``{OWASP Foundation}.'' [Online]. Available:
+  \url{https://owasp.org/}
 \BIBentrySTDinterwordspacing
 
 \bibitem{SwaggerDocs}
@@ -132,10 +217,10 @@
   \url{https://render.com/docs}
 \BIBentrySTDinterwordspacing
 
-\bibitem{EstudioMusicaWeb}
+\bibitem{PrincetonLitMapping}
 \BIBentryALTinterwordspacing
-{Estudio Música}, ``Estudio música.'' [Online]. Available:
-  \url{https://estudiomusica.com/}
+{Princeton University Library}, ``{Literature Mapping: Overview},'' 2023.
+  [Online]. Available: \url{https://libguides.princeton.edu/litmapping}
 \BIBentrySTDinterwordspacing
 
 \bibitem{RodriguezHeras2022}

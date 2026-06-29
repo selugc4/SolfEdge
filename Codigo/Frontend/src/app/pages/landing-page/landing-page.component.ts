@@ -12,12 +12,12 @@ import {
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import {
-  musicalNotesOutline,
-  micOutline,
-  earOutline,
-  schoolOutline,
-  personCircleOutline,
-  settingsOutline
+  musicalNotesSharp,
+  trendingUpSharp,
+  earSharp,
+  bookSharp,
+  personCircleSharp,
+  briefcaseSharp
 } from 'ionicons/icons';
 import { AuthService } from '../../services/auth.service';
 
@@ -45,12 +45,12 @@ export class LandingPage {
 
   constructor() {
     addIcons({
-      musicalNotesOutline,
-      micOutline,
-      earOutline,
-      schoolOutline,
-      personCircleOutline,
-      settingsOutline
+      musicalNotesSharp,
+      trendingUpSharp,
+      earSharp,
+      bookSharp,
+      personCircleSharp,
+      briefcaseSharp
     });
   }
 

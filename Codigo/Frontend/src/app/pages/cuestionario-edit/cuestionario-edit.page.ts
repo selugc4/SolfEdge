@@ -117,7 +117,6 @@ export class CuestionarioEditPage implements OnInit {
   loadEntregasCuestionario(cuestionarioId: string) {
     this.cuestionarioService.getCalificacionesByCuestionario(cuestionarioId).subscribe({
       next: (entregas) => {
-        console.log('Entregas del cuestionario cargadas:', entregas);
         this.entregasCuestionario = entregas;
       },
       error: (err) => {

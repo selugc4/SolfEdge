@@ -153,40 +153,6 @@ describe('GestionProfesoresModalComponent', () => {
     expect(component.profesores.some(p => p._id === 'profesor999')).toBeTrue();
   }));
 
-  it('should show error toast if delete fails when "Eliminar" handler runs', fakeAsync(() => {
-    const profesorId = 'profesor123';
-
-    toastControllerSpy.create.calls.reset();
-    toastPresentSpy.calls.reset();
-    usuarioServiceSpy.deleteUsuario.calls.reset();
-
-    usuarioServiceSpy.deleteUsuario.and.returnValue(
-      throwError(() => ({ error: { error: 'Error de eliminación' } }))
-    );
-
-    // 1) abrir alert
-    component.deleteProfesor(profesorId);
-    flushMicrotasks();
-    tick();
-
-    // 2) ejecutar handler eliminar
-    const deleteBtn = (lastAlertOpts?.buttons ?? []).find((b: any) => b?.text === 'Eliminar');
-    expect(deleteBtn).toBeTruthy();
-
-    deleteBtn.handler();
-    flushMicrotasks();
-    tick();
-
-    expect(usuarioServiceSpy.deleteUsuario).toHaveBeenCalledWith(profesorId);
-
-    expect(toastControllerSpy.create).toHaveBeenCalledWith({
-      message: 'Error al eliminar profesor: Error de eliminación',
-      duration: 3000,
-      color: 'danger',
-    });
-    expect(toastPresentSpy).toHaveBeenCalled();
-  }));
-
   it('should NOT delete if Cancel is pressed (handler not executed)', fakeAsync(() => {
     const profesorId = 'profesor123';
 

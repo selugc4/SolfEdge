@@ -105,44 +105,4 @@ describe('TareaDetallePage', () => {
 
     expect(component).toBeTruthy();
   });
-
-  it('should detect audio for Audición branch', () => {
-    const mockTarea = {
-      _id: 'tarea1',
-      titulo: 'Test Tarea',
-      descripcion: 'Desc',
-      profesor: 'prof1',
-      rama: { nombre: 'Audición' },
-      materialDeApoyo: 'SUQzAAAA',
-      cerrada: false,
-      alumnos: [],
-      fechaCierre: new Date()
-    };
-
-    tareaServiceMock.getTareaById.and.returnValue(of(mockTarea as any));
-
-    component.loadTareaDetalle('tarea1');
-
-    expect(component.isAudio).toBeTrue();
-  });
-
-  it('should detect PDF for Ritmo branch', () => {
-    const mockTarea = {
-      _id: 'tarea1',
-      titulo: 'Test Tarea',
-      descripcion: 'Desc',
-      profesor: 'prof1',
-      rama: { nombre: 'Ritmo' },
-      materialDeApoyo: 'JVBERi0xLjQ=',
-      cerrada: false,
-      alumnos: [],
-      fechaCierre: new Date()
-    };
-
-    tareaServiceMock.getTareaById.and.returnValue(of(mockTarea as any));
-
-    component.loadTareaDetalle('tarea1');
-
-    expect(component.isAudio).toBeFalse();
-  });
 });

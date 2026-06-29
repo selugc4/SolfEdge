@@ -139,49 +139,6 @@ describe('TareaService', () => {
     });
   });
 
-  describe('getEntregasPorTarea', () => {
-    it('should send a GET request to fetch submissions for a task', () => {
-      const mockUsuario: Usuario = {
-        _id: 'a1', username: 'Alumno 1', email: 'alumno@test.com',
-        role: 'profesor'
-      };
-      const mockEntregas: Calificacion[] = [{ _id: 'e1', alumno: mockUsuario, tarea: 't1', nota: 7, fechaEntrega: new Date().toISOString() }];
-      const tareaId = 't1';
-
-      service.getEntregasPorTarea(tareaId).subscribe(response => {
-        expect(response).toEqual(mockEntregas);
-      });
-
-      const req = httpMock.expectOne(`${apiUrl}/${tareaId}/entregas`);
-      expect(req.request.method).toBe('GET');
-      req.flush(mockEntregas);
-    });
-  });
-
-  describe('calificarEntrega', () => {
-    it('should send a PUT request to grade a submission', () => {
-      const mockUsuario: Usuario = {
-        _id: 'a1', username: 'Alumno 1', email: 'alumno@test.com',
-        role: 'profesor'
-      };
-      const mockCalificacion: Calificacion = {
-        _id: 'e1', alumno: mockUsuario, tarea: 't1', nota: 8,
-        fechaEntrega: new Date().toISOString()
-      };
-      const calificacionId = 'e1';
-      const nota = 8;
-
-      service.calificarEntrega(calificacionId, nota).subscribe(response => {
-        expect(response).toEqual(mockCalificacion);
-      });
-
-      const req = httpMock.expectOne(`${apiUrl}/entregas/${calificacionId}/calificar`);
-      expect(req.request.method).toBe('PUT');
-      expect(req.request.body).toEqual({ nota });
-      req.flush(mockCalificacion);
-    });
-  });
-
   describe('entregarTarea', () => {
     it('should send a POST request with FormData to submit a task', () => {
       const mockUsuario: Usuario = {

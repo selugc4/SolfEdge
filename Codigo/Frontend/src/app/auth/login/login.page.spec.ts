@@ -87,7 +87,7 @@ describe('LoginPage', () => {
     await component.login();
 
     expect(authService.login).toHaveBeenCalledWith('testuser', 'testpass');
-    expect(routerMock.navigate).toHaveBeenCalledWith(['/Areas']);
+    expect(routerMock.navigate).toHaveBeenCalledWith(['/Landing']);
   });
 
   it('should not call authService.login on invalid form submission', async () => {

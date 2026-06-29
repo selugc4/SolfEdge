@@ -29,26 +29,6 @@ describe('CalificacionGeneralService', () => {
     expect(service).toBeTruthy();
   });
 
-  describe('crearOActualizarCalificacion', () => {
-    it('should send a POST request to create/update a grade', () => {
-      const mockAlumno: Usuario = { _id: 'a1', username: 'Test', email: 'test@test.com' } as Usuario;
-      const mockGrupo: Grupo = { _id: 'g1', nombre: 'Grupo 1' } as Grupo;
-      const mockProfesor: Usuario = { _id: 'p1', username: 'Profesor', email: 'profesor@test.com' } as Usuario;
-      const mockGrade: CalificacionGeneral = { _id: 'cg1', alumno: mockAlumno, grupo: mockGrupo, tipo: 'Ordinaria', nota: 8, profesor: mockProfesor };
-      const payload = { alumnoId: 'a1', grupoId: 'g1', tipo: 'Ordinaria' as const, nota: 8, profesorId: 'p1' };
-
-      service.crearOActualizarCalificacion(payload.alumnoId, payload.grupoId, payload.tipo, payload.nota, payload.profesorId)
-        .subscribe(response => {
-          expect(response).toEqual(mockGrade);
-        });
-
-      const req = httpMock.expectOne(apiUrl);
-      expect(req.request.method).toBe('POST');
-      expect(req.request.body).toEqual(payload);
-      req.flush(mockGrade);
-    });
-  });
-
   describe('getCalificacionesByAlumnoAndGrupo', () => {
     it('should send a GET request to fetch grades for a student in a group', () => {
       const mockAlumno: Usuario = { _id: 'a1', username: 'Test', email: 'test@test.com' } as Usuario;

@@ -151,8 +151,17 @@
 \node (fondo) [rectangle] 
 at (current page.center)
           {\parbox[b][\paperheight]{\paperwidth}{
-           \includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{Figuras/logos/portadaTFG.png}
+           \includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{Figuras/logos/TFG_template}
           }};
+\node (titulo) [rectangle,text width=0.55\paperwidth,text centered, xshift=20pt, yshift=-30] 
+at (fondo)
+          {\parbox{0.71\paperwidth}{\centering 
+          \fontsize{45}{50} \selectfont \tituloTFG \\[8cm]
+          }};
+        \node [xshift=-150pt, yshift=-225-\hoffset,right] at (titulo) {\textbf{\LARGE Curso: \curso}};
+        \node [xshift=-150pt, yshift=-300-\hoffset, right] at (titulo) {\textbf{\LARGE\alumno}};
+        \node [xshift=250pt, yshift=-350-\hoffset,left] at (titulo) {\textbf{\LARGE\director}};
+        \node [xshift=250pt, yshift=-370-\hoffset,left] at (titulo) {\textbf{\LARGE\direct}};
   \end{tikzpicture}
 }
 

@@ -21,10 +21,32 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
+\bibitem{Tanenbaum2007}
+\BIBentryALTinterwordspacing
+A.~S. Tanenbaum and M.~van Steen, \emph{Distributed Systems: Principles and
+  Paradigms}, 2nd~ed.\hskip 1em plus 0.5em minus 0.4em\relax Prentice Hall,
+  2007. [Online]. Available:
+  \url{https://vowi.fsinf.at/images/b/bc/TU_Wien-Verteilte_Systeme_VO_%28G%C3%B6schka%29_-_Tannenbaum-distributed_systems_principles_and_paradigms_2nd_edition.pdf}
+\BIBentrySTDinterwordspacing
+
+\bibitem{Pressman2010}
+\BIBentryALTinterwordspacing
+R.~S. Pressman, \emph{Software Engineering: A Practitioner's Approach},
+  7th~ed.\hskip 1em plus 0.5em minus 0.4em\relax McGraw-Hill, 2010. [Online].
+  Available:
+  \url{https://www.mlsu.ac.in/econtents/16_EBOOK-7th_ed_software_engineering_a_practitioners_approach_by_roger_s._pressman_.pdf}
+\BIBentrySTDinterwordspacing
+
 \bibitem{groq_docs}
 \BIBentryALTinterwordspacing
 {Groq Inc.}, ``Groq api documentation -- overview.'' [Online]. Available:
   \url{https://console.groq.com/docs/overview}
+\BIBentrySTDinterwordspacing
+
+\bibitem{RFC9110}
+\BIBentryALTinterwordspacing
+{Internet Engineering Task Force (IETF)}, ``{RFC 9110: HTTP Semantics},'' 2022.
+  [Online]. Available: \url{https://www.rfc-editor.org/info/rfc9110/}
 \BIBentrySTDinterwordspacing
 
 \bibitem{cordova_docs}
@@ -43,6 +65,54 @@
 \BIBentryALTinterwordspacing
 {Google LLC}, ``Android studio -- introduction.'' [Online]. Available:
   \url{https://developer.android.com/studio/intro?hl=es-419}
+\BIBentrySTDinterwordspacing
+
+\bibitem{UNIRResponsive}
+\BIBentryALTinterwordspacing
+{UNIR}, ``{La importancia de contar con diseño responsive en tu web},'' 2025.
+  [Online]. Available:
+  \url{https://www.unir.net/revista/diseno/diseno-responsive/}
+\BIBentrySTDinterwordspacing
+
+\bibitem{RFC8259}
+\BIBentryALTinterwordspacing
+{Internet Engineering Task Force (IETF)}, ``{RFC 8259: The JavaScript Object
+  Notation (JSON) Data Interchange Format},'' 2017. [Online]. Available:
+  \url{https://datatracker.ietf.org/doc/html/rfc8259}
+\BIBentrySTDinterwordspacing
+
+\bibitem{RFC4180CSVValidation}
+\BIBentryALTinterwordspacing
+------, ``{RFC 4180: Common Format and MIME Type for Comma-Separated Values
+  (CSV) Files},'' 2005. [Online]. Available:
+  \url{https://www.rfc-editor.org/info/rfc4180/}
+\BIBentrySTDinterwordspacing
+
+\bibitem{MongooseTransactions}
+\BIBentryALTinterwordspacing
+{Mongoose}, ``{Transactions}.'' [Online]. Available:
+  \url{https://mongoosejs.com/docs/transactions.html}
+\BIBentrySTDinterwordspacing
+
+\bibitem{PromptEngineeringGuide}
+\BIBentryALTinterwordspacing
+{DAIR.AI}, ``{Prompt Engineering Guide}.'' [Online]. Available:
+  \url{https://www.promptingguide.ai/es}
+\BIBentrySTDinterwordspacing
+
+\bibitem{OWASPFileUpload}
+\BIBentryALTinterwordspacing
+{OWASP Foundation}, ``{File Upload Cheat Sheet}.'' [Online]. Available:
+  \url{https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html}
+\BIBentrySTDinterwordspacing
+
+\bibitem{RGPD2016}
+\BIBentryALTinterwordspacing
+{Parlamento Europeo y Consejo de la Unión Europea}, ``{Reglamento (UE)
+  2016/679 relativo a la protección de las personas físicas en lo que
+  respecta al tratamiento de datos personales y a la libre circulación de
+  estos datos (RGPD)},'' 2016. [Online]. Available:
+  \url{https://www.boe.es/doue/2016/119/L00001-00088.pdf}
 \BIBentrySTDinterwordspacing
 
 \bibitem{azure_docs}
@@ -87,9 +157,15 @@
   \url{https://developer.android.com/distribute/console?hl=es-419}
 \BIBentrySTDinterwordspacing
 
+\bibitem{GooglePlayConsole}
+\BIBentryALTinterwordspacing
+{Google}, ``{Google Play Console Help}.'' [Online]. Available:
+  \url{https://support.google.com/googleplay/android-developer/}
+\BIBentrySTDinterwordspacing
+
 \bibitem{firebase_storage_docs}
 \BIBentryALTinterwordspacing
-------, ``Firebase storage documentation.'' [Online]. Available:
+{Google LLC}, ``Firebase storage documentation.'' [Online]. Available:
   \url{https://firebase.google.com/docs/storage?hl=es-419}
 \BIBentrySTDinterwordspacing
 
@@ -97,6 +173,13 @@
 \BIBentryALTinterwordspacing
 {Microsoft Corporation}, ``Azure blob storage documentation.'' [Online].
   Available: \url{https://learn.microsoft.com/en-us/azure/storage/blobs/}
+\BIBentrySTDinterwordspacing
+
+\bibitem{RFC7578}
+\BIBentryALTinterwordspacing
+{Internet Engineering Task Force (IETF)}, ``{RFC 7578: Returning Values from
+  Forms: multipart/form-data},'' 2015. [Online]. Available:
+  \url{https://www.rfc-editor.org/info/rfc7578/}
 \BIBentrySTDinterwordspacing
 
 \bibitem{mailjet_docs}

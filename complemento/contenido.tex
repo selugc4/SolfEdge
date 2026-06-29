@@ -77,7 +77,7 @@ De este modo, este trabajo se plantea como una continuación natural y coherente
 \section{Tecnologías y arquitectura de la solución extendida}
 \label{sec:tecnologias_ext}
 
-La solución extendida mantiene la arquitectura global cliente-servidor basada en una API REST y una organización inspirada en el patrón MVC (Modelo-Vista-Controlador) idéntica en su planteamiento a la versión inicial. Esta continuidad tecnológica no es accidental: la pila original proporciona un equilibrio adecuado entre modularidad, escalabilidad y facilidad de mantenimiento, lo que permite incorporar nuevas capacidades sin necesidad de reestructurar el sistema ni introducir deuda técnica.
+La solución extendida mantiene la arquitectura global cliente-servidor \cite{Tanenbaum2007} basada en una API REST y una organización inspirada en el patrón MVC (Modelo-Vista-Controlador) idéntica en su planteamiento a la versión inicial. Esta continuidad tecnológica no es accidental: la pila original proporciona un equilibrio adecuado entre modularidad, escalabilidad y facilidad de mantenimiento, lo que permite incorporar nuevas capacidades sin necesidad de reestructurar el sistema ni introducir deuda técnica \cite{Pressman2010}.
 
 \subsection{Pila tecnológica heredada del proyecto base}
 
@@ -118,7 +118,7 @@ La extensión del sistema introduce nuevas tecnologías que amplían las capacid
 
 Se incorpora un servicio de inferencia externa utilizando Groq \cite{groq_docs} como proveedor, haciendo uso de su API pública para el envío de peticiones desde el backend del sistema. En este contexto, Groq actúa como un servicio externo capaz de procesar \textit{prompts} de inteligencia artificial y devolver respuestas generadas a partir de modelos de lenguaje, sin que dichos modelos formen parte de la infraestructura propia de la aplicación.
 \newpage
-Desde un punto de vista tecnológico, la utilización de la API de Groq implica la integración de un servicio HTTP externo que recibe solicitudes estructuradas, incluyendo el contenido del \textit{prompt}, y devuelve una respuesta generada en un formato estándar (por ejemplo, JSON). Esta aproximación permite tratar el sistema de inferencia como un recurso remoto, consumido de forma análoga a cualquier otro servicio web.
+Desde un punto de vista tecnológico, la utilización de la API de Groq implica la integración de un servicio HTTP externo que recibe solicitudes estructuradas \cite{RFC9110}, incluyendo el contenido del \textit{prompt}, y devuelve una respuesta generada en un formato estándar (por ejemplo, JSON). Esta aproximación permite tratar el sistema de inferencia como un recurso remoto, consumido de forma análoga a cualquier otro servicio web.
 
 El uso de una API de inferencia externa presenta varias implicaciones técnicas relevantes:
 \begin{itemize}
@@ -650,7 +650,7 @@ calificaciones), sus grupos y los alumnos creados bajo su responsabilidad, evita
 \section{Requisitos no funcionales nuevos}
 \label{sec:rnf_ext}
 
-El proyecto original definía un requisito de portabilidad (RNF-04) orientado a asegurar que la aplicación pudiera utilizarse en distintos dispositivos y entornos. En este complemento, esa portabilidad se concreta en un objetivo más exigente y verificable: la exportación efectiva a un entorno móvil Android, aprovechando el diseño híbrido y responsive ya adoptado.
+El proyecto original definía un requisito de portabilidad (RNF-04) orientado a asegurar que la aplicación pudiera utilizarse en distintos dispositivos y entornos. En este complemento, esa portabilidad se concreta en un objetivo más exigente y verificable: la exportación efectiva a un entorno móvil Android, aprovechando el diseño híbrido y responsive \cite{UNIRResponsive} ya adoptado.
 
 \begin{table}[H]
 \centering
@@ -707,7 +707,7 @@ La implementación del backend se centra en materializar las nuevas funcionalida
 
 \paragraph{Operaciones lógicas de revisión y eliminación}
 
-Las operaciones de revisión, como listados y consultas, reutilizan el mismo patrón del trabajo previo: filtrado por rol, respuesta en formato JSON y acceso a través de controladores. En cambio, las eliminaciones se han ampliado para contemplar el efecto real que estas operaciones tienen sobre otras colecciones relacionadas.
+Las operaciones de revisión, como listados y consultas, reutilizan el mismo patrón del trabajo previo: filtrado por rol, respuesta en formato JSON \cite{RFC8259} y acceso a través de controladores. En cambio, las eliminaciones se han ampliado para contemplar el efecto real que estas operaciones tienen sobre otras colecciones relacionadas.
 
 Por ejemplo, al eliminar un grupo no basta con borrar el documento principal correspondiente, ya que dicho grupo puede tener asociadas tareas, cuestionarios, entregas y calificaciones. Por tanto, la operación debe garantizar que el sistema no conserva referencias huérfanas ni información inconsistente.
 
@@ -744,11 +744,11 @@ Este planteamiento permite que las operaciones destructivas se ejecuten de maner
 
 \paragraph{Importación masiva desde CSV: normalización, validación y creación}
 
-La importación masiva desde CSV introduce un flujo distinto al alta individual, ya que los datos provienen de una fuente externa y pueden contener errores, duplicados o referencias inconsistentes. Por este motivo, el proceso se ha diseñado siguiendo un enfoque estrictamente controlado, dividido en dos fases claramente diferenciadas.
+La importación masiva desde CSV \cite{RFC4180CSVValidation} introduce un flujo distinto al alta individual, ya que los datos provienen de una fuente externa y pueden contener errores, duplicados o referencias inconsistentes. Por este motivo, el proceso se ha diseñado siguiendo un enfoque estrictamente controlado, dividido en dos fases claramente diferenciadas.
 
 \begin{itemize}
   \item \textbf{Validación completa previa}: el archivo CSV se parsea y se recorren todas las filas sin crear ningún elemento en la base de datos. Durante esta fase se validan campos obligatorios, duplicados internos, referencias cruzadas entre usuarios y grupos, y se comprueba la coherencia con las reglas de negocio del sistema.
-  \item \textbf{Creación atómica}: únicamente si la validación finaliza sin errores, se procede a la creación de usuarios y grupos dentro de una transacción de Mongoose, garantizando que el proceso se complete íntegramente o se revierta completamente en caso de fallo.
+  \item \textbf{Creación atómica}: únicamente si la validación finaliza sin errores, se procede a la creación de usuarios y grupos dentro de una transacción de Mongoose, garantizando que el proceso se complete íntegramente o se revierta completamente en caso de fallo \cite{MongooseTransactions}.
 \end{itemize}
 
 Además, se aplica una regla del sistema clave en este complemento: \textbf{un alumno pertenece a un único profesor}. Esto se comprueba antes de crear los grupos; si un grupo de un profesor intenta incluir un alumno asignado a otro profesor, se detiene la importación.
@@ -794,7 +794,7 @@ Una de las principales novedades incorporadas en este complemento es la integrac
 
 Desde el punto de vista arquitectónico, esta integración no se incorpora directamente en los controladores, sino que se implementa mediante una capa específica de \textbf{servicios}. Esta decisión permite desacoplar completamente la lógica de negocio propia de la aplicación de la comunicación con proveedores externos, facilitando el mantenimiento del sistema y permitiendo sustituir el servicio utilizado en el futuro sin afectar al resto de la arquitectura.
 
-La comunicación con Groq se realiza mediante su API pública. El backend construye dinámicamente un \textit{prompt} que incluye la pregunta, las posibles respuestas y una serie de restricciones destinadas a evitar que el modelo revele directamente la solución. Una vez recibida la respuesta, esta es validada, procesada y enviada al frontend como una pista contextual para el alumno.
+La comunicación con Groq se realiza mediante su API pública. El backend construye dinámicamente un \textit{prompt} \cite{PromptEngineeringGuide} que incluye la pregunta, las posibles respuestas y una serie de restricciones destinadas a evitar que el modelo revele directamente la solución. Una vez recibida la respuesta, esta es validada, procesada y enviada al frontend como una pista contextual para el alumno.
 
 A continuación se muestra el fragmento principal encargado de generar dichas pistas.
 
@@ -1144,26 +1144,33 @@ Entre las mejoras más relevantes pueden destacarse las siguientes:
 
 \end{itemize}
 
-Las Figuras~\ref{fig:ritmo}, \ref{fig:cuestionario} y \ref{fig:splash_android} muestran algunos ejemplos representativos de estas adaptaciones.
+Las Figuras~\ref{fig:ritmo_pc}, \ref{fig:ritmo}, \ref{fig:cuestionario_pc}, \ref{fig:cuestionario} y \ref{fig:splash_android} muestran algunos ejemplos representativos de estas adaptaciones.
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.7\textwidth]{Figuras/Ritmo_pc.png}
-  \hfill
-  \includegraphics[width=0.2\textwidth]{Figuras/Ritmo.png}
-  \caption{Vista de la rama de ritmo del profesor en la versión web (izquierda) y en Android (derecha).}
+  \caption{Vista de la rama de ritmo del profesor en la versión web.}
+  \label{fig:ritmo_pc}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.4\textwidth]{Figuras/Ritmo.png}
+  \caption{Vista de la rama de ritmo del profesor en la versión android .}
   \label{fig:ritmo}
 \end{figure}
-
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.7\textwidth]{Figuras/cuestionario_pc.png}
-  \hfill
-  \includegraphics[width=0.2\textwidth]{Figuras/cuestionario.png}
+  \caption{Vista de un cuestionario en la versión web (izquierda) y en Android (derecha).}
+  \label{fig:cuestionario_pc}
+\end{figure}
+\begin{figure}[H]
+  \centering
+
+  \includegraphics[width=0.4\textwidth]{Figuras/cuestionario.png}
   \caption{Vista de un cuestionario en la versión web (izquierda) y en Android (derecha).}
   \label{fig:cuestionario}
 \end{figure}
-
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.3\textwidth]{Figuras/splash.png}
@@ -1353,7 +1360,7 @@ Una vez confirmada la operación, el backend elimina de forma coordinada todas l
 
 Otra de las funcionalidades incorporadas durante este complemento permite automatizar la creación de usuarios y grupos a partir de un archivo CSV, reduciendo considerablemente el trabajo administrativo necesario al inicio de cada curso académico.
 
-La Figura~\ref{fig:flujo_csv} muestra la interfaz desde la que el profesorado puede seleccionar el archivo correspondiente e iniciar el proceso de importación.
+La Figura~\ref{fig:flujo_csv} muestra la interfaz desde la que el profesorado puede seleccionar el archivo correspondiente e iniciar el proceso de importación \cite{OWASPFileUpload}.
 
 \begin{figure}[H]
     \centering
@@ -1400,7 +1407,7 @@ La implantación de un sistema informático en un entorno educativo requiere una
     \item Garantizar una transición progresiva desde el entorno de desarrollo hacia un entorno productivo real, minimizando interrupciones en la actividad docente.
     \item Asegurar la estabilidad técnica del sistema, su disponibilidad continua y la integridad de los datos almacenados, en coherencia con los principios arquitectónicos definidos en el apartado~\ref{sec:tecnologias_ext} y en la versión inicial.
     \item Facilitar la adopción de la herramienta por parte del profesorado y el alumnado, reduciendo la resistencia al cambio mediante interfaces intuitivas y procesos alineados con la práctica educativa real.
-    \item Proteger los datos personales gestionados por el sistema, especialmente aquellos relativos a menores, cumpliendo con la normativa vigente en materia de protección de datos.
+    \item Proteger los datos personales gestionados por el sistema, especialmente aquellos relativos a menores, cumpliendo con la normativa vigente en materia de protección de datos \cite{RGPD2016}.
     \item Definir un marco de mantenimiento, soporte y evolución que garantice la sostenibilidad del proyecto a medio y largo plazo.
 \end{itemize}
 
@@ -1792,7 +1799,7 @@ La utilización de AAB facilita además la gestión automática de arquitecturas
 
 \subsection{Proceso de publicación en Google Play Console}
 
-La publicación se realizará mediante la \textbf{Google Play Console} \cite{google_play_console_docs}, siguiendo el flujo estándar establecido por la plataforma:
+La publicación se realizará mediante la \textbf{Google Play Console} \cite{google_play_console_docs}\cite{GooglePlayConsole}, siguiendo el flujo estándar establecido por la plataforma:
 
 \begin{enumerate}
     \item Creación y configuración de la cuenta de desarrollador.
@@ -1823,7 +1830,7 @@ La migración se ejecutará en cinco fases claramente definidas:
 
 \begin{enumerate}
     \item Selección del proveedor de almacenamiento.
-    \item Configuración de variables de entorno e implementación en backend de un servicio de gestión de subida, descarga y eliminación de archivos.
+    \item Configuración de variables de entorno e implementación en backend de un servicio de gestión de subida, descarga y eliminación de archivos \cite{RFC7578}.
     \item Sustitución del modelo Base64 por almacenamiento de metadatos y referencias seguras (URLs).
     \item Adaptación del frontend para el consumo directo de dichas referencias.
     \item Migración progresiva de los ficheros existentes, priorizando los materiales activos.

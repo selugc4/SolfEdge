@@ -78,7 +78,6 @@ export class GestionAlumnosModalComponent implements OnInit {
               },
               error: (err) => {
                 this.presentToast(`Error al eliminar alumno: ${err.error.error || err.message}`, 'danger');
-                console.error('Error al eliminar alumno:', err);
               }
             });
           },
